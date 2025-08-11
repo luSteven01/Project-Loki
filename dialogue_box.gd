@@ -24,3 +24,14 @@ func _on_submit_button_pressed() -> void:
 
 func _on_leave_button_pressed() -> void:
 	pass # Replace with function body.
+	
+func _on_player_submit():
+	talk_input.text = ""
+	dialogue_text.text = "Hmm..."
+	submit_button.disabled = true
+	
+func _on_npc_talk (npc_dialogue):
+	dialogue_text.text = npc_dialogue
+	submit_button.disabled = false
+	
+	
