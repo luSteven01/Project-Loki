@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-app = FastAPI(title="Detective Game RAG API", version="1.0.0")
+app = FastAPI(title="Professor Richards Detective Game API", version="1.0.0")
 
 # CORS middleware
 app.add_middleware(
@@ -26,7 +26,7 @@ app.add_middleware(
 # Environment variables 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "your-openai-api-key")
 MONGODB_URL = os.getenv("MONGODB_URL", "mongodb://localhost:27017")
-DATABASE_NAME = os.getenv("DATABASE_NAME", "detective_game")
+DATABASE_NAME = os.getenv("DATABASE_NAME", "professor_richards_case")
 
 print(f"🔑 OpenAI API Key: {OPENAI_API_KEY[:20]}...")
 print(f"🔗 MongoDB URL: {MONGODB_URL[:50]}...")
@@ -36,7 +36,6 @@ print(f"📁 Database: {DATABASE_NAME}")
 openai_client = AsyncOpenAI(api_key=OPENAI_API_KEY)
 mongodb_client = AsyncIOMotorClient(MONGODB_URL)
 db = mongodb_client[DATABASE_NAME]
-
 
 # Pydantic models
 class ChatRequest(BaseModel):
@@ -56,165 +55,180 @@ class GameSession(BaseModel):
 # Story database for RAG
 STORY_DATA = {
     "case_overview": {
-        "victim": "James Kim",
-        "age": 45,
-        "occupation": "cafe owner",
-        "date": "March 15, 2024",
-        "time": "9:30 PM",
-        "location": "Mystery Cafe office",
-        "cause_of_death": "head trauma from blunt object",
-        "murder_weapon": "coffee grinder with blood traces found"
+        "victim": "Professor Richards",
+        "age": "retirement age",
+        "occupation": "university professor",
+        "date": "dinner party evening",
+        "time_of_death": "5:57-5:58 PM",
+        "location": "Professor Richards' office in his house",
+        "cause_of_death": "head trauma from hitting desk edge",
+        "murder_weapon": "blunt force from desk edge after being shoved",
+        "discovery_time": "7:22-7:23 PM by Alice"
     },
     
     "crime_scene": {
-        "description": "Office was locked from inside, window was open, papers scattered suggesting struggle",
+        "description": "Professor's home office, door was found open, Professor found unconscious on floor with head injury",
         "evidence": [
-            "blood splatter on office wall",
-            "coffee grinder with blood and hair",
-            "victim's phone showing missed calls",
-            "office window open (unusual for March weather)",
-            "desk drawer was forced open"
+            "Professor found on office floor with head trauma",
+            "Missing research materials from office",
+            "Extension cord placed near body (planted by Diane)",
+            "Office door was open when Alice discovered body",
+            "Research dossier was empty/missing papers"
         ]
     },
     
     "suspects": {
-        "Sarah Kim": {
-            "basic_info": "28-year-old barista, worked at cafe for 3 years, single mother with financial struggles",
+        "Abel": {
+            "basic_info": "Professor Richards' former student, ambitious Software Engineering student aiming for FAANG job, Diane's son",
             "timeline": {
-                "9:00 PM": "serving last customers in main hall, confirmed by CCTV and witnesses",
-                "9:15 PM": "washing dishes in kitchen with coworker Jenny until 9:20 PM",
-                "9:30 PM": "claims she was in staff bathroom - NO WITNESSES OR ALIBI",
-                "9:45 PM": "found back in main hall, called police after hearing 'noise' from office"
+                "5:02 PM": "arrives at party with mother Diane",
+                "5:31 PM": "excuses self to use bathroom, first floor bathroom busy",
+                "5:32 PM": "checks second floor bathroom, also busy (Schumacher inside)",
+                "5:32-5:45 PM": "wanders second floor hallway, discovers Professor's office with door cracked open",
+                "5:45-5:50 PM": "enters office, notices Professor's research dossier is missing papers",
+                "5:50-5:57 PM": "argues with Professor Richards when caught in office",
+                "5:57-5:58 PM": "accidentally shoves Professor Richards, who hits head on desk edge",
+                "5:58-6:00 PM": "panics, goes downstairs to find mother",
+                "6:00-6:30 PM": "discusses cover-up plan with mother Diane on front porch"
             },
-            "motive": "recently passed over for promotion despite being promised the position 6 months ago. James hired external candidate instead. Also facing severe financial pressure as single mother.",
-            "relationship": "professional relationship deteriorated recently. James criticized her work and threatened to reduce her hours due to 'attitude problems'",
-            "physical_evidence": "small fresh cut on right hand (claims from broken glass), knows coffee grinder operation very well",
-            "behavior": "usually calm and controlled but colleagues noticed increased irritability. Fidgets when discussing James. Avoids eye contact when asked about 9:30 PM timeframe",
-            "statements": {
-                "about_promotion": "He promised me that position six months ago. Then suddenly hired some outsider. Said I wasn't management material.",
-                "about_timeline": "I went to bathroom around 9:30. Is that a crime? I didn't see anything unusual.",
-                "about_relationship": "James wasn't easy to work for but I would never hurt anyone. I needed this job."
-            },
-            "key_facts": "ACTUAL MURDERER - lied about bathroom alibi, had means (grinder knowledge), motive (promotion/money), and opportunity (no alibi at 9:30)"
+            "motive": "curiosity about missing research materials, then panic after accidental killing",
+            "relationship": "former student, generally respectful but gets lost in his own world when focused",
+            "physical_evidence": "was in office at time of death, had access and opportunity",
+            "behavior": "ambitious, easily distracted, tends to wander when bored, panics under pressure",
+            "key_facts": "ACTUAL KILLER - accidentally killed Professor during confrontation, mother helped cover up"
         },
         
-        "Michael Park": {
-            "basic_info": "52-year-old businessman, James's former business partner, forced out 6 months ago",
+        "Diane": {
+            "basic_info": "Abel's mother, dean of the university, helps cover up Abel's crime",
             "timeline": {
-                "9:00 PM": "claims he was at home watching TV, lives alone since divorce",
-                "9:15 PM": "still at home according to his account",
-                "9:30 PM": "went to corner store, bought cigarettes - CONFIRMED by receipt and CCTV at 9:35 PM",
-                "9:45 PM": "walking back home, saw police cars heading toward cafe area"
+                "5:02 PM": "arrives with son Abel",
+                "5:30-5:45 PM": "accidentally spills drink on Professor's shirt in living room, Alice witnesses",
+                "5:45-6:00 PM": "takes breather on front porch with Schumacher",
+                "6:00-6:30 PM": "meets with Abel on front porch, learns about accident, plans cover-up",
+                "6:30-6:43 PM": "examines Professor's office alone",
+                "6:43-6:47 PM": "goes to car, retrieves extension cord from trunk",
+                "6:47-6:54 PM": "returns to office, places extension cord near body to stage accident",
+                "6:54-7:20 PM": "hides in upstairs bathroom to avoid being seen",
+                "7:21-7:22 PM": "leaves bathroom when Alice screams"
             },
-            "motive": "lost significant money when forced out of cafe partnership. James bought him out below market value. Recently filed lawsuit for additional compensation",
-            "relationship": "former best friends turned bitter enemies over money. Had public arguments about business decisions",
-            "physical_evidence": "no direct connection to crime scene. Phone records show no calls during relevant time",
-            "behavior": "intelligent but bitter, feels victimized by James. Controlled anger but no history of violence",
-            "statements": {
-                "about_partnership": "He cheated me out of thousands. Promised equal partnership then pushed me out. Classic narcissist.",
-                "about_timeline": "I was home feeling sorry for myself, then went for cigarettes. Pathetic evening but I have receipts.",
-                "about_violence": "I handle problems through lawyers, not violence. Killing him wouldn't get my money back."
-            },
-            "key_facts": "has strong motive but SOLID ALIBI - store receipt and CCTV confirm he was buying cigarettes at time of murder"
+            "motive": "protecting her son Abel from murder charges",
+            "relationship": "Abel's mother, university dean, respected academic",
+            "physical_evidence": "tampered with crime scene by adding extension cord",
+            "behavior": "protective mother, intelligent, capable of planning cover-up",
+            "key_facts": "ACCESSORY AFTER THE FACT - helped stage scene to look like accident, planted evidence"
         },
         
-        "Emma Wilson": {
-            "basic_info": "42-year-old marketing consultant, James's estranged wife, currently in divorce proceedings",
+        "Professor Schumacher": {
+            "basic_info": "Professor Richards' colleague, jealous of credit for research projects",
             "timeline": {
-                "9:00 PM": "at home helping children (ages 8 and 10) with homework - children confirm",
-                "9:15 PM": "putting children to bed, reading bedtime stories",
-                "9:30 PM": "children asleep, alone in living room watching Netflix - viewing history confirms",
-                "9:45 PM": "tried calling James about weekend visitation, left voicemail - phone records confirm"
+                "5:01 PM": "arrives at party",
+                "5:20-5:25 PM": "excuses self, secretly goes to Professor's office",
+                "5:25-5:30 PM": "steals research materials from office for his own use",
+                "5:30-5:34 PM": "hides in upper floor bathroom (Abel tries to use this bathroom)",
+                "5:34-5:50 PM": "wanders front porch, seen by Diane",
+                "5:50-6:30 PM": "converses with Adele (Professor's wife) in kitchen"
             },
-            "motive": "contentious divorce with James hiding assets and threatening full custody of children",
-            "relationship": "marriage emotionally dead for 2 years. James became controlling and financially manipulative",
-            "physical_evidence": "has spare key to cafe office but key is MISSING from her keychain",
-            "behavior": "strong-willed, protective of children. Shows relief when discussing James in past tense",
-            "statements": {
-                "about_marriage": "James changed after cafe success. Became obsessed with control, treated me like employee.",
-                "about_children": "My kids are my priority now, not James and his problems.",
-                "about_missing_key": "I'm not sure where that key went. Maybe lost it during the move to new house."
-            },
-            "key_facts": "has motive and missing office key, but was with children during crucial timeline - children provide alibi"
+            "motive": "jealousy over Professor taking credit for collaborative research, theft of research materials",
+            "relationship": "colleague and collaborator, but growing resentment over recognition",
+            "physical_evidence": "stole research materials before murder occurred",
+            "behavior": "jealous, opportunistic, sneaky behavior around research theft",
+            "key_facts": "stole research materials but BEFORE the murder happened - not the killer but committed theft"
         },
         
-        "David Chen": {
-            "basic_info": "35-year-old tech entrepreneur, frequent customer and recent investor in cafe",
+        "Alice": {
+            "basic_info": "Professor Richards' estranged daughter, poses as his TA at the party",
             "timeline": {
-                "9:00 PM": "at cafe discussing business with James, conversation became heated",
-                "9:15 PM": "argument escalated, James accused David of trying to take over business - witnessed by customers",
-                "9:30 PM": "claims he left angrily and went to his car - NO WITNESSES to departure",
-                "9:45 PM": "in parking lot making phone calls to investors - phone records verify"
+                "5:03 PM": "arrives at party, introduces self as Professor's TA",
+                "5:19-5:23 PM": "uses and clogs first floor bathroom",
+                "6:00-6:12 PM": "takes walk on front porch, overhears Diane and Abel discussing 'missing papers'",
+                "6:12-7:15 PM": "helps prepare dishes in dining room (NO WITNESSES 6:12-6:45 PM)",
+                "7:18-7:22 PM": "searches house looking for Professor Richards and Diane",
+                "7:22-7:23 PM": "discovers Professor's body in office, screams to alert everyone"
             },
-            "motive": "discovered James was using his $50,000 investment for personal expenses instead of cafe expansion",
-            "relationship": "started as mutual respect, became suspicious when James was evasive about financial records",
-            "physical_evidence": "fingerprints on office door handle (explains he touched it looking for James after argument)",
-            "behavior": "smooth talker who becomes aggressive when cornered. Very knowledgeable about cafe finances and layout",
-            "statements": {
-                "about_investment": "He took my 50K and used it for God knows what. The expansion plans were fake.",
-                "about_argument": "I told him I wanted my money back or I'd expose him. He got defensive and started yelling.",
-                "about_timeline": "I was angry but I'm a businessman, not a thug. I left to cool down and consider legal options."
+            "motive": "wanted to confront father about their estranged relationship, reveal identity as his daughter",
+            "relationship": "estranged daughter posing as TA, seeking reconciliation",
+            "physical_evidence": "discovered the body, had period with no witnesses",
+            "behavior": "secretive about true identity, emotional about father relationship",
+            "key_facts": "victim's daughter in disguise, discovered body but NOT the killer"
+        },
+        
+        "Adele": {
+            "basic_info": "Professor Richards' wife, helps with party hosting and cooking",
+            "timeline": {
+                "5:02-5:30 PM": "conversations with party guests in living room",
+                "5:30-5:50 PM": "helps chef in kitchen",
+                "5:50-6:30 PM": "extended conversation with Schumacher in kitchen (suspicious timing)",
+                "6:30 PM onward": "hosting duties and party activities"
             },
-            "key_facts": "left cafe around murder time with no witnesses, but phone records show he was making calls in parking lot at 9:45"
+            "motive": "marital relationship details unclear, possibly suspicious conversation timing with Schumacher",
+            "relationship": "wife, party hostess",
+            "physical_evidence": "no direct evidence linking to crime",
+            "behavior": "dutiful wife and hostess, but suspicious private conversation with Schumacher",
+            "key_facts": "had suspicious timing with Schumacher but no clear evidence of involvement in murder"
         }
     }
 }
 
-# RAG system prompt
 def get_system_prompt():
     return f"""
-You are an AI detective assistant helping investigate a murder case. You have access to case files, witness statements, and evidence.
+You are an AI detective assistant helping investigate a murder case at Professor Richards' house during a dinner party.
 
-CASE: Mystery Cafe Murder
-VICTIM: James Kim (45, cafe owner) 
-TIME: March 15, 2024, 9:30 PM
-LOCATION: Mystery Cafe office
-WEAPON: Coffee grinder
+CASE: Professor Richards Murder Investigation
+VICTIM: Professor Richards (university professor, recently retired)
+WHEN: During dinner party at his home, death occurred 5:57-5:58 PM
+WHERE: Professor's home office  
+HOW: Head trauma from hitting desk edge after being shoved
+DISCOVERED: 7:22-7:23 PM by Alice, who screamed and alerted everyone
 
 CRIME SCENE: {STORY_DATA['crime_scene']['description']}
 
 EVIDENCE FOUND: {', '.join(STORY_DATA['crime_scene']['evidence'])}
 
-SUSPECTS AND DETAILS:
+SUSPECT PROFILES:
 
-1. SARAH KIM (28, barista):
-{STORY_DATA['suspects']['Sarah Kim']['basic_info']}
-Timeline: {' | '.join([f"{time}: {action}" for time, action in STORY_DATA['suspects']['Sarah Kim']['timeline'].items()])}
-Motive: {STORY_DATA['suspects']['Sarah Kim']['motive']}
-Key Evidence: {STORY_DATA['suspects']['Sarah Kim']['physical_evidence']}
-Behavior: {STORY_DATA['suspects']['Sarah Kim']['behavior']}
+ABEL (Student/Son):
+- Profile: {STORY_DATA['suspects']['Abel']['basic_info']}
+- Key Timeline: 5:32-5:45 PM wandering upstairs hallway | 5:45-5:50 PM in Professor's office discovering missing research | 5:50-5:57 PM arguing with Professor | 5:57-5:58 PM accidentally shoves Professor (MOMENT OF DEATH) | 5:58-6:30 PM planning cover-up with mother
+- Motive: {STORY_DATA['suspects']['Abel']['motive']}
+- Behavior: {STORY_DATA['suspects']['Abel']['behavior']}
 
-2. MICHAEL PARK (52, ex-business partner):
-{STORY_DATA['suspects']['Michael Park']['basic_info']}
-Timeline: {' | '.join([f"{time}: {action}" for time, action in STORY_DATA['suspects']['Michael Park']['timeline'].items()])}
-Motive: {STORY_DATA['suspects']['Michael Park']['motive']}
-Key Evidence: {STORY_DATA['suspects']['Michael Park']['physical_evidence']}
+DIANE (Mother/Dean):
+- Profile: {STORY_DATA['suspects']['Diane']['basic_info']}  
+- Key Timeline: 6:00-6:30 PM learns about accident, plans cover-up | 6:43-6:54 PM plants extension cord near body to stage accident | 6:54-7:20 PM hiding in bathroom
+- Motive: {STORY_DATA['suspects']['Diane']['motive']}
+- Evidence: {STORY_DATA['suspects']['Diane']['physical_evidence']}
 
-3. EMMA WILSON (42, victim's wife):
-{STORY_DATA['suspects']['Emma Wilson']['basic_info']}
-Timeline: {' | '.join([f"{time}: {action}" for time, action in STORY_DATA['suspects']['Emma Wilson']['timeline'].items()])}
-Motive: {STORY_DATA['suspects']['Emma Wilson']['motive']}
-Key Evidence: {STORY_DATA['suspects']['Emma Wilson']['physical_evidence']}
+PROFESSOR SCHUMACHER (Colleague):
+- Profile: {STORY_DATA['suspects']['Professor Schumacher']['basic_info']}
+- Key Timeline: 5:20-5:30 PM steals research materials from office BEFORE murder | 5:50-6:30 PM suspicious long conversation with Adele in kitchen
+- Motive: {STORY_DATA['suspects']['Professor Schumacher']['motive']}
+- Evidence: {STORY_DATA['suspects']['Professor Schumacher']['physical_evidence']}
 
-4. DAVID CHEN (35, investor):
-{STORY_DATA['suspects']['David Chen']['basic_info']}
-Timeline: {' | '.join([f"{time}: {action}" for time, action in STORY_DATA['suspects']['David Chen']['timeline'].items()])}
-Motive: {STORY_DATA['suspects']['David Chen']['motive']}
-Key Evidence: {STORY_DATA['suspects']['David Chen']['physical_evidence']}
+ALICE (Daughter):
+- Profile: {STORY_DATA['suspects']['Alice']['basic_info']}
+- Key Timeline: 6:00-6:12 PM overhears discussion about "missing papers" | 6:12-6:45 PM NO WITNESSES | 7:22-7:23 PM discovers body and screams
+- Motive: {STORY_DATA['suspects']['Alice']['motive']}
+- Behavior: {STORY_DATA['suspects']['Alice']['behavior']}
+
+ADELE (Wife):
+- Profile: {STORY_DATA['suspects']['Adele']['basic_info']}
+- Key Timeline: 5:50-6:30 PM extended private conversation with Schumacher in kitchen during critical time period
+- Relationship: {STORY_DATA['suspects']['Adele']['relationship']}
 
 INSTRUCTIONS:
-- Answer questions about the case using the information provided above
-- Never directly reveal that Sarah Kim is the murderer
-- Provide factual information from case files and evidence
-- Help the detective analyze clues and make connections
-- When discussing alibis, emphasize who has witnesses vs who doesn't
-- Point out suspicious behaviors and inconsistencies when asked
-- Encourage deeper investigation with follow-up questions
-- Keep responses conversational and engaging like a real detective partner
-- If asked about your analysis or who you suspect, provide careful reasoning without giving away the answer
+- Help investigate this complex murder case involving family secrets and academic rivalries
+- Never directly reveal that Abel is the accidental killer or that Diane helped cover it up
+- Focus on timeline inconsistencies, missing alibis, and suspicious behavior
+- Point out when suspects had opportunity, means, and motive
+- Note that research materials were stolen BEFORE the murder occurred
+- Emphasize the importance of the 5:57-5:58 PM timeframe (actual murder) vs 7:22-7:23 PM (discovery)
+- Help analyze the staged crime scene with the planted extension cord
+- Encourage investigation of family relationships and hidden identities
+- Point out suspicious timing of various activities during the party
+- Keep responses engaging like a detective partner analyzing clues
 """
 
-# Database models
+# Database operations (same as original)
 async def create_session() -> str:
     """Create new game session"""
     session_id = str(uuid.uuid4())
@@ -241,26 +255,26 @@ async def update_session(session: GameSession):
 
 @app.on_event("startup")
 async def startup_event():
-    print("🕵️ Detective Game API starting...")
-    # Create database index
+    print("🕵️ Professor Richards Detective Game API starting...")
     await db.sessions.create_index("id", unique=True)
     print("✅ API ready!")
 
 @app.get("/")
 async def root():
     return {
-        "message": "Detective Game RAG API", 
+        "message": "Professor Richards Detective Game API", 
         "status": "running",
+        "case": "Murder at Professor Richards' Dinner Party",
         "endpoints": {
             "chat": "/chat - Main conversation endpoint",
-            "health": "/health - API health check"
+            "health": "/health - API health check",
+            "case-info": "/case-info - Basic case information"
         }
     }
 
 @app.get("/health")
 async def health_check():
     try:
-        # Test OpenAI connection
         test_response = await openai_client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[{"role": "user", "content": "test"}],
@@ -271,7 +285,6 @@ async def health_check():
         openai_status = "error"
     
     try:
-        # Test MongoDB connection
         await db.sessions.find_one()
         mongodb_status = "connected"
     except:
@@ -393,7 +406,40 @@ async def get_case_info():
     return {
         "case": STORY_DATA["case_overview"],
         "crime_scene": STORY_DATA["crime_scene"],
-        "suspect_names": list(STORY_DATA["suspects"].keys())
+        "suspect_names": list(STORY_DATA["suspects"].keys()),
+        "key_times": {
+            "murder_occurred": "5:57-5:58 PM",
+            "body_discovered": "7:22-7:23 PM",
+            "party_started": "~5:00 PM"
+        }
+    }
+
+@app.get("/suspects")
+async def get_suspects_summary():
+    """Get summary of all suspects"""
+    suspects_summary = {}
+    for name, data in STORY_DATA["suspects"].items():
+        suspects_summary[name] = {
+            "description": data["basic_info"],
+            "motive": data["motive"],
+            "key_behavior": data["behavior"]
+        }
+    return suspects_summary
+
+@app.get("/timeline")
+async def get_timeline():
+    """Get key timeline events"""
+    return {
+        "critical_events": {
+            "5:20-5:30 PM": "Schumacher steals research materials",
+            "5:32-5:45 PM": "Abel wanders upstairs, discovers office", 
+            "5:45-5:50 PM": "Abel in office, finds missing research",
+            "5:50-5:57 PM": "Abel argues with Professor Richards",
+            "5:57-5:58 PM": "MURDER - Abel accidentally shoves Professor",
+            "6:00-6:30 PM": "Abel and Diane plan cover-up",
+            "6:47-6:54 PM": "Diane plants extension cord evidence",
+            "7:22-7:23 PM": "Alice discovers body and screams"
+        }
     }
 
 @app.get("/stats")
@@ -410,67 +456,9 @@ async def get_api_stats():
     return {
         "total_sessions": total_sessions,
         "total_messages": total_message_count,
-        "average_messages_per_session": round(total_message_count / total_sessions, 1) if total_sessions > 0 else 0
+        "average_messages_per_session": round(total_message_count / total_sessions, 1) if total_sessions > 0 else 0,
+        "case_type": "Professor Richards Murder Investigation"
     }
-
-def get_system_prompt():
-    return f"""
-You are an AI detective assistant helping investigate a murder case at Mystery Cafe. You have complete access to case files, witness statements, evidence, and suspect profiles.
-
-CASE DETAILS:
-Victim: {STORY_DATA['case_overview']['victim']} ({STORY_DATA['case_overview']['age']}, {STORY_DATA['case_overview']['occupation']})
-When: {STORY_DATA['case_overview']['date']} at {STORY_DATA['case_overview']['time']}
-Where: {STORY_DATA['case_overview']['location']}
-How: {STORY_DATA['case_overview']['cause_of_death']}
-Weapon: {STORY_DATA['case_overview']['murder_weapon']}
-
-CRIME SCENE:
-{STORY_DATA['crime_scene']['description']}
-Evidence found: {', '.join(STORY_DATA['crime_scene']['evidence'])}
-
-SUSPECT PROFILES:
-
-SARAH KIM (Barista):
-- Profile: {STORY_DATA['suspects']['Sarah Kim']['basic_info']}
-- 9:00 PM: {STORY_DATA['suspects']['Sarah Kim']['timeline']['9:00 PM']}
-- 9:15 PM: {STORY_DATA['suspects']['Sarah Kim']['timeline']['9:15 PM']}  
-- 9:30 PM: {STORY_DATA['suspects']['Sarah Kim']['timeline']['9:30 PM']} ⚠️ NO ALIBI
-- 9:45 PM: {STORY_DATA['suspects']['Sarah Kim']['timeline']['9:45 PM']}
-- Motive: {STORY_DATA['suspects']['Sarah Kim']['motive']}
-- Evidence: {STORY_DATA['suspects']['Sarah Kim']['physical_evidence']}
-- Behavior: {STORY_DATA['suspects']['Sarah Kim']['behavior']}
-
-MICHAEL PARK (Ex-partner):
-- Profile: {STORY_DATA['suspects']['Michael Park']['basic_info']}
-- 9:30 PM: {STORY_DATA['suspects']['Michael Park']['timeline']['9:30 PM']} ✅ CONFIRMED ALIBI
-- Motive: {STORY_DATA['suspects']['Michael Park']['motive']}
-- Evidence: {STORY_DATA['suspects']['Michael Park']['physical_evidence']}
-
-EMMA WILSON (Wife):
-- Profile: {STORY_DATA['suspects']['Emma Wilson']['basic_info']}
-- 9:00-9:15 PM: {STORY_DATA['suspects']['Emma Wilson']['timeline']['9:15 PM']}
-- 9:30 PM: {STORY_DATA['suspects']['Emma Wilson']['timeline']['9:30 PM']}
-- Motive: {STORY_DATA['suspects']['Emma Wilson']['motive']}
-- Evidence: {STORY_DATA['suspects']['Emma Wilson']['physical_evidence']}
-
-DAVID CHEN (Investor):
-- Profile: {STORY_DATA['suspects']['David Chen']['basic_info']}
-- 9:15 PM: {STORY_DATA['suspects']['David Chen']['timeline']['9:15 PM']}
-- 9:30 PM: {STORY_DATA['suspects']['David Chen']['timeline']['9:30 PM']} ⚠️ NO WITNESSES
-- 9:45 PM: {STORY_DATA['suspects']['David Chen']['timeline']['9:45 PM']}
-- Motive: {STORY_DATA['suspects']['David Chen']['motive']}
-
-INSTRUCTIONS:
-- Help the detective analyze the case by providing information from the files above
-- Never directly say "Sarah Kim is the murderer" - let the detective figure it out
-- When asked about alibis, emphasize who has confirmed witnesses vs who doesn't
-- Point out key evidence like the missing office key, suspicious behavior, access to murder weapon
-- Encourage analysis of timeline gaps and inconsistencies
-- Answer questions about motives, relationships, and evidence factually
-- If asked for your analysis, point toward suspicious elements without directly accusing
-- Keep responses conversational like talking to a partner detective
-- When detective asks about specific times (9:30 PM), emphasize who has/doesn't have alibis
-"""
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
