@@ -6,8 +6,7 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - ../.env
+      - ../.env 
     volumes:
       - ./static:/app/static
     restart: unless-stopped
-
