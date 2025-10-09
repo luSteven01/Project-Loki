@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cg58uk0dqkydk"]
+[gd_scene load_steps=20 format=3 uid="uid://cg58uk0dqkydk"]
 
 [ext_resource type="Script" uid="uid://c2hcggxoe5ubs" path="res://dialogue_box.gd" id="1_senjy"]
 [ext_resource type="Texture2D" uid="uid://b0uytv8p3usna" path="res://art/pngs/Portraits_01_128_V2.png" id="2_351bv"]
@@ -11,26 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://t4pqs7huncf1" path="res://art/background/storage.png" id="7_med3p"]
 [ext_resource type="Texture2D" uid="uid://lkpadb5g0ub2" path="res://art/pngs/Portraits_01_128_V10.png" id="8_qjfks"]
 [ext_resource type="Texture2D" uid="uid://cab4cfjjdrse7" path="res://art/pngs/Portraits_01_128_V11.png" id="9_uucap"]
-[ext_resource type="Texture2D" uid="uid://dgtl8nuk6tu5v" path="res://art/Enjl-Starry Space Background/background_4.png" id="12_uucap"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjfks"]
 bg_color = Color(0, 0, 0.121569, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fud6v"]
-bg_color = Color(0.0434708, 0.163828, 0.278201, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15d7h"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uucap"]
-bg_color = Color(0.207843, 0.478431, 0.741176, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ljd0"]
-bg_color = Color(0.236314, 0.0202234, 0.020174, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4nmj"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8glcu"]
-bg_color = Color(0.490267, 0.0782536, 0.0802554, 1)
 
 [sub_resource type="Animation" id="Animation_en6mc"]
 tracks/0/type = "value"
@@ -86,21 +69,6 @@ _data = {
 &"talk": SubResource("Animation_2klrv")
 }
 
-[sub_resource type="Animation" id="Animation_uucap"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("6_2klrv")]
-}
-
 [sub_resource type="Animation" id="Animation_qjfks"]
 resource_name = "player_talk"
 loop_mode = 1
@@ -115,6 +83,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [ExtResource("6_2klrv"), ExtResource("7_en6mc"), ExtResource("8_qjfks"), ExtResource("9_uucap")]
+}
+
+[sub_resource type="Animation" id="Animation_uucap"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_2klrv")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8glcu"]
@@ -166,9 +149,6 @@ offset_right = -109.0
 offset_bottom = -65.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/hover = SubResource("StyleBoxFlat_fud6v")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_15d7h")
-theme_override_styles/normal = SubResource("StyleBoxFlat_uucap")
 text = "Submit"
 
 [node name="LeaveButton" type="Button" parent="."]
@@ -182,9 +162,6 @@ offset_right = -17.0
 offset_bottom = -65.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/hover = SubResource("StyleBoxFlat_5ljd0")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_l4nmj")
-theme_override_styles/normal = SubResource("StyleBoxFlat_8glcu")
 text = "Leave
 "
 
@@ -243,17 +220,6 @@ grow_vertical = 2
 texture = ExtResource("7_med3p")
 expand_mode = 5
 stretch_mode = 6
-
-[node name="TextureRect" type="TextureRect" parent="."]
-z_index = -2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("12_uucap")
 
 [connection signal="pressed" from="SubmitButton" to="." method="_on_submit_button_pressed"]
 [connection signal="pressed" from="LeaveButton" to="." method="_on_leave_button_pressed"]
