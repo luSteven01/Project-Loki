@@ -1,7 +1,114 @@
-[gd_scene load_steps=3 format=3 uid="uid://sxywo3malpjm"]
+[gd_scene load_steps=15 format=3 uid="uid://sxywo3malpjm"]
 
 [ext_resource type="Script" uid="uid://es4u7q11xmls" path="res://game_manager.gd" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://cg58uk0dqkydk" path="res://dialogue_box.tscn" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://c2hcggxoe5ubs" path="res://dialogue_box.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://bux1jvddnhhak" path="res://player.gd" id="3_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://g7vujut2ybd2" path="res://roguelikeChar_transparent.png" id="4_lquwl"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0xm2m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mycd"]
+atlas = ExtResource("4_lquwl")
+region = Rect2(17, 102, 17, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_272bh"]
+atlas = ExtResource("4_lquwl")
+region = Rect2(17, 102, 17, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5vw27"]
+atlas = ExtResource("4_lquwl")
+region = Rect2(17, 102, 17, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kek77"]
+atlas = ExtResource("4_lquwl")
+region = Rect2(17, 102, 17, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4c57u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7mycd")
+}],
+"loop": true,
+"name": &"back",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_272bh")
+}],
+"loop": true,
+"name": &"front",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5vw27")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kek77")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_efxa6"]
+radius = 104.0
+height = 224.0
+
+[sub_resource type="Animation" id="Animation_1bvp3"]
+resource_name = "front"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"front"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_lquwl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"front"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7mycd"]
+_data = {
+&"RESET": SubResource("Animation_lquwl"),
+&"front": SubResource("Animation_1bvp3")
+}
 
 [node name="Main" type="Node2D"]
 
@@ -12,4 +119,96 @@ script = ExtResource("1_ig7tw")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="DialogueBox" parent="CanvasLayer" instance=ExtResource("2_0xm2m")]
+[node name="Dialogue_Box" type="Panel" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -496.0
+offset_top = -184.0
+offset_right = 440.0
+offset_bottom = 244.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_0xm2m")
+
+[node name="NPC_Icon" type="TextureRect" parent="CanvasLayer/Dialogue_Box"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 28.0
+offset_right = 336.0
+offset_bottom = 292.0
+texture = SubResource("PlaceholderTexture2D_0xm2m")
+
+[node name="Player_Input" type="TextEdit" parent="CanvasLayer/Dialogue_Box"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.757
+anchor_right = 1.0
+anchor_bottom = 0.888
+offset_left = 24.0
+offset_top = 0.0039978
+offset_right = -344.0
+offset_bottom = 7.93597
+theme_override_constants/line_spacing = 16
+theme_override_font_sizes/font_size = 16
+placeholder_text = "Enter message..."
+
+[node name="SubmitButton" type="Button" parent="CanvasLayer/Dialogue_Box"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.766
+anchor_right = 1.0
+anchor_bottom = 0.907
+offset_left = 632.0
+offset_top = 0.151978
+offset_right = -184.0
+offset_bottom = -8.19601
+text = "Talk"
+
+[node name="NPC_Dialogue" type="RichTextLabel" parent="CanvasLayer/Dialogue_Box"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.628
+offset_left = 384.0
+offset_top = 28.0
+offset_right = -72.0
+offset_bottom = 0.0480042
+theme_override_font_sizes/bold_italics_font_size = 0
+theme_override_font_sizes/italics_font_size = 0
+theme_override_font_sizes/mono_font_size = 0
+theme_override_font_sizes/bold_font_size = 0
+text = "This is where the NPC's dialogue will go when the player talks to an NPC."
+
+[node name="LeaveButton" type="Button" parent="CanvasLayer/Dialogue_Box"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.766
+anchor_right = 1.0
+anchor_bottom = 0.888
+offset_left = 784.0
+offset_top = 0.151978
+offset_right = -32.0
+offset_bottom = -0.0640259
+text = "Leave"
+
+[node name="Player" type="CharacterBody2D" parent="."]
+motion_mode = 1
+script = ExtResource("3_1bvp3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+scale = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_4c57u")
+animation = &"front"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CapsuleShape2D_efxa6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+libraries = {
+&"": SubResource("AnimationLibrary_7mycd")
+}
+
+[node name="Camera2D" type="Camera2D" parent="Player"]

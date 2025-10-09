@@ -2,11 +2,11 @@ extends Panel
 
 @onready var game_manager = get_node("/root/Main/GameManager")
 
-@onready var dialogue_text = $DialogueText
-@onready var npc_icon = $NPCIcon
-@onready var talk_input = $PlayerTextInput
+@onready var dialogue_text = $NPC_Dialogue
+@onready var npc_icon = $NPC_Icon
+@onready var talk_input = $Player_Input
 @onready var submit_button = $SubmitButton
-@onready var leave_button = $Leavebutton
+@onready var leave_button = $LeaveButton
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
