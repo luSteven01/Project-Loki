@@ -59,7 +59,7 @@ func dialogue_request(player_dialogue):
 	# We are defining our body here for the API call. All objects that we add 
 	# inside of this body will be turned into JSON format for the API requirement
 	# Essentially the meat the of API call.
-	var body = JSON.new().stringify({
+	var body = JSON.stringify({
 		"messages" : messages,
 		"temperature": TEMPERATURE,
 		"max_tokens":  MAX_TOKENS,
@@ -104,8 +104,15 @@ func _on_request_completed(result, response_code, headers, body):
 		# Get DialogueBox node
 		var dialogue_box = get_node("/root/Main/CanvasLayer/DialogueBox")
 
+		# Start NPC talking animation
+		dialogue_box.start_npc_talk()
+		
 		# Append NPC response to DialogueText
-		dialogue_box.dialogue_text.text += "\n[NPC]: " + message
+		dialogue_box.dialogue_text.text += "\n[b][NPC]:[/b]"
+		await dialogue_box.type_text_slowly(message)
+		
+		# Stop animation when done typing
+		dialogue_box.stop_npc_talk()
 
 		# Optional: auto-scroll to bottom
 		dialogue_box.dialogue_text.scroll_to_line(dialogue_box.dialogue_text.get_line_count() - 1)

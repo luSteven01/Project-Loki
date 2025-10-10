@@ -13,3 +13,7 @@ script = ExtResource("1_ig7tw")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="DialogueBox" parent="CanvasLayer" instance=ExtResource("2_0xm2m")]
+offset_left = 129.0
+offset_top = 37.0
+offset_right = 1025.0
+offset_bottom = 597.0
