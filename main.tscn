@@ -1,9 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://sxywo3malpjm"]
+[gd_scene load_steps=20 format=3 uid="uid://sxywo3malpjm"]
 
 [ext_resource type="Script" uid="uid://es4u7q11xmls" path="res://game_manager.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://c2hcggxoe5ubs" path="res://dialogue_box.gd" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://bux1jvddnhhak" path="res://player.gd" id="3_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://g7vujut2ybd2" path="res://roguelikeChar_transparent.png" id="4_lquwl"]
+[ext_resource type="Script" uid="uid://dsvfq7ypy0rgu" path="res://talk_trigger.gd" id="5_5vw27"]
+[ext_resource type="Script" uid="uid://d44bxmmkmawl" path="res://test_npc.gd" id="6_kek77"]
+[ext_resource type="Script" uid="uid://dmonfxpehkkfp" path="res://test_npc_2.gd" id="7_4c57u"]
+[ext_resource type="Script" uid="uid://cccy61mdylm3g" path="res://test_npc_3.gd" id="8_efxa6"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0xm2m"]
 
@@ -62,6 +66,21 @@ animations = [{
 radius = 104.0
 height = 224.0
 
+[sub_resource type="Animation" id="Animation_lquwl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"front"]
+}
+
 [sub_resource type="Animation" id="Animation_1bvp3"]
 resource_name = "front"
 tracks/0/type = "value"
@@ -89,26 +108,14 @@ tracks/1/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_lquwl"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"front"]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7mycd"]
 _data = {
 &"RESET": SubResource("Animation_lquwl"),
 &"front": SubResource("Animation_1bvp3")
 }
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dg77c"]
+radius = 160.0
 
 [node name="Main" type="Node2D"]
 
@@ -118,6 +125,7 @@ script = ExtResource("1_ig7tw")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Dialogue_Box" type="Panel" parent="CanvasLayer"]
 anchors_preset = 8
@@ -212,3 +220,41 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="TalkTrigger" type="Area2D" parent="Player"]
+script = ExtResource("5_5vw27")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/TalkTrigger"]
+shape = SubResource("CircleShape2D_dg77c")
+
+[node name="TestNPC" type="CharacterBody2D" parent="."]
+script = ExtResource("6_kek77")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TestNPC"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestNPC"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TestNPC"]
+
+[node name="TestNPC2" type="CharacterBody2D" parent="."]
+script = ExtResource("7_4c57u")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TestNPC2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestNPC2"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TestNPC2"]
+
+[node name="TestNPC3" type="CharacterBody2D" parent="."]
+script = ExtResource("8_efxa6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TestNPC3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestNPC3"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TestNPC3"]
+
+[connection signal="pressed" from="CanvasLayer/Dialogue_Box/SubmitButton" to="CanvasLayer/Dialogue_Box" method="_on_submit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Dialogue_Box/LeaveButton" to="CanvasLayer/Dialogue_Box" method="_on_leave_button_pressed"]
+[connection signal="body_entered" from="Player/TalkTrigger" to="Player/TalkTrigger" method="_on_body_entered"]
+[connection signal="body_exited" from="Player/TalkTrigger" to="Player/TalkTrigger" method="_on_body_exited"]

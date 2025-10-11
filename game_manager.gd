@@ -1,5 +1,18 @@
 extends Node
 
+# initialization for dialogue
+
+@onready var dialogue_box = get_node("/root/Main/CanvasLayer/Dialogue_Box")
+
+@export_multiline var dialogue_rules : String
+var current_npc
+
+# user-defined signals
+
+signal on_player_talk
+
+signal on_npc_talk (npc_dialogue) 
+
 var API_KEY : String = ""
 var URL : String = "https://api.openai.com/v1/chat/completions"
 
@@ -20,6 +33,10 @@ var messages = []
 # This is a node of Godot, that manages 
 # sending and receiving information to the API
 var request: HTTPRequest
+
+# This means that the format that we are sending 
+# and being returned will be of type json.
+var headers = ["Content-type: application/json", "Authorization: Bearer " + API_KEY] 
 
 # This function has our HTTP Request Node set up so that once we 
 # receive information from any request, we are going to call 
@@ -45,16 +62,23 @@ func _ready() -> void:
 # This function is going to include our dialogue request that we are 
 # sending to the OpenAI API.
 func dialogue_request(player_dialogue):
-	# This means that the format that we are sending 
-	# and being returned will be of type json.
-	var headers = ["Content-type: application/json", "Authorization: Bearer " + API_KEY] 
-	
+	var prompt = player_dialogue
+	if(len(messages) == 0):
+		var header_prompt = "Act as a " + current_npc.physical_description + " in a fantasy RPG. "
+		header_prompt += "As a character, you are " + current_npc.personality + "."
+		header_prompt += "Your current location is " + current_npc.location_description + "."
+		header_prompt += "You have secret knowledge that you will not speak about unless asked by me: " + current_npc.secret_knowledge + "."
+		
+		prompt = dialogue_rules + "\n" + header_prompt + "\nWhat is your first line of dialogue?"
+		
 	# This adds a new object to messages array, 
 	# containing the role and content of the request.
 	messages.append({
 		"role": "user",
-		"content": player_dialogue
+		"content": prompt # message player sends 
 	})
+	
+	on_player_talk.emit()
 
 	# We are defining our body here for the API call. All objects that we add 
 	# inside of this body will be turned into JSON format for the API requirement
@@ -76,7 +100,6 @@ func dialogue_request(player_dialogue):
 		
 
 func _on_request_completed(result, response_code, headers, body):
-	
 	# This is going to convert the body to JSON format
 	var json = JSON.new()
 	var parse_result = json.parse(body.get_string_from_utf8())
@@ -102,15 +125,39 @@ func _on_request_completed(result, response_code, headers, body):
 		#print(message) # for debug
 		
 		# Get DialogueBox node
-		var dialogue_box = get_node("/root/Main/CanvasLayer/DialogueBox")
+		# var dialogue_box = get_node("/root/Main/CanvasLayer/DialogueBox")
 
 		# Append NPC response to DialogueText
-		dialogue_box.dialogue_text.text += "\n[NPC]: " + message
+		# dialogue_box.dialogue_text.text += "\n[NPC]: " + message
 
 		# Optional: auto-scroll to bottom
-		dialogue_box.dialogue_text.scroll_to_line(dialogue_box.dialogue_text.get_line_count() - 1)
+		# dialogue_box.dialogue_text.scroll_to_line(dialogue_box.dialogue_text.get_line_count() - 1)
+		
+		# append AI response to messages array instead and display it through dialogue box pop-up
+		messages.append({
+			"role": "system",
+			"content": message
+		})
+		
+		on_npc_talk.emit(message)
 	else:
 		print("Received an unknown response format.")
+
+func enter_new_dialogue(npc):
+	current_npc = npc
+	messages = []
+	dialogue_box.visible = true;
+	
+	dialogue_box.initialize_with_npc(npc)
+	dialogue_box.request("Respond as if you are a function that works.")
+
+func is_dialogue_active():
+	return dialogue_box.visible
+
+func exit_dialogue():
+	current_npc = null
+	messages = []
+	dialogue_box.visible = false; 
 
 # Utility to load keys from .env	
 func load_env(path: String, key: String) -> String:
