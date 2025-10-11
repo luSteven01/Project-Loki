@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://sxywo3malpjm"]
+[gd_scene load_steps=50 format=3 uid="uid://sxywo3malpjm"]
 
 [ext_resource type="Script" uid="uid://es4u7q11xmls" path="res://game_manager.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://c2hcggxoe5ubs" path="res://dialogue_box.gd" id="2_0xm2m"]
@@ -7,7 +7,10 @@
 [ext_resource type="Script" uid="uid://dsvfq7ypy0rgu" path="res://talk_trigger.gd" id="5_5vw27"]
 [ext_resource type="Script" uid="uid://d44bxmmkmawl" path="res://test_npc.gd" id="6_kek77"]
 [ext_resource type="Script" uid="uid://dmonfxpehkkfp" path="res://test_npc_2.gd" id="7_4c57u"]
+[ext_resource type="Texture2D" uid="uid://mk6rnua75pi0" path="res://craftpix-net-865357-free-pixel-citizens-for-top-down-tower-defense/1/D_Idle.png" id="7_efxa6"]
 [ext_resource type="Script" uid="uid://cccy61mdylm3g" path="res://test_npc_3.gd" id="8_efxa6"]
+[ext_resource type="Texture2D" uid="uid://c2ah2rmftyqqc" path="res://craftpix-net-865357-free-pixel-citizens-for-top-down-tower-defense/2/D_Idle.png" id="9_dg77c"]
+[ext_resource type="Texture2D" uid="uid://kbxftwahmuqo" path="res://craftpix-net-865357-free-pixel-citizens-for-top-down-tower-defense/3/D_Idle.png" id="11_ycdy4"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0xm2m"]
 
@@ -63,8 +66,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_efxa6"]
-radius = 104.0
-height = 224.0
+radius = 48.0
+height = 96.0
 
 [sub_resource type="Animation" id="Animation_lquwl"]
 length = 0.001
@@ -115,19 +118,329 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dg77c"]
-radius = 160.0
+radius = 101.193
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w48qg"]
+atlas = ExtResource("7_efxa6")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vivmo"]
+atlas = ExtResource("7_efxa6")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2cqfq"]
+atlas = ExtResource("7_efxa6")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yaehf"]
+atlas = ExtResource("7_efxa6")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_074og"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w48qg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vivmo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cqfq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yaehf")
+}],
+"loop": true,
+"name": &"front_idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cegan"]
+radius = 28.0
+height = 96.0
+
+[sub_resource type="Animation" id="Animation_82xsv"]
+resource_name = "front_idle"
+length = 0.35
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"front_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_getpj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"front_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ryguw"]
+_data = {
+&"RESET": SubResource("Animation_getpj"),
+&"front_idle": SubResource("Animation_82xsv")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d13ii"]
+atlas = ExtResource("9_dg77c")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1u8w0"]
+atlas = ExtResource("9_dg77c")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0odxb"]
+atlas = ExtResource("9_dg77c")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lswn8"]
+atlas = ExtResource("9_dg77c")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a6jrf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d13ii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1u8w0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0odxb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lswn8")
+}],
+"loop": true,
+"name": &"front_idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xuqvo"]
+radius = 28.0
+height = 104.0
+
+[sub_resource type="Animation" id="Animation_qsp4k"]
+resource_name = "front_idle"
+length = 0.35
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"front_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_kq58d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"front_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_seu75"]
+_data = {
+&"RESET": SubResource("Animation_kq58d"),
+&"front_idle": SubResource("Animation_qsp4k")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htxhm"]
+atlas = ExtResource("11_ycdy4")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jq2sk"]
+atlas = ExtResource("11_ycdy4")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4k2k6"]
+atlas = ExtResource("11_ycdy4")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rl1p"]
+atlas = ExtResource("11_ycdy4")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ok6jj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_htxhm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jq2sk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4k2k6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rl1p")
+}],
+"loop": true,
+"name": &"front_idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_facbu"]
+radius = 28.0
+height = 104.0
+
+[sub_resource type="Animation" id="Animation_b1qrp"]
+resource_name = "front_idle"
+length = 0.35
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"front_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_come4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"front_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h8e4i"]
+_data = {
+&"RESET": SubResource("Animation_come4"),
+&"front_idle": SubResource("Animation_b1qrp")
+}
 
 [node name="Main" type="Node2D"]
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("1_ig7tw")
+dialogue_rules = "This is jusft a test, talk normally."
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Dialogue_Box" type="Panel" parent="CanvasLayer"]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -203,11 +516,12 @@ offset_bottom = -0.0640259
 text = "Leave"
 
 [node name="Player" type="CharacterBody2D" parent="."]
+scale = Vector2(0.5, 0.5)
 motion_mode = 1
 script = ExtResource("3_1bvp3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
-scale = Vector2(10, 10)
+scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_4c57u")
 animation = &"front"
 
@@ -227,32 +541,74 @@ script = ExtResource("5_5vw27")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/TalkTrigger"]
 shape = SubResource("CircleShape2D_dg77c")
 
-[node name="TestNPC" type="CharacterBody2D" parent="."]
+[node name="TestNPC" type="CharacterBody2D" parent="." groups=["NPC"]]
 script = ExtResource("6_kek77")
+icon = ExtResource("7_efxa6")
+physical_description = "Old man	"
+location_description = "In the cellar"
+personality = "Cranky and old"
+secret_knowledge = "Knows what 42 means"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TestNPC"]
+position = Vector2(-324, -104)
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_074og")
+animation = &"front_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TestNPC"]
+position = Vector2(-324, -112)
+shape = SubResource("CapsuleShape2D_cegan")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TestNPC"]
+libraries = {
+&"": SubResource("AnimationLibrary_ryguw")
+}
 
-[node name="TestNPC2" type="CharacterBody2D" parent="."]
+[node name="TestNPC2" type="CharacterBody2D" parent="." groups=["NPC"]]
 script = ExtResource("7_4c57u")
+icon = ExtResource("9_dg77c")
+physical_description = "Built like a refrigerator	"
+location_description = "In my bedroom"
+personality = "Gay"
+secret_knowledge = "Knows what sexuality the old man is"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TestNPC2"]
+position = Vector2(-324, 116)
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_a6jrf")
+animation = &"front_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TestNPC2"]
+position = Vector2(-324, 108)
+shape = SubResource("CapsuleShape2D_xuqvo")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TestNPC2"]
+libraries = {
+&"": SubResource("AnimationLibrary_seu75")
+}
 
-[node name="TestNPC3" type="CharacterBody2D" parent="."]
+[node name="TestNPC3" type="CharacterBody2D" parent="." groups=["NPC"]]
 script = ExtResource("8_efxa6")
+icon = ExtResource("9_dg77c")
+physical_description = "Looks like Anne Hatheway	"
+location_description = "In the kitchen"
+personality = "Bubbly"
+secret_knowledge = "Hates the old man"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TestNPC3"]
+position = Vector2(-3.99998, -212)
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_ok6jj")
+animation = &"front_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TestNPC3"]
+position = Vector2(-4, -220)
+shape = SubResource("CapsuleShape2D_facbu")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TestNPC3"]
+libraries = {
+&"": SubResource("AnimationLibrary_h8e4i")
+}
 
 [connection signal="pressed" from="CanvasLayer/Dialogue_Box/SubmitButton" to="CanvasLayer/Dialogue_Box" method="_on_submit_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dialogue_Box/LeaveButton" to="CanvasLayer/Dialogue_Box" method="_on_leave_button_pressed"]

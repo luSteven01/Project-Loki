@@ -13,7 +13,7 @@ signal on_player_talk
 
 signal on_npc_talk (npc_dialogue) 
 
-var API_KEY : String = ""
+var API_KEY : String = "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"
 var URL : String = "https://api.openai.com/v1/chat/completions"
 
 # This is defines how consistent or sporadic the
@@ -51,7 +51,7 @@ func _ready() -> void:
 	request = HTTPRequest.new() # Create a new HTTPRequest node
 	add_child(request) # Add that node we created as a child to scene
 	
-	#dialogue_request("Hello fuck!")
+	dialogue_request("Hello!")
 	
 	# With the node, it will connect it's "request_completed" signal to our _on_request_completed
 	# function. That means that once an API request has been received by the AI, the function
@@ -63,13 +63,13 @@ func _ready() -> void:
 # sending to the OpenAI API.
 func dialogue_request(player_dialogue):
 	var prompt = player_dialogue
-	if(len(messages) == 0):
-		var header_prompt = "Act as a " + current_npc.physical_description + " in a fantasy RPG. "
-		header_prompt += "As a character, you are " + current_npc.personality + "."
-		header_prompt += "Your current location is " + current_npc.location_description + "."
-		header_prompt += "You have secret knowledge that you will not speak about unless asked by me: " + current_npc.secret_knowledge + "."
-		
-		prompt = dialogue_rules + "\n" + header_prompt + "\nWhat is your first line of dialogue?"
+	#if(len(messages) == 0):
+		#var header_prompt = "Act as a " + current_npc.physical_description + " in a fantasy RPG. "
+		#header_prompt += "As a character, you are " + current_npc.personality + "."
+		#header_prompt += "Your current location is " + current_npc.location_description + "."
+		#header_prompt += "You have secret knowledge that you will not speak about unless asked by me: " + current_npc.secret_knowledge + "."
+		#
+		#prompt = dialogue_rules + "\n" + header_prompt + "\nWhat is your first line of dialogue?"
 		
 	# This adds a new object to messages array, 
 	# containing the role and content of the request.
@@ -79,7 +79,7 @@ func dialogue_request(player_dialogue):
 	})
 	
 	on_player_talk.emit()
-
+	
 	# We are defining our body here for the API call. All objects that we add 
 	# inside of this body will be turned into JSON format for the API requirement
 	# Essentially the meat the of API call.
@@ -89,14 +89,16 @@ func dialogue_request(player_dialogue):
 		"max_tokens":  MAX_TOKENS,
 		"model": MODEL
 	})
-
+	
+	
 	# After getting the body, we now have to send the request. We want to use the 
 	# POST method because we are posting data to the API.
 	var send_request = request.request(URL, headers, HTTPClient.METHOD_POST, body)
-	
+
 	# Error checking to see if send_request failed.
 	if send_request != OK:
 		print("There was an error!")
+		
 		
 
 func _on_request_completed(result, response_code, headers, body):
@@ -122,7 +124,7 @@ func _on_request_completed(result, response_code, headers, body):
 		# 3. Get the data of the message.
 		# 4. Then finally get the content of the message we selected.
 		var message = response["choices"][0]["message"]["content"]
-		#print(message) # for debug
+		print(message) # for debug
 		
 		# Get DialogueBox node
 		# var dialogue_box = get_node("/root/Main/CanvasLayer/DialogueBox")
@@ -139,6 +141,7 @@ func _on_request_completed(result, response_code, headers, body):
 			"content": message
 		})
 		
+		# print(message)
 		on_npc_talk.emit(message)
 	else:
 		print("Received an unknown response format.")
@@ -149,7 +152,7 @@ func enter_new_dialogue(npc):
 	dialogue_box.visible = true;
 	
 	dialogue_box.initialize_with_npc(npc)
-	dialogue_box.request("Respond as if you are a function that works.")
+	dialogue_request("Respond as if you are a function that works.")
 
 func is_dialogue_active():
 	return dialogue_box.visible
