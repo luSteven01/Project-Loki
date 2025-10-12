@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var animation_player = $AnimationPlayer
+# @export var inventory : Inventory
 
 # Player moves at 50 pixels/second
 var speed : float = 250.0
