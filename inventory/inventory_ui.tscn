@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3qafyx4ws6tq"]
+[gd_scene load_steps=4 format=3 uid="uid://b3qafyx4ws6tq"]
 
+[ext_resource type="Script" uid="uid://c6i6ry5jxj3dm" path="res://inventory/inventory_ui.gd" id="1_cedrj"]
 [ext_resource type="Texture2D" uid="uid://cpn34c1of6faq" path="res://inventory/inventory-background.png" id="2_2hut1"]
 [ext_resource type="PackedScene" uid="uid://chibanxk8ougs" path="res://inventory/inventory_slot_ui.tscn" id="3_cedrj"]
 
@@ -7,8 +8,11 @@
 custom_minimum_size = Vector2(88, 72)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 88.0
-offset_bottom = 72.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 89.0
+offset_bottom = 73.0
+script = ExtResource("1_cedrj")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
@@ -43,112 +47,84 @@ columns = 7
 
 [node name="slot 1" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 2" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 3" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 4" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 5" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 6" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 7" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 8" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 9" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 10" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 11" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 12" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 13" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 14" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 15" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 16" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 17" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 18" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 19" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 20" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 21" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 22" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 23" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 24" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 25" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 26" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 27" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
 
 [node name="slot 28" parent="NinePatchRect/GridContainer" instance=ExtResource("3_cedrj")]
 layout_mode = 2
-script = null
