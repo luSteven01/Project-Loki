@@ -6,10 +6,11 @@ from services import (
     ChatRequest, ChatResponse, GameSession,
     create_session, get_session, update_session,
     initialize_database, check_openai_connection, check_mongodb_connection,
-    generate_ai_response, get_api_stats
+    generate_ai_response, get_api_stats, db
 )
 from prompt import get_system_prompt
 from story import STORY_DATA
+from characters import get_all_characters, get_system_prompt_for_character, get_character_info
 
 app = FastAPI(title="Professor Richards Detective Game API", version="1.0.0")
 
@@ -55,22 +56,36 @@ async def health_check():
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat_with_detective_ai(request: ChatRequest):
-    """Main chat endpoint with RAG"""
+    """Main chat endpoint with character support"""
 
     try:
+        # Validate character_id
+        char_info = get_character_info(request.character_id)
+        if not char_info:
+            raise HTTPException(status_code=400, detail=f"Invalid character_id: {request.character_id}")
+
         # Create or get session
         if not request.session_id:
-            session_id = await create_session()
+            session_id = await create_session(request.character_id)
             session = await get_session(session_id)
         else:
             session = await get_session(request.session_id)
             if not session:
                 raise HTTPException(status_code=404, detail="Session not found")
+            # Verify character_id matches the session
+            if session.character_id != request.character_id:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Session is for character '{session.character_id}', not '{request.character_id}'"
+                )
             session_id = session.id
+
+        # Get character-specific system prompt
+        system_prompt = get_system_prompt_for_character(request.character_id)
 
         # Prepare conversation history
         conversation_messages = [
-            {"role": "system", "content": get_system_prompt()}
+            {"role": "system", "content": system_prompt}
         ]
 
         # Add previous messages from this session
@@ -97,7 +112,7 @@ async def chat_with_detective_ai(request: ChatRequest):
                 "timestamp": datetime.now().isoformat()
             },
             {
-                "role": "assistant",
+                "role": request.character_id,  # Save character_id
                 "content": ai_response,
                 "timestamp": datetime.now().isoformat()
             }
@@ -107,12 +122,15 @@ async def chat_with_detective_ai(request: ChatRequest):
 
         return ChatResponse(
             response=ai_response,
-            session_id=session_id
+            session_id=session_id,
+            character_id=request.character_id
         )
 
+    except HTTPException:
+        raise
     except Exception as e:
         print(f"Error in chat endpoint: {e}")
-        raise HTTPException(status_code=500, detail="Failed to generate response")
+        raise HTTPException(status_code=500, detail=f"Failed to generate response: {str(e)}")
 
 @app.get("/session/{session_id}")
 async def get_session_info(session_id: str):
@@ -196,6 +214,106 @@ async def get_timeline():
 async def get_stats():
     """Get API usage statistics"""
     return await get_api_stats()
+
+@app.get("/characters")
+async def list_characters():
+    """Get list of all available characters"""
+    return {
+        "characters": get_all_characters()
+    }
+
+@app.get("/character/{character_id}")
+async def get_character(character_id: str):
+    """Get details of a specific character"""
+    char_info = get_character_info(character_id)
+    if not char_info:
+        raise HTTPException(status_code=404, detail="Character not found")
+    return char_info
+
+@app.get("/history")
+async def get_all_conversation_history():
+    """Get all conversation history grouped by character"""
+    try:
+        # Get all sessions from database
+        sessions_cursor = db.sessions.find({})
+        sessions_list = await sessions_cursor.to_list(length=None)
+
+        # Group sessions by character
+        history_by_character = {}
+
+        for session_data in sessions_list:
+            character_id = session_data.get("character_id", "detective")
+
+            if character_id not in history_by_character:
+                char_info = get_character_info(character_id)
+                history_by_character[character_id] = {
+                    "character": char_info if char_info else {"id": character_id, "name": "Unknown"},
+                    "sessions": []
+                }
+
+            history_by_character[character_id]["sessions"].append({
+                "session_id": session_data["id"],
+                "created_at": session_data["created_at"],
+                "message_count": len(session_data.get("messages", [])),
+                "messages": session_data.get("messages", []),
+                "ended": session_data.get("ended", False)
+            })
+
+        # Sort sessions by created_at (most recent first)
+        for character_id in history_by_character:
+            history_by_character[character_id]["sessions"].sort(
+                key=lambda x: x["created_at"],
+                reverse=True
+            )
+
+        return {
+            "total_characters": len(history_by_character),
+            "total_sessions": len(sessions_list),
+            "history": history_by_character
+        }
+
+    except Exception as e:
+        print(f"Error in history endpoint: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve history: {str(e)}")
+
+@app.get("/history/{character_id}")
+async def get_character_conversation_history(character_id: str):
+    """Get conversation history for a specific character"""
+    try:
+        # Validate character exists
+        char_info = get_character_info(character_id)
+        if not char_info:
+            raise HTTPException(status_code=404, detail="Character not found")
+
+        # Get all sessions for this character
+        sessions_cursor = db.sessions.find({"character_id": character_id})
+        sessions_list = await sessions_cursor.to_list(length=None)
+
+        # Format sessions
+        sessions_formatted = []
+        for session_data in sessions_list:
+            sessions_formatted.append({
+                "session_id": session_data["id"],
+                "created_at": session_data["created_at"],
+                "message_count": len(session_data.get("messages", [])),
+                "messages": session_data.get("messages", []),
+                "ended": session_data.get("ended", False)
+            })
+
+        # Sort by created_at (most recent first)
+        sessions_formatted.sort(key=lambda x: x["created_at"], reverse=True)
+
+        return {
+            "character": char_info,
+            "total_sessions": len(sessions_formatted),
+            "sessions": sessions_formatted
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error in character history endpoint: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve history: {str(e)}")
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
