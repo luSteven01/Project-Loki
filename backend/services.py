@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Environment variables
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "your-openai-api-key")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "your-api-key")
 MONGODB_URL = os.getenv("MONGODB_URL", "mongodb://localhost:27017")
 DATABASE_NAME = os.getenv("DATABASE_NAME", "professor_richards_case")
 
