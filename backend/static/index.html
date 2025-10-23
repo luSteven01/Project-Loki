@@ -297,6 +297,49 @@
         .messages::-webkit-scrollbar-thumb:hover {
             background: rgba(218,165,32,0.6);
         }
+
+        /* Character Selection Buttons */
+        .character-selection {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(139,69,19,0.2) 0%, rgba(0,0,0,0.4) 100%);
+            border-radius: 12px;
+            border: 2px solid #8b4513;
+        }
+        .character-selection h3 {
+            color: #daa520;
+            text-align: center;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+        .character-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .char-btn {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, rgba(139,69,19,0.3) 0%, rgba(0,0,0,0.5) 100%);
+            border: 2px solid rgba(218,165,32,0.4);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #d4c5a1;
+            font-size: 0.95em;
+            font-family: 'Georgia', serif;
+        }
+        .char-btn:hover {
+            background: linear-gradient(135deg, rgba(139,69,19,0.5) 0%, rgba(218,165,32,0.2) 100%);
+            border-color: #daa520;
+            transform: translateY(-2px);
+        }
+        .char-btn.active {
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            border-color: #daa520;
+            box-shadow: 0 0 15px rgba(218,165,32,0.5);
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -305,13 +348,21 @@
             <h1>🕵️ Detective Investigation</h1>
             <p>Professor Richards Murder Case</p>
             <div class="case-details">
-                <strong>Location:</strong> Professor's Home Office | 
-                <strong>Time of Death:</strong> 5:57-5:58 PM | 
+                <strong>Location:</strong> Professor's Home Office |
+                <strong>Time of Death:</strong> 5:57-5:58 PM |
                 <strong>Discovered:</strong> 7:22 PM by Alice
             </div>
         </div>
 
         <div id="status" class="status">Connecting to investigation database...</div>
+
+        <!-- Character Selection -->
+        <div class="character-selection">
+            <h3>Select Character to Interview</h3>
+            <div id="characterBtns" class="character-btns">
+                <!-- Character buttons will be loaded here -->
+            </div>
+        </div>
 
         <div class="chat-container">
             <div id="messages" class="messages">
@@ -414,16 +465,20 @@
 
     <script>
         const API_BASE_URL = 'http://localhost:8000';
-        let sessionId = null;
+        let sessions = {}; // { character_id: session_id }
+        let currentCharacter = null;
         let isLoading = false;
+        let characters = [];
 
         const messagesContainer = document.getElementById('messages');
         const messageInput = document.getElementById('messageInput');
         const sendBtn = document.getElementById('sendBtn');
         const statusDiv = document.getElementById('status');
+        const characterBtnsContainer = document.getElementById('characterBtns');
 
         document.addEventListener('DOMContentLoaded', () => {
             checkServerHealth();
+            loadCharacters();
             setupEventListeners();
         });
 
@@ -488,11 +543,78 @@
             if(loading) loading.remove(); 
         }
         
-        function scrollToBottom() { 
-            messagesContainer.scrollTop = messagesContainer.scrollHeight; 
+        function scrollToBottom() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        async function loadCharacters() {
+            try {
+                console.log('Loading characters...');
+                const response = await fetch(`${API_BASE_URL}/characters`);
+                const data = await response.json();
+                console.log('Characters data:', data);
+                characters = data.characters;
+                console.log('Characters array:', characters);
+                renderCharacterButtons();
+
+                // Auto-select detective by default
+                if (characters.length > 0) {
+                    selectCharacter(characters[0]);
+                }
+            } catch (error) {
+                console.error('Failed to load characters:', error);
+                setStatus('Failed to load characters: ' + error.message, 'error');
+            }
+        }
+
+        function renderCharacterButtons() {
+            console.log('Rendering character buttons...');
+            console.log('Container:', characterBtnsContainer);
+            console.log('Characters to render:', characters);
+
+            if (!characterBtnsContainer) {
+                console.error('characterBtnsContainer not found!');
+                return;
+            }
+
+            characterBtnsContainer.innerHTML = '';
+            characters.forEach(char => {
+                console.log('Creating button for:', char.name);
+                const btn = document.createElement('button');
+                btn.className = 'char-btn';
+                btn.textContent = `${char.avatar} ${char.name}`;
+                btn.onclick = () => selectCharacter(char);
+                btn.dataset.charId = char.id;
+                characterBtnsContainer.appendChild(btn);
+            });
+            console.log('Buttons created:', characterBtnsContainer.children.length);
+        }
+
+        function selectCharacter(character) {
+            currentCharacter = character;
+
+            // Update button states
+            document.querySelectorAll('.char-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.charId === character.id);
+            });
+
+            // Clear messages and show welcome message for this character
+            messagesContainer.innerHTML = '';
+            addMessage(
+                `Now interviewing: <strong>${character.avatar} ${character.name}</strong><br>${character.description}`,
+                'system'
+            );
+
+            // Update status message
+            setStatus(`Now interviewing: ${character.avatar} ${character.name}`, 'connected');
         }
 
         async function sendMessage() {
+            if (!currentCharacter) {
+                alert('Please select a character first!');
+                return;
+            }
+
             const message = messageInput.value.trim();
             if (!message || isLoading) return;
             
@@ -507,17 +629,25 @@
                 const response = await fetch(`${API_BASE_URL}/chat`, {
                     method: 'POST',
                     headers: {'Content-Type':'application/json'},
-                    body: JSON.stringify({ 
-                        message: message, 
-                        session_id: sessionId 
+                    body: JSON.stringify({
+                        message: message,
+                        character_id: currentCharacter.id,
+                        session_id: sessions[currentCharacter.id] || null
                     })
                 });
-                
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
+                }
+
                 const data = await response.json();
-                if (!sessionId) sessionId = data.session_id;
-                
+
+                // Store session ID for this character
+                if (!sessions[currentCharacter.id]) {
+                    sessions[currentCharacter.id] = data.session_id;
+                }
+
                 removeLoadingMessage();
                 addMessage(data.response, 'ai');
             } catch (error) {
