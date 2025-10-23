@@ -27,24 +27,28 @@ db = mongodb_client[DATABASE_NAME]
 class ChatRequest(BaseModel):
     message: str
     session_id: Optional[str] = None
+    character_id: str = "detective"  # Default to detective character
 
 class ChatResponse(BaseModel):
     response: str
     session_id: str
+    character_id: str
 
 class GameSession(BaseModel):
     id: str
+    character_id: str  # Which character this session is with
     created_at: datetime
     messages: List[dict] = []
     ended: bool = False
 
 
 # Database operations
-async def create_session() -> str:
+async def create_session(character_id: str = "detective") -> str:
     """Create new game session"""
     session_id = str(uuid.uuid4())
     session = GameSession(
         id=session_id,
+        character_id=character_id,
         created_at=datetime.now()
     )
     await db.sessions.insert_one(session.dict())
