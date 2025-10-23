@@ -135,12 +135,24 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 229.0
-offset_top = 70.0
-offset_right = -222.0
-offset_bottom = -149.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_qjfks")
-bbcode_enabled = true
+offset_left = 192.0
+offset_top = 88.0
+offset_right = -32.0
+offset_bottom = -100.0
+text = "Connecting to investigation database..."
+
+[node name="NPCIcon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 41.0
+offset_top = 56.0
+offset_right = -727.0
+offset_bottom = -136.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_ig7tw")
 
 [node name="PlayerTextInput" type="TextEdit" parent="."]
 layout_mode = 1
@@ -182,79 +194,19 @@ offset_right = -17.0
 offset_bottom = -65.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/hover = SubResource("StyleBoxFlat_5ljd0")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_l4nmj")
-theme_override_styles/normal = SubResource("StyleBoxFlat_8glcu")
-text = "Leave
-"
+text = "Leave"
 
-[node name="NPCPortrait" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 40.0
-offset_top = 278.0
-offset_right = 168.0
-offset_bottom = 406.0
-texture = ExtResource("2_351bv")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="NPCPortrait"]
-libraries = {
-&"": SubResource("AnimationLibrary_qjfks")
-}
-
-[node name="Background" type="TextureRect" parent="NPCPortrait"]
-z_index = -1
+[node name="CharacterButtons" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -47.0
-offset_right = 54.0
-offset_bottom = 7.0
+offset_left = 16.0
+offset_top = 8.0
+offset_right = -16.0
+offset_bottom = 72.0
 grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("6_85jfh")
-expand_mode = 5
-
-[node name="PlayerPortrait" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 723.0
-offset_top = 278.0
-offset_right = 851.0
-offset_bottom = 406.0
-texture = ExtResource("6_2klrv")
-flip_h = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerPortrait"]
-libraries = {
-&"": SubResource("AnimationLibrary_8glcu")
-}
-
-[node name="TextureRect" type="TextureRect" parent="PlayerPortrait"]
-z_index = -1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -52.0
-offset_top = -21.5
-offset_bottom = 24.5
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("7_med3p")
-expand_mode = 5
-stretch_mode = 6
-
-[node name="TextureRect" type="TextureRect" parent="."]
-z_index = -2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("12_uucap")
+alignment = 1
+theme_override_constants/separation = 10
 
 [connection signal="pressed" from="SubmitButton" to="." method="_on_submit_button_pressed"]
 [connection signal="pressed" from="LeaveButton" to="." method="_on_leave_button_pressed"]
-[connection signal="pressed" from="LeaveButton" to="." method="_on_leavebutton_pressed"]

@@ -1,94 +1,158 @@
 extends Panel
 
-@onready var game_manager = get_node("/root/Main/GameManager")
+var game_manager = null
+
 @onready var dialogue_text = $DialogueText
 @onready var talk_input = $PlayerTextInput
 @onready var submit_button = $SubmitButton
 @onready var leave_button = $LeaveButton
-@onready var anim_npc_player = $NPCPortrait/AnimationPlayer
-@onready var anim_player = $PlayerPortrait/AnimationPlayer
+@onready var character_buttons_container = $CharacterButtons
 
-# Called when the node enters the scene tree for the first time.
+var current_character = null
+var chat_history = []
+
 func _ready() -> void:
-	# Connect the TextEdit’s gui_input so Enter can be intercepted
-	talk_input.connect("gui_input", Callable(self, "_on_text_input_gui_input"))
+	print("DialogueBox _ready() called")
+	print("dialogue_text: ", dialogue_text)
+	print("npc_icon: ", npc_icon)
+	print("talk_input: ", talk_input)
+	print("submit_button: ", submit_button)
+	print("leave_button: ", leave_button)
+	print("character_buttons_container: ", character_buttons_container)
+
+	# Initialize UI state
+	submit_button.disabled = true
+	talk_input.editable = false
+	dialogue_text.text = "Connecting to investigation database..."
+	print("Initial text set")
+
+	# Find GameManager node
+	game_manager = get_node_or_null("/root/Main/GameManager")
+	print("GameManager found: ", game_manager)
+
+	if not game_manager:
+		dialogue_text.text = "Error: GameManager not found!"
+		print("ERROR: Cannot find GameManager node at /root/Main/GameManager")
+		return
+
+	# Wait for GameManager to load characters
+	print("Waiting for GameManager to load characters...")
+	await get_tree().create_timer(2.0).timeout
+
+	if game_manager.has_method("get_characters"):
+		var chars = game_manager.call("get_characters")
+		print("Characters loaded: ", chars.size())
+		if chars.size() > 0:
+			setup_character_buttons()
+			dialogue_text.text = "Select a character to interview"
+			print("Character buttons created")
+		else:
+			dialogue_text.text = "Failed to connect to server. Please check if backend is running at http://localhost:8000"
+			print("No characters loaded - server connection failed")
+	else:
+		dialogue_text.text = "Error: GameManager script not loaded correctly"
+		print("ERROR: GameManager does not have get_characters method")
+
+# Handle input with Ctrl+Enter
+func _input(event):
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_ENTER and event.ctrl_pressed:
+			send_player_message()
+
+func setup_character_buttons():
+	print("=== setup_character_buttons() called ===")
+	if character_buttons_container:
+		print("✓ character_buttons_container exists")
+		print("  Position: ", character_buttons_container.position)
+		print("  Size: ", character_buttons_container.size)
+		print("  Visible: ", character_buttons_container.visible)
+
+		# Clear existing buttons
+		for child in character_buttons_container.get_children():
+			child.queue_free()
+
+		# Create character buttons
+		var characters = game_manager.call("get_characters")
+		print("✓ Creating buttons for ", characters.size(), " characters")
+
+		for i in range(characters.size()):
+			var character = characters[i]
+			var button = Button.new()
+			button.text = character.avatar + " " + character.name
+			button.custom_minimum_size = Vector2(120, 40)
+			button.pressed.connect(_on_character_selected.bind(character))
+			character_buttons_container.add_child(button)
+			print("  [", i, "] Created button: ", button.text, " | Size: ", button.size)
+
+		print("✓ All buttons added to container")
+		print("  Total children: ", character_buttons_container.get_child_count())
+	else:
+		print("✗ ERROR: character_buttons_container is null!")
+
+func _on_character_selected(character):
+	current_character = character
+	game_manager.call("select_character", character)
+	chat_history.clear()
+
+	# Initialize dialogue and show welcome message
+	dialogue_text.text = "Now interviewing: " + character.avatar + " " + character.name + "\n"
+	dialogue_text.text += character.description + "\n\n"
+
+	# Enable input
+	submit_button.disabled = false
+	talk_input.editable = true
 	talk_input.grab_focus()
 
-func initialize_with_npc (npc):
-	#NPC Icon
+func _on_submit_button_pressed() -> void:
+	send_player_message()
+
+func send_player_message():
+	var message = talk_input.text.strip_edges()
+
+	if message.is_empty() or not current_character:
+		return
+
+	# Display user message
+	add_message_to_display("You", message)
+
+	# Clear and disable input
+	talk_input.text = ""
+	submit_button.disabled = true
+	talk_input.editable = false
+
+	# Show loading indicator
+	dialogue_text.text += "\n" + current_character.name + " is thinking...\n"
+
+	# Send message to server
+	game_manager.call("send_message", message, _on_message_received)
+
+func _on_message_received(response: String, error):
+	# Remove loading message
+	var lines = dialogue_text.text.split("\n")
+	if lines.size() > 0 and "thinking" in lines[-1]:
+		lines.remove_at(lines.size() - 1)
+		dialogue_text.text = "\n".join(lines)
+
+	if error:
+		add_message_to_display("System", "Error: " + error)
+	else:
+		add_message_to_display(current_character.name, response)
+
+	# Re-enable input
+	submit_button.disabled = false
+	talk_input.editable = true
+	talk_input.grab_focus()
+
+func add_message_to_display(sender: String, message: String):
+	dialogue_text.text += "\n[" + sender + "]: " + message + "\n"
+
+func initialize_with_npc(npc):
+	# Legacy function for backwards compatibility
 	dialogue_text.text = ""
 	submit_button.disabled = true
 
-
-func _on_submit_button_pressed() -> void:
-	var player_message = talk_input.text.strip_edges()
-	if player_message != "":
-		
-		start_player_talk()
-		
-		# Show player's message in dialogue window
-		dialogue_text.text += "\n[right][b][Player]:[/b]"
-		await type_text_slowly(player_message + "\n")
-		dialogue_text.text += "[/right]"
-		
-		stop_player_talk()
-
-		# Send player's message to GameManager → ChatGPT
-		game_manager.dialogue_request(player_message)
-
-		# Clear the input for the next line
-		talk_input.text = ""
-
-# Typewriter effect for NPC messages (clean version)
-func type_text_slowly(full_text: String, speed := 0.03) -> void:
-	# Add the NPC name once, no repetition
-	dialogue_text.text += "\n"
-	
-	# Type each character sequentially
-	for ch in full_text:
-		dialogue_text.text += ch
-		dialogue_text.scroll_to_line(dialogue_text.get_line_count() - 1)
-		await get_tree().create_timer(speed).timeout
-
-
 func _on_leave_button_pressed() -> void:
-	hide() # Replace with function to return to game screen
-
-# Play npc portrait animation
-func start_npc_talk():
-	anim_npc_player.play("talk")
-
-# Stop npc portrait animation
-func stop_npc_talk():
-	anim_npc_player.stop()
-
-# Play player portrait animation
-func start_player_talk():
-	anim_player.play("player_talk")
-
-# Stop player portrait animation
-func stop_player_talk():
-	anim_player.stop()
-
-# Reverse Enter and Shift + Enter function for fast typing
-func _on_text_input_gui_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed:
-		# Shift + Enter → newline
-		if event.keycode == KEY_ENTER and event.shift_pressed:
-			talk_input.insert_text_at_caret("\n")
-			get_viewport().set_input_as_handled()
-
-		# Enter → submit
-		elif event.keycode == KEY_ENTER and not event.shift_pressed:
-			_on_submit_button_pressed()
-			get_viewport().set_input_as_handled()
-
-# Expand text field for multiple rows
-func _process(_delta: float) -> void:
-	var line_height = talk_input.get_line_height()
-	var line_count = talk_input.get_line_count()
-	var min_lines = 1
-	var max_lines = 5  # limit so it doesn’t get huge
-
-	var new_height = clamp(line_height * (line_count + 0.5), line_height * min_lines, line_height * max_lines)
-	talk_input.custom_minimum_size.y = new_height
+	dialogue_text.text = "Investigation session ended."
+	submit_button.disabled = true
+	talk_input.editable = false
+	current_character = null
