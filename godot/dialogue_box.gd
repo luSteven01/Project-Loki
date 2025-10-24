@@ -47,7 +47,7 @@ func _ready() -> void:
 			dialogue_text.text = "Select a character to interview"
 			print("Character buttons created")
 		else:
-			dialogue_text.text = "Failed to connect to server. Please check if backend is running at http://localhost:8000"
+			dialogue_text.text = "Failed to connect to server. Please check if backend is running at http://127.0.0.0:8000"
 			print("No characters loaded - server connection failed")
 	else:
 		dialogue_text.text = "Error: GameManager script not loaded correctly"
