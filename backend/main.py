@@ -90,6 +90,7 @@ async def chat_with_detective_ai(request: ChatRequest):
 
         # Add previous messages from this session
         for msg in session.messages:
+            # role = msg["role"] if msg["role"] in ["system", "user", "assistant"] else "assistant" # allows us to continue talking, we just leave if we want
             conversation_messages.append({
                 "role": msg["role"],
                 "content": msg["content"]
@@ -111,7 +112,7 @@ async def chat_with_detective_ai(request: ChatRequest):
                 "content": request.message,
                 "timestamp": datetime.now().isoformat()
             },
-            {
+            {   
                 "role": request.character_id,  # Save character_id
                 "content": ai_response,
                 "timestamp": datetime.now().isoformat()

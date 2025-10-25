@@ -49,6 +49,22 @@ CHARACTERS = {
         "description": "Professor Richards' wife, party hostess",
         "avatar": "👩‍🦰",
         "system_prompt_generator": lambda: get_suspect_prompt("Adele")
+    },
+    "chef": {
+        "id": "chef",
+        "name": "The Chef",
+        "role": "Personal Chef",
+        "description": "Personal chef responsible for cooking food at the dinner party",
+        "avatar": "👨‍🍳",
+        "system_prompt_generator": lambda: get_suspect_prompt("The Chef")
+    },
+    "maid": {
+        "id": "maid",
+        "name": "The Maid",
+        "role": "Maid",
+        "description": "Maid that greets everyone at the party and tends to household tasks",
+        "avatar": "👩‍🦳",
+        "system_prompt_generator": lambda: get_suspect_prompt("The Maid")
     }
 }
 
