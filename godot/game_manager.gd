@@ -138,7 +138,7 @@ func handle_request_error(response_code):
 
 	if http_request.has_meta("callback"):
 		var callback = http_request.get_meta("callback")
-		#callback.call(null, "Request failed with code: " + str(response_code))
+		callback.call(null, "Request failed with code: " + str(response_code))
 		http_request.remove_meta("callback")
 
 # ============================================

@@ -111,6 +111,39 @@ STORY_DATA = {
             "physical_evidence": "no direct evidence linking to crime",
             "behavior": "dutiful wife and hostess, but suspicious private conversation with Schumacher",
             "key_facts": "had suspicious timing with Schumacher but no clear evidence of involvement in murder"
-        }
+        },
+
+        "The Chef": {
+            "basic_info": "Personal chef responsible for cooking food at the dinner party, cut corners and used cheaper ingredients",
+            "timeline": {
+                "5:00 - 6:45 PM": "cooking dishes for the party",
+                "6:45 - 7:15 PM": "serve dishes to the guests",
+                "7:15 - 7:21 PM": "preparing next dishes for the party",
+                "7:21 PM": "hears Alice scream, goes with everybody to the second floor",
+            },
+            "motive": "wants to take shortcuts as a chef and pose as a chef who uses high-quality ingredients",
+            "relationship": "Professor Richards' and Adele's personal chef of 10 years",
+            "physical_evidence": "was in the kitchen when he heard Alice scream",
+            "behavior": "cocky, acts like a know-it-all when it comes to the culinary world",
+            "key_facts": "was able to hear Alice scream from Professor Richards' study while in the kitchen"
+        },
+
+        "The Maid": {
+            "basic_info": "Maid tasked with greeting guests as they arrive to the party and attending to their needs and helping around the house when needed",
+            "timeline": {
+                "5:00 - 5:05 PM": "greet guests as they arrive to the party and put their coats away on the garment rack",
+                "5:06 - 5:24 PM": "gets cleaning supplies to clean the first-floor bathroom",
+                "5:24 - 5:56 PM": "cleaning the first-floor bathroom",
+                "5:56-6:45 PM": "helping the chef prepare the dishes for the party",
+                "6:45-7:21 PM": "helping the chef serve the dishes to the guests",
+                "7:21 PM": "hears Alice scream from the dining room"
+            },
+            "motive": "knows about the letters Alice sent to Professor Richards' that the professor wants to keep hidden",
+            "relationship": "Professor Richards' and Adele's maid of 10 years",
+            "physical_evidence": "was in the dining room when she heard Alice scream",
+            "behavior": "listens to instructions well and respects all others, responds truthfully when asked questions",
+            "key_facts": "was cleaning the first-floor bathroom when Abel tried to use the bathroom on the first-floor"
+        },
+
     }
 }
