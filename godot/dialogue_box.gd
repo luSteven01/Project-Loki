@@ -167,12 +167,14 @@ func _on_message_received(response: String, error):
 	if error:
 		add_message_to_display("System", "Error: " + error)
 	else:
+		await get_tree().create_timer(0.6).timeout
 		add_message_to_display(current_character.name, response)
 
 	# Re-enable input
 	submit_button.disabled = false
 	talk_input.editable = true
 	talk_input.grab_focus()
+
 
 func add_message_to_display(sender: String, message: String):
 	dialogue_text.text += "\n[b]" + sender + ":[/b]"
@@ -218,6 +220,8 @@ func start_npc_talk():
 		return
 	
 	var anim_npc_player = current_icon.get_node_or_null("AnimationPlayer")
+	if not anim_npc_player:
+		return
 	anim_npc_player.play("talk")
 
 # Stop npc portrait animation
