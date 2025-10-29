@@ -38,7 +38,7 @@ func _ready() -> void:
 	# will call
 	request.connect("request_completed", _on_request_completed)
 	
-	
+	dialogue_request("Where is SJSU located")
 # This function is going to include our dialogue request that we are 
 # sending to the OpenAI API.
 func dialogue_request(player_dialogue):

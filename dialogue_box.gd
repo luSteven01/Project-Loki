@@ -1,5 +1,5 @@
 extends Panel
-
+# onready tag makes sure that the child node is loaded and ready for the scene
 @onready var game_manager = get_node("/root/Main/GameManager")
 
 @onready var dialogue_text = $DialogueText
@@ -13,14 +13,13 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func initialize_with_npc (npc):
-	#NPC Icon
+	# set up NPC Icon
 	dialogue_text.text = ""
 	submit_button.disabled = true
 
 
 func _on_submit_button_pressed() -> void:
 	pass # Replace with function body.
-
 
 func _on_leave_button_pressed() -> void:
 	pass # Replace with function body.
