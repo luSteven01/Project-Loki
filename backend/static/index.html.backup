@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Richards Murder Investigation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #2c1810 0%, #1a1a1a 100%);
+            color: #d4c5a1;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(139,69,19,0.3) 0%, rgba(0,0,0,0.5) 100%);
+            border-radius: 15px;
+            border: 2px solid #8b4513;
+            box-shadow: 0 4px 15px rgba(139,69,19,0.2);
+        }
+
+        .header h1 {
+            color: #daa520;
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            font-weight: bold;
+        }
+        .header p {
+            color: #cd853f;
+            font-size: 1.2em;
+            font-style: italic;
+        }
+
+        .status {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: linear-gradient(135deg, rgba(139,69,19,0.2) 0%, rgba(0,0,0,0.4) 100%);
+            border-radius: 8px;
+            font-size: 14px;
+            border: 1px solid #8b4513;
+        }
+        .status.connected { color: #90ee90; border-color: #90ee90; }
+        .status.error { color: #ff6b6b; border-color: #ff6b6b; }
+
+        /* Character Selection */
+        .character-selection {
+            margin-bottom: 25px;
+        }
+        .character-selection h2 {
+            color: #daa520;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .character-btn {
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(139,69,19,0.3) 0%, rgba(0,0,0,0.5) 100%);
+            border: 2px solid rgba(218,165,32,0.4);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            color: #d4c5a1;
+        }
+        .character-btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, rgba(139,69,19,0.5) 0%, rgba(218,165,32,0.2) 100%);
+            border-color: #daa520;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+        .character-btn.active {
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            border-color: #daa520;
+            box-shadow: 0 0 20px rgba(218,165,32,0.5);
+        }
+        .character-btn .avatar {
+            font-size: 2.5em;
+            margin-bottom: 8px;
+        }
+        .character-btn .name {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #daa520;
+            margin-bottom: 5px;
+        }
+        .character-btn .role {
+            font-size: 0.85em;
+            color: #cd853f;
+            font-style: italic;
+        }
+
+        /* Chat Container */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .chat-container {
+            background: linear-gradient(135deg, rgba(139,69,19,0.1) 0%, rgba(0,0,0,0.6) 100%);
+            border-radius: 15px;
+            border: 2px solid #8b4513;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 20px rgba(139,69,19,0.3);
+        }
+
+        .chat-header {
+            padding: 15px 20px;
+            border-bottom: 2px solid #8b4513;
+            background: rgba(139,69,19,0.2);
+            border-radius: 13px 13px 0 0;
+        }
+        .chat-header h3 {
+            color: #daa520;
+            font-size: 1.3em;
+            margin-bottom: 5px;
+        }
+        .chat-header p {
+            color: #cd853f;
+            font-size: 0.9em;
+        }
+
+        .messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 15px 20px;
+            border-radius: 20px;
+            line-height: 1.5;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            color: white;
+            border: 1px solid #cd853f;
+        }
+        .ai-message {
+            align-self: flex-start;
+            background: linear-gradient(135deg, rgba(218,165,32,0.15) 0%, rgba(139,69,19,0.1) 100%);
+            border: 2px solid rgba(218,165,32,0.3);
+            color: #d4c5a1;
+        }
+        .system-message {
+            align-self: center;
+            background: linear-gradient(135deg, rgba(139,69,19,0.2) 0%, rgba(218,165,32,0.1) 100%);
+            border: 1px solid rgba(218,165,32,0.4);
+            text-align: center;
+            max-width: 90%;
+            font-style: italic;
+            color: #cd853f;
+        }
+
+        .loading {
+            align-self: flex-start;
+            background: linear-gradient(135deg, rgba(218,165,32,0.15) 0%, rgba(139,69,19,0.1) 100%);
+            border: 2px solid rgba(218,165,32,0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #d4c5a1;
+        }
+        .loading-dots { display: flex; gap: 6px; }
+        .loading-dots div {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #daa520;
+            animation: loading 1.6s infinite ease-in-out;
+        }
+        .loading-dots div:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots div:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes loading { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+        .input-area {
+            padding: 20px;
+            border-top: 2px solid #8b4513;
+            display: flex;
+            gap: 12px;
+            background: rgba(139,69,19,0.1);
+        }
+        .input-field {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #8b4513;
+            border-radius: 30px;
+            background: rgba(218,165,32,0.1);
+            color: #d4c5a1;
+            font-size: 16px;
+            outline: none;
+            font-family: 'Georgia', serif;
+        }
+        .input-field:focus {
+            border-color: #daa520;
+            box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.3);
+            background: rgba(218,165,32,0.15);
+        }
+        .input-field::placeholder {
+            color: #a0a0a0;
+            font-style: italic;
+        }
+        .send-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            color: white;
+            border: 2px solid #cd853f;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            box-shadow: 0 2px 8px rgba(139,69,19,0.3);
+        }
+        .send-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #a0522d 0%, #8b4513 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139,69,19,0.4);
+        }
+        .send-btn:disabled {
+            background: linear-gradient(135deg, #666 0%, #555 100%);
+            cursor: not-allowed;
+            transform: none;
+            border-color: #666;
+        }
+
+        /* History Button */
+        .history-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, rgba(139,69,19,0.4) 0%, rgba(218,165,32,0.2) 100%);
+            border: 2px solid rgba(218,165,32,0.5);
+            color: #daa520;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            text-align: center;
+            margin-top: 10px;
+        }
+        .history-btn:hover {
+            background: linear-gradient(135deg, rgba(139,69,19,0.6) 0%, rgba(218,165,32,0.3) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Scrollbar styling */
+        .messages::-webkit-scrollbar {
+            width: 8px;
+        }
+        .messages::-webkit-scrollbar-track {
+            background: rgba(139,69,19,0.1);
+            border-radius: 4px;
+        }
+        .messages::-webkit-scrollbar-thumb {
+            background: rgba(218,165,32,0.4);
+            border-radius: 4px;
+        }
+        .messages::-webkit-scrollbar-thumb:hover {
+            background: rgba(218,165,32,0.6);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header h1 { font-size: 2.2em; }
+            .character-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .message { max-width: 95%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🕵️ Detective Investigation</h1>
+            <p>Professor Richards Murder Case</p>
+        </div>
+
+        <div id="status" class="status">Connecting to investigation database...</div>
+
+        <div class="character-selection">
+            <h2>Select Character to Interview</h2>
+            <div id="characterGrid" class="character-grid">
+                <!-- Characters will be loaded here -->
+            </div>
+            <button class="history-btn" onclick="viewAllHistory()">📜 View All Conversation History</button>
+        </div>
+
+        <div class="main-content">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h3 id="chatTitle">Select a character to begin</h3>
+                    <p id="chatSubtitle">Choose from the suspects or detective assistant above</p>
+                </div>
+
+                <div id="messages" class="messages">
+                    <div class="message system-message">
+                        Welcome, Detective! Select a character above to start your investigation.
+                        Each character has their own story and perspective on the case.
+                    </div>
+                </div>
+
+                <div class="input-area">
+                    <input type="text" id="messageInput" class="input-field" placeholder="Select a character first..." disabled>
+                    <button id="sendBtn" class="send-btn" disabled>Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8000';
+
+        // Session management - separate session for each character
+        let sessions = {}; // { character_id: session_id }
+        let currentCharacter = null;
+        let isLoading = false;
+        let characters = [];
+
+        const messagesContainer = document.getElementById('messages');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const statusDiv = document.getElementById('status');
+        const chatTitle = document.getElementById('chatTitle');
+        const chatSubtitle = document.getElementById('chatSubtitle');
+        const characterGrid = document.getElementById('characterGrid');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkServerHealth();
+            loadCharacters();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            sendBtn.addEventListener('click', sendMessage);
+            messageInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !isLoading) sendMessage();
+            });
+        }
+
+        async function checkServerHealth() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/health`);
+                const data = await response.json();
+                if (data.api === 'healthy' && data.mongodb === 'connected' && data.openai === 'connected') {
+                    setStatus('Investigation database connected - Ready to solve the case', 'connected');
+                } else {
+                    setStatus(`Database issues detected: MongoDB: ${data.mongodb}, AI Assistant: ${data.openai}`, 'error');
+                }
+            } catch (error) {
+                setStatus('Cannot connect to investigation database. Ensure server is running on port 8000.', 'error');
+            }
+        }
+
+        async function loadCharacters() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/characters`);
+                const data = await response.json();
+                characters = data.characters;
+                renderCharacters();
+            } catch (error) {
+                console.error('Failed to load characters:', error);
+                setStatus('Failed to load characters', 'error');
+            }
+        }
+
+        function renderCharacters() {
+            characterGrid.innerHTML = '';
+            characters.forEach(char => {
+                const btn = document.createElement('div');
+                btn.className = 'character-btn';
+                btn.innerHTML = `
+                    <div class="avatar">${char.avatar}</div>
+                    <div class="name">${char.name}</div>
+                    <div class="role">${char.role}</div>
+                `;
+                btn.onclick = () => selectCharacter(char);
+                characterGrid.appendChild(btn);
+            });
+        }
+
+        function selectCharacter(character) {
+            currentCharacter = character;
+
+            // Update UI
+            document.querySelectorAll('.character-btn').forEach((btn, idx) => {
+                btn.classList.toggle('active', idx === characters.indexOf(character));
+            });
+
+            chatTitle.textContent = `${character.avatar} ${character.name}`;
+            chatSubtitle.textContent = character.description;
+
+            // Clear messages and show welcome message
+            messagesContainer.innerHTML = '';
+            addMessage(
+                `You are now talking with <strong>${character.name}</strong> (${character.role}).<br>${character.description}`,
+                'system'
+            );
+
+            // Enable input
+            messageInput.disabled = false;
+            sendBtn.disabled = false;
+            messageInput.placeholder = `Ask ${character.name} a question...`;
+            messageInput.focus();
+        }
+
+        function setStatus(message, type='') {
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+
+        function addMessage(content, type='user') {
+            const div = document.createElement('div');
+            div.className = `message ${type}-message`;
+            div.innerHTML = content;
+            messagesContainer.appendChild(div);
+            scrollToBottom();
+        }
+
+        function addLoadingMessage() {
+            const div = document.createElement('div');
+            div.className = 'message loading';
+            div.id = 'loading-message';
+            div.innerHTML = `<span>${currentCharacter.name} is thinking...</span><div class="loading-dots"><div></div><div></div><div></div></div>`;
+            messagesContainer.appendChild(div);
+            scrollToBottom();
+        }
+
+        function removeLoadingMessage() {
+            const loading = document.getElementById('loading-message');
+            if(loading) loading.remove();
+        }
+
+        function scrollToBottom() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        async function sendMessage() {
+            if (!currentCharacter) {
+                alert('Please select a character first!');
+                return;
+            }
+
+            const message = messageInput.value.trim();
+            if (!message || isLoading) return;
+
+            addMessage(message, 'user');
+            messageInput.value = '';
+            isLoading = true;
+            sendBtn.disabled = true;
+            messageInput.disabled = true;
+            addLoadingMessage();
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/chat`, {
+                    method: 'POST',
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({
+                        message: message,
+                        character_id: currentCharacter.id,
+                        session_id: sessions[currentCharacter.id] || null
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                // Store session ID for this character
+                if (!sessions[currentCharacter.id]) {
+                    sessions[currentCharacter.id] = data.session_id;
+                }
+
+                removeLoadingMessage();
+                addMessage(data.response, 'ai');
+            } catch (error) {
+                removeLoadingMessage();
+                addMessage(`Error: ${error.message}`, 'system');
+                console.error('Error:', error);
+            } finally {
+                isLoading = false;
+                sendBtn.disabled = false;
+                messageInput.disabled = false;
+                messageInput.focus();
+            }
+        }
+
+        async function viewAllHistory() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/history`);
+                const data = await response.json();
+
+                // Display history in a new window
+                const historyWindow = window.open('', '_blank', 'width=900,height=700');
+
+                // Create HTML content safely
+                let htmlContent = `
+                    <html>
+                    <head>
+                        <title>Conversation History</title>
+                        <style>
+                            body { font-family: Georgia, serif; padding: 20px; background: #1a1a1a; color: #d4c5a1; }
+                            h1 { color: #daa520; }
+                            h2 { color: #cd853f; margin-top: 30px; }
+                            .character-section { border: 2px solid #8b4513; padding: 20px; margin: 20px 0; border-radius: 10px; background: rgba(139,69,19,0.1); }
+                            .session { margin: 15px 0; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; }
+                            .message { margin: 10px 0; padding: 10px; border-radius: 8px; white-space: pre-wrap; }
+                            .user { background: rgba(139,69,19,0.3); }
+                            .assistant { background: rgba(218,165,32,0.1); border: 1px solid rgba(218,165,32,0.3); }
+                        </style>
+                    </head>
+                    <body>
+                        <h1>📜 All Conversation History</h1>
+                        <p>Total Characters: ${data.total_characters} | Total Sessions: ${data.total_sessions}</p>
+                        <div id="content"></div>
+                    </body>
+                    </html>
+                `;
+
+                historyWindow.document.write(htmlContent);
+                historyWindow.document.close();
+
+                const contentDiv = historyWindow.document.getElementById('content');
+
+                for (const [charId, charData] of Object.entries(data.history)) {
+                    const charSection = historyWindow.document.createElement('div');
+                    charSection.className = 'character-section';
+
+                    const charHeader = historyWindow.document.createElement('h2');
+                    charHeader.textContent = `${charData.character.avatar || ''} ${charData.character.name || charId}`;
+                    charSection.appendChild(charHeader);
+
+                    const charRole = historyWindow.document.createElement('p');
+                    const roleEm = historyWindow.document.createElement('em');
+                    roleEm.textContent = charData.character.role || '';
+                    charRole.appendChild(roleEm);
+                    charSection.appendChild(charRole);
+
+                    const sessionCount = historyWindow.document.createElement('p');
+                    sessionCount.textContent = `Sessions: ${charData.sessions.length}`;
+                    charSection.appendChild(sessionCount);
+
+                    charData.sessions.forEach((session, idx) => {
+                        const sessionDiv = historyWindow.document.createElement('div');
+                        sessionDiv.className = 'session';
+
+                        const sessionHeader = historyWindow.document.createElement('strong');
+                        sessionHeader.textContent = `Session ${idx + 1}`;
+                        sessionDiv.appendChild(sessionHeader);
+                        sessionDiv.appendChild(historyWindow.document.createTextNode(` - ${session.message_count} messages`));
+                        sessionDiv.appendChild(historyWindow.document.createElement('br'));
+
+                        const sessionTime = historyWindow.document.createElement('small');
+                        sessionTime.textContent = `Created: ${new Date(session.created_at).toLocaleString()}`;
+                        sessionDiv.appendChild(sessionTime);
+
+                        session.messages.forEach(msg => {
+                            const msgDiv = historyWindow.document.createElement('div');
+                            msgDiv.className = `message ${msg.role}`;
+
+                            const msgHeader = historyWindow.document.createElement('strong');
+                            msgHeader.textContent = msg.role === 'user' ? 'You' : charData.character.name;
+                            msgDiv.appendChild(msgHeader);
+                            msgDiv.appendChild(historyWindow.document.createTextNode(':'));
+                            msgDiv.appendChild(historyWindow.document.createElement('br'));
+
+                            const msgContent = historyWindow.document.createTextNode(msg.content);
+                            msgDiv.appendChild(msgContent);
+                            msgDiv.appendChild(historyWindow.document.createElement('br'));
+
+                            const msgTime = historyWindow.document.createElement('small');
+                            msgTime.textContent = new Date(msg.timestamp).toLocaleString();
+                            msgDiv.appendChild(msgTime);
+
+                            sessionDiv.appendChild(msgDiv);
+                        });
+
+                        charSection.appendChild(sessionDiv);
+                    });
+
+                    contentDiv.appendChild(charSection);
+                }
+            } catch (error) {
+                alert('Failed to load history: ' + error.message);
+                console.error('History error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
