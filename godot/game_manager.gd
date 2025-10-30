@@ -1,176 +1,155 @@
 extends Node
 
-# initialization for dialogue
+# API Configuration
+const API_BASE_URL = "http://127.0.0.1:8000"
 
-@onready var dialogue_box = get_node("/root/Main/CanvasLayer/Dialogue_Box")
+# State management
+var sessions = {}  # { character_id: session_id }
+var current_character = null
+var characters = []
+var is_loading = false
 
-@export_multiline var dialogue_rules : String
-var current_npc
+var http_request: HTTPRequest
 
-# user-defined signals
+enum RequestType {
+	HEALTH_CHECK,
+	LOAD_CHARACTERS,
+	SEND_MESSAGE
+}
+var current_request_type = RequestType.HEALTH_CHECK
 
-signal on_player_talk
+func _ready():
+	http_request = HTTPRequest.new()
+	add_child(http_request)
+	http_request.request_completed.connect(_on_request_completed)
 
-signal on_npc_talk (npc_dialogue) 
+	print("GameManager ready - connecting to backend...")
+	check_server_health()
 
-var API_KEY : String = "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"
-var URL : String = "https://api.openai.com/v1/chat/completions"
+# ============================================
+# API Functions
+# ============================================
 
-# This is defines how consistent or sporadic the
-# generation is going to be 
-var TEMPERATURE : float = 0.5 
+func check_server_health():
+	print("Checking server health...")
+	current_request_type = RequestType.HEALTH_CHECK
+	var error = http_request.request(API_BASE_URL + "/health")
+	if error != OK:
+		print("Failed to connect to server: ", error)
 
-# Maximum amount of tokens that we can use
-var MAX_TOKENS : int = 1024 
+func load_characters():
+	print("Loading characters...")
+	current_request_type = RequestType.LOAD_CHARACTERS
+	var error = http_request.request(API_BASE_URL + "/characters")
+	if error != OK:
+		print("Failed to load characters: ", error)
 
-#The model of GPT we are using
-var MODEL: String = "gpt-4o-mini"
-
-# An array of past messages that keeps track of our messages.
-# This will be used to send all of our chat history 
-var messages = []
-
-# This is a node of Godot, that manages 
-# sending and receiving information to the API
-var request: HTTPRequest
-
-# This means that the format that we are sending 
-# and being returned will be of type json.
-var headers = ["Content-type: application/json", "Authorization: Bearer " + API_KEY] 
-
-# This function has our HTTP Request Node set up so that once we 
-# receive information from any request, we are going to call 
-# _on_request_completed
-func _ready() -> void:
-	# Load API key
-	API_KEY = load_env(".env", "OPENAI_API_KEY")
-	if API_KEY == "":
-		push_error("API key not found")
-	#print(API_KEY) # For debug
-
-	request = HTTPRequest.new() # Create a new HTTPRequest node
-	add_child(request) # Add that node we created as a child to scene
-	
-	dialogue_request("Hello!")
-	
-	# With the node, it will connect it's "request_completed" signal to our _on_request_completed
-	# function. That means that once an API request has been received by the AI, the function
-	# will call
-	request.connect("request_completed", _on_request_completed)
-	
-	
-# This function is going to include our dialogue request that we are 
-# sending to the OpenAI API.
-func dialogue_request(player_dialogue):
-	var prompt = player_dialogue
-	#if(len(messages) == 0):
-		#var header_prompt = "Act as a " + current_npc.physical_description + " in a fantasy RPG. "
-		#header_prompt += "As a character, you are " + current_npc.personality + "."
-		#header_prompt += "Your current location is " + current_npc.location_description + "."
-		#header_prompt += "You have secret knowledge that you will not speak about unless asked by me: " + current_npc.secret_knowledge + "."
-		#
-		#prompt = dialogue_rules + "\n" + header_prompt + "\nWhat is your first line of dialogue?"
-		
-	# This adds a new object to messages array, 
-	# containing the role and content of the request.
-	messages.append({
-		"role": "user",
-		"content": prompt # message player sends 
-	})
-	
-	on_player_talk.emit()
-	
-	# We are defining our body here for the API call. All objects that we add 
-	# inside of this body will be turned into JSON format for the API requirement
-	# Essentially the meat the of API call.
-	var body = JSON.new().stringify({
-		"messages" : messages,
-		"temperature": TEMPERATURE,
-		"max_tokens":  MAX_TOKENS,
-		"model": MODEL
-	})
-	
-	
-	# After getting the body, we now have to send the request. We want to use the 
-	# POST method because we are posting data to the API.
-	var send_request = request.request(URL, headers, HTTPClient.METHOD_POST, body)
-
-	# Error checking to see if send_request failed.
-	if send_request != OK:
-		print("There was an error!")
-		
-		
-
-func _on_request_completed(result, response_code, headers, body):
-	# This is going to convert the body to JSON format
-	var json = JSON.new()
-	var parse_result = json.parse(body.get_string_from_utf8())
-	var response = json.get_data()
-	
-		# Check if JSON parsing was successful
-	if parse_result != OK:
-		print("Error parsing JSON!")
+func send_message(message: String, callback: Callable):
+	if not current_character or is_loading:
+		print("Cannot send message: no character selected or already loading")
 		return
 
-	# Check if the response dictionary contains an 'error' key
-	if response.has("error"):
-		print("API Error: ", response["error"]["message"])
-		
-	# If no error, it's safe to get the message
-	elif response.has("choices"):
-		# When accessing the message the AI sent, we look at:
-		# 1. The choices list
-		# 2. We select the 1st choice
-		# 3. Get the data of the message.
-		# 4. Then finally get the content of the message we selected.
-		var message = response["choices"][0]["message"]["content"]
-		print(message) # for debug
-		
-		# Get DialogueBox node
-		# var dialogue_box = get_node("/root/Main/CanvasLayer/DialogueBox")
+	is_loading = true
+	print("Sending message to ", current_character.name, ": ", message)
 
-		# Append NPC response to DialogueText
-		# dialogue_box.dialogue_text.text += "\n[NPC]: " + message
+	var url = API_BASE_URL + "/chat"
+	var headers = ["Content-Type: application/json"]
 
-		# Optional: auto-scroll to bottom
-		# dialogue_box.dialogue_text.scroll_to_line(dialogue_box.dialogue_text.get_line_count() - 1)
-		
-		# append AI response to messages array instead and display it through dialogue box pop-up
-		messages.append({
-			"role": "system",
-			"content": message
-		})
-		
-		# print(message)
-		on_npc_talk.emit(message)
+	var body = {
+		"message": message,
+		"character_id": current_character.id,
+		"session_id": sessions.get(current_character.id, null)
+	}
+
+	current_request_type = RequestType.SEND_MESSAGE
+	http_request.set_meta("callback", callback)
+
+	var error = http_request.request(url, headers, HTTPClient.METHOD_POST, JSON.stringify(body))
+
+	if error != OK:
+		print("Failed to send message: ", error)
+		is_loading = false
+		callback.call(null, "Failed to send message")
+
+func select_character(character):
+	current_character = character
+	print("Selected character: ", character.name, " (", character.id, ")")
+
+# ============================================
+# Response Handlers
+# ============================================
+
+func _on_request_completed(result, response_code, headers, body):
+	if response_code != 200:
+		print("Request failed with code: ", response_code)
+		handle_request_error(response_code)
+		return
+
+	var json = JSON.new()
+	var error = json.parse(body.get_string_from_utf8())
+
+	if error != OK:
+		print("Failed to parse JSON: ", error)
+		return
+
+	var data = json.data
+
+	match current_request_type:
+		RequestType.HEALTH_CHECK:
+			handle_health_check(data)
+		RequestType.LOAD_CHARACTERS:
+			handle_characters_loaded(data)
+		RequestType.SEND_MESSAGE:
+			handle_message_response(data)
+
+func handle_health_check(data):
+	if data.api == "healthy" and data.mongodb == "connected" and data.openai == "connected":
+		print("✓ Server is healthy - loading characters...")
+		load_characters()
 	else:
-		print("Received an unknown response format.")
+		print("✗ Server has issues:", data)
 
-func enter_new_dialogue(npc):
-	current_npc = npc
-	messages = []
-	dialogue_box.visible = true;
-	
-	dialogue_box.initialize_with_npc(npc)
-	dialogue_request("Respond as if you are a function that works.")
+func handle_characters_loaded(data):
+	characters = data.characters
+	print("Loaded ", characters.size(), " characters:")
+	for character in characters:
+		print("  - ", character.avatar, " ", character.name, " (", character.id, ")")
 
-func is_dialogue_active():
-	return dialogue_box.visible
+	if characters.size() > 0:
+		select_character(characters[0])
 
-func exit_dialogue():
-	current_npc = null
-	messages = []
-	dialogue_box.visible = false; 
+func handle_message_response(data):
+	if not sessions.has(current_character.id):
+		sessions[current_character.id] = data.session_id
+		print("New session created for ", current_character.name, ": ", data.session_id)
 
-# Utility to load keys from .env	
-func load_env(path: String, key: String) -> String:
-	var file := FileAccess.open(path, FileAccess.READ)
-	if file == null:
-		return ""
-	var content = file.get_as_text().split("\n")
-	for line in content:
-		line = line.strip_edges()
-		if line.begins_with(key + "="):
-			return line.replace(key + "=", "").strip_edges()
-	return ""		
-	
+	print("Received response from ", current_character.name)
+
+	if http_request.has_meta("callback"):
+		var callback = http_request.get_meta("callback")
+		callback.call(data.response, null)
+		http_request.remove_meta("callback")
+
+	is_loading = false
+
+func handle_request_error(response_code):
+	print("Request error: ", response_code)
+	is_loading = false
+
+	if http_request.has_meta("callback"):
+		var callback = http_request.get_meta("callback")
+		callback.call(null, "Request failed with code: " + str(response_code))
+		http_request.remove_meta("callback")
+
+# ============================================
+# Public API
+# ============================================
+
+func get_characters() -> Array:
+	return characters
+
+func get_current_character():
+	return current_character
+
+func is_ready() -> bool:
+	return characters.size() > 0
