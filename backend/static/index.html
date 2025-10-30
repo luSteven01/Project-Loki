@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Richards Murder Investigation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #2c1810 0%, #1a1a1a 100%);
+            color: #d4c5a1;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(139,69,19,0.3) 0%, rgba(0,0,0,0.5) 100%);
+            border-radius: 15px;
+            border: 2px solid #8b4513;
+            box-shadow: 0 4px 15px rgba(139,69,19,0.2);
+        }
+
+        .header h1 { 
+            color: #daa520; 
+            font-size: 2.8em; 
+            margin-bottom: 10px; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            font-weight: bold;
+        }
+        .header p { 
+            color: #cd853f; 
+            font-size: 1.2em; 
+            font-style: italic;
+        }
+        .case-details {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #a0a0a0;
+        }
+
+        .chat-container {
+            background: linear-gradient(135deg, rgba(139,69,19,0.1) 0%, rgba(0,0,0,0.6) 100%);
+            border-radius: 15px;
+            border: 2px solid #8b4513;
+            height: 550px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 20px rgba(139,69,19,0.3);
+        }
+
+        .messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 15px 20px;
+            border-radius: 20px;
+            line-height: 1.5;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .user-message { 
+            align-self: flex-end; 
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            color: white; 
+            border: 1px solid #cd853f;
+        }
+        .ai-message { 
+            align-self: flex-start; 
+            background: linear-gradient(135deg, rgba(218,165,32,0.15) 0%, rgba(139,69,19,0.1) 100%);
+            border: 2px solid rgba(218,165,32,0.3);
+            color: #d4c5a1;
+        }
+        .system-message { 
+            align-self: center; 
+            background: linear-gradient(135deg, rgba(139,69,19,0.2) 0%, rgba(218,165,32,0.1) 100%);
+            border: 1px solid rgba(218,165,32,0.4);
+            text-align: center; 
+            max-width: 90%; 
+            font-style: italic; 
+            color: #cd853f;
+        }
+
+        .loading { 
+            align-self: flex-start; 
+            background: linear-gradient(135deg, rgba(218,165,32,0.15) 0%, rgba(139,69,19,0.1) 100%);
+            border: 2px solid rgba(218,165,32,0.3);
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            color: #d4c5a1;
+        }
+        .loading-dots { display: flex; gap: 6px; }
+        .loading-dots div { 
+            width: 10px; 
+            height: 10px; 
+            border-radius: 50%; 
+            background: #daa520; 
+            animation: loading 1.6s infinite ease-in-out; 
+        }
+        .loading-dots div:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots div:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes loading { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+        .input-area { 
+            padding: 20px; 
+            border-top: 2px solid #8b4513; 
+            display: flex; 
+            gap: 12px; 
+            background: rgba(139,69,19,0.1);
+        }
+        .input-field {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #8b4513;
+            border-radius: 30px;
+            background: rgba(218,165,32,0.1);
+            color: #d4c5a1;
+            font-size: 16px;
+            outline: none;
+            font-family: 'Georgia', serif;
+        }
+        .input-field:focus { 
+            border-color: #daa520; 
+            box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.3); 
+            background: rgba(218,165,32,0.15);
+        }
+        .input-field::placeholder {
+            color: #a0a0a0;
+            font-style: italic;
+        }
+        .send-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            color: white;
+            border: 2px solid #cd853f;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            box-shadow: 0 2px 8px rgba(139,69,19,0.3);
+        }
+        .send-btn:hover:not(:disabled) { 
+            background: linear-gradient(135deg, #a0522d 0%, #8b4513 100%);
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 12px rgba(139,69,19,0.4);
+        }
+        .send-btn:disabled { 
+            background: linear-gradient(135deg, #666 0%, #555 100%);
+            cursor: not-allowed; 
+            transform: none; 
+            border-color: #666;
+        }
+
+        .quick-questions { margin-top: 25px; text-align: center; }
+        .quick-questions h3 { 
+            color: #daa520; 
+            margin-bottom: 20px; 
+            font-size: 1.4em; 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+        .quick-btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+        .quick-btn {
+            padding: 10px 18px;
+            background: linear-gradient(135deg, rgba(139,69,19,0.3) 0%, rgba(218,165,32,0.2) 100%);
+            border: 2px solid rgba(218,165,32,0.4);
+            color: #d4c5a1;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .quick-btn:hover { 
+            background: linear-gradient(135deg, rgba(139,69,19,0.5) 0%, rgba(218,165,32,0.3) 100%);
+            transform: translateY(-3px); 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border-color: #daa520;
+        }
+
+        .status { 
+            text-align: center; 
+            margin-bottom: 20px; 
+            padding: 12px; 
+            background: linear-gradient(135deg, rgba(139,69,19,0.2) 0%, rgba(0,0,0,0.4) 100%);
+            border-radius: 8px; 
+            font-size: 14px; 
+            border: 1px solid #8b4513;
+        }
+        .status.connected { color: #90ee90; border-color: #90ee90; }
+        .status.error { color: #ff6b6b; border-color: #ff6b6b; }
+
+        /* Character card styling */
+        .character-card {
+            background: linear-gradient(135deg, rgba(139,69,19,0.2) 0%, rgba(0,0,0,0.4) 100%);
+            border: 2px solid rgba(218,165,32,0.4);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+        .character-card:hover { 
+            transform: scale(1.02); 
+            background: linear-gradient(135deg, rgba(139,69,19,0.3) 0%, rgba(218,165,32,0.1) 100%);
+            border-color: #daa520;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+        .character-card h2 { 
+            color: #daa520; 
+            margin-bottom: 12px; 
+            font-size: 1.3em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+        .character-card h3 { 
+            color: #cd853f; 
+            margin: 10px 0 8px 0; 
+            font-size: 1em;
+        }
+        .character-card ul { 
+            margin-left: 20px; 
+            margin-bottom: 12px; 
+            color: #b8b8b8;
+        }
+        .character-card li {
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+        .character-card p { 
+            margin-bottom: 8px; 
+            color: #d4c5a1;
+            line-height: 1.4;
+        }
+        .character-card .status-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-left: 8px;
+            font-weight: bold;
+        }
+        .no-alibi { background: #8B0000; color: white; }
+        .confirmed-alibi { background: #006400; color: white; }
+        .suspicious { background: #FF8C00; color: white; }
+
+        .evidence-highlight {
+            background: rgba(218,165,32,0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid rgba(218,165,32,0.4);
+        }
+
+        .time-critical {
+            background: rgba(255,69,0,0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid rgba(255,69,0,0.4);
+            color: #ff6347;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 15px; }
+            .header h1 { font-size: 2.2em; }
+            .quick-btns { flex-direction: column; align-items: center; }
+            .message { max-width: 95%; }
+            .character-card { padding: 15px; }
+        }
+
+        /* Scrollbar styling */
+        .messages::-webkit-scrollbar {
+            width: 8px;
+        }
+        .messages::-webkit-scrollbar-track {
+            background: rgba(139,69,19,0.1);
+            border-radius: 4px;
+        }
+        .messages::-webkit-scrollbar-thumb {
+            background: rgba(218,165,32,0.4);
+            border-radius: 4px;
+        }
+        .messages::-webkit-scrollbar-thumb:hover {
+            background: rgba(218,165,32,0.6);
+        }
+
+        /* Character Selection Buttons */
+        .character-selection {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(139,69,19,0.2) 0%, rgba(0,0,0,0.4) 100%);
+            border-radius: 12px;
+            border: 2px solid #8b4513;
+        }
+        .character-selection h3 {
+            color: #daa520;
+            text-align: center;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+        .character-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .char-btn {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, rgba(139,69,19,0.3) 0%, rgba(0,0,0,0.5) 100%);
+            border: 2px solid rgba(218,165,32,0.4);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #d4c5a1;
+            font-size: 0.95em;
+            font-family: 'Georgia', serif;
+        }
+        .char-btn:hover {
+            background: linear-gradient(135deg, rgba(139,69,19,0.5) 0%, rgba(218,165,32,0.2) 100%);
+            border-color: #daa520;
+            transform: translateY(-2px);
+        }
+        .char-btn.active {
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            border-color: #daa520;
+            box-shadow: 0 0 15px rgba(218,165,32,0.5);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🕵️ Detective Investigation</h1>
+            <p>Professor Richards Murder Case</p>
+            <div class="case-details">
+                <strong>Location:</strong> Professor's Home Office |
+                <strong>Time of Death:</strong> 5:57-5:58 PM |
+                <strong>Discovered:</strong> 7:22 PM by Alice
+            </div>
+        </div>
+
+        <div id="status" class="status">Connecting to investigation database...</div>
+
+        <!-- Character Selection -->
+        <div class="character-selection">
+            <h3>Select Character to Interview</h3>
+            <div id="characterBtns" class="character-btns">
+                <!-- Character buttons will be loaded here -->
+            </div>
+        </div>
+
+        <div class="chat-container">
+            <div id="messages" class="messages">
+                <div class="message system-message">
+                    Welcome, Detective! I'm your AI assistant for the Professor Richards murder investigation. 
+                    This case involves a dinner party that turned deadly, with complex family secrets and academic rivalries.
+                    Ask me about suspects, timeline, evidence, or motives to solve this case.
+                </div>
+                
+                <!-- Character Cards for the Professor Richards Case -->
+                <div class="message ai-message">
+                    <div class="character-card">
+                        <h2>Abel (Student/Son) <span class="status-tag no-alibi">NO ALIBI 5:30-6:00 PM</span></h2>
+                        <p><strong>Role:</strong> Professor's former student, ambitious Software Engineering major, Diane's son</p>
+                        <h3>Critical Timeline:</h3>
+                        <ul>
+                            <li><span class="time-critical">5:32-5:45 PM:</span> Wandering upstairs hallway alone</li>
+                            <li><span class="time-critical">5:45-5:50 PM:</span> In Professor's office, finds missing research</li>
+                            <li><span class="time-critical">5:50-5:57 PM:</span> Argues with Professor when caught</li>
+                            <li><span class="time-critical">5:57-5:58 PM:</span> MOMENT OF DEATH - confrontation occurs</li>
+                        </ul>
+                        <p><strong>Motive:</strong> Curiosity about research, then panic after incident</p>
+                        <p><strong>Behavior:</strong> <span class="evidence-highlight">Gets lost in own world, easily distracted, panics under pressure</span></p>
+                    </div>
+                    
+                    <div class="character-card">
+                        <h2>Diane (Mother/Dean) <span class="status-tag suspicious">SUSPICIOUS ACTIVITY</span></h2>
+                        <p><strong>Role:</strong> University Dean, Abel's mother, protective parent</p>
+                        <h3>Critical Timeline:</h3>
+                        <ul>
+                            <li>6:00-6:30 PM: Private discussion with Abel on front porch</li>
+                            <li>6:43-6:47 PM: Goes to car, retrieves extension cord</li>
+                            <li><span class="time-critical">6:47-6:54 PM:</span> Alone in Professor's office</li>
+                            <li>6:54-7:20 PM: Hiding in upstairs bathroom</li>
+                        </ul>
+                        <p><strong>Evidence:</strong> <span class="evidence-highlight">Planted extension cord near body to stage accident scene</span></p>
+                        <p><strong>Behavior:</strong> Intelligent, protective of son, capable of cover-up planning</p>
+                    </div>
+                    
+                    <div class="character-card">
+                        <h2>Professor Schumacher (Colleague) <span class="status-tag suspicious">RESEARCH THEFT</span></h2>
+                        <p><strong>Role:</strong> Professor's research colleague, jealous of recognition</p>
+                        <h3>Timeline:</h3>
+                        <ul>
+                            <li><span class="time-critical">5:20-5:30 PM:</span> Secretly steals research materials from office</li>
+                            <li>5:50-6:30 PM: Long private conversation with Adele in kitchen</li>
+                        </ul>
+                        <p><strong>Motive:</strong> Resentment over Professor taking credit for collaborative work</p>
+                        <p><strong>Key Fact:</strong> <span class="evidence-highlight">Theft occurred BEFORE murder</span></p>
+                    </div>
+                    
+                    <div class="character-card">
+                        <h2>Alice (Estranged Daughter) <span class="status-tag suspicious">SECRET IDENTITY</span></h2>
+                        <p><strong>Role:</strong> Professor's daughter posing as his TA at party</p>
+                        <h3>Timeline:</h3>
+                        <ul>
+                            <li>6:00-6:12 PM: Overhears discussion about "missing papers"</li>
+                            <li><span class="time-critical">6:12-6:45 PM:</span> NO WITNESSES</li>
+                            <li>7:18-7:22 PM: Searches house for Professor</li>
+                            <li>7:22-7:23 PM: Discovers body, screams</li>
+                        </ul>
+                        <p><strong>Motive:</strong> Wanted to confront father, reveal true identity</p>
+                        <p><strong>Key Fact:</strong> Found the body but concealed her identity as daughter</p>
+                    </div>
+                    
+                    <div class="character-card">
+                        <h2>Adele (Wife) <span class="status-tag confirmed-alibi">PARTY HOSTESS</span></h2>
+                        <p><strong>Role:</strong> Professor's wife, dinner party hostess</p>
+                        <h3>Timeline:</h3>
+                        <ul>
+                            <li>5:30-5:50 PM: Helping chef in kitchen</li>
+                            <li>5:50-6:30 PM: Extended conversation with Schumacher</li>
+                            <li>6:30 PM onward: General hosting duties</li>
+                        </ul>
+                        <p><strong>Note:</strong> Suspicious timing of private conversation with Schumacher during critical period</p>
+                    </div>
+
+                    <div class="character-card">
+                        <h2>The Chef <span class="status-tag confirmed-alibi">PERSONAL CHEF</span></h2>
+                        <p><strong>Role:</strong> Chef, responsible for cooking food at the party</p>
+                        <h3>Timeline:</h3>
+                        <ul>
+                            <li>5:00 - 6:45 PM: Cooking dishes for the party</li>
+                            <li>6:45 - 7:15 PM: Serve dishes to the guests</li>
+                            <li>7:15 - 7:21 PM: Preparing next dishes for the party</li>
+                            <li>7:21 PM: hearS Alice scream, goes with everybody to the second floor</li>
+                        </ul>
+                        <p><strong>Note:</strong> Was able to hear Alice scream from Professor Richards' study while in the kitchen</p>
+                    </div>
+
+                    <div class="character-card">
+                        <h2>The Maid<span class="status-tag confirmed-alibi">MAID</span></h2>
+                        <p><strong>Role:</strong> Party greeter, helps with chores around the house when needed</p>
+                        <h3>Timeline:</h3>
+                        <ul>
+                            <li>5:00 - 5:05 PM: Greet guests as they arrive to the party and put their coats away on the garment rack</li>
+                            <li>5:06 - 5:24 PM: Gets cleaning supplies to clean the first-floor bathroom</li>
+                            <li>5:24 - 5:56 PM: Cleaning the first-floor bathroom</li>
+                            <li>5:56-6:45 PM: Helping the chef prepare the dishes for the party</li>
+                            <li>6:45-7:21 PM: Helping the chef serve the dishes to the guests</li>
+                            <li>7:21 PM: Hhears Alice scream from the dining room</li>
+                        </ul>
+                        <p><strong>Note:</strong> Was cleaning the first-floor bathroom when Abel tried to use the bathroom on the first-floor</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="input-area">
+                <input type="text" id="messageInput" class="input-field" placeholder="Ask about suspects, timeline, evidence..." disabled>
+                <button id="sendBtn" class="send-btn" disabled>Investigate</button>
+            </div>
+        </div>
+
+        <div class="quick-questions">
+            <h3>Key Investigation Questions</h3>
+            <div class="quick-btns">
+                <div class="quick-btn" data-question="Who had access to the office during the murder timeframe?">Who had office access?</div>
+                <div class="quick-btn" data-question="What happened between 5:57-5:58 PM?">Critical murder moment</div>
+                <div class="quick-btn" data-question="Tell me about Abel's timeline and behavior">Analyze Abel's timeline</div>
+                <div class="quick-btn" data-question="Why was the extension cord planted?">Staged crime scene</div>
+                <div class="quick-btn" data-question="Who stole the research materials?">Missing research</div>
+                <div class="quick-btn" data-question="What family secrets are involved?">Family dynamics</div>
+                <div class="quick-btn" data-question="Compare all alibis for 5:57 PM">Alibi analysis</div>
+                <div class="quick-btn" data-question="What evidence points to the real killer?">Find the killer</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8000';
+        let sessions = {}; // { character_id: session_id }
+        let currentCharacter = null;
+        let isLoading = false;
+        let characters = [];
+
+        const messagesContainer = document.getElementById('messages');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const statusDiv = document.getElementById('status');
+        const characterBtnsContainer = document.getElementById('characterBtns');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkServerHealth();
+            loadCharacters();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            sendBtn.addEventListener('click', sendMessage);
+            messageInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !isLoading) sendMessage();
+            });
+            document.querySelectorAll('.quick-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    messageInput.value = btn.dataset.question;
+                    sendMessage();
+                });
+            });
+        }
+
+        async function checkServerHealth() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/health`);
+                const data = await response.json();
+                if (data.api === 'healthy' && data.mongodb === 'connected' && data.openai === 'connected') {
+                    setStatus('Investigation database connected - Ready to solve the case', 'connected');
+                    enableInput();
+                } else {
+                    setStatus(`Database issues detected: MongoDB: ${data.mongodb}, AI Assistant: ${data.openai}`, 'error');
+                }
+            } catch (error) {
+                setStatus('Cannot connect to investigation database. Ensure server is running on port 8000.', 'error');
+            }
+        }
+
+        function setStatus(message, type='') { 
+            statusDiv.textContent = message; 
+            statusDiv.className = `status ${type}`; 
+        }
+        
+        function enableInput() { 
+            messageInput.disabled = false; 
+            sendBtn.disabled = false; 
+            messageInput.focus(); 
+        }
+        
+        function addMessage(content, type='user') { 
+            const div = document.createElement('div'); 
+            div.className = `message ${type}-message`; 
+            div.innerHTML = content; 
+            messagesContainer.appendChild(div); 
+            scrollToBottom(); 
+        }
+        
+        function addLoadingMessage() { 
+            const div = document.createElement('div'); 
+            div.className = 'message loading'; 
+            div.id = 'loading-message'; 
+            div.innerHTML = `<span>Analyzing evidence and case files...</span><div class="loading-dots"><div></div><div></div><div></div></div>`; 
+            messagesContainer.appendChild(div); 
+            scrollToBottom(); 
+        }
+        
+        function removeLoadingMessage() { 
+            const loading = document.getElementById('loading-message'); 
+            if(loading) loading.remove(); 
+        }
+        
+        function scrollToBottom() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        async function loadCharacters() {
+            try {
+                console.log('Loading characters...');
+                const response = await fetch(`${API_BASE_URL}/characters`);
+                const data = await response.json();
+                console.log('Characters data:', data);
+                characters = data.characters;
+                console.log('Characters array:', characters);
+                renderCharacterButtons();
+
+                // Auto-select detective by default
+                if (characters.length > 0) {
+                    selectCharacter(characters[0]);
+                }
+            } catch (error) {
+                console.error('Failed to load characters:', error);
+                setStatus('Failed to load characters: ' + error.message, 'error');
+            }
+        }
+
+        function renderCharacterButtons() {
+            console.log('Rendering character buttons...');
+            console.log('Container:', characterBtnsContainer);
+            console.log('Characters to render:', characters);
+
+            if (!characterBtnsContainer) {
+                console.error('characterBtnsContainer not found!');
+                return;
+            }
+
+            characterBtnsContainer.innerHTML = '';
+            characters.forEach(char => {
+                console.log('Creating button for:', char.name);
+                const btn = document.createElement('button');
+                btn.className = 'char-btn';
+                btn.textContent = `${char.avatar} ${char.name}`;
+                btn.onclick = () => selectCharacter(char);
+                btn.dataset.charId = char.id;
+                characterBtnsContainer.appendChild(btn);
+            });
+            console.log('Buttons created:', characterBtnsContainer.children.length);
+        }
+
+        function selectCharacter(character) {
+            currentCharacter = character;
+
+            // Update button states
+            document.querySelectorAll('.char-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.charId === character.id);
+            });
+
+            // Clear messages and show welcome message for this character
+            messagesContainer.innerHTML = '';
+            addMessage(
+                `Now interviewing: <strong>${character.avatar} ${character.name}</strong><br>${character.description}`,
+                'system'
+            );
+
+            // Update status message
+            setStatus(`Now interviewing: ${character.avatar} ${character.name}`, 'connected');
+        }
+
+        async function sendMessage() {
+            if (!currentCharacter) {
+                alert('Please select a character first!');
+                return;
+            }
+
+            const message = messageInput.value.trim();
+            if (!message || isLoading) return;
+            
+            addMessage(message, 'user');
+            messageInput.value = '';
+            isLoading = true;
+            sendBtn.disabled = true;
+            messageInput.disabled = true;
+            addLoadingMessage();
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/chat`, {
+                    method: 'POST',
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({
+                        message: message,
+                        character_id: currentCharacter.id,
+                        session_id: sessions[currentCharacter.id] || null
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                // Store session ID for this character
+                if (!sessions[currentCharacter.id]) {
+                    sessions[currentCharacter.id] = data.session_id;
+                }
+
+                removeLoadingMessage();
+                addMessage(data.response, 'ai');
+            } catch (error) {
+                removeLoadingMessage();
+                addMessage(`Investigation Error: ${error.message}. Please check server connection.`, 'system');
+                console.error('Error:', error);
+            } finally {
+                isLoading = false;
+                sendBtn.disabled = false;
+                messageInput.disabled = false;
+                messageInput.focus();
+            }
+        }
+    </script>
+</body>
+</html>
