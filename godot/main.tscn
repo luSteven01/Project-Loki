@@ -1,65 +1,33 @@
-[gd_scene load_steps=50 format=3 uid="uid://sxywo3malpjm"]
+[gd_scene load_steps=32 format=3 uid="uid://sxywo3malpjm"]
 
 [ext_resource type="Script" uid="uid://es4u7q11xmls" path="res://game_manager.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://c2hcggxoe5ubs" path="res://dialogue_box.gd" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://bux1jvddnhhak" path="res://player.gd" id="3_1bvp3"]
-[ext_resource type="Texture2D" uid="uid://g7vujut2ybd2" path="res://roguelikeChar_transparent.png" id="4_lquwl"]
 [ext_resource type="Script" uid="uid://dsvfq7ypy0rgu" path="res://talk_trigger.gd" id="5_5vw27"]
 [ext_resource type="Script" uid="uid://d44bxmmkmawl" path="res://test_npc.gd" id="6_kek77"]
 [ext_resource type="Script" uid="uid://dmonfxpehkkfp" path="res://test_npc_2.gd" id="7_4c57u"]
-[ext_resource type="Texture2D" uid="uid://mk6rnua75pi0" path="res://craftpix-net-865357-free-pixel-citizens-for-top-down-tower-defense/1/D_Idle.png" id="7_efxa6"]
 [ext_resource type="Script" uid="uid://cccy61mdylm3g" path="res://test_npc_3.gd" id="8_efxa6"]
-[ext_resource type="Texture2D" uid="uid://c2ah2rmftyqqc" path="res://craftpix-net-865357-free-pixel-citizens-for-top-down-tower-defense/2/D_Idle.png" id="9_dg77c"]
-[ext_resource type="Texture2D" uid="uid://kbxftwahmuqo" path="res://craftpix-net-865357-free-pixel-citizens-for-top-down-tower-defense/3/D_Idle.png" id="11_ycdy4"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0xm2m"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7mycd"]
-atlas = ExtResource("4_lquwl")
-region = Rect2(17, 102, 17, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_272bh"]
-atlas = ExtResource("4_lquwl")
-region = Rect2(17, 102, 17, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5vw27"]
-atlas = ExtResource("4_lquwl")
-region = Rect2(17, 102, 17, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kek77"]
-atlas = ExtResource("4_lquwl")
-region = Rect2(17, 102, 17, 16)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_4c57u"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7mycd")
-}],
+"frames": [],
 "loop": true,
 "name": &"back",
 "speed": 5.0
 }, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_272bh")
-}],
+"frames": [],
 "loop": true,
 "name": &"front",
 "speed": 5.0
 }, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5vw27")
-}],
+"frames": [],
 "loop": true,
 "name": &"left",
 "speed": 5.0
 }, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kek77")
-}],
+"frames": [],
 "loop": true,
 "name": &"right",
 "speed": 5.0
@@ -120,37 +88,12 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_dg77c"]
 radius = 101.193
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w48qg"]
-atlas = ExtResource("7_efxa6")
-region = Rect2(0, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vivmo"]
-atlas = ExtResource("7_efxa6")
-region = Rect2(48, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2cqfq"]
-atlas = ExtResource("7_efxa6")
-region = Rect2(96, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yaehf"]
-atlas = ExtResource("7_efxa6")
-region = Rect2(144, 0, 48, 48)
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_272bh"]
+load_path = "res://.godot/imported/D_Idle.png-e7134bdf1c934ddfd120e457e967122f.ctex"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_074og"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w48qg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vivmo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2cqfq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yaehf")
-}],
+"frames": [],
 "loop": true,
 "name": &"front_idle",
 "speed": 5.0
@@ -223,37 +166,12 @@ _data = {
 &"front_idle": SubResource("Animation_82xsv")
 }
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d13ii"]
-atlas = ExtResource("9_dg77c")
-region = Rect2(0, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1u8w0"]
-atlas = ExtResource("9_dg77c")
-region = Rect2(48, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0odxb"]
-atlas = ExtResource("9_dg77c")
-region = Rect2(96, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lswn8"]
-atlas = ExtResource("9_dg77c")
-region = Rect2(144, 0, 48, 48)
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5vw27"]
+load_path = "res://.godot/imported/D_Idle.png-b28ce0f78a49df691424acfb38cf178b.ctex"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_a6jrf"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d13ii")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1u8w0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0odxb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lswn8")
-}],
+"frames": [],
 "loop": true,
 "name": &"front_idle",
 "speed": 5.0
@@ -326,37 +244,9 @@ _data = {
 &"front_idle": SubResource("Animation_qsp4k")
 }
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_htxhm"]
-atlas = ExtResource("11_ycdy4")
-region = Rect2(0, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jq2sk"]
-atlas = ExtResource("11_ycdy4")
-region = Rect2(48, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4k2k6"]
-atlas = ExtResource("11_ycdy4")
-region = Rect2(96, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0rl1p"]
-atlas = ExtResource("11_ycdy4")
-region = Rect2(144, 0, 48, 48)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_ok6jj"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_htxhm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jq2sk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4k2k6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0rl1p")
-}],
+"frames": [],
 "loop": true,
 "name": &"front_idle",
 "speed": 5.0
@@ -543,7 +433,7 @@ shape = SubResource("CircleShape2D_dg77c")
 
 [node name="TestNPC" type="CharacterBody2D" parent="." groups=["NPC"]]
 script = ExtResource("6_kek77")
-icon = ExtResource("7_efxa6")
+icon = SubResource("CompressedTexture2D_272bh")
 physical_description = "Old man	"
 location_description = "In the cellar"
 personality = "Cranky and old"
@@ -566,7 +456,7 @@ libraries = {
 
 [node name="TestNPC2" type="CharacterBody2D" parent="." groups=["NPC"]]
 script = ExtResource("7_4c57u")
-icon = ExtResource("9_dg77c")
+icon = SubResource("CompressedTexture2D_5vw27")
 physical_description = "Built like a refrigerator	"
 location_description = "In my bedroom"
 personality = "Gay"
@@ -589,7 +479,7 @@ libraries = {
 
 [node name="TestNPC3" type="CharacterBody2D" parent="." groups=["NPC"]]
 script = ExtResource("8_efxa6")
-icon = ExtResource("9_dg77c")
+icon = SubResource("CompressedTexture2D_5vw27")
 physical_description = "Looks like Anne Hatheway	"
 location_description = "In the kitchen"
 personality = "Bubbly"
