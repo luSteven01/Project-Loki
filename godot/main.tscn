@@ -542,7 +542,6 @@ script = ExtResource("5_5vw27")
 shape = SubResource("CircleShape2D_dg77c")
 
 [node name="TestNPC" type="CharacterBody2D" parent="." groups=["NPC"]]
-visible = false
 script = ExtResource("6_kek77")
 icon = ExtResource("7_efxa6")
 physical_description = "Old man	"
@@ -566,7 +565,6 @@ libraries = {
 }
 
 [node name="TestNPC2" type="CharacterBody2D" parent="." groups=["NPC"]]
-visible = false
 script = ExtResource("7_4c57u")
 icon = ExtResource("9_dg77c")
 physical_description = "Built like a refrigerator	"
@@ -590,7 +588,6 @@ libraries = {
 }
 
 [node name="TestNPC3" type="CharacterBody2D" parent="." groups=["NPC"]]
-visible = false
 script = ExtResource("8_efxa6")
 icon = ExtResource("9_dg77c")
 physical_description = "Looks like Anne Hatheway	"
