@@ -431,6 +431,8 @@ _data = {
 &"RESET": SubResource("Animation_come4"),
 &"front_idle": SubResource("Animation_b1qrp")
 }
+[ext_resource type="PackedScene" uid="uid://cg58uk0dqkydk" path="res://dialogue_box.tscn" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://b27e368f31x6p" path="res://game_manager.gd" id="2_game_manager"]
 
 [node name="Main" type="Node2D"]
 
@@ -441,6 +443,7 @@ scale = Vector2(0.3, 0.3)
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("1_ig7tw")
 dialogue_rules = "This is jusft a test, talk normally."
+script = ExtResource("2_game_manager")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -631,3 +634,8 @@ libraries = {
 [connection signal="pressed" from="CanvasLayer/Dialogue_Box/LeaveButton" to="CanvasLayer/Dialogue_Box" method="_on_leave_button_pressed"]
 [connection signal="body_entered" from="Player/TalkTrigger" to="Player/TalkTrigger" method="_on_body_entered"]
 [connection signal="body_exited" from="Player/TalkTrigger" to="Player/TalkTrigger" method="_on_body_exited"]
+[node name="DialogueBox" parent="CanvasLayer" instance=ExtResource("2_0xm2m")]
+offset_left = 129.0
+offset_top = 37.0
+offset_right = 1025.0
+offset_bottom = 597.0
