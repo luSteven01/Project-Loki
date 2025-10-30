@@ -1,14 +1,11 @@
-[gd_scene load_steps=32 format=3 uid="uid://sxywo3malpjm"]
+[gd_scene load_steps=30 format=3 uid="uid://sxywo3malpjm"]
 
-[ext_resource type="Script" uid="uid://es4u7q11xmls" path="res://game_manager.gd" id="1_ig7tw"]
-[ext_resource type="Script" uid="uid://c2hcggxoe5ubs" path="res://dialogue_box.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://b27e368f31x6p" path="res://game_manager.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://bux1jvddnhhak" path="res://player.gd" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://dsvfq7ypy0rgu" path="res://talk_trigger.gd" id="5_5vw27"]
 [ext_resource type="Script" uid="uid://d44bxmmkmawl" path="res://test_npc.gd" id="6_kek77"]
 [ext_resource type="Script" uid="uid://dmonfxpehkkfp" path="res://test_npc_2.gd" id="7_4c57u"]
 [ext_resource type="Script" uid="uid://cccy61mdylm3g" path="res://test_npc_3.gd" id="8_efxa6"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0xm2m"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4c57u"]
 animations = [{
@@ -323,87 +320,8 @@ _data = {
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("1_ig7tw")
-dialogue_rules = "This is jusft a test, talk normally."
 
 [node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Dialogue_Box" type="Panel" parent="CanvasLayer"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -496.0
-offset_top = -184.0
-offset_right = 440.0
-offset_bottom = 244.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("2_0xm2m")
-
-[node name="NPC_Icon" type="TextureRect" parent="CanvasLayer/Dialogue_Box"]
-layout_mode = 0
-offset_left = 24.0
-offset_top = 28.0
-offset_right = 336.0
-offset_bottom = 292.0
-texture = SubResource("PlaceholderTexture2D_0xm2m")
-
-[node name="Player_Input" type="TextEdit" parent="CanvasLayer/Dialogue_Box"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.757
-anchor_right = 1.0
-anchor_bottom = 0.888
-offset_left = 24.0
-offset_top = 0.0039978
-offset_right = -344.0
-offset_bottom = 7.93597
-theme_override_constants/line_spacing = 16
-theme_override_font_sizes/font_size = 16
-placeholder_text = "Enter message..."
-
-[node name="SubmitButton" type="Button" parent="CanvasLayer/Dialogue_Box"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.766
-anchor_right = 1.0
-anchor_bottom = 0.907
-offset_left = 632.0
-offset_top = 0.151978
-offset_right = -184.0
-offset_bottom = -8.19601
-text = "Talk"
-
-[node name="NPC_Dialogue" type="RichTextLabel" parent="CanvasLayer/Dialogue_Box"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.628
-offset_left = 384.0
-offset_top = 28.0
-offset_right = -72.0
-offset_bottom = 0.0480042
-theme_override_font_sizes/bold_italics_font_size = 0
-theme_override_font_sizes/italics_font_size = 0
-theme_override_font_sizes/mono_font_size = 0
-theme_override_font_sizes/bold_font_size = 0
-text = "This is where the NPC's dialogue will go when the player talks to an NPC."
-
-[node name="LeaveButton" type="Button" parent="CanvasLayer/Dialogue_Box"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.766
-anchor_right = 1.0
-anchor_bottom = 0.888
-offset_left = 784.0
-offset_top = 0.151978
-offset_right = -32.0
-offset_bottom = -0.0640259
-text = "Leave"
 
 [node name="Player" type="CharacterBody2D" parent="."]
 scale = Vector2(0.5, 0.5)
@@ -500,10 +418,10 @@ libraries = {
 &"": SubResource("AnimationLibrary_h8e4i")
 }
 
-[connection signal="pressed" from="CanvasLayer/Dialogue_Box/SubmitButton" to="CanvasLayer/Dialogue_Box" method="_on_submit_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Dialogue_Box/LeaveButton" to="CanvasLayer/Dialogue_Box" method="_on_leave_button_pressed"]
 [connection signal="body_entered" from="Player/TalkTrigger" to="Player/TalkTrigger" method="_on_body_entered"]
 [connection signal="body_exited" from="Player/TalkTrigger" to="Player/TalkTrigger" method="_on_body_exited"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="DialogueBox" parent="CanvasLayer" instance=ExtResource("2_0xm2m")]
 offset_left = 129.0
