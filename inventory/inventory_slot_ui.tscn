@@ -1,14 +1,27 @@
 [gd_scene load_steps=3 format=3 uid="uid://chibanxk8ougs"]
 
-[ext_resource type="Script" uid="uid://ce1ts03seb5yy" path="res://inventory/inventory_slot_ui.gd" id="1_at275"]
 [ext_resource type="Texture2D" uid="uid://cgaurw8fd8ilx" path="res://inventory/inventory-slot.png" id="1_qrlm6"]
+
+[sub_resource type="GDScript" id="GDScript_qrlm6"]
+script/source = "extends Panel
+
+@onready var item_visual : Sprite2D = $CenterContainer/Panel/item_display # to display the item in the inventory
+
+func update_inventory(item: InventoryItem):
+	# changing visual and texture depending on if we got the item in our inventory 
+	if !item:
+		item_visual.visible = false
+	else:
+		item_visual.visible = true
+		item_visual.texture = item.texture 
+"
 
 [node name="Inventory_Slot_UI" type="Panel"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(16, 16)
 offset_right = 16.0
 offset_bottom = 16.0
-script = ExtResource("1_at275")
+script = SubResource("GDScript_qrlm6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_qrlm6")
@@ -24,15 +37,3 @@ offset_bottom = 16.0
 layout_mode = 2
 
 [node name="item_display" type="Sprite2D" parent="CenterContainer/Panel"]
-scale = Vector2(0.03, 0.03)
-
-[node name="Label" type="Label" parent="CenterContainer/Panel"]
-custom_minimum_size = Vector2(0.5, 0)
-layout_mode = 0
-offset_left = -3.0
-offset_top = -3.0
-offset_right = 18.0
-offset_bottom = 20.0
-scale = Vector2(0.5, 0.5)
-text = "99"
-horizontal_alignment = 2

@@ -1,19 +1,16 @@
-[gd_scene load_steps=53 format=3 uid="uid://sxywo3malpjm"]
+[gd_scene load_steps=50 format=3 uid="uid://sxywo3malpjm"]
 
 [ext_resource type="Script" uid="uid://es4u7q11xmls" path="res://game_manager.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://c2hcggxoe5ubs" path="res://dialogue_box.gd" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://bux1jvddnhhak" path="res://player.gd" id="3_1bvp3"]
-[ext_resource type="Resource" uid="uid://bua51mpvuxhjr" path="res://inventory/player_inventory.tres" id="4_dg77c"]
 [ext_resource type="Texture2D" uid="uid://g7vujut2ybd2" path="res://roguelikeChar_transparent.png" id="4_lquwl"]
 [ext_resource type="Script" uid="uid://dsvfq7ypy0rgu" path="res://talk_trigger.gd" id="5_5vw27"]
 [ext_resource type="Script" uid="uid://d44bxmmkmawl" path="res://test_npc.gd" id="6_kek77"]
 [ext_resource type="Script" uid="uid://dmonfxpehkkfp" path="res://test_npc_2.gd" id="7_4c57u"]
 [ext_resource type="Texture2D" uid="uid://mk6rnua75pi0" path="res://craftpix-net-865357-free-pixel-citizens-for-top-down-tower-defense/1/D_Idle.png" id="7_efxa6"]
-[ext_resource type="PackedScene" uid="uid://b3qafyx4ws6tq" path="res://inventory/inventory_ui.tscn" id="7_ycdy4"]
 [ext_resource type="Script" uid="uid://cccy61mdylm3g" path="res://test_npc_3.gd" id="8_efxa6"]
 [ext_resource type="Texture2D" uid="uid://c2ah2rmftyqqc" path="res://craftpix-net-865357-free-pixel-citizens-for-top-down-tower-defense/2/D_Idle.png" id="9_dg77c"]
 [ext_resource type="Texture2D" uid="uid://kbxftwahmuqo" path="res://craftpix-net-865357-free-pixel-citizens-for-top-down-tower-defense/3/D_Idle.png" id="11_ycdy4"]
-[ext_resource type="PackedScene" uid="uid://meonxjbb8v8q" path="res://inventory/items/collectible_item.tscn" id="14_w48qg"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0xm2m"]
 
@@ -70,7 +67,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_efxa6"]
 radius = 48.0
-height = 192.0
+height = 96.0
 
 [sub_resource type="Animation" id="Animation_lquwl"]
 length = 0.001
@@ -434,10 +431,6 @@ _data = {
 
 [node name="Main" type="Node2D"]
 
-[node name="collectible_item" parent="." instance=ExtResource("14_w48qg")]
-position = Vector2(400, -38)
-scale = Vector2(0.3, 0.3)
-
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("1_ig7tw")
 dialogue_rules = "This is jusft a test, talk normally."
@@ -526,7 +519,6 @@ text = "Leave"
 scale = Vector2(0.5, 0.5)
 motion_mode = 1
 script = ExtResource("3_1bvp3")
-inventory = ExtResource("4_dg77c")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 scale = Vector2(5, 5)
@@ -548,13 +540,6 @@ script = ExtResource("5_5vw27")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/TalkTrigger"]
 shape = SubResource("CircleShape2D_dg77c")
-
-[node name="Inventory_UI" parent="Player" instance=ExtResource("7_ycdy4")]
-offset_left = -352.0
-offset_top = -480.0
-offset_right = -264.0
-offset_bottom = -408.0
-scale = Vector2(5, 5)
 
 [node name="TestNPC" type="CharacterBody2D" parent="." groups=["NPC"]]
 visible = false
@@ -581,6 +566,7 @@ libraries = {
 }
 
 [node name="TestNPC2" type="CharacterBody2D" parent="." groups=["NPC"]]
+visible = false
 script = ExtResource("7_4c57u")
 icon = ExtResource("9_dg77c")
 physical_description = "Built like a refrigerator	"

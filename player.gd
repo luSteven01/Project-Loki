@@ -1,8 +1,7 @@
 extends CharacterBody2D
 
 @onready var animation_player = $AnimationPlayer
-@export var inventory : Inventory
-
+# @export var inventory : Inventory
 
 # Player moves at 50 pixels/second
 var speed : float = 250.0
@@ -10,10 +9,6 @@ var speed : float = 250.0
 # handling what sprite to use when pressing arrow keys
 var face_direction = "front"
 var animation_to_play = "front"
-
-# this is for the collectible_item script to see if the body is a player for collection
-func _player():
-	pass
 
 func _ready():
 	animation_player.stop()
@@ -40,7 +35,3 @@ func _physics_process(delta):
 	# applies velocity to move character
 	move_and_slide()
 	# pass
-
-# insert item into player's inventory
-func collect_item(item):
-	inventory.insert(item) # whatever item we are collecting has to call player.collect_item function & passes object's item
