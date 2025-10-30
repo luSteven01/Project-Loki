@@ -504,3 +504,9 @@ libraries = {
 [connection signal="pressed" from="CanvasLayer/Dialogue_Box/LeaveButton" to="CanvasLayer/Dialogue_Box" method="_on_leave_button_pressed"]
 [connection signal="body_entered" from="Player/TalkTrigger" to="Player/TalkTrigger" method="_on_body_entered"]
 [connection signal="body_exited" from="Player/TalkTrigger" to="Player/TalkTrigger" method="_on_body_exited"]
+
+[node name="DialogueBox" parent="CanvasLayer" instance=ExtResource("2_0xm2m")]
+offset_left = 129.0
+offset_top = 37.0
+offset_right = 1025.0
+offset_bottom = 597.0
