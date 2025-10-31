@@ -645,7 +645,7 @@
 
             const message = messageInput.value.trim();
             if (!message || isLoading) return;
-            
+
             addMessage(message, 'user');
             messageInput.value = '';
             isLoading = true;
@@ -654,12 +654,12 @@
             addLoadingMessage();
 
             try {
-                const response = await fetch(`${API_BASE_URL}/chat`, {
+                // Use the new character-specific endpoint: /chat/{character_id}
+                const response = await fetch(`${API_BASE_URL}/chat/${currentCharacter.id}`, {
                     method: 'POST',
                     headers: {'Content-Type':'application/json'},
                     body: JSON.stringify({
                         message: message,
-                        character_id: currentCharacter.id,
                         session_id: sessions[currentCharacter.id] || null
                     })
                 });
