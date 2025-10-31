@@ -1,5 +1,6 @@
 # Character definitions for the detective game
 from story import STORY_DATA
+import os
 
 CHARACTERS = {
     "detective": {
@@ -68,102 +69,37 @@ CHARACTERS = {
     }
 }
 
+def load_prompt_from_file(character_id: str) -> str:
+    """Load prompt from file for a given character"""
+    prompt_file = os.path.join(os.path.dirname(__file__), "prompts", f"{character_id}.txt")
+    try:
+        with open(prompt_file, 'r', encoding='utf-8') as f:
+            return f.read()
+    except FileNotFoundError:
+        raise ValueError(f"Prompt file not found for character: {character_id}")
+
 def get_detective_prompt() -> str:
-    """Generate system prompt for detective AI assistant"""
-    case_info = STORY_DATA["case_overview"]
-    crime_scene = STORY_DATA["crime_scene"]
-    suspects = STORY_DATA["suspects"]
-
-    prompt = f"""You are an AI detective assistant helping investigate a murder case.
-
-**CASE OVERVIEW:**
-Victim: {case_info['victim']}, {case_info['age']} {case_info['occupation']}
-Time of Death: {case_info['time_of_death']}
-Location: {case_info['location']}
-Cause of Death: {case_info['cause_of_death']}
-Discovered: {case_info['discovery_time']}
-
-**CRIME SCENE:**
-{crime_scene['description']}
-
-**EVIDENCE FOUND:**
-"""
-    for evidence in crime_scene['evidence']:
-        prompt += f"- {evidence}\n"
-
-    prompt += "\n**SUSPECTS:**\n"
-    for name, data in suspects.items():
-        prompt += f"\n**{name}:**\n"
-        prompt += f"- {data['basic_info']}\n"
-        prompt += f"- Motive: {data['motive']}\n"
-        prompt += f"- Behavior: {data['behavior']}\n"
-
-    prompt += """
-
-**YOUR ROLE:**
-- Help the investigator analyze evidence and suspect behavior
-- Ask probing questions to uncover the truth
-- Provide insights based on the evidence and timelines
-- Guide the investigation towards solving the case
-- Be professional, analytical, and thorough in your responses
-
-**IMPORTANT:**
-- You know all the facts about the case but should reveal them gradually
-- Encourage the investigator to think critically
-- Don't immediately reveal who the killer is - let them figure it out
-- Provide helpful hints when they're stuck
-"""
-
-    return prompt
+    """Load system prompt for detective AI assistant from file"""
+    return load_prompt_from_file("detective")
 
 def get_suspect_prompt(suspect_name: str) -> str:
-    """Generate system prompt for a suspect character"""
-    suspect_data = STORY_DATA["suspects"][suspect_name]
+    """Load system prompt for a suspect character from file"""
+    # Map suspect names to character IDs
+    name_to_id = {
+        "Abel": "abel",
+        "Diane": "diane",
+        "Professor Schumacher": "schumacher",
+        "Alice": "alice",
+        "Adele": "adele",
+        "The Chef": "chef",
+        "The Maid": "maid"
+    }
 
-    prompt = f"""You are roleplaying as {suspect_name} in a murder investigation scenario.
+    character_id = name_to_id.get(suspect_name)
+    if not character_id:
+        raise ValueError(f"Unknown suspect name: {suspect_name}")
 
-**YOUR CHARACTER:**
-{suspect_data['basic_info']}
-
-**YOUR TIMELINE (what you actually did):**
-"""
-
-    for time, action in suspect_data['timeline'].items():
-        prompt += f"- {time}: {action}\n"
-
-    prompt += f"""
-**YOUR MOTIVE:**
-{suspect_data['motive']}
-
-**YOUR RELATIONSHIP TO VICTIM:**
-{suspect_data['relationship']}
-
-**YOUR BEHAVIOR/PERSONALITY:**
-{suspect_data['behavior']}
-
-**KEY FACTS YOU KNOW:**
-{suspect_data['key_facts']}
-
-**ROLEPLAY INSTRUCTIONS:**
-- Stay in character as {suspect_name}
-- Answer questions from the investigator's perspective
-- You may be evasive about certain details, especially if they incriminate you
-- Show your personality and emotions appropriate to the situation
-- If you're guilty or hiding something, show nervousness or defensiveness when appropriate
-- If you're innocent, you may be confused, scared, or eager to help
-- Don't volunteer information that would immediately solve the case
-- Be realistic - people don't always remember every detail perfectly
-- You may lie or withhold information to protect yourself or others
-- React emotionally when appropriate (fear, anger, sadness, defensiveness)
-
-**IMPORTANT:**
-- Do NOT break character
-- Do NOT explain the entire case or reveal everything at once
-- Let information come out naturally through conversation
-- Show human emotions and realistic reactions
-"""
-
-    return prompt
+    return load_prompt_from_file(character_id)
 
 def get_character_info(character_id: str) -> dict:
     """Get character information without the prompt generator"""
