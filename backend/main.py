@@ -1,7 +1,12 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 import uvicorn
 from datetime import datetime
+from pydantic import BaseModel
+from typing import Optional
+import os
 from services import (
     ChatRequest, ChatResponse, GameSession,
     create_session, get_session, update_session,
@@ -11,6 +16,11 @@ from services import (
 from prompt import get_system_prompt
 from story import STORY_DATA
 from characters import get_all_characters, get_system_prompt_for_character, get_character_info
+
+# Request model for character-specific chat endpoints
+class CharacterChatRequest(BaseModel):
+    message: str
+    session_id: Optional[str] = None
 
 app = FastAPI(title="Professor Richards Detective Game API", version="1.0.0")
 
@@ -23,6 +33,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Mount static files
+static_path = os.path.join(os.path.dirname(__file__), "static")
+if os.path.exists(static_path):
+    app.mount("/static", StaticFiles(directory=static_path), name="static")
+
 @app.on_event("startup")
 async def startup_event():
     print("🕵️ Professor Richards Detective Game API starting...")
@@ -30,15 +45,27 @@ async def startup_event():
     print("✅ API ready!")
 
 @app.get("/")
-async def root():
+async def serve_ui():
+    """Serve the investigation UI"""
+    index_path = os.path.join(os.path.dirname(__file__), "static", "index.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    else:
+        raise HTTPException(status_code=404, detail="UI not found")
+
+@app.get("/api")
+async def api_info():
+    """API information and available endpoints"""
     return {
         "message": "Professor Richards Detective Game API",
         "status": "running",
         "case": "Murder at Professor Richards' Dinner Party",
         "endpoints": {
             "chat": "/chat - Main conversation endpoint",
+            "chat_character": "/chat/{character_id} - Chat with specific character (e.g., /chat/abel, /chat/detective)",
             "health": "/health - API health check",
-            "case-info": "/case-info - Basic case information"
+            "case-info": "/case-info - Basic case information",
+            "characters": "/characters - List all characters"
         }
     }
 
@@ -90,9 +117,12 @@ async def chat_with_detective_ai(request: ChatRequest):
 
         # Add previous messages from this session
         for msg in session.messages:
-            # role = msg["role"] if msg["role"] in ["system", "user", "assistant"] else "assistant" # allows us to continue talking, we just leave if we want
+            # Convert character_id role to 'assistant' for OpenAI API
+            role = msg["role"]
+            if role not in ["system", "user", "assistant"]:
+                role = "assistant"
             conversation_messages.append({
-                "role": msg["role"],
+                "role": role,
                 "content": msg["content"]
             })
 
@@ -230,6 +260,88 @@ async def get_character(character_id: str):
     if not char_info:
         raise HTTPException(status_code=404, detail="Character not found")
     return char_info
+
+@app.post("/chat/{character_id}", response_model=ChatResponse)
+async def chat_with_character(character_id: str, request: CharacterChatRequest):
+    """Chat endpoint for a specific character"""
+
+    try:
+        # Validate character_id
+        char_info = get_character_info(character_id)
+        if not char_info:
+            raise HTTPException(status_code=404, detail=f"Character not found: {character_id}")
+
+        # Create or get session
+        if not request.session_id:
+            session_id = await create_session(character_id)
+            session = await get_session(session_id)
+        else:
+            session = await get_session(request.session_id)
+            if not session:
+                raise HTTPException(status_code=404, detail="Session not found")
+            # Verify character_id matches the session
+            if session.character_id != character_id:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Session is for character '{session.character_id}', not '{character_id}'"
+                )
+            session_id = session.id
+
+        # Get character-specific system prompt
+        system_prompt = get_system_prompt_for_character(character_id)
+
+        # Prepare conversation history
+        conversation_messages = [
+            {"role": "system", "content": system_prompt}
+        ]
+
+        # Add previous messages from this session
+        for msg in session.messages:
+            # Convert character_id role to 'assistant' for OpenAI API
+            role = msg["role"]
+            if role not in ["system", "user", "assistant"]:
+                role = "assistant"
+            conversation_messages.append({
+                "role": role,
+                "content": msg["content"]
+            })
+
+        # Add current user message
+        conversation_messages.append({
+            "role": "user",
+            "content": request.message
+        })
+
+        # Generate AI response
+        ai_response = await generate_ai_response(conversation_messages)
+
+        # Save conversation to database
+        session.messages.extend([
+            {
+                "role": "user",
+                "content": request.message,
+                "timestamp": datetime.now().isoformat()
+            },
+            {
+                "role": character_id,
+                "content": ai_response,
+                "timestamp": datetime.now().isoformat()
+            }
+        ])
+
+        await update_session(session)
+
+        return ChatResponse(
+            response=ai_response,
+            session_id=session_id,
+            character_id=character_id
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error in chat endpoint: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate response: {str(e)}")
 
 @app.get("/history")
 async def get_all_conversation_history():
