@@ -1,5 +1,7 @@
 extends Node
 
+@onready var dialogue_box = get_node("/root/Main/CanvasLayer/DialogueBox") # get dialogue box from main scene 
+
 # API Configuration
 const API_BASE_URL = "http://127.0.0.1:8000"
 
@@ -25,6 +27,7 @@ func _ready():
 
 	print("GameManager ready - connecting to backend...")
 	check_server_health()
+	dialogue_box.start_dialogue() # start loading characters once we start a conversation
 
 # ============================================
 # API Functions
@@ -158,3 +161,20 @@ func is_ready() -> bool:
 # ============================================
 # Gameplay Functionality
 # ============================================
+var current_npc
+
+#signal on_player_talk
+
+#signal on_npc_talk (npc_dialogue)
+
+func enter_new_dialogue(npc):
+	current_npc = npc
+	# dialogue_box.initialize_with_npc(npc) # not needed i think, i just need the dialogue box to show up
+	dialogue_box.visible = true;
+	
+func exit_dialogue():
+	current_npc = null
+	dialogue_box.visible = false;
+	
+func is_dialogue_active():
+	return dialogue_box.visible

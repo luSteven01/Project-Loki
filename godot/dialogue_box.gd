@@ -1,6 +1,6 @@
 extends Panel
 
-var game_manager = null
+# var game_manager = null
 
 @onready var dialogue_text = $DialogueText
 @onready var npc_icons = $NPCIcons
@@ -10,11 +10,18 @@ var game_manager = null
 @onready var leave_button = $LeaveButton
 @onready var anim_player = $PlayerPortrait/AnimationPlayer
 @onready var character_buttons_container = $CharacterButtons # To be removed
+@onready var game_manager = get_node_or_null("/root/Main/GameManager")
 
 var current_character = null
 var chat_history = []
-
-func _ready() -> void:
+	
+func _ready() -> void:	
+	# Find GameManager node
+	if not game_manager:
+		dialogue_text.text = "Error: GameManager not found!"
+		print("ERROR: Cannot find GameManager node at /root/Main/GameManager")
+		return
+				
 	print("DialogueBox _ready() called")
 	print("dialogue_text: ", dialogue_text)
 	print("npc_icons: ", npc_icons)
@@ -22,31 +29,23 @@ func _ready() -> void:
 	print("submit_button: ", submit_button)
 	print("leave_button: ", leave_button)
 	print("character_buttons_container: ", character_buttons_container)
-
+	
+		
 	# Hide all NPC icons
 	for icon in npc_icons.get_children():
 		icon.visible = false
-
+	
 	# Initialize UI state
 	submit_button.disabled = true
 	talk_input.editable = false
 	talk_input.wrap_mode = TextEdit.LINE_WRAPPING_BOUNDARY
 	dialogue_text.text = "Connecting to investigation database..."
 	print("Initial text set")
-
-	# Find GameManager node
-	game_manager = get_node_or_null("/root/Main/GameManager")
-	print("GameManager found: ", game_manager)
-
-	if not game_manager:
-		dialogue_text.text = "Error: GameManager not found!"
-		print("ERROR: Cannot find GameManager node at /root/Main/GameManager")
-		return
-
+	
 	# Wait for GameManager to load characters
 	print("Waiting for GameManager to load characters...")
 	await get_tree().create_timer(3.0).timeout
-
+	
 	if game_manager.has_method("get_characters"):
 		var chars = game_manager.call("get_characters")
 		print("Characters loaded: ", chars.size())

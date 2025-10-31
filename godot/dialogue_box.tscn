@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://cmtclqlu2a4l1" path="res://art/pngs/Portraits_01_128_V4.png" id="4_med3p"]
 [ext_resource type="Texture2D" uid="uid://wekdw53wj1dm" path="res://art/pngs/Portraits_01_128_V6.png" id="5_f71wr"]
 [ext_resource type="Texture2D" uid="uid://p8yl4jq1gme5" path="res://art/pngs/Portraits_01_128_V7.png" id="6_2klrv"]
-[ext_resource type="Texture2D" uid="uid://2odrw3o5wnjq" path="res://art/background/house1.png" id="6_85jfh"]
+[ext_resource type="Texture2D" uid="uid://u4veyojq174v" path="res://art/background/house1.png" id="6_85jfh"]
 [ext_resource type="Texture2D" uid="uid://dgs7wlodgrksa" path="res://art/pngs/Portraits_01_128_V9.png" id="7_en6mc"]
-[ext_resource type="Texture2D" uid="uid://t4pqs7huncf1" path="res://art/background/storage.png" id="7_med3p"]
+[ext_resource type="Texture2D" uid="uid://dv8mjr3ojmj6t" path="res://art/background/storage.png" id="7_med3p"]
 [ext_resource type="Texture2D" uid="uid://lkpadb5g0ub2" path="res://art/pngs/Portraits_01_128_V10.png" id="8_qjfks"]
 [ext_resource type="Texture2D" uid="uid://cab4cfjjdrse7" path="res://art/pngs/Portraits_01_128_V11.png" id="9_uucap"]
 [ext_resource type="Texture2D" uid="uid://dgtl8nuk6tu5v" path="res://art/Enjl-Starry Space Background/background_4.png" id="12_uucap"]
@@ -23,21 +23,21 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjfks"]
 bg_color = Color(0, 0, 0.121569, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fud6v"]
-bg_color = Color(0.0434708, 0.163828, 0.278201, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15d7h"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uucap"]
 bg_color = Color(0.207843, 0.478431, 0.741176, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ljd0"]
-bg_color = Color(0.236314, 0.0202234, 0.020174, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15d7h"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4nmj"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fud6v"]
+bg_color = Color(0.0434708, 0.163828, 0.278201, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8glcu"]
 bg_color = Color(0.490267, 0.0782536, 0.0802554, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4nmj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ljd0"]
+bg_color = Color(0.236314, 0.0202234, 0.020174, 1)
 
 [sub_resource type="Animation" id="Animation_en6mc"]
 tracks/0/type = "value"
@@ -212,9 +212,9 @@ offset_right = -109.0
 offset_bottom = -65.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/hover = SubResource("StyleBoxFlat_fud6v")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_15d7h")
 theme_override_styles/normal = SubResource("StyleBoxFlat_uucap")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_15d7h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fud6v")
 text = "Submit"
 
 [node name="LeaveButton" type="Button" parent="."]
@@ -228,9 +228,9 @@ offset_right = -17.0
 offset_bottom = -65.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/hover = SubResource("StyleBoxFlat_5ljd0")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_l4nmj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_8glcu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_l4nmj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5ljd0")
 text = "Leave
 "
 

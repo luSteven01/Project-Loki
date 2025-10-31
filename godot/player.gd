@@ -7,12 +7,12 @@ extends CharacterBody2D
 var speed : float = 250.0
 
 # handling what sprite to use when pressing arrow keys
-var face_direction = "front"
-var animation_to_play = "front"
+var face_direction = "down"
+var animation_to_play = "down_idle"
 
 func _ready():
 	animation_player.stop()
-	animation_player.play("front")
+	animation_player.play("down_idle")
 	
 # for setting velocity and performing other physics calculations
 func _physics_process(delta):
@@ -27,10 +27,10 @@ func _physics_process(delta):
 		if abs(direction.x) > abs(direction.y):
 			face_direction = "left" if direction.x < 0 else "right" 
 		else:
-			face_direction = "back" if direction.y < 0 else "front"
+			face_direction = "up" if direction.y < 0 else "down"
 	
 	# if we get another sprite sheet thats a lot better for characters, uncomment this line
-	# animation_to_play = face_direction + "_" + ("walk" if velocity.length() > 0.0 else "idle")
+	animation_to_play = face_direction + "_" + ("walk" if velocity.length() > 0.0 else "idle")
 	animation_player.play(animation_to_play)
 	# applies velocity to move character
 	move_and_slide()
