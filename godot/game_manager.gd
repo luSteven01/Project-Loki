@@ -153,3 +153,8 @@ func get_current_character():
 
 func is_ready() -> bool:
 	return characters.size() > 0
+	
+
+# ============================================
+# Gameplay Functionality
+# ============================================

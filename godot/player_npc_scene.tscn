@@ -1,0 +1,76 @@
+[gd_scene load_steps=13 format=3 uid="uid://bf6erxp11kmdd"]
+
+[ext_resource type="Script" uid="uid://bux1jvddnhhak" path="res://player.gd" id="1_mgu07"]
+[ext_resource type="Script" uid="uid://dsvfq7ypy0rgu" path="res://talk_trigger.gd" id="2_oq6gd"]
+[ext_resource type="Script" uid="uid://crgqai07e6303" path="res://alice_npc.gd" id="3_f3w7y"]
+[ext_resource type="Script" uid="uid://cccfhypg3c710" path="res://abel_npc.gd" id="4_nem03"]
+[ext_resource type="Script" uid="uid://ce3nx04u0yof6" path="res://adele_npc.gd" id="5_t4v6d"]
+[ext_resource type="Script" uid="uid://diffu843wat04" path="res://chef_npc.gd" id="6_2j8hq"]
+[ext_resource type="Script" uid="uid://dncbhhlg007yh" path="res://diane_npc.gd" id="7_4mykb"]
+[ext_resource type="Script" uid="uid://bugiktjhtu30j" path="res://maid_npc.gd" id="8_fad4w"]
+[ext_resource type="Script" uid="uid://7q1v0yjnftsu" path="res://professor_richards_npc.gd" id="9_3b1uw"]
+[ext_resource type="Script" uid="uid://djb7hc5d2j4r1" path="res://professor_schumacher_NPC.gd" id="10_5tuil"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y1m2g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xmig4"]
+
+[node name="PlayerNPC_Scene" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+motion_mode = 1
+script = ExtResource("1_mgu07")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CapsuleShape2D_y1m2g")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+
+[node name="TalkTrigger" type="Area2D" parent="Player"]
+script = ExtResource("2_oq6gd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/TalkTrigger"]
+shape = SubResource("CircleShape2D_xmig4")
+
+[node name="Alice_NPC" type="CharacterBody2D" parent="."]
+visible = false
+script = ExtResource("3_f3w7y")
+metadata/_custom_type_script = "uid://crgqai07e6303"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Alice_NPC"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Alice_NPC"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Alice_NPC"]
+
+[node name="Abel_NPC" type="CharacterBody2D" parent="."]
+script = ExtResource("4_nem03")
+metadata/_custom_type_script = "uid://cccfhypg3c710"
+
+[node name="Adele_NPC" type="CharacterBody2D" parent="."]
+script = ExtResource("5_t4v6d")
+metadata/_custom_type_script = "uid://ce3nx04u0yof6"
+
+[node name="Chef_NPC" type="CharacterBody2D" parent="."]
+script = ExtResource("6_2j8hq")
+metadata/_custom_type_script = "uid://diffu843wat04"
+
+[node name="Diane_NPC" type="CharacterBody2D" parent="."]
+script = ExtResource("7_4mykb")
+metadata/_custom_type_script = "uid://dncbhhlg007yh"
+
+[node name="Maid_NPC" type="CharacterBody2D" parent="."]
+script = ExtResource("8_fad4w")
+metadata/_custom_type_script = "uid://bugiktjhtu30j"
+
+[node name="Professor_Richards_NPC" type="CharacterBody2D" parent="."]
+script = ExtResource("9_3b1uw")
+metadata/_custom_type_script = "uid://7q1v0yjnftsu"
+
+[node name="Professor_Schumacher_NPC" type="CharacterBody2D" parent="."]
+script = ExtResource("10_5tuil")
+metadata/_custom_type_script = "uid://djb7hc5d2j4r1"
