@@ -1,6 +1,7 @@
 extends Node
 
 @onready var dialogue_box = get_node("/root/Main/CanvasLayer/DialogueBox") # get dialogue box from main scene 
+@onready var npc_scene = get_node("/root/Main/PlayerNPC_Scene")
 
 # API Configuration
 const API_BASE_URL = "http://127.0.0.1:8000"
@@ -9,6 +10,7 @@ const API_BASE_URL = "http://127.0.0.1:8000"
 var sessions = {}  # { character_id: session_id }
 var current_character = null
 var characters = []
+# var NPCs = [] # for getting the NPCs that are in-game
 var is_loading = false
 
 var http_request: HTTPRequest
@@ -20,15 +22,22 @@ enum RequestType {
 }
 var current_request_type = RequestType.HEALTH_CHECK
 
+
 func _ready():
 	http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.request_completed.connect(_on_request_completed)
 
 	print("GameManager ready - connecting to backend...")
+	
+	if not npc_scene:
+		print("npc scene not loaded")
+	else:
+		print("npc scene loaded")
+	
+	#var npc1 = npc_scene.get_child(1)
 	check_server_health()
-	dialogue_box.start_dialogue() # start loading characters once we start a conversation
-
+	
 # ============================================
 # API Functions
 # ============================================
@@ -46,22 +55,21 @@ func load_characters():
 	var error = http_request.request(API_BASE_URL + "/characters")
 	if error != OK:
 		print("Failed to load characters: ", error)
-
+	
 func send_message(message: String, callback: Callable):
 	if not current_character or is_loading:
 		print("Cannot send message: no character selected or already loading")
 		return
 
 	is_loading = true
-	print("Sending message to ", current_character.name, ": ", message)
+	print("Sending message to ", current_character["character_name"], ": ", message)
 
-	var url = API_BASE_URL + "/chat"
+	var url = API_BASE_URL + "/chat/" + current_character["npc_id"]
 	var headers = ["Content-Type: application/json"]
 
 	var body = {
 		"message": message,
-		"character_id": current_character.id,
-		"session_id": sessions.get(current_character.id, null)
+		"session_id": sessions.get(current_character["npc_id"], null)
 	}
 
 	current_request_type = RequestType.SEND_MESSAGE
@@ -72,7 +80,7 @@ func send_message(message: String, callback: Callable):
 	if error != OK:
 		print("Failed to send message: ", error)
 		is_loading = false
-		callback.call(null, "Failed to send message")
+		callback.call("", "Failed to send message")
 
 func select_character(character):
 	current_character = character
@@ -120,13 +128,19 @@ func handle_characters_loaded(data):
 
 	if characters.size() > 0:
 		select_character(characters[0])
+		
+	# load characters instantiated from the scene + debug print statement 
+	#get_in_game_NPCs()
+	#for npc in NPCs:
+		#print("character_name: " + npc.character_name + ", " + "npc_id: " + npc.npc_id)
+	
 
 func handle_message_response(data):
-	if not sessions.has(current_character.id):
-		sessions[current_character.id] = data.session_id
-		print("New session created for ", current_character.name, ": ", data.session_id)
+	if not sessions.has(current_character["npc_id"]):
+		sessions[current_character["npc_id"]] = data.session_id
+		print("New session created for ", current_character["character_name"], ": ", data.session_id)
 
-	print("Received response from ", current_character.name)
+	print("Received response from ", current_character["npc_id"])
 
 	if http_request.has_meta("callback"):
 		var callback = http_request.get_meta("callback")
@@ -161,19 +175,43 @@ func is_ready() -> bool:
 # ============================================
 # Gameplay Functionality
 # ============================================
-var current_npc
 
 #signal on_player_talk
 
 #signal on_npc_talk (npc_dialogue)
 
-func enter_new_dialogue(npc):
-	current_npc = npc
+# append in-game NPCs to an array 
+#func get_in_game_NPCs():
+	#for npc in npc_scene.get_children():
+		#if npc is NPC:
+			#NPCs.append(npc)
+			#print("npc name: " + npc.character_name)
+			#print("npc id: " + npc.npc_id)
+
+func enter_new_dialogue(npc: NPC):
+	current_character = npc
 	# dialogue_box.initialize_with_npc(npc) # not needed i think, i just need the dialogue box to show up
+	print("currently in a conversation with: " + current_character.character_name)
 	dialogue_box.visible = true;
 	
+	# Update the dialogue box UI
+	dialogue_box.current_character = current_character
+	dialogue_box.dialogue_text.text = "Now interviewing: " + current_character.character_name + "\n"
+	dialogue_box.submit_button.disabled = false
+	dialogue_box.talk_input.editable = true
+	dialogue_box.talk_input.grab_focus()
+
+	# Show NPC icon
+	for icon in dialogue_box.npc_icons.get_children():
+		icon.visible = false
+
+	dialogue_box.current_icon = dialogue_box.npc_icons.get_node_or_null(npc.npc_id.capitalize())
+	if dialogue_box.current_icon:
+		dialogue_box.current_icon.visible = true
+	
 func exit_dialogue():
-	current_npc = null
+	current_character = null
+	# select_character(null)
 	dialogue_box.visible = false;
 	
 func is_dialogue_active():

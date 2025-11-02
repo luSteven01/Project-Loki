@@ -16,3 +16,4 @@ func _input(event):
 	if Input.is_key_pressed(KEY_F) and game_manager.is_dialogue_active() == false:
 		if current_npc != null:
 			game_manager.enter_new_dialogue(current_npc)
+			get_viewport().set_input_as_handled()

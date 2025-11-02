@@ -12,6 +12,7 @@ extends Panel
 @onready var character_buttons_container = $CharacterButtons # To be removed
 @onready var game_manager = get_node_or_null("/root/Main/GameManager")
 
+
 var current_character = null
 var chat_history = []
 	
