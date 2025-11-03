@@ -14,6 +14,7 @@ config/name="Project-Loki"
 run/main_scene="uid://sxywo3malpjm"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+"<<<<<<<HEAD[display]window/size/borderless"=true
 
 [display]
 

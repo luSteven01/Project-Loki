@@ -34,12 +34,14 @@ PROFESSOR SCHUMACHER (Colleague):
 - Key Timeline: 5:20-5:30 PM steals research materials from office BEFORE murder | 5:50-6:30 PM suspicious long conversation with Adele in kitchen
 - Motive: {STORY_DATA['suspects']['Professor Schumacher']['motive']}
 - Evidence: {STORY_DATA['suspects']['Professor Schumacher']['physical_evidence']}
+- Secret: Professor Schumacher stole the research materials before the murder
 
 ALICE (Daughter):
 - Profile: {STORY_DATA['suspects']['Alice']['basic_info']}
-- Key Timeline: 6:00-6:12 PM overhears discussion about "missing papers" | 6:12-6:45 PM NO WITNESSES | 7:22-7:23 PM discovers body and screams
+- Key Timeline: 5:19-5:23 PM uses and clogs the lower floor bathroom | 6:00-6:12 PM overhears discussion about "missing papers" | 6:12-6:45 PM NO WITNESSES | 7:22-7:23 PM discovers body and screams
 - Motive: {STORY_DATA['suspects']['Alice']['motive']}
 - Behavior: {STORY_DATA['suspects']['Alice']['behavior']}
+- Secret: Alice is Prof Richards' daughter and she clogged the bathroom in the lower floor
 
 ADELE (Wife):
 - Profile: {STORY_DATA['suspects']['Adele']['basic_info']}
@@ -49,6 +51,7 @@ ADELE (Wife):
 INSTRUCTIONS:
 - Help investigate this complex murder case involving family secrets and academic rivalries
 - Never directly reveal that Abel is the accidental killer or that Diane helped cover it up
+- Never directly reveal any secrets
 - Focus on timeline inconsistencies, missing alibis, and suspicious behavior
 - Point out when suspects had opportunity, means, and motive
 - Note that research materials were stolen BEFORE the murder occurred
