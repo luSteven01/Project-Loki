@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5g63q7lhywti"
-path="res://.godot/imported/040p_mysterious_visitor2_1.png-c2ac9f20ab0b64c4095f531f76c217f6.ctex"
+uid="uid://dghfvbsj31vb4"
+path="res://.godot/imported/007p_detective_woman_A.png-a250010f8674fb9600eb625d715510d5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/pngs/040p_mysterious_visitor2/040p_mysterious_visitor2_1.png"
-dest_files=["res://.godot/imported/040p_mysterious_visitor2_1.png-c2ac9f20ab0b64c4095f531f76c217f6.ctex"]
+source_file="res://art/pngs/007p_detective_woman/007p_detective_woman_A.png"
+dest_files=["res://.godot/imported/007p_detective_woman_A.png-a250010f8674fb9600eb625d715510d5.ctex"]
 
 [params]
 

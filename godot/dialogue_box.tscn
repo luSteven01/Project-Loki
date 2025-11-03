@@ -23,21 +23,21 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjfks"]
 bg_color = Color(0, 0, 0.121569, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fud6v"]
-bg_color = Color(0.0434708, 0.163828, 0.278201, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15d7h"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uucap"]
 bg_color = Color(0.207843, 0.478431, 0.741176, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ljd0"]
-bg_color = Color(0.236314, 0.0202234, 0.020174, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15d7h"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4nmj"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fud6v"]
+bg_color = Color(0.0434708, 0.163828, 0.278201, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8glcu"]
 bg_color = Color(0.490267, 0.0782536, 0.0802554, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4nmj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ljd0"]
+bg_color = Color(0.236314, 0.0202234, 0.020174, 1)
 
 [sub_resource type="Animation" id="Animation_en6mc"]
 tracks/0/type = "value"
@@ -212,9 +212,9 @@ offset_right = -109.0
 offset_bottom = -65.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/hover = SubResource("StyleBoxFlat_fud6v")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_15d7h")
 theme_override_styles/normal = SubResource("StyleBoxFlat_uucap")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_15d7h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fud6v")
 text = "Submit"
 
 [node name="LeaveButton" type="Button" parent="."]
@@ -228,9 +228,9 @@ offset_right = -17.0
 offset_bottom = -65.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/hover = SubResource("StyleBoxFlat_5ljd0")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_l4nmj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_8glcu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_l4nmj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5ljd0")
 text = "Leave
 "
 
