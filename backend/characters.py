@@ -31,7 +31,7 @@ CHARACTERS = {
         "id": "schumacher",
         "name": "Professor Schumacher",
         "role": "Colleague",
-        "description": "Professor Richards' colleague, jealous of credit for research projects",
+        "description": "Professor Richards' colleague",
         "avatar": "👨‍🏫",
         "system_prompt_generator": lambda: get_suspect_prompt("Professor Schumacher")
     },
@@ -39,7 +39,7 @@ CHARACTERS = {
         "id": "alice",
         "name": "Alice",
         "role": "TA (Actually Daughter)",
-        "description": "Professor Richards' estranged daughter, posing as his TA",
+        "description": "Professor Richards' TA",
         "avatar": "👩‍🎓",
         "system_prompt_generator": lambda: get_suspect_prompt("Alice")
     },
