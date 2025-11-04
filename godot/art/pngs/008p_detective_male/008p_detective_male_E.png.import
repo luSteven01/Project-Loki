@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://donbo3ta6klvx"
-path="res://.godot/imported/Speaking_2.png-f8577f2c9dae8607b389e2b71b91a796.ctex"
+uid="uid://cvyqku85xilx2"
+path="res://.godot/imported/008p_detective_male_E.png-4406343ab5e607ef2928542cb3ce346a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/pngs/008p_detective_male/Speaking_2.png"
-dest_files=["res://.godot/imported/Speaking_2.png-f8577f2c9dae8607b389e2b71b91a796.ctex"]
+source_file="res://art/pngs/008p_detective_male/008p_detective_male_E.png"
+dest_files=["res://.godot/imported/008p_detective_male_E.png-4406343ab5e607ef2928542cb3ce346a.ctex"]
 
 [params]
 

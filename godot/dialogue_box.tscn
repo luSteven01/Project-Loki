@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://cg58uk0dqkydk"]
+[gd_scene load_steps=50 format=3 uid="uid://cg58uk0dqkydk"]
 
 [ext_resource type="Script" uid="uid://c2hcggxoe5ubs" path="res://dialogue_box.gd" id="1_senjy"]
 [ext_resource type="Texture2D" uid="uid://p8yl4jq1gme5" path="res://art/pngs/Portraits_01_128_V7.png" id="6_2klrv"]
@@ -23,6 +23,9 @@
 [ext_resource type="Texture2D" uid="uid://bu1niphoicm0e" path="res://art/pngs/035p_red_haired_girl2/035p_red_haired_girl2_5.png" id="20_clwgo"]
 [ext_resource type="Texture2D" uid="uid://dv4bhj2pk1mbk" path="res://art/pngs/012p_doctor_male/012p_doctor_male_G.png" id="20_jy1o0"]
 [ext_resource type="Texture2D" uid="uid://bemq02kr8p7np" path="res://art/pngs/035p_red_haired_girl2/035p_red_haired_girl2_3.png" id="21_jy1o0"]
+[ext_resource type="Texture2D" uid="uid://bjx46b744bhog" path="res://art/pngs/008p_detective_male/008p_detective_male_A.png" id="24_jy1o0"]
+[ext_resource type="Texture2D" uid="uid://yqhhqen11c6i" path="res://art/pngs/008p_detective_male/008p_detective_male_D.png" id="25_ybase"]
+[ext_resource type="Texture2D" uid="uid://cvyqku85xilx2" path="res://art/pngs/008p_detective_male/008p_detective_male_E.png" id="26_tarkj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjfks"]
 bg_color = Color(0, 0, 0.121569, 1)
@@ -179,7 +182,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Portrait:texture")
+tracks/0/path = NodePath("../NPCIcons/Abel/Portrait:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -190,13 +193,13 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_qjfks"]
-resource_name = "player_talk"
+resource_name = "talk"
 length = 1.2
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Portrait:texture")
+tracks/0/path = NodePath("../NPCIcons/Abel/Portrait:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -209,14 +212,48 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8glcu"]
 _data = {
 &"RESET": SubResource("Animation_uucap"),
-&"player_talk": SubResource("Animation_qjfks")
+&"talk": SubResource("Animation_qjfks")
+}
+
+[sub_resource type="Animation" id="Animation_jy1o0"]
+resource_name = "player_talk"
+length = 1.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Portrait:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("24_jy1o0"), ExtResource("25_ybase"), ExtResource("24_jy1o0"), ExtResource("25_ybase"), ExtResource("24_jy1o0"), ExtResource("26_tarkj")]
+}
+
+[sub_resource type="Animation" id="Animation_5u6cq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Portrait:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("24_jy1o0")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bvavr"]
+_data = {
+&"RESET": SubResource("Animation_5u6cq"),
+&"player_talk": SubResource("Animation_jy1o0")
 }
 
 [node name="DialogueBox" type="Panel"]
-offset_left = 112.0
-offset_top = 57.0
-offset_right = 1008.0
-offset_bottom = 617.0
 offset_left = 112.0
 offset_top = 57.0
 offset_right = 1008.0
@@ -244,9 +281,6 @@ offset_left = 32.0
 offset_top = 450.0
 offset_right = -224.0
 offset_bottom = -65.0
-offset_top = 450.0
-offset_right = -224.0
-offset_bottom = -65.0
 grow_horizontal = 2
 grow_vertical = 2
 placeholder_text = "Talk here..."
@@ -256,10 +290,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 712.0
-offset_top = 450.0
-offset_right = -109.0
-offset_bottom = -65.0
 offset_left = 712.0
 offset_top = 450.0
 offset_right = -109.0
@@ -326,18 +356,7 @@ offset_top = -112.0
 offset_right = 184.0
 offset_bottom = 130.0
 
-[node name="Portrait" type="TextureRect" parent="NPCIcons/Maid"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = -2.0
-offset_right = 218.0
-offset_bottom = 636.0
-texture = ExtResource("13_8glcu")
-expand_mode = 3
-stretch_mode = 5
-
 [node name="Background" type="TextureRect" parent="NPCIcons/Maid"]
-z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -350,6 +369,16 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("6_85jfh")
 expand_mode = 5
+
+[node name="Portrait" type="TextureRect" parent="NPCIcons/Maid"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = -2.0
+offset_right = 218.0
+offset_bottom = 636.0
+texture = ExtResource("13_8glcu")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="NPCIcons/Maid"]
 root_node = NodePath("../Portrait")
@@ -392,6 +421,16 @@ offset_top = -112.0
 offset_right = 184.0
 offset_bottom = 130.0
 
+[node name="Background" type="TextureRect" parent="NPCIcons/Schumacher"]
+layout_mode = 0
+offset_left = -68.0
+offset_top = -6.0
+offset_right = 279.0
+offset_bottom = 254.0
+texture = ExtResource("18_s10na")
+expand_mode = 5
+stretch_mode = 6
+
 [node name="Portrait" type="TextureRect" parent="NPCIcons/Schumacher"]
 layout_mode = 0
 offset_left = -31.0
@@ -402,17 +441,6 @@ texture = ExtResource("17_b7jwx")
 expand_mode = 5
 stretch_mode = 6
 flip_h = true
-
-[node name="Background" type="TextureRect" parent="NPCIcons/Schumacher"]
-z_index = -1
-layout_mode = 0
-offset_left = -68.0
-offset_top = -6.0
-offset_right = 279.0
-offset_bottom = 254.0
-texture = ExtResource("18_s10na")
-expand_mode = 5
-stretch_mode = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="NPCIcons/Schumacher"]
 libraries = {
@@ -427,16 +455,6 @@ offset_top = -112.0
 offset_right = 184.0
 offset_bottom = 130.0
 
-[node name="Portrait" type="TextureRect" parent="NPCIcons/Alice"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 34.0
-offset_right = 173.0
-offset_bottom = 786.3809
-texture = ExtResource("13_clwgo")
-expand_mode = 5
-stretch_mode = 6
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="NPCIcons/Alice"]
 root_node = NodePath("../Portrait")
 libraries = {
@@ -444,7 +462,6 @@ libraries = {
 }
 
 [node name="Background" type="TextureRect" parent="NPCIcons/Alice"]
-z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -457,6 +474,51 @@ grow_vertical = 2
 texture = ExtResource("6_85jfh")
 expand_mode = 5
 
+[node name="Portrait" type="TextureRect" parent="NPCIcons/Alice"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 34.0
+offset_right = 173.0
+offset_bottom = 786.3809
+texture = ExtResource("13_clwgo")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="Abel" type="Control" parent="NPCIcons"]
+clip_contents = true
+anchors_preset = 0
+offset_left = -3.0
+offset_top = -112.0
+offset_right = 184.0
+offset_bottom = 130.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPCIcons/Abel"]
+root_node = NodePath("../../../PlayerPortrait")
+libraries = {
+&"": SubResource("AnimationLibrary_8glcu")
+}
+
+[node name="Background" type="TextureRect" parent="NPCIcons/Abel"]
+layout_mode = 0
+offset_left = -138.0
+offset_top = -7.0
+offset_right = 192.0
+offset_bottom = 330.0
+texture = ExtResource("18_s10na")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="Portrait" type="TextureRect" parent="NPCIcons/Abel"]
+layout_mode = 0
+offset_left = -16.0
+offset_top = 1.0
+offset_right = 207.0
+offset_bottom = 804.0
+texture = ExtResource("15_fud6v")
+expand_mode = 5
+stretch_mode = 6
+flip_h = true
+
 [node name="PlayerPortrait" type="Control" parent="."]
 clip_contents = true
 anchors_preset = 0
@@ -465,18 +527,7 @@ offset_top = 168.0
 offset_right = 866.0
 offset_bottom = 410.0
 
-[node name="Portrait" type="TextureRect" parent="PlayerPortrait"]
-layout_mode = 0
-offset_left = -5.0
-offset_top = -7.0
-offset_right = 218.0
-offset_bottom = 796.0
-texture = ExtResource("15_fud6v")
-expand_mode = 5
-stretch_mode = 6
-
 [node name="Background" type="TextureRect" parent="PlayerPortrait"]
-z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -491,9 +542,19 @@ texture = ExtResource("7_med3p")
 expand_mode = 5
 stretch_mode = 6
 
+[node name="Portrait" type="TextureRect" parent="PlayerPortrait"]
+layout_mode = 0
+offset_left = -133.0
+offset_top = -19.0
+offset_right = 297.0
+offset_bottom = 774.6667
+texture = ExtResource("24_jy1o0")
+expand_mode = 5
+stretch_mode = 5
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerPortrait"]
 libraries = {
-&"": SubResource("AnimationLibrary_8glcu")
+&"": SubResource("AnimationLibrary_bvavr")
 }
 
 [connection signal="pressed" from="SubmitButton" to="." method="_on_submit_button_pressed"]
