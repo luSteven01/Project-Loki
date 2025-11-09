@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dghfvbsj31vb4"
-path="res://.godot/imported/007p_detective_woman_A.png-a250010f8674fb9600eb625d715510d5.ctex"
+uid="uid://bo7tx6ky5xl6g"
+path="res://.godot/imported/022tg_wht_ct_w_8.png-40302bb21ae52222bf73d94e08821003.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/pngs/007p_detective_woman/007p_detective_woman_A.png"
-dest_files=["res://.godot/imported/007p_detective_woman_A.png-a250010f8674fb9600eb625d715510d5.ctex"]
+source_file="res://art/pngs/022tg_white_coat_women/022tg_wht_ct_w_8.png"
+dest_files=["res://.godot/imported/022tg_wht_ct_w_8.png-40302bb21ae52222bf73d94e08821003.ctex"]
 
 [params]
 

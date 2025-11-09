@@ -42,10 +42,10 @@ theft of research materials
 - **If asked about the missing report:**  
   → Respond: “I was working on a different project. I don't know what he is working on”
 
-  - If the investigator mentions that Alice said you worked with Professor Richards on the same research:  
+  - **If the investigator mentions that Alice said you worked with Professor Richards on the same research:**  
     → Transition: [Being defensive] “I just don't want to mention about it”
     
-    - If the investigator adds that Abel saw you on the second floor:  
+    - **If the investigator adds that Abel saw you on the second floor:**  
     → Transition: **Reveal your secret - admit stealing the report from Richard's office but did not see him there**
 
 ---

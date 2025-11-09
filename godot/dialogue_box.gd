@@ -13,6 +13,7 @@ var game_manager = null
 
 var current_character = null
 var chat_history = []
+var is_typing = false
 
 func _ready() -> void:
 	print("DialogueBox _ready() called")
@@ -105,6 +106,9 @@ func setup_character_buttons():
 		print("✗ ERROR: character_buttons_container is null!")
 
 func _on_character_selected(character):
+	is_typing = false
+	stop_npc_talk()
+	stop_player_talk()
 	current_character = character
 	game_manager.call("select_character", character)
 	chat_history.clear()
@@ -195,14 +199,20 @@ func _on_leave_button_pressed() -> void:
 
 # Typewriter effect for NPC messages (clean version)
 func type_text_slowly(full_text: String, speed := 0.03) -> void:
+	is_typing = true
+
 	# Add the NPC name once, no repetition
 	dialogue_text.text += "\n"
 	
 	# Type each character sequentially
 	for ch in full_text:
+		if not is_typing:
+			return
 		dialogue_text.text += ch
 		dialogue_text.scroll_to_line(dialogue_text.get_line_count() - 1)
 		await get_tree().create_timer(speed).timeout
+
+	is_typing = false
 
 # Expand text field for multiple rows
 func _process(_delta: float) -> void:
@@ -230,6 +240,8 @@ func stop_npc_talk():
 		return
 	
 	var anim_npc_player = current_icon.get_node_or_null("AnimationPlayer")
+	if not anim_npc_player:
+		return
 	anim_npc_player.stop()
 
 # Play player portrait animation

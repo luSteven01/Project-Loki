@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dghfvbsj31vb4"
-path="res://.godot/imported/007p_detective_woman_A.png-a250010f8674fb9600eb625d715510d5.ctex"
+uid="uid://spa0k1vdvy0j"
+path="res://.godot/imported/15_9.png-cd4331f1c576a4498f3ddbc8bcfd5d23.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/pngs/007p_detective_woman/007p_detective_woman_A.png"
-dest_files=["res://.godot/imported/007p_detective_woman_A.png-a250010f8674fb9600eb625d715510d5.ctex"]
+source_file="res://art/pngs/Chef/15_9.png"
+dest_files=["res://.godot/imported/15_9.png-cd4331f1c576a4498f3ddbc8bcfd5d23.ctex"]
 
 [params]
 

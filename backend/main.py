@@ -13,7 +13,7 @@ from services import (
     initialize_database, check_openai_connection, check_mongodb_connection,
     generate_ai_response, get_api_stats, db
 )
-from prompt import get_system_prompt
+# from prompt import get_system_prompt
 from story import STORY_DATA
 from characters import get_all_characters, get_system_prompt_for_character, get_character_info
 

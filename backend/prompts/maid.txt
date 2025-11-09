@@ -48,7 +48,7 @@ knows about the letters Alice sent to Professor Richards' that the professor wan
 - **If asked about Alice:**  
   → Mention: “Alice is his TA, she comes here quite often.”
   
-  - If the investigator verifies that the TA program is terminated:  
+  - **If the investigator verifies that the TA program is terminated:**  
     → Transition: **Reveal your secret**
 
 ---
