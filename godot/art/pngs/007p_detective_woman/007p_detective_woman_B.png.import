@@ -2,11 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD
-uid="uid://sa8av3sti6ak"
-=======
-uid="uid://dtvjrhe38kpi5"
->>>>>>> origin/living_room_tilemap
+uid="uid://0eet05agwgp7"
 path="res://.godot/imported/007p_detective_woman_B.png-18ae743ca95886dd62a8936eb72f8755.ctex"
 metadata={
 "vram_texture": false
@@ -22,11 +18,8 @@ dest_files=["res://.godot/imported/007p_detective_woman_B.png-18ae743ca95886dd62
 compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
-<<<<<<< HEAD
-=======
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
->>>>>>> origin/living_room_tilemap
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
@@ -34,13 +27,10 @@ mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
-<<<<<<< HEAD
-=======
 process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2
 process/channel_remap/alpha=3
->>>>>>> origin/living_room_tilemap
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

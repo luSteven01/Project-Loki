@@ -192,6 +192,7 @@ func _on_leave_button_pressed() -> void:
 	submit_button.disabled = true
 	talk_input.editable = false
 	current_character = null
+	game_manager.exit_dialogue()
 
 # Typewriter effect for NPC messages (clean version)
 func type_text_slowly(full_text: String, speed := 0.03) -> void:

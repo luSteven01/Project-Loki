@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6ydpbu7h6x2y"
-path="res://.godot/imported/Chef_SpriteSheet.png-1cf7cdcd37ba373efe81813f1a569eeb.ctex"
+uid="uid://cr0bksq7yw6lm"
+path="res://.godot/imported/Chef_Spritesheet.png-99bbd8e2d86692f0f0945228b8dc6486.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/spritesheets/Chef_SpriteSheet.png"
-dest_files=["res://.godot/imported/Chef_SpriteSheet.png-1cf7cdcd37ba373efe81813f1a569eeb.ctex"]
+source_file="res://art/spritesheets/Chef_Spritesheet.png"
+dest_files=["res://.godot/imported/Chef_Spritesheet.png-99bbd8e2d86692f0f0945228b8dc6486.ctex"]
 
 [params]
 

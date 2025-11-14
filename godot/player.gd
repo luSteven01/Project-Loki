@@ -4,7 +4,7 @@ extends CharacterBody2D
 # @export var inventory : Inventory
 
 # Player moves at 50 pixels/second
-var speed : float = 250.0
+var speed : float = 100.0
 
 # handling what sprite to use when pressing arrow keys
 var face_direction = "down"

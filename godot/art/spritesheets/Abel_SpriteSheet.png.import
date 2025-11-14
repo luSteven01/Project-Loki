@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmvtyqc5jc8av"
-path="res://.godot/imported/Abel_SpriteSheet.png-bd37dc533bfe760a091c01ec4cc6b609.ctex"
+uid="uid://bmk02xw36x57o"
+path="res://.godot/imported/Abel_Spritesheet.png-e6d130adb79eccb72628ace726b0f85b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/spritesheets/Abel_SpriteSheet.png"
-dest_files=["res://.godot/imported/Abel_SpriteSheet.png-bd37dc533bfe760a091c01ec4cc6b609.ctex"]
+source_file="res://art/spritesheets/Abel_Spritesheet.png"
+dest_files=["res://.godot/imported/Abel_Spritesheet.png-e6d130adb79eccb72628ace726b0f85b.ctex"]
 
 [params]
 

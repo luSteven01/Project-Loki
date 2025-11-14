@@ -1,15 +1,14 @@
 [gd_scene load_steps=5 format=3 uid="uid://sxywo3malpjm"]
 
-[ext_resource type="Script" uid="uid://b27e368f31x6p" path="res://game_manager.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://cg58uk0dqkydk" path="res://dialogue_box.tscn" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://b27e368f31x6p" path="res://game_manager.gd" id="2_game_manager"]
 [ext_resource type="PackedScene" uid="uid://cgip6bcxrd2o7" path="res://living_room.tscn" id="3_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://san5raef5e7y" path="res://player.tscn" id="4_lquwl"]
+[ext_resource type="PackedScene" uid="uid://bf6erxp11kmdd" path="res://player_npc_scene.tscn" id="4_1bvp3"]
 
 [node name="Main" type="Node2D"]
 
 [node name="GameManager" type="Node" parent="."]
-script = ExtResource("1_ig7tw")
+script = ExtResource("2_game_manager")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -23,6 +22,5 @@ offset_bottom = 597.0
 [node name="LivingRoomFloor" parent="." instance=ExtResource("3_1bvp3")]
 z_index = 0
 
-[node name="Player" parent="." instance=ExtResource("4_lquwl")]
-z_index = 6
-position = Vector2(131, 220)
+[node name="PlayerNPC_Scene" parent="." instance=ExtResource("4_1bvp3")]
+z_index = 1

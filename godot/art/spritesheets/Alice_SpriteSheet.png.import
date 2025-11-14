@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jst27m02uq6d"
-path="res://.godot/imported/Alice_SpriteSheet.png-56af71bef468a6dfef0867aba2c41549.ctex"
+uid="uid://c5cxvxnqdgc1b"
+path="res://.godot/imported/Alice_Spritesheet.png-dc6b99e4babdff7b1866164cc1ac8a8a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/spritesheets/Alice_SpriteSheet.png"
-dest_files=["res://.godot/imported/Alice_SpriteSheet.png-56af71bef468a6dfef0867aba2c41549.ctex"]
+source_file="res://art/spritesheets/Alice_Spritesheet.png"
+dest_files=["res://.godot/imported/Alice_Spritesheet.png-dc6b99e4babdff7b1866164cc1ac8a8a.ctex"]
 
 [params]
 
