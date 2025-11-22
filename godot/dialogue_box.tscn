@@ -1,12 +1,16 @@
-[gd_scene load_steps=75 format=3 uid="uid://cg58uk0dqkydk"]
+[gd_scene load_steps=86 format=3 uid="uid://cg58uk0dqkydk"]
 
 [ext_resource type="Script" uid="uid://c2hcggxoe5ubs" path="res://dialogue_box.gd" id="1_senjy"]
+[ext_resource type="Texture2D" uid="uid://fetd7f8vj5vm" path="res://art/pngs/pngimg.com - handcuffs_PNG25.png" id="2_m221u"]
+[ext_resource type="Shader" uid="uid://3uqjcawsdxjb" path="res://scroll.gdshader" id="2_tvktm"]
 [ext_resource type="Texture2D" uid="uid://p8yl4jq1gme5" path="res://art/pngs/Portraits_01_128_V7.png" id="6_2klrv"]
 [ext_resource type="Texture2D" uid="uid://2odrw3o5wnjq" path="res://art/background/house1.png" id="6_85jfh"]
 [ext_resource type="Texture2D" uid="uid://dgs7wlodgrksa" path="res://art/pngs/Portraits_01_128_V9.png" id="7_en6mc"]
 [ext_resource type="Texture2D" uid="uid://t4pqs7huncf1" path="res://art/background/storage.png" id="7_med3p"]
 [ext_resource type="Texture2D" uid="uid://lkpadb5g0ub2" path="res://art/pngs/Portraits_01_128_V10.png" id="8_qjfks"]
+[ext_resource type="Texture2D" uid="uid://cmpye4xf82j1n" path="res://art/pngs/Maid/038p_classic_maid2_3.png" id="9_lwmlg"]
 [ext_resource type="Texture2D" uid="uid://cab4cfjjdrse7" path="res://art/pngs/Portraits_01_128_V11.png" id="9_uucap"]
+[ext_resource type="Texture2D" uid="uid://dojom6sqo32ma" path="res://art/pngs/Maid/038p_classic_maid2_2.png" id="10_oq8t6"]
 [ext_resource type="Texture2D" uid="uid://dgtl8nuk6tu5v" path="res://art/Enjl-Starry Space Background/background_4.png" id="12_uucap"]
 [ext_resource type="Texture2D" uid="uid://bf6oq1b57q848" path="res://art/pngs/Maid/038p_classic_maid2_1.png" id="13_8glcu"]
 [ext_resource type="Texture2D" uid="uid://dmkj8or2cqrec" path="res://art/pngs/035p_red_haired_girl2/035p_red_haired_girl2_1.png" id="13_clwgo"]
@@ -41,7 +45,11 @@
 [ext_resource type="Texture2D" uid="uid://cveq7bnrk356t" path="res://art/pngs/022tg_white_coat_women/022tg_wht_ct_w_6.png" id="30_q10nw"]
 [ext_resource type="Texture2D" uid="uid://spa0k1vdvy0j" path="res://art/pngs/Chef/15_9.png" id="31_loyjw"]
 [ext_resource type="Texture2D" uid="uid://c2kpd8nf30xbh" path="res://art/pngs/Chef/15_6.png" id="36_1rv3u"]
+[ext_resource type="Texture2D" uid="uid://dow3bq711qo7r" path="res://art/pngs/022tg_white_coat_women/022tg_wht_ct_w_2.png" id="38_kbiji"]
 [ext_resource type="Texture2D" uid="uid://jie55n2dxps8" path="res://art/pngs/Chef/15_8.png" id="38_tvktm"]
+[ext_resource type="Texture2D" uid="uid://cw10x07fvq2wm" path="res://art/pngs/022tg_white_coat_women/022tg_wht_ct_w_9.png" id="39_0qotn"]
+[ext_resource type="Texture2D" uid="uid://bnxmtnbtkggsa" path="res://art/pngs/022tg_white_coat_women/022tg_wht_ct_w_5.png" id="40_lwmlg"]
+[ext_resource type="Texture2D" uid="uid://c6b6it4d10ywd" path="res://art/pngs/pngimg.com - handcuffs_PNG27.png" id="44_m221u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjfks"]
 bg_color = Color(0, 0, 0.121569, 1)
@@ -61,6 +69,9 @@ bg_color = Color(0.490267, 0.0782536, 0.0802554, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ljd0"]
 bg_color = Color(0.236314, 0.0202234, 0.020174, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m221u"]
+shader = ExtResource("2_tvktm")
 
 [sub_resource type="Animation" id="Animation_l4nmj"]
 length = 0.001
@@ -94,9 +105,26 @@ tracks/0/keys = {
 "values": [ExtResource("13_8glcu"), ExtResource("14_l4nmj"), ExtResource("13_8glcu"), ExtResource("14_l4nmj"), ExtResource("13_8glcu"), ExtResource("15_15d7h"), ExtResource("13_8glcu")]
 }
 
+[sub_resource type="Animation" id="Animation_wkkny"]
+resource_name = "endgame"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("13_8glcu"), ExtResource("9_lwmlg"), ExtResource("13_8glcu"), ExtResource("9_lwmlg"), ExtResource("10_oq8t6")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l4nmj"]
 _data = {
 &"RESET": SubResource("Animation_l4nmj"),
+&"endgame": SubResource("Animation_wkkny"),
 &"talk": SubResource("Animation_8glcu")
 }
 
@@ -269,6 +297,38 @@ _data = {
 &"talk": SubResource("Animation_q10nw")
 }
 
+[sub_resource type="Animation" id="Animation_x3hjh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NPCControl/Portrait:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("26_apwtg")]
+}
+
+[sub_resource type="Animation" id="Animation_n34hy"]
+resource_name = "endgame"
+length = 1.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NPCControl/Portrait:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.7, 0.9, 1.1, 1.3, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("26_apwtg"), ExtResource("38_kbiji"), ExtResource("39_0qotn"), ExtResource("40_lwmlg"), ExtResource("38_kbiji"), ExtResource("26_x3hjh"), ExtResource("38_kbiji"), ExtResource("26_x3hjh")]
+}
+
 [sub_resource type="Animation" id="Animation_apwtg"]
 resource_name = "talk"
 length = 2.35
@@ -286,7 +346,14 @@ tracks/0/keys = {
 "values": [ExtResource("26_apwtg"), ExtResource("29_kv65u"), ExtResource("28_iw51m"), ExtResource("27_xlepk"), ExtResource("28_iw51m"), ExtResource("29_kv65u"), ExtResource("30_q10nw"), ExtResource("26_apwtg"), ExtResource("27_xlepk"), ExtResource("26_apwtg"), ExtResource("26_x3hjh")]
 }
 
-[sub_resource type="Animation" id="Animation_x3hjh"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x3hjh"]
+_data = {
+&"RESET": SubResource("Animation_x3hjh"),
+&"endgame": SubResource("Animation_n34hy"),
+&"talk": SubResource("Animation_apwtg")
+}
+
+[sub_resource type="Animation" id="Animation_67csf"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -298,13 +365,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("26_apwtg")]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_x3hjh"]
-_data = {
-&"RESET": SubResource("Animation_x3hjh"),
-&"talk": SubResource("Animation_apwtg")
+"values": [ExtResource("27_x3hjh")]
 }
 
 [sub_resource type="Animation" id="Animation_lwhri"]
@@ -322,21 +383,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [ExtResource("27_x3hjh"), ExtResource("36_1rv3u"), ExtResource("29_q10nw"), ExtResource("38_tvktm"), ExtResource("31_loyjw"), ExtResource("38_tvktm"), ExtResource("31_loyjw"), ExtResource("38_tvktm"), ExtResource("36_1rv3u")]
-}
-
-[sub_resource type="Animation" id="Animation_67csf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("NPCControl/Portrait:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("27_x3hjh")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0smgp"]
@@ -448,8 +494,27 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_5ljd0")
 text = "Leave
 "
 
+[node name="ArrestButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 731.0
+offset_top = 503.0
+offset_right = 3907.0
+offset_bottom = 2161.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.03110732, 0.02136787)
+toggle_mode = true
+texture_normal = ExtResource("2_m221u")
+texture_pressed = ExtResource("44_m221u")
+stretch_mode = 0
+
 [node name="TextureRect" type="TextureRect" parent="."]
 z_index = -2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_m221u")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -595,7 +660,6 @@ expand_mode = 5
 stretch_mode = 6
 
 [node name="Schumacher" type="Control" parent="NPCIcons"]
-visible = false
 clip_contents = true
 anchors_preset = 0
 offset_left = -3.0
@@ -840,6 +904,7 @@ libraries = {
 }
 
 [node name="Diane" type="Control" parent="NPCIcons"]
+visible = false
 clip_contents = true
 anchors_preset = 0
 offset_left = -3.0
@@ -978,3 +1043,6 @@ libraries = {
 [connection signal="pressed" from="SubmitButton" to="." method="_on_submit_button_pressed"]
 [connection signal="pressed" from="LeaveButton" to="." method="_on_leavebutton_pressed"]
 [connection signal="pressed" from="LeaveButton" to="." method="_on_leave_button_pressed"]
+[connection signal="mouse_entered" from="ArrestButton" to="." method="_on_arrest_button_mouse_entered"]
+[connection signal="mouse_exited" from="ArrestButton" to="." method="_on_arrest_button_mouse_exited"]
+[connection signal="pressed" from="ArrestButton" to="." method="_on_arrest_button_pressed"]
