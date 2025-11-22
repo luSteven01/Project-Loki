@@ -19,12 +19,12 @@ var endgame_scripts = {
 	"diane": "That’s your big conclusion?! I have told you everything but you still... Well, I guess that is it. Believe what you want. I did what I had to do.",
 	"abel": "I didn't mean to do it! It was an accident I'm sorry! Please! Please, believe me! Pleassseee...",
 	"maid": "No. I would never do such a thing. I was just doing my job. You have the wrong person.",
-	"chef": "…",
-	"schumacher": "…",
-	"alice": "…",
-	"adele": "…"
+	"chef": "Huh? Ha ha ha! That's ridiculous, MR. DETECTIVE! Heh... haha!",
+	"schumacher": "Hah! You think you can just waltz in here and accuse me? I've worked hard for everything I have. I won't let some amateur detective ruin my life!",
+	"alice": "Seriously? You think I did it? How dare you! You have no proof!",
+	"adele": "I have no reason to kill him. You're grasping at straws.",
+	"detective": "... You're hopeless."
 }
-
 
 
 func _ready() -> void:
@@ -36,15 +36,17 @@ func _ready() -> void:
 	print("leave_button: ", leave_button)
 	print("arrest_button: ", arrest_button)
 	print("character_buttons_container: ", character_buttons_container)
+	$BGM.play()
 
 	# Hide all NPC icons
 	for icon in npc_icons.get_children():
 		icon.visible = false
 
 	# Initialize UI state
-	arrest_button.disabled = true
-	submit_button.disabled = true
-	talk_input.editable = false
+	# arrest_button.disabled = true
+	# submit_button.disabled = true
+	# talk_input.editable = false
+	disable_interaction()
 	talk_input.wrap_mode = TextEdit.LINE_WRAPPING_BOUNDARY
 	dialogue_text.text = "Connecting to investigation database..."
 	print("Initial text set")
@@ -144,10 +146,8 @@ func _on_character_selected(character):
 	dialogue_text.text += character.description + "\n\n"
 
 	# Enable input
-	submit_button.disabled = false
-	talk_input.editable = true
+	enable_interaction()
 	talk_input.grab_focus()
-	arrest_button.disabled = false
 
 func _on_submit_button_pressed() -> void:
 	send_player_message()
@@ -163,9 +163,7 @@ func send_player_message():
 	game_manager.call("send_message", player_message, _on_message_received)
 
 	# Disable input
-	submit_button.disabled = true
-	talk_input.editable = false
-	arrest_button.disabled = true
+	disable_interaction()
 	
 	# Show player's message in dialogue window
 	dialogue_text.text += "\n\n[right][b][Player]:[/b]"
@@ -190,18 +188,17 @@ func _on_message_received(response: String, error):
 		await get_tree().create_timer(0.6).timeout
 		add_message_to_display(current_character.name, response)
 
-	# Re-enable input
-	submit_button.disabled = false
-	talk_input.editable = true
-	talk_input.grab_focus()
-	arrest_button.disabled = false
 
-
+# Display NPC message with typewriter effect
 func add_message_to_display(sender: String, message: String):
+	disable_interaction()
 	dialogue_text.text += "\n[b]" + sender + ":[/b]"
 	start_npc_talk()
 	await type_text_slowly(message)
 	stop_npc_talk()
+	enable_interaction()
+	talk_input.grab_focus()
+
 
 func initialize_with_npc(npc):
 	# Legacy function for backwards compatibility
@@ -209,12 +206,14 @@ func initialize_with_npc(npc):
 	submit_button.disabled = true
 	arrest_button.disabled = true
 
+
 func _on_leave_button_pressed() -> void:
-	dialogue_text.text = "Investigation session ended."
-	submit_button.disabled = true
-	talk_input.editable = false
+	dialogue_text.text = "Investigation session ended."		
+	disable_interaction()
 	current_character = null
-	arrest_button.disabled = true
+	$BGM.stop()
+	get_node(".").visible = false
+
 
 # Typewriter effect for NPC messages (clean version)
 func type_text_slowly(full_text: String, speed := 0.03) -> void:
@@ -273,11 +272,16 @@ func stop_player_talk():
 
 
 func _on_arrest_button_pressed() -> void:
-	print("lock them up")
-	print(arrest_button.disabled)
-
+	if not current_character:
+		return
+	
+	# Play arrest sound
+	$ArrestSound.play()
+	disable_interaction()
+	
 	var char_id = current_character.id
 	var script = endgame_scripts.get(char_id, "No ending found.")
+	
 	start_npc_talk("endgame")
 	dialogue_text.text += "\n\n[b]" + current_character.id.capitalize() + ":[/b]"
 	await type_text_slowly(script)
@@ -288,12 +292,9 @@ func _on_arrest_button_pressed() -> void:
 
 	# Leave chat dialogue and triggers endgame sequence
 	dialogue_text.text = "\n\n\n[center][b]" + ("You Win: You have arrested the culprit" if char_id == "abel" else "Game Over: Start endgame sequence...") + "[/b][/center]"
-	submit_button.disabled = true
-	talk_input.editable = false
 	current_character = null
-	arrest_button.disabled = true
 	await get_tree().create_timer(3).timeout
-	get_node(".").visible = false
+	_on_leave_button_pressed()
 
 
 
@@ -307,3 +308,17 @@ func _on_arrest_button_mouse_entered() -> void:
 func _on_arrest_button_mouse_exited() -> void:
 	# Normal color
 	arrest_button.modulate = Color(1.0, 1.0, 1.0, 1.0)
+
+# Lock all input interaction
+func disable_interaction() -> void:
+	arrest_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	submit_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	talk_input.editable = false
+	submit_button.disabled = true
+
+# Unlock all input interaction
+func enable_interaction():
+	arrest_button.mouse_filter = Control.MOUSE_FILTER_STOP
+	submit_button.mouse_filter = Control.MOUSE_FILTER_STOP
+	talk_input.editable = true
+	submit_button.disabled = false
