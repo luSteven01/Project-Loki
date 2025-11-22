@@ -513,6 +513,7 @@ offset_bottom = 617.0
 script = ExtResource("1_senjy")
 
 [node name="DialogueText" type="RichTextLabel" parent="."]
+z_index = 2
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -621,13 +622,13 @@ offset_right = 80.0
 offset_bottom = 318.0
 
 [node name="Maid" type="Control" parent="NPCIcons"]
-visible = false
 clip_contents = true
 anchors_preset = 0
 offset_left = -3.0
 offset_top = -112.0
 offset_right = 827.0
 offset_bottom = 130.0
+mouse_filter = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="NPCIcons/Maid"]
 root_node = NodePath("../NPCControl/Portrait")
@@ -672,6 +673,7 @@ anchors_preset = 0
 offset_left = 642.0
 offset_right = 829.0
 offset_bottom = 242.0
+mouse_filter = 2
 
 [node name="Background" type="TextureRect" parent="NPCIcons/Maid/PlayerControl"]
 layout_mode = 0
@@ -684,13 +686,13 @@ expand_mode = 3
 stretch_mode = 6
 
 [node name="Detective" type="Control" parent="NPCIcons"]
-visible = false
 clip_contents = true
 anchors_preset = 0
 offset_left = -3.0
 offset_top = -112.0
 offset_right = 827.0
 offset_bottom = 130.0
+mouse_filter = 2
 
 [node name="NPCControl" type="Control" parent="NPCIcons/Detective"]
 clip_contents = true
@@ -736,13 +738,13 @@ expand_mode = 5
 stretch_mode = 6
 
 [node name="Schumacher" type="Control" parent="NPCIcons"]
-visible = false
 clip_contents = true
 anchors_preset = 0
 offset_left = -3.0
 offset_top = -112.0
 offset_right = 827.0
 offset_bottom = 130.0
+mouse_filter = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="NPCIcons/Schumacher"]
 libraries = {
@@ -797,13 +799,13 @@ stretch_mode = 6
 flip_h = true
 
 [node name="Alice" type="Control" parent="NPCIcons"]
-visible = false
 clip_contents = true
 anchors_preset = 0
 offset_left = -3.0
 offset_top = -112.0
 offset_right = 827.0
 offset_bottom = 130.0
+mouse_filter = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="NPCIcons/Alice"]
 root_node = NodePath("../NPCControl/Portrait")
@@ -860,13 +862,13 @@ expand_mode = 5
 stretch_mode = 6
 
 [node name="Abel" type="Control" parent="NPCIcons"]
-visible = false
 clip_contents = true
 anchors_preset = 0
 offset_left = -3.0
 offset_top = -112.0
 offset_right = 827.0
 offset_bottom = 130.0
+mouse_filter = 2
 
 [node name="NPCControl" type="Control" parent="NPCIcons/Abel"]
 clip_contents = true
@@ -921,13 +923,13 @@ libraries = {
 }
 
 [node name="Adele" type="Control" parent="NPCIcons"]
-visible = false
 clip_contents = true
 anchors_preset = 0
 offset_left = -3.0
 offset_top = -112.0
 offset_right = 827.0
 offset_bottom = 130.0
+mouse_filter = 2
 
 [node name="NPCControl" type="Control" parent="NPCIcons/Adele"]
 clip_contents = true
@@ -981,13 +983,13 @@ libraries = {
 }
 
 [node name="Diane" type="Control" parent="NPCIcons"]
-visible = false
 clip_contents = true
 anchors_preset = 0
 offset_left = -3.0
 offset_top = -112.0
 offset_right = 827.0
 offset_bottom = 130.0
+mouse_filter = 2
 
 [node name="NPCControl" type="Control" parent="NPCIcons/Diane"]
 clip_contents = true
@@ -1047,6 +1049,7 @@ offset_left = -3.0
 offset_top = -112.0
 offset_right = 827.0
 offset_bottom = 130.0
+mouse_filter = 2
 
 [node name="NPCControl" type="Control" parent="NPCIcons/Chef"]
 clip_contents = true
@@ -1100,6 +1103,7 @@ offset_left = 679.0
 offset_top = 168.0
 offset_right = 866.0
 offset_bottom = 410.0
+mouse_filter = 2
 
 [node name="Portrait" type="TextureRect" parent="PlayerPortrait"]
 layout_mode = 0
@@ -1107,6 +1111,7 @@ offset_left = -133.0
 offset_top = -19.0
 offset_right = 297.0
 offset_bottom = 774.6667
+mouse_filter = 2
 texture = ExtResource("24_jy1o0")
 expand_mode = 5
 stretch_mode = 5

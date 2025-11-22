@@ -15,16 +15,7 @@ var game_manager = null
 var current_character = null
 var chat_history = []
 var is_typing = false
-var endgame_scripts = {
-	"diane": "That’s your big conclusion?! I have told you everything but you still... Well, I guess that is it. Believe what you want. I did what I had to do.",
-	"abel": "I didn't mean to do it! It was an accident I'm sorry! Please! Please, believe me! Pleassseee...",
-	"maid": "No. I would never do such a thing. I was just doing my job. You have the wrong person.",
-	"chef": "Huh? Ha ha ha! That's ridiculous, MR. DETECTIVE! Heh... haha!",
-	"schumacher": "Hah! You think you can just waltz in here and accuse me? I've worked hard for everything I have. I won't let some amateur detective ruin my life!",
-	"alice": "Seriously? You think I did it? How dare you! You have no proof!",
-	"adele": "I have no reason to kill him. You're grasping at straws.",
-	"detective": "... You're hopeless."
-}
+var endgame_scripts = {}
 
 
 func _ready() -> void:
@@ -36,7 +27,9 @@ func _ready() -> void:
 	print("leave_button: ", leave_button)
 	print("arrest_button: ", arrest_button)
 	print("character_buttons_container: ", character_buttons_container)
+	
 	$BGM.play()
+	endgame_scripts = load_json("res://data/endgame_scripts.json")
 
 	# Hide all NPC icons
 	for icon in npc_icons.get_children():
@@ -278,9 +271,17 @@ func _on_arrest_button_pressed() -> void:
 	# Play arrest sound
 	$ArrestSound.play()
 	disable_interaction()
-	
+
+	# Show endgame script based on arrested character
 	var char_id = current_character.id
 	var script = endgame_scripts.get(char_id, "No ending found.")
+	var time = 3.0 + script.length() * 0.03
+
+	# Special case: if Abel is arrested, stop BGM and play endgame music
+	if char_id == "abel":
+		$BGM.stop()
+		$Endgame.play()
+	
 	
 	start_npc_talk("endgame")
 	dialogue_text.text += "\n\n[b]" + current_character.id.capitalize() + ":[/b]"
@@ -290,10 +291,22 @@ func _on_arrest_button_pressed() -> void:
 	# WAIT 3 SECONDS BEFORE CONTINUING
 	await get_tree().create_timer(3).timeout
 
+	if char_id == "abel":
+		# Abel arrested - WIN
+		dialogue_text.text = "\n\n[center][b]You have successfully arrested the culprit! Congratulations, Detective![/b]\n\n"
+		script = load_credits()
+		await type_text_slowly(script)
+		dialogue_text.text += "[/center]"
+		time = 10.0 + script.length() * 0.03
+		
+	else:
+		# Others arrested - LOSE
+		dialogue_text.text = "\n\n[center][b]You have arrested the wrong person. The real culprit remains at large... Game Over.[/b][/center]"
+
+
 	# Leave chat dialogue and triggers endgame sequence
-	dialogue_text.text = "\n\n\n[center][b]" + ("You Win: You have arrested the culprit" if char_id == "abel" else "Game Over: Start endgame sequence...") + "[/b][/center]"
 	current_character = null
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(time).timeout
 	_on_leave_button_pressed()
 
 
@@ -322,3 +335,11 @@ func enable_interaction():
 	submit_button.mouse_filter = Control.MOUSE_FILTER_STOP
 	talk_input.editable = true
 	submit_button.disabled = false
+
+
+func load_json(path) -> Dictionary:
+	var file = FileAccess.open(path, FileAccess.READ)
+	return JSON.parse_string(file.get_as_text())
+
+func load_credits():
+	return FileAccess.get_file_as_string("res://data/credits.txt")

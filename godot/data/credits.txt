@@ -1,0 +1,32 @@
+=== CREDITS ===
+
+Script & Story
+Christian Garo
+
+World Building
+Steven Lu
+
+NPC / Character Design
+Christian Garo
+
+Chat Dialogue & Animation
+Tuan-Anh Ho
+
+OpenAI Prompting
+Tuan-Anh Ho
+
+Backend & Database Development
+Seyoung Oh
+
+Background Music:
+Kiluaboy – "Clouds"
+Kiluaboy – "Blue Blood"
+EvanBoyerman – "Hopeful Cinematic Emotional Orchestra"
+
+Project Advisor:
+Dr. Gregory Courand
+
+Professor:
+Dr. Wencen Wu
+
+Thank you for playing.
