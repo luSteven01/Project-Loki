@@ -1,6 +1,13 @@
 extends CharacterBody2D
 
-@export var speed = 100
+@export var speed: float = 100.0
+
+func _ready():
+	# When the player is first loaded into a scene,
+	# set its position to the one stored in our SceneManager.
+	# This moves it from the default spawn point to the "target_position"
+	# defined by the portal
+	global_position = SceneManager.player_start_position
 
 func _physics_process(delta: float) -> void:
 	var direction = Vector2.ZERO
