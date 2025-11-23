@@ -10,10 +10,13 @@ var game_manager = null
 @onready var leave_button = $LeaveButton
 @onready var anim_player = $PlayerPortrait/AnimationPlayer
 @onready var character_buttons_container = $CharacterButtons # To be removed
+@onready var arrest_button = $ArrestButton
 
 var current_character = null
 var chat_history = []
 var is_typing = false
+var endgame_scripts = {}
+
 
 func _ready() -> void:
 	print("DialogueBox _ready() called")
@@ -22,15 +25,21 @@ func _ready() -> void:
 	print("talk_input: ", talk_input)
 	print("submit_button: ", submit_button)
 	print("leave_button: ", leave_button)
+	print("arrest_button: ", arrest_button)
 	print("character_buttons_container: ", character_buttons_container)
+	
+	$BGM.play()
+	endgame_scripts = load_json("res://data/endgame_scripts.json")
 
 	# Hide all NPC icons
 	for icon in npc_icons.get_children():
 		icon.visible = false
 
 	# Initialize UI state
-	submit_button.disabled = true
-	talk_input.editable = false
+	# arrest_button.disabled = true
+	# submit_button.disabled = true
+	# talk_input.editable = false
+	disable_interaction()
 	talk_input.wrap_mode = TextEdit.LINE_WRAPPING_BOUNDARY
 	dialogue_text.text = "Connecting to investigation database..."
 	print("Initial text set")
@@ -130,8 +139,7 @@ func _on_character_selected(character):
 	dialogue_text.text += character.description + "\n\n"
 
 	# Enable input
-	submit_button.disabled = false
-	talk_input.editable = true
+	enable_interaction()
 	talk_input.grab_focus()
 
 func _on_submit_button_pressed() -> void:
@@ -148,11 +156,10 @@ func send_player_message():
 	game_manager.call("send_message", player_message, _on_message_received)
 
 	# Disable input
-	submit_button.disabled = true
-	talk_input.editable = false
+	disable_interaction()
 	
 	# Show player's message in dialogue window
-	dialogue_text.text += "\n[right][b][Player]:[/b]"
+	dialogue_text.text += "\n\n[right][b][Player]:[/b]"
 	await type_text_slowly(player_message + "\n")
 	dialogue_text.text += "[/right]"
 
@@ -174,28 +181,32 @@ func _on_message_received(response: String, error):
 		await get_tree().create_timer(0.6).timeout
 		add_message_to_display(current_character.name, response)
 
-	# Re-enable input
-	submit_button.disabled = false
-	talk_input.editable = true
-	talk_input.grab_focus()
 
-
+# Display NPC message with typewriter effect
 func add_message_to_display(sender: String, message: String):
+	disable_interaction()
 	dialogue_text.text += "\n[b]" + sender + ":[/b]"
 	start_npc_talk()
 	await type_text_slowly(message)
 	stop_npc_talk()
+	enable_interaction()
+	talk_input.grab_focus()
+
 
 func initialize_with_npc(npc):
 	# Legacy function for backwards compatibility
 	dialogue_text.text = ""
 	submit_button.disabled = true
+	arrest_button.disabled = true
+
 
 func _on_leave_button_pressed() -> void:
-	dialogue_text.text = "Investigation session ended."
-	submit_button.disabled = true
-	talk_input.editable = false
+	dialogue_text.text = "Investigation session ended."		
+	disable_interaction()
 	current_character = null
+	$BGM.stop()
+	get_node(".").visible = false
+
 
 # Typewriter effect for NPC messages (clean version)
 func type_text_slowly(full_text: String, speed := 0.03) -> void:
@@ -225,14 +236,14 @@ func _process(_delta: float) -> void:
 	talk_input.custom_minimum_size.y = new_height
 
 # Play npc portrait animation
-func start_npc_talk():
+func start_npc_talk(action: String = "talk"):
 	if not current_icon:
 		return
 	
 	var anim_npc_player = current_icon.get_node_or_null("AnimationPlayer")
 	if not anim_npc_player:
 		return
-	anim_npc_player.play("talk")
+	anim_npc_player.play(action)
 
 # Stop npc portrait animation
 func stop_npc_talk():
@@ -251,3 +262,84 @@ func start_player_talk():
 # Stop player portrait animation
 func stop_player_talk():
 	anim_player.stop()
+
+
+func _on_arrest_button_pressed() -> void:
+	if not current_character:
+		return
+	
+	# Play arrest sound
+	$ArrestSound.play()
+	disable_interaction()
+
+	# Show endgame script based on arrested character
+	var char_id = current_character.id
+	var script = endgame_scripts.get(char_id, "No ending found.")
+	var time = 3.0 + script.length() * 0.03
+
+	# Special case: if Abel is arrested, stop BGM and play endgame music
+	if char_id == "abel":
+		$BGM.stop()
+		$Endgame.play()
+	
+	
+	start_npc_talk("endgame")
+	dialogue_text.text += "\n\n[b]" + current_character.id.capitalize() + ":[/b]"
+	await type_text_slowly(script)
+	stop_npc_talk()
+
+	# WAIT 3 SECONDS BEFORE CONTINUING
+	await get_tree().create_timer(3).timeout
+
+	if char_id == "abel":
+		# Abel arrested - WIN
+		dialogue_text.text = "\n\n[center][b]You have successfully arrested the culprit! Congratulations, Detective![/b]\n\n"
+		script = load_credits()
+		await type_text_slowly(script)
+		dialogue_text.text += "[/center]"
+		time = 10.0 + script.length() * 0.03
+		
+	else:
+		# Others arrested - LOSE
+		dialogue_text.text = "\n\n[center][b]You have arrested the wrong person. The real culprit remains at large... Game Over.[/b][/center]"
+
+
+	# Leave chat dialogue and triggers endgame sequence
+	current_character = null
+	await get_tree().create_timer(time).timeout
+	_on_leave_button_pressed()
+
+
+
+func _on_arrest_button_mouse_entered() -> void:
+	if arrest_button.disabled:
+		return
+	# Hover = bright cold silver (blue-shifted & higher contrast)
+	arrest_button.modulate = Color(1.55, 1.55, 1.7, 1.0)
+
+
+func _on_arrest_button_mouse_exited() -> void:
+	# Normal color
+	arrest_button.modulate = Color(1.0, 1.0, 1.0, 1.0)
+
+# Lock all input interaction
+func disable_interaction() -> void:
+	arrest_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	submit_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	talk_input.editable = false
+	submit_button.disabled = true
+
+# Unlock all input interaction
+func enable_interaction():
+	arrest_button.mouse_filter = Control.MOUSE_FILTER_STOP
+	submit_button.mouse_filter = Control.MOUSE_FILTER_STOP
+	talk_input.editable = true
+	submit_button.disabled = false
+
+
+func load_json(path) -> Dictionary:
+	var file = FileAccess.open(path, FileAccess.READ)
+	return JSON.parse_string(file.get_as_text())
+
+func load_credits():
+	return FileAccess.get_file_as_string("res://data/credits.txt")
