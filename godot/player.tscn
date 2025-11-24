@@ -222,8 +222,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
 size = Vector2(11.75, 7)
 
-[node name="Player" type="CharacterBody2D"]
-position = Vector2(147, 88)
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+y_sort_enabled = true
 motion_mode = 1
 script = ExtResource("1_cvnsp")
 
@@ -236,5 +236,5 @@ position = Vector2(-0.125, 12.5)
 shape = SubResource("RectangleShape2D_cvnsp")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(6, 6)
-position_smoothing_enabled = true
+y_sort_enabled = true
+zoom = Vector2(10, 10)
