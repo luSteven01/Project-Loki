@@ -53,13 +53,13 @@ func switch_scene(scene_path: PackedScene, new_pos: Vector2):
 	player_start_position = new_pos
 	
 	# Fade to black
-	animation_player.play("fade_out")
-	await animation_player.animation_finished
+	#animation_player.play("fade_out")
+	#await animation_player.animation_finished
 	
 	# Emit the signal to change the scene
 	emit_signal("level_change_requested", scene_path, new_pos)
 	
-	# Fade back into the game
-	animation_player.play("fade_in")
+	## Fade back into the game
+	#animation_player.play("fade_in")
 
 	transition_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE

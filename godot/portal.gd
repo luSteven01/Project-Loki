@@ -1,42 +1,48 @@
 extends Area2D
 
 @export_file("*.tscn") var target_scene_path: String
-@export var target_scene: PackedScene
 @export var target_position: Vector2
 @export var is_interactive: bool = false
-var player_body: CharacterBody2D = null
 
-# Called when the node enters the scene tree for the first time.
+var player_inside := false
+var cooldown := true
+
 func _ready():
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	print("portal ready: monitoring:", monitoring)
 
+	# cooldown so the player doesn't instantly trigger portals when scene loads
+	await get_tree().create_timer(0.5).timeout
+	cooldown = false
+	print("Portal Cooldown Finished - Ready to Teleport")
+
+
 func _on_body_entered(body):
-	# We check if the body is in the "player" group.
-	# (Make sure your player node is in the "player" group!)
 	if body.is_in_group("player"):
-		
-		player_body = body
+		player_inside = true
 		if not is_interactive:
-			teleport()
+			try_teleport()
 
 
 func _on_body_exited(body):
-	if body == player_body:
-		player_body = null
+	if body.is_in_group("player"):
+		player_inside = false
 
-func teleport():
-	
+
+func try_teleport():
+	if cooldown:
+		return
+	if not player_inside:
+		return
 	if target_scene_path == "":
 		print("Error: No target scene path set for this portal")
 		return
-		
-	var scene_to_load = load(target_scene_path)
-	SceneManager.switch_scene(scene_to_load, target_position)
+
+	cooldown = true  # prevent re-triggering while switching
+	SceneManager.switch_scene(load(target_scene_path), target_position)
 
 
 func _process(delta):
-	if player_body != null and is_interactive and Input.is_action_just_pressed("interact"):
-		teleport()
-	
+	if is_interactive and player_inside and Input.is_action_just_pressed("interact"):
+		try_teleport()

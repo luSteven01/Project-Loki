@@ -2,26 +2,45 @@ extends Node
 
 @onready var current_level_node = $WorldContext/CurrentLevel
 @onready var player = $WorldContext/Player
+
 @export var starting_scene: PackedScene
 @export var starting_position: Vector2 = Vector2(127, 213)
 
 func _ready():
-	# Connect to SceneManager for the signal
 	SceneManager.level_change_requested.connect(_on_level_change_requested)
+	
 	if starting_scene == null:
 		starting_scene = load("res://living_room.tscn")
-	_on_level_change_requested(starting_scene, starting_position)
 	
+	# Load the first level immediately (safe to do here)
+	_perform_level_change(starting_scene, starting_position)
+
 func _on_level_change_requested(new_scene_packed: PackedScene, new_pos: Vector2):
-	# Clear the old room
-	# We look at the children of the container. If there's a room there, remove it.
+	# Wait for the frame to finish to avoid "Flushing Queries" crash
+	call_deferred("_perform_level_change", new_scene_packed, new_pos)
+
+func _perform_level_change(new_scene_packed: PackedScene, new_pos: Vector2):
+	print("Main: performing level change...")
+	
+	if new_scene_packed == null:
+		print("CRITICAL ERROR: Main received a NULL scene! The Portal failed to load the file.")
+		return
+
+	print("Main: Scene is valid. Swapping rooms now.")
+
+	# 1. Remove the Old Room
 	for child in current_level_node.get_children():
 		child.queue_free()
-	
-	# Add the new room
+
+	# 2. Add the New Room
 	var new_level = new_scene_packed.instantiate()
 	current_level_node.add_child(new_level)
-	
-	# Move the player
-	# Since the player is a child of Main, we can just move them directly.
+
+	# 3. REPARENT PLAYER
+	if player.get_parent() != new_level:
+		player.get_parent().remove_child(player)
+		new_level.add_child(player)
+	print("Player parent after change:", player.get_parent().name)
+
+	# 4. Move Player
 	player.global_position = new_pos

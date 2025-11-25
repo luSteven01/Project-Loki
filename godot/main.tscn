@@ -26,7 +26,6 @@ scale = Vector2(1.1064426, 1.1064426)
 y_sort_enabled = true
 
 [node name="Player" parent="WorldContext" instance=ExtResource("4_lquwl")]
-z_index = 6
 position = Vector2(127, 213)
 
 [node name="CurrentLevel" type="Node2D" parent="WorldContext"]
