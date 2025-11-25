@@ -1,0 +1,515 @@
+[gd_scene load_steps=44 format=3 uid="uid://cg58uk0dqkydk"]
+
+[ext_resource type="Script" uid="uid://c2hcggxoe5ubs" path="res://dialogue_box.gd" id="1_senjy"]
+[ext_resource type="Texture2D" uid="uid://p8yl4jq1gme5" path="res://art/pngs/Portraits_01_128_V7.png" id="6_2klrv"]
+[ext_resource type="Texture2D" uid="uid://u4veyojq174v" path="res://art/background/house1.png" id="6_85jfh"]
+[ext_resource type="Texture2D" uid="uid://dgs7wlodgrksa" path="res://art/pngs/Portraits_01_128_V9.png" id="7_en6mc"]
+[ext_resource type="Texture2D" uid="uid://dv8mjr3ojmj6t" path="res://art/background/storage.png" id="7_med3p"]
+[ext_resource type="Texture2D" uid="uid://lkpadb5g0ub2" path="res://art/pngs/Portraits_01_128_V10.png" id="8_qjfks"]
+[ext_resource type="Texture2D" uid="uid://cab4cfjjdrse7" path="res://art/pngs/Portraits_01_128_V11.png" id="9_uucap"]
+[ext_resource type="Texture2D" uid="uid://dgtl8nuk6tu5v" path="res://art/Enjl-Starry Space Background/background_4.png" id="12_uucap"]
+[ext_resource type="Texture2D" uid="uid://bf6oq1b57q848" path="res://art/pngs/Maid/038p_classic_maid2_1.png" id="13_8glcu"]
+[ext_resource type="Texture2D" uid="uid://dmkj8or2cqrec" path="res://art/pngs/035p_red_haired_girl2/035p_red_haired_girl2_1.png" id="13_clwgo"]
+[ext_resource type="Texture2D" uid="uid://d07bn67kyn85h" path="res://art/pngs/Maid/038p_classic_maid2_4.png" id="14_l4nmj"]
+[ext_resource type="Texture2D" uid="uid://k3fxhwe46s7n" path="res://art/pngs/Maid/038p_classic_maid2_5.png" id="15_15d7h"]
+[ext_resource type="Texture2D" uid="uid://c5g63q7lhywti" path="res://art/pngs/040p_mysterious_visitor2/040p_mysterious_visitor2_1.png" id="15_fud6v"]
+[ext_resource type="Texture2D" uid="uid://c4btmka4m4swr" path="res://art/pngs/040p_mysterious_visitor2/040p_mysterious_visitor2_3.png" id="16_5ljd0"]
+[ext_resource type="Texture2D" uid="uid://ck3rkplcwjasw" path="res://art/pngs/008p_detective_male/008p_detective_male_C.png" id="16_7dguu"]
+[ext_resource type="Texture2D" uid="uid://cchk81r5u5os7" path="res://art/pngs/012p_doctor_male/012p_doctor_male_A.png" id="17_b7jwx"]
+[ext_resource type="Texture2D" uid="uid://b6l0cfthy630y" path="res://art/pngs/040p_mysterious_visitor2/040p_mysterious_visitor2_5.png" id="17_f018g"]
+[ext_resource type="Texture2D" uid="uid://7oyqlaldlq4n" path="res://art/background/entrance - brightly lit.png" id="18_s10na"]
+[ext_resource type="Texture2D" uid="uid://b2mivc0vt8gep" path="res://art/pngs/012p_doctor_male/012p_doctor_male_F.png" id="19_clwgo"]
+[ext_resource type="Texture2D" uid="uid://cst7623ycj0rr" path="res://art/pngs/035p_red_haired_girl2/035p_red_haired_girl2_4.png" id="19_w1g5p"]
+[ext_resource type="Texture2D" uid="uid://bu1niphoicm0e" path="res://art/pngs/035p_red_haired_girl2/035p_red_haired_girl2_5.png" id="20_clwgo"]
+[ext_resource type="Texture2D" uid="uid://dv4bhj2pk1mbk" path="res://art/pngs/012p_doctor_male/012p_doctor_male_G.png" id="20_jy1o0"]
+[ext_resource type="Texture2D" uid="uid://bemq02kr8p7np" path="res://art/pngs/035p_red_haired_girl2/035p_red_haired_girl2_3.png" id="21_jy1o0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjfks"]
+bg_color = Color(0, 0, 0.121569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uucap"]
+bg_color = Color(0.207843, 0.478431, 0.741176, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15d7h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fud6v"]
+bg_color = Color(0.0434708, 0.163828, 0.278201, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8glcu"]
+bg_color = Color(0.490267, 0.0782536, 0.0802554, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4nmj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15d7h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fud6v"]
+bg_color = Color(0.0434708, 0.163828, 0.278201, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8glcu"]
+bg_color = Color(0.490267, 0.0782536, 0.0802554, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ljd0"]
+bg_color = Color(0.236314, 0.0202234, 0.020174, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4nmj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ljd0"]
+bg_color = Color(0.236314, 0.0202234, 0.020174, 1)
+
+[sub_resource type="Animation" id="Animation_l4nmj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_8glcu")]
+}
+
+[sub_resource type="Animation" id="Animation_8glcu"]
+resource_name = "talk"
+length = 1.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("13_8glcu"), ExtResource("14_l4nmj"), ExtResource("13_8glcu"), ExtResource("14_l4nmj"), ExtResource("13_8glcu"), ExtResource("15_15d7h"), ExtResource("13_8glcu")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l4nmj"]
+_data = {
+&"RESET": SubResource("Animation_l4nmj"),
+&"talk": SubResource("Animation_8glcu")
+}
+
+[sub_resource type="Animation" id="Animation_ybase"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Portrait:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("17_b7jwx")]
+}
+
+[sub_resource type="Animation" id="Animation_bvavr"]
+resource_name = "talk"
+length = 1.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Portrait:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("17_b7jwx"), ExtResource("19_clwgo"), ExtResource("17_b7jwx"), ExtResource("19_clwgo"), ExtResource("17_b7jwx"), ExtResource("20_jy1o0")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tarkj"]
+_data = {
+&"RESET": SubResource("Animation_ybase"),
+&"talk": SubResource("Animation_bvavr")
+}
+
+[sub_resource type="Animation" id="Animation_en6mc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_clwgo")]
+}
+
+[sub_resource type="Animation" id="Animation_med3p"]
+resource_name = "player_talk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("6_2klrv"), ExtResource("7_en6mc"), ExtResource("8_qjfks"), ExtResource("9_uucap")]
+}
+
+[sub_resource type="Animation" id="Animation_2klrv"]
+resource_name = "talk"
+length = 1.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("13_clwgo"), ExtResource("19_w1g5p"), ExtResource("13_clwgo"), ExtResource("19_w1g5p"), ExtResource("13_clwgo"), ExtResource("20_clwgo"), ExtResource("13_clwgo"), ExtResource("21_jy1o0")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qjfks"]
+_data = {
+&"RESET": SubResource("Animation_en6mc"),
+&"player_talk": SubResource("Animation_med3p"),
+&"talk": SubResource("Animation_2klrv")
+}
+
+[sub_resource type="Animation" id="Animation_uucap"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Portrait:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("15_fud6v")]
+}
+
+[sub_resource type="Animation" id="Animation_qjfks"]
+resource_name = "player_talk"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Portrait:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 0.95),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("15_fud6v"), ExtResource("16_5ljd0"), ExtResource("15_fud6v"), ExtResource("16_5ljd0"), ExtResource("15_fud6v"), ExtResource("17_f018g")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8glcu"]
+_data = {
+&"RESET": SubResource("Animation_uucap"),
+&"player_talk": SubResource("Animation_qjfks")
+}
+
+[node name="DialogueBox" type="Panel"]
+offset_left = 112.0
+offset_top = 57.0
+offset_right = 1008.0
+offset_bottom = 617.0
+offset_left = 112.0
+offset_top = 57.0
+offset_right = 1008.0
+offset_bottom = 617.0
+script = ExtResource("1_senjy")
+
+[node name="DialogueText" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 229.0
+offset_top = 70.0
+offset_right = -222.0
+offset_bottom = -149.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_qjfks")
+bbcode_enabled = true
+
+[node name="PlayerTextInput" type="TextEdit" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 450.0
+offset_right = -224.0
+offset_bottom = -65.0
+offset_top = 450.0
+offset_right = -224.0
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Talk here..."
+
+[node name="SubmitButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 712.0
+offset_top = 450.0
+offset_right = -109.0
+offset_bottom = -65.0
+offset_left = 712.0
+offset_top = 450.0
+offset_right = -109.0
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_uucap")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_15d7h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fud6v")
+text = "Submit"
+
+[node name="LeaveButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 804.0
+offset_top = 450.0
+offset_right = -17.0
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_8glcu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_8glcu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_l4nmj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5ljd0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5ljd0")
+text = "Leave
+"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("12_uucap")
+
+[node name="CharacterButtons" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 8.0
+offset_right = -16.0
+offset_bottom = 72.0
+grow_horizontal = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="NPCIcons" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 278.0
+offset_right = 80.0
+offset_bottom = 318.0
+
+[node name="Maid" type="Control" parent="NPCIcons"]
+clip_contents = true
+anchors_preset = 0
+offset_left = -3.0
+offset_top = -112.0
+offset_right = 184.0
+offset_bottom = 130.0
+
+[node name="Portrait" type="TextureRect" parent="NPCIcons/Maid"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = -2.0
+offset_right = 218.0
+offset_bottom = 636.0
+texture = ExtResource("13_8glcu")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Background" type="TextureRect" parent="NPCIcons/Maid"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -105.0
+offset_top = -45.0
+offset_right = -27.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_85jfh")
+expand_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPCIcons/Maid"]
+root_node = NodePath("../Portrait")
+libraries = {
+&"": SubResource("AnimationLibrary_l4nmj")
+}
+
+[node name="Detective" type="Control" parent="NPCIcons"]
+clip_contents = true
+anchors_preset = 0
+offset_left = -3.0
+offset_top = -112.0
+offset_right = 184.0
+offset_bottom = 130.0
+
+[node name="Background" type="TextureRect" parent="NPCIcons/Detective"]
+z_index = -1
+layout_mode = 0
+offset_left = -15.0
+offset_top = -184.0
+offset_right = 497.0
+offset_bottom = 328.0
+texture = ExtResource("7_med3p")
+
+[node name="Portrait" type="TextureRect" parent="NPCIcons/Detective"]
+layout_mode = 0
+offset_left = -52.0
+offset_top = -11.0
+offset_right = 208.0
+offset_bottom = 838.0
+texture = ExtResource("16_7dguu")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="Schumacher" type="Control" parent="NPCIcons"]
+clip_contents = true
+anchors_preset = 0
+offset_left = -3.0
+offset_top = -112.0
+offset_right = 184.0
+offset_bottom = 130.0
+
+[node name="Portrait" type="TextureRect" parent="NPCIcons/Schumacher"]
+layout_mode = 0
+offset_left = -31.0
+offset_top = -37.0
+offset_right = 214.0
+offset_bottom = 776.0
+texture = ExtResource("17_b7jwx")
+expand_mode = 5
+stretch_mode = 6
+flip_h = true
+
+[node name="Background" type="TextureRect" parent="NPCIcons/Schumacher"]
+z_index = -1
+layout_mode = 0
+offset_left = -68.0
+offset_top = -6.0
+offset_right = 279.0
+offset_bottom = 254.0
+texture = ExtResource("18_s10na")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPCIcons/Schumacher"]
+libraries = {
+&"": SubResource("AnimationLibrary_tarkj")
+}
+
+[node name="Alice" type="Control" parent="NPCIcons"]
+clip_contents = true
+anchors_preset = 0
+offset_left = -3.0
+offset_top = -112.0
+offset_right = 184.0
+offset_bottom = 130.0
+
+[node name="Portrait" type="TextureRect" parent="NPCIcons/Alice"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 34.0
+offset_right = 173.0
+offset_bottom = 786.3809
+texture = ExtResource("13_clwgo")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPCIcons/Alice"]
+root_node = NodePath("../Portrait")
+libraries = {
+&"": SubResource("AnimationLibrary_qjfks")
+}
+
+[node name="Background" type="TextureRect" parent="NPCIcons/Alice"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -47.0
+offset_right = 54.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_85jfh")
+expand_mode = 5
+
+[node name="PlayerPortrait" type="Control" parent="."]
+clip_contents = true
+anchors_preset = 0
+offset_left = 679.0
+offset_top = 168.0
+offset_right = 866.0
+offset_bottom = 410.0
+
+[node name="Portrait" type="TextureRect" parent="PlayerPortrait"]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -7.0
+offset_right = 218.0
+offset_bottom = 796.0
+texture = ExtResource("15_fud6v")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="Background" type="TextureRect" parent="PlayerPortrait"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -358.0
+offset_top = -197.0
+offset_right = 18.0
+offset_bottom = 113.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_med3p")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerPortrait"]
+libraries = {
+&"": SubResource("AnimationLibrary_8glcu")
+}
+
+[connection signal="pressed" from="SubmitButton" to="." method="_on_submit_button_pressed"]
+[connection signal="pressed" from="LeaveButton" to="." method="_on_leavebutton_pressed"]
+[connection signal="pressed" from="LeaveButton" to="." method="_on_leave_button_pressed"]

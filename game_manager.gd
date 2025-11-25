@@ -1,133 +1,258 @@
 extends Node
 
-var API_KEY : String = ""
-var URL : String = "https://api.openai.com/v1/chat/completions"
+@onready var dialogue_box = get_node("/root/Main/CanvasLayer/DialogueBox") # get dialogue box from main scene 
+@onready var npc_scene = get_node("/root/Main/PlayerNPC_Scene")
 
-# This is defines how consistent or sporadic the
-# generation is going to be 
-var TEMPERATURE : float = 0.5 
+# Nodes for spawning items, for testing purposes
+@onready var items = get_node("/root/Main/PlayerNPC_Scene/ItemSpawnArea/Items")
+@onready var item_spawn_area = get_node("/root/Main/PlayerNPC_Scene/ItemSpawnArea")
+@onready var collision = get_node("/root/Main/PlayerNPC_Scene/ItemSpawnArea/CollisionShape2D")
 
-# Maximum amount of tokens that we can use
-var MAX_TOKENS : int = 1024 
+# API Configuration
+const API_BASE_URL = "http://127.0.0.1:8000"
 
-#The model of GPT we are using
-var MODEL: String = "gpt-4o-mini"
+# State management
+var sessions = {}  # { character_id: session_id }
+var current_character = null
+var characters = []
+# var NPCs = [] # for getting the NPCs that are in-game
+var is_loading = false
 
-# An array of past messages that keeps track of our messages.
-# This will be used to send all of our chat history 
-var messages = []
+var http_request: HTTPRequest
 
-# This is a node of Godot, that manages 
-# sending and receiving information to the API
-var request: HTTPRequest
+enum RequestType {
+	HEALTH_CHECK,
+	LOAD_CHARACTERS,
+	SEND_MESSAGE
+}
+var current_request_type = RequestType.HEALTH_CHECK
 
-# This function has our HTTP Request Node set up so that once we 
-# receive information from any request, we are going to call 
-# _on_request_completed
-func _ready() -> void:
-	# Load API key
-	API_KEY = load_env(".env", "OPENAI_API_KEY")
-	if API_KEY == "":
-		push_error("API key not found")
-	#print(API_KEY) # For debug
 
-	request = HTTPRequest.new() # Create a new HTTPRequest node
-	add_child(request) # Add that node we created as a child to scene
+func _ready():
+	http_request = HTTPRequest.new()
+	add_child(http_request)
+	http_request.request_completed.connect(_on_request_completed)
+
+	print("GameManager ready - connecting to backend...")
 	
-	#dialogue_request("Hello fuck!")
+	if not npc_scene:
+		print("npc scene not loaded")
+	else:
+		print("npc scene loaded")
 	
-	# With the node, it will connect it's "request_completed" signal to our _on_request_completed
-	# function. That means that once an API request has been received by the AI, the function
-	# will call
-	request.connect("request_completed", _on_request_completed)
+	#var npc1 = npc_scene.get_child(1)
 	
+	spawn_random_items(10)
+	check_server_health()
 	
-# This function is going to include our dialogue request that we are 
-# sending to the OpenAI API.
-func dialogue_request(player_dialogue):
-	# This means that the format that we are sending 
-	# and being returned will be of type json.
-	var headers = ["Content-type: application/json", "Authorization: Bearer " + API_KEY] 
-	
-	# This adds a new object to messages array, 
-	# containing the role and content of the request.
-	messages.append({
-		"role": "user",
-		"content": player_dialogue
-	})
+# ============================================
+# API Functions
+# ============================================
 
-	# We are defining our body here for the API call. All objects that we add 
-	# inside of this body will be turned into JSON format for the API requirement
-	# Essentially the meat the of API call.
-	var body = JSON.stringify({
-		"messages" : messages,
-		"temperature": TEMPERATURE,
-		"max_tokens":  MAX_TOKENS,
-		"model": MODEL
-	})
+func check_server_health():
+	print("Checking server health...")
+	current_request_type = RequestType.HEALTH_CHECK
+	var error = http_request.request(API_BASE_URL + "/health")
+	if error != OK:
+		print("Failed to connect to server: ", error)
 
-	# After getting the body, we now have to send the request. We want to use the 
-	# POST method because we are posting data to the API.
-	var send_request = request.request(URL, headers, HTTPClient.METHOD_POST, body)
+func load_characters():
+	print("Loading characters...")
+	current_request_type = RequestType.LOAD_CHARACTERS
+	var error = http_request.request(API_BASE_URL + "/characters")
+	if error != OK:
+		print("Failed to load characters: ", error)
 	
-	# Error checking to see if send_request failed.
-	if send_request != OK:
-		print("There was an error!")
-		
-
-func _on_request_completed(result, response_code, headers, body):
-	
-	# This is going to convert the body to JSON format
-	var json = JSON.new()
-	var parse_result = json.parse(body.get_string_from_utf8())
-	var response = json.get_data()
-	
-		# Check if JSON parsing was successful
-	if parse_result != OK:
-		print("Error parsing JSON!")
+func send_message(message: String, callback: Callable):
+	if not current_character or is_loading:
+		print("Cannot send message: no character selected or already loading")
 		return
 
-	# Check if the response dictionary contains an 'error' key
-	if response.has("error"):
-		print("API Error: ", response["error"]["message"])
-		
-	# If no error, it's safe to get the message
-	elif response.has("choices"):
-		# When accessing the message the AI sent, we look at:
-		# 1. The choices list
-		# 2. We select the 1st choice
-		# 3. Get the data of the message.
-		# 4. Then finally get the content of the message we selected.
-		var message = response["choices"][0]["message"]["content"]
-		#print(message) # for debug
-		
-		# Get DialogueBox node
-		var dialogue_box = get_node("/root/Main/CanvasLayer/DialogueBox")
+	is_loading = true
+	print("Sending message to ", current_character["character_name"], ": ", message)
 
-		# Start NPC talking animation
-		dialogue_box.start_npc_talk()
-		
-		# Append NPC response to DialogueText
-		dialogue_box.dialogue_text.text += "\n[b][NPC]:[/b]"
-		await dialogue_box.type_text_slowly(message)
-		
-		# Stop animation when done typing
-		dialogue_box.stop_npc_talk()
+	var url = API_BASE_URL + "/chat/" + current_character["npc_id"]
+	var headers = ["Content-Type: application/json"]
 
-		# Optional: auto-scroll to bottom
-		dialogue_box.dialogue_text.scroll_to_line(dialogue_box.dialogue_text.get_line_count() - 1)
+	var body = {
+		"message": message,
+		"session_id": sessions.get(current_character["npc_id"], null)
+	}
+
+	current_request_type = RequestType.SEND_MESSAGE
+	http_request.set_meta("callback", callback)
+
+	var error = http_request.request(url, headers, HTTPClient.METHOD_POST, JSON.stringify(body))
+
+	if error != OK:
+		print("Failed to send message: ", error)
+		is_loading = false
+		callback.call("", "Failed to send message")
+
+func select_character(character):
+	current_character = character
+	print("Selected character: ", character.name, " (", character.id, ")")
+
+# ============================================
+# Response Handlers
+# ============================================
+
+func _on_request_completed(result, response_code, headers, body):
+	if response_code != 200:
+		print("Request failed with code: ", response_code)
+		handle_request_error(response_code)
+		return
+
+	var json = JSON.new()
+	var error = json.parse(body.get_string_from_utf8())
+
+	if error != OK:
+		print("Failed to parse JSON: ", error)
+		return
+
+	var data = json.data
+
+	match current_request_type:
+		RequestType.HEALTH_CHECK:
+			handle_health_check(data)
+		RequestType.LOAD_CHARACTERS:
+			handle_characters_loaded(data)
+		RequestType.SEND_MESSAGE:
+			handle_message_response(data)
+
+func handle_health_check(data):
+	if data.api == "healthy" and data.mongodb == "connected" and data.openai == "connected":
+		print("✓ Server is healthy - loading characters...")
+		load_characters()
 	else:
-		print("Received an unknown response format.")
+		print("✗ Server has issues:", data)
 
-# Utility to load keys from .env	
-func load_env(path: String, key: String) -> String:
-	var file := FileAccess.open(path, FileAccess.READ)
-	if file == null:
-		return ""
-	var content = file.get_as_text().split("\n")
-	for line in content:
-		line = line.strip_edges()
-		if line.begins_with(key + "="):
-			return line.replace(key + "=", "").strip_edges()
-	return ""		
+func handle_characters_loaded(data):
+	characters = data.characters
+	print("Loaded ", characters.size(), " characters:")
+	for character in characters:
+		print("  - ", character.avatar, " ", character.name, " (", character.id, ")")
+
+	if characters.size() > 0:
+		select_character(characters[0])
+		
+	# load characters instantiated from the scene + debug print statement 
+	#get_in_game_NPCs()
+	#for npc in NPCs:
+		#print("character_name: " + npc.character_name + ", " + "npc_id: " + npc.npc_id)
 	
+
+func handle_message_response(data):
+	if not sessions.has(current_character["npc_id"]):
+		sessions[current_character["npc_id"]] = data.session_id
+		print("New session created for ", current_character["character_name"], ": ", data.session_id)
+
+	print("Received response from ", current_character["npc_id"])
+
+	if http_request.has_meta("callback"):
+		var callback = http_request.get_meta("callback")
+		callback.call(data.response, null)
+		http_request.remove_meta("callback")
+
+	is_loading = false
+
+func handle_request_error(response_code):
+	print("Request error: ", response_code)
+	is_loading = false
+
+	if http_request.has_meta("callback"):
+		var callback = http_request.get_meta("callback")
+		#callback.call(null, "Request failed with code: " + str(response_code))
+		http_request.remove_meta("callback")
+
+# ============================================
+# Public API
+# ============================================
+
+func get_characters() -> Array:
+	return characters
+
+func get_current_character():
+	return current_character
+
+func is_ready() -> bool:
+	return characters.size() > 0
+	
+
+# ============================================
+# Gameplay Functionality
+# ============================================
+
+#signal on_player_talk
+
+#signal on_npc_talk (npc_dialogue)
+
+# append in-game NPCs to an array 
+#func get_in_game_NPCs():
+	#for npc in npc_scene.get_children():
+		#if npc is NPC:
+			#NPCs.append(npc)
+			#print("npc name: " + npc.character_name)
+			#print("npc id: " + npc.npc_id)
+
+func enter_new_dialogue(npc: NPC):
+	current_character = npc
+	# dialogue_box.initialize_with_npc(npc) # not needed i think, i just need the dialogue box to show up
+	print("currently in a conversation with: " + current_character.character_name)
+	dialogue_box.visible = true;
+	
+	# Update the dialogue box UI
+	dialogue_box.current_character = current_character
+	dialogue_box.dialogue_text.text = "Now interviewing: " + current_character.character_name + "\n"
+	dialogue_box.submit_button.disabled = false
+	dialogue_box.talk_input.editable = true
+	dialogue_box.talk_input.grab_focus()
+
+	# Show NPC icon
+	for icon in dialogue_box.npc_icons.get_children():
+		icon.visible = false
+
+	dialogue_box.current_icon = dialogue_box.npc_icons.get_node_or_null(npc.npc_id.capitalize())
+	if dialogue_box.current_icon:
+		dialogue_box.current_icon.visible = true
+	
+func exit_dialogue():
+	current_character = null
+	# select_character(null)
+	dialogue_box.visible = false;
+	
+func is_dialogue_active():
+	return dialogue_box.visible
+
+# ============================================
+# Functions for spawning items, don't know if we should remove
+# ============================================
+# random position for the item within collision shape in spawn area
+func get_random_position():
+	var area_rect = collision.shape.get_rect()
+	
+	# random x, y position within boundaries 
+	var x = randf_range(0, area_rect.position.x)
+	var y = randf_range(0, area_rect.position.y)
+	
+	return item_spawn_area.to_global(Vector2(x, y))
+	
+# spawn random items from global item spawner array; can be repeated 
+func spawn_random_items(item_count):
+	var attempts = 0
+	var spawned_count = 0
+	
+	while spawned_count < item_count and attempts < 100:
+		var position = get_random_position()
+		spawned_count += 1
+		attempts += 1
+	
+		# select random item from array and assign it a random position	
+		spawn_item(Global.spawnable_items[randi() % Global.spawnable_items.size()], position)
+		
+func spawn_item(data, position):
+	var item_scene = preload("res://inventory_item.tscn")
+	var item_instance = item_scene.instantiate()
+	item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"], data["hashcode"])
+	item_instance.global_position = position
+	items.add_child(item_instance)
