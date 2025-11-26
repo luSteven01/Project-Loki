@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=17 format=3 uid="uid://c24h1ei3ucpog"]
+[gd_resource type="TileSet" load_steps=16 format=3 uid="uid://c24h1ei3ucpog"]
 
 [ext_resource type="Texture2D" uid="uid://b6x3jy8jidwhs" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/1_Generic_Black_Shadow_16x16.png" id="2_335ty"]
 [ext_resource type="Texture2D" uid="uid://2iqvoxkxqa0" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/16_Grocery_store_Black_Shadow_16x16.png" id="3_ibyjs"]
@@ -7,9 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://n0dpcelokqf1" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/5_Classroom_and_library_Black_Shadow_16x16.png" id="5_335ty"]
 [ext_resource type="Texture2D" uid="uid://dmll8464cpjkp" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/14_Basement_Black_Shadow_16x16.png" id="5_xaru5"]
 [ext_resource type="Texture2D" uid="uid://c7glmiwewwhdm" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/19_Hospital_Black_Shadow_16x16.png" id="7_7vkxe"]
-
-[sub_resource type="TileMapPattern" id="TileMapPattern_7vkxe"]
-tile_data = PackedInt32Array(0, 458756, 32)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_85spk"]
 texture = ExtResource("4_7vkxe")
@@ -8031,7 +8028,7 @@ texture = ExtResource("5_xaru5")
 5:32/0 = 0
 6:32/0 = 0
 7:32/0 = 0
-7:32/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -0.85321236, -8, -1.0018559)
+7:32/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 8:32/0 = 0
 9:32/0 = 0
 10:32/0 = 0
@@ -10335,4 +10332,3 @@ sources/5 = SubResource("TileSetAtlasSource_7vkxe")
 sources/4 = SubResource("TileSetAtlasSource_vdav1")
 sources/9 = SubResource("TileSetAtlasSource_kfhif")
 sources/13 = SubResource("TileSetAtlasSource_sgnf2")
-pattern_0 = SubResource("TileMapPattern_7vkxe")
