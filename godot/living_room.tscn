@@ -27135,4 +27135,4 @@ y_sort_enabled = true
 [node name="ToKitchen" parent="Portals" instance=ExtResource("17_ftaf3")]
 position = Vector2(309, 104)
 target_scene_path = "uid://c60twqwpmith3"
-target_position = Vector2(-12, 112)
+target_position = Vector2(-35, 80)
