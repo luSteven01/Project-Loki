@@ -3,6 +3,11 @@ extends Node
 @onready var dialogue_box = get_node("/root/Main/CanvasLayer/DialogueBox") # get dialogue box from main scene 
 @onready var npc_scene = get_node("/root/Main/PlayerNPC_Scene")
 
+# Nodes for spawning items, for testing purposes
+@onready var items = get_node("/root/Main/PlayerNPC_Scene/ItemSpawnArea/Items")
+@onready var item_spawn_area = get_node("/root/Main/PlayerNPC_Scene/ItemSpawnArea")
+@onready var collision = get_node("/root/Main/PlayerNPC_Scene/ItemSpawnArea/CollisionShape2D")
+
 # API Configuration
 const API_BASE_URL = "http://127.0.0.1:8000"
 
@@ -36,7 +41,11 @@ func _ready():
 		print("npc scene loaded")
 	
 	#var npc1 = npc_scene.get_child(1)
+	
+	spawn_random_items(3)
 	check_server_health()
+	
+	
 	
 # ============================================
 # API Functions
@@ -216,3 +225,49 @@ func exit_dialogue():
 	
 func is_dialogue_active():
 	return dialogue_box.visible
+
+# ============================================
+# Functions for spawning items & inventory related stuff
+# theres also functions for spawning items; might remove
+# ============================================
+# random position for the item within collision shape in spawn area
+func get_random_position():
+	var area_rect = collision.shape.get_rect()
+	
+	# random x, y position within boundaries 
+	var x = randf_range(0, area_rect.position.x)
+	var y = randf_range(0, area_rect.position.y)
+	
+	return item_spawn_area.to_global(Vector2(x, y))
+	
+# spawn random items from global item spawner array; can be repeated 
+func spawn_random_items(item_count):
+	var attempts = 0
+	var spawned_count = 0
+	
+	while spawned_count < item_count and attempts < 100:
+		var position = get_random_position()
+		spawned_count += 1
+		attempts += 1
+	
+		# select random item from array and assign it a random position	
+		spawn_item(Global.spawnable_items[randi() % Global.spawnable_items.size()], position)
+		
+func spawn_item(data, position):
+	var item_scene = preload("res://inventory_item.tscn")
+	var item_instance = item_scene.instantiate()
+	item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"], data["hashcode"])
+	item_instance.global_position = position
+	items.add_child(item_instance)
+
+# can change if-statement to include other evidence, this is just for testing 
+func inventory_check():
+	if(Global.item_exists("Berry")):
+		print("I have a berry")
+		dialogue_box.evidence_button.visible = true;
+		for item in Global.inventory:
+			if item != null and item["name"] == "Berry":
+				dialogue_box.evidence_button.text = "Button will be visible when player has the item; replace w/ question" + item["hashcode"]
+	else:
+		print("no berry")
+		dialogue_box.evidence_button.visible = false;

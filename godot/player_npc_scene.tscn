@@ -1,22 +1,24 @@
-[gd_scene load_steps=137 format=3 uid="uid://bf6erxp11kmdd"]
+[gd_scene load_steps=140 format=3 uid="uid://bf6erxp11kmdd"]
 
 [ext_resource type="Script" uid="uid://chtsrbmck8nbk" path="res://player.gd" id="1_mgu07"]
-[ext_resource type="Texture2D" uid="uid://cd1uwlqa56jj2" path="res://art/spritesheets/Player_Spritesheet.png" id="2_nem03"]
+[ext_resource type="Texture2D" uid="uid://cd1uwlqa56jj2" path="res://art/spritesheets/Player_SpriteSheet.png" id="2_nem03"]
 [ext_resource type="Script" uid="uid://dsvfq7ypy0rgu" path="res://talk_trigger.gd" id="2_oq6gd"]
 [ext_resource type="Script" uid="uid://crgqai07e6303" path="res://alice_npc.gd" id="3_f3w7y"]
 [ext_resource type="Script" uid="uid://cccfhypg3c710" path="res://abel_npc.gd" id="4_nem03"]
-[ext_resource type="Texture2D" uid="uid://c5cxvxnqdgc1b" path="res://art/spritesheets/Alice_Spritesheet.png" id="5_2j8hq"]
+[ext_resource type="FontFile" uid="uid://do6g4q03tl1gj" path="res://Assets/Fonts/Schrödinger.ttf" id="4_y1m2g"]
+[ext_resource type="Texture2D" uid="uid://c5cxvxnqdgc1b" path="res://art/spritesheets/Alice_SpriteSheet.png" id="5_2j8hq"]
 [ext_resource type="Script" uid="uid://ce3nx04u0yof6" path="res://adele_npc.gd" id="5_t4v6d"]
+[ext_resource type="PackedScene" uid="uid://b5mjc6m5nx3he" path="res://inventory_ui.tscn" id="5_xmig4"]
 [ext_resource type="Script" uid="uid://diffu843wat04" path="res://chef_npc.gd" id="6_2j8hq"]
 [ext_resource type="Script" uid="uid://dncbhhlg007yh" path="res://diane_npc.gd" id="7_4mykb"]
-[ext_resource type="Texture2D" uid="uid://bmk02xw36x57o" path="res://art/spritesheets/Abel_Spritesheet.png" id="7_fad4w"]
+[ext_resource type="Texture2D" uid="uid://bmk02xw36x57o" path="res://art/spritesheets/Abel_SpriteSheet.png" id="7_fad4w"]
 [ext_resource type="Script" uid="uid://bugiktjhtu30j" path="res://maid_npc.gd" id="8_fad4w"]
-[ext_resource type="Texture2D" uid="uid://cn3gol8ik50i6" path="res://art/spritesheets/Adele_Spritesheet.png" id="9_2j8hq"]
-[ext_resource type="Script" uid="uid://djb7hc5d2j4r1" path="res://professor_schumacher_npc.gd" id="10_5tuil"]
-[ext_resource type="Texture2D" uid="uid://cr0bksq7yw6lm" path="res://art/spritesheets/Chef_Spritesheet.png" id="11_4mykb"]
+[ext_resource type="Texture2D" uid="uid://cn3gol8ik50i6" path="res://art/spritesheets/Adele_SpriteSheet.png" id="9_2j8hq"]
+[ext_resource type="Script" uid="uid://djb7hc5d2j4r1" path="res://professor_schumacher_NPC.gd" id="10_5tuil"]
+[ext_resource type="Texture2D" uid="uid://cr0bksq7yw6lm" path="res://art/spritesheets/Chef_SpriteSheet.png" id="11_4mykb"]
 [ext_resource type="Texture2D" uid="uid://cal2lqhht3fc2" path="res://art/spritesheets/Diane_Spritesheet.png" id="13_3b1uw"]
 [ext_resource type="PackedScene" uid="uid://cgip6bcxrd2o7" path="res://living_room.tscn" id="13_nem03"]
-[ext_resource type="Texture2D" uid="uid://cfiix47feexnv" path="res://art/spritesheets/Maid_Spritesheet.png" id="15_5tuil"]
+[ext_resource type="Texture2D" uid="uid://cfiix47feexnv" path="res://art/spritesheets/Maid_SpriteSheet.png" id="15_5tuil"]
 [ext_resource type="Texture2D" uid="uid://yqvmb6qr5bww" path="res://art/spritesheets/Professor_Schumacher.png" id="17_y1m2g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3b1uw"]
@@ -1087,9 +1089,12 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_prm42"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y1m2g"]
+size = Vector2(288, 144)
+
 [node name="PlayerNPC_Scene" type="Node2D"]
 
-[node name="Player" type="CharacterBody2D" parent="."]
+[node name="Player" type="CharacterBody2D" parent="." groups=["Player"]]
 z_index = 2
 position = Vector2(120, 225)
 scale = Vector2(0.75, 0.75)
@@ -1117,6 +1122,67 @@ script = ExtResource("2_oq6gd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/TalkTrigger"]
 shape = SubResource("CircleShape2D_xmig4")
+
+[node name="InventoryUI" type="CanvasLayer" parent="Player"]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Player/InventoryUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.39341664, 0.5749391, 0.65857416, 1)
+
+[node name="Label" type="Label" parent="Player/InventoryUI/ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 50.0
+offset_right = 150.0
+offset_bottom = 110.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_y1m2g")
+theme_override_font_sizes/font_size = 60
+text = "Inventory"
+
+[node name="Inventory_UI" parent="Player/InventoryUI/ColorRect" instance=ExtResource("5_xmig4")]
+layout_mode = 0
+
+[node name="InteractUI" type="CanvasLayer" parent="Player"]
+
+[node name="ColorRect" type="ColorRect" parent="Player/InteractUI"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+color = Color(0.015399602, 0.18038115, 0.18636328, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Player/InteractUI/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.5
+offset_top = -12.5
+offset_right = 122.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_y1m2g")
+theme_override_font_sizes/font_size = 28
+text = "Press \"E\" to pickup"
+metadata/_edit_use_anchors_ = true
 
 [node name="Alice" type="CharacterBody2D" parent="." groups=["NPC"]]
 z_index = 2
@@ -1241,6 +1307,15 @@ shape = SubResource("CapsuleShape2D_prm42")
 
 [node name="LivingRoomFloor" parent="." instance=ExtResource("13_nem03")]
 z_index = 0
+
+[node name="ItemSpawnArea" type="Area2D" parent="."]
+position = Vector2(134, 102)
+
+[node name="Items" type="Node2D" parent="ItemSpawnArea"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemSpawnArea"]
+position = Vector2(-6, 2)
+shape = SubResource("RectangleShape2D_y1m2g")
 
 [connection signal="body_entered" from="Player/TalkTrigger" to="Player/TalkTrigger" method="_on_body_entered"]
 [connection signal="body_exited" from="Player/TalkTrigger" to="Player/TalkTrigger" method="_on_body_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://cg58uk0dqkydk"]
+[gd_scene load_steps=46 format=3 uid="uid://cg58uk0dqkydk"]
 
 [ext_resource type="Script" uid="uid://c2hcggxoe5ubs" path="res://dialogue_box.gd" id="1_senjy"]
 [ext_resource type="Texture2D" uid="uid://p8yl4jq1gme5" path="res://art/pngs/Portraits_01_128_V7.png" id="6_2klrv"]
@@ -23,6 +23,8 @@
 [ext_resource type="Texture2D" uid="uid://bu1niphoicm0e" path="res://art/pngs/035p_red_haired_girl2/035p_red_haired_girl2_5.png" id="20_clwgo"]
 [ext_resource type="Texture2D" uid="uid://dv4bhj2pk1mbk" path="res://art/pngs/012p_doctor_male/012p_doctor_male_G.png" id="20_jy1o0"]
 [ext_resource type="Texture2D" uid="uid://bemq02kr8p7np" path="res://art/pngs/035p_red_haired_girl2/035p_red_haired_girl2_3.png" id="21_jy1o0"]
+[ext_resource type="FontFile" uid="uid://do6g4q03tl1gj" path="res://Assets/Fonts/Schrödinger.ttf" id="24_bvavr"]
+[ext_resource type="PackedScene" uid="uid://b5mjc6m5nx3he" path="res://inventory_ui.tscn" id="25_ybase"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjfks"]
 bg_color = Color(0, 0, 0.121569, 1)
@@ -37,18 +39,6 @@ bg_color = Color(0.0434708, 0.163828, 0.278201, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8glcu"]
 bg_color = Color(0.490267, 0.0782536, 0.0802554, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4nmj"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15d7h"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fud6v"]
-bg_color = Color(0.0434708, 0.163828, 0.278201, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8glcu"]
-bg_color = Color(0.490267, 0.0782536, 0.0802554, 1)
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ljd0"]
-bg_color = Color(0.236314, 0.0202234, 0.020174, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4nmj"]
 
@@ -225,13 +215,9 @@ _data = {
 }
 
 [node name="DialogueBox" type="Panel"]
-offset_left = 112.0
+offset_left = 90.0
 offset_top = 57.0
-offset_right = 1008.0
-offset_bottom = 617.0
-offset_left = 112.0
-offset_top = 57.0
-offset_right = 1008.0
+offset_right = 986.0
 offset_bottom = 617.0
 script = ExtResource("1_senjy")
 
@@ -256,9 +242,6 @@ offset_left = 32.0
 offset_top = 450.0
 offset_right = -224.0
 offset_bottom = -65.0
-offset_top = 450.0
-offset_right = -224.0
-offset_bottom = -65.0
 grow_horizontal = 2
 grow_vertical = 2
 placeholder_text = "Talk here..."
@@ -268,10 +251,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 712.0
-offset_top = 450.0
-offset_right = -109.0
-offset_bottom = -65.0
 offset_left = 712.0
 offset_top = 450.0
 offset_right = -109.0
@@ -295,9 +274,7 @@ offset_bottom = -65.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_8glcu")
-theme_override_styles/normal = SubResource("StyleBoxFlat_8glcu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_l4nmj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_5ljd0")
 theme_override_styles/hover = SubResource("StyleBoxFlat_5ljd0")
 text = "Leave
 "
@@ -510,6 +487,44 @@ libraries = {
 &"": SubResource("AnimationLibrary_8glcu")
 }
 
-[connection signal="pressed" from="SubmitButton" to="." method="_on_submit_button_pressed"]
+[node name="EvidenceButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="InventoryUI" type="CanvasLayer" parent="."]
+visible = false
+offset = Vector2(0, 100)
+transform = Transform2D(1, 0, 0, 1, 0, 100)
+
+[node name="ColorRect" type="ColorRect" parent="InventoryUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 300.0
+offset_top = 500.0
+offset_right = -352.0
+offset_bottom = 102.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.39341664, 0.5749391, 0.65857416, 1)
+
+[node name="Label" type="Label" parent="InventoryUI/ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -97.0
+offset_top = 16.0
+offset_right = 103.0
+offset_bottom = 76.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("24_bvavr")
+theme_override_font_sizes/font_size = 40
+text = "Inventory"
+
+[node name="Inventory_UI" parent="InventoryUI/ColorRect" instance=ExtResource("25_ybase")]
+layout_mode = 0
+
 [connection signal="pressed" from="LeaveButton" to="." method="_on_leavebutton_pressed"]
 [connection signal="pressed" from="LeaveButton" to="." method="_on_leave_button_pressed"]

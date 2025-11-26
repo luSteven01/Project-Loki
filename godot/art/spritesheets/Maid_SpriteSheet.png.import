@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cfiix47feexnv"
-path="res://.godot/imported/Maid_Spritesheet.png-d93b95fabb9ca030d98a0ab1165adf4a.ctex"
+path="res://.godot/imported/Maid_SpriteSheet.png-b49d33f5ac5715a3aa784f097569e04b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/spritesheets/Maid_Spritesheet.png"
-dest_files=["res://.godot/imported/Maid_Spritesheet.png-d93b95fabb9ca030d98a0ab1165adf4a.ctex"]
+source_file="res://art/spritesheets/Maid_SpriteSheet.png"
+dest_files=["res://.godot/imported/Maid_SpriteSheet.png-b49d33f5ac5715a3aa784f097569e04b.ctex"]
 
 [params]
 

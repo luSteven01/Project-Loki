@@ -13,9 +13,17 @@ extends Panel
 @onready var game_manager = get_node_or_null("/root/Main/GameManager")
 
 
+# Option #1: have button that appears when player has a piece of evidence collected
+# We can add more buttons that appear based on the # of evidence we have (I think we have 5?)
+@onready var evidence_button = $EvidenceButton
+
+# Option #2 for evidence-related mechanisms, where we just have a smaller version of the inventory on the side
+# we can click on and click the "Show" option and show the button that way 
+@onready var inventory_ui = $InventoryUI
+
 var current_character = null
 var chat_history = []
-	
+
 func _ready() -> void:	
 	# Find GameManager node
 	if not game_manager:
@@ -31,6 +39,8 @@ func _ready() -> void:
 	print("leave_button: ", leave_button)
 	print("character_buttons_container: ", character_buttons_container)
 	
+	# Hide the evidence button(s) if we are doing my approach
+	evidence_button.visible = false
 		
 	# Hide all NPC icons
 	for icon in npc_icons.get_children():
@@ -60,6 +70,19 @@ func _ready() -> void:
 	else:
 		dialogue_text.text = "Error: GameManager script not loaded correctly"
 		print("ERROR: GameManager does not have get_characters method")
+	
+	# just testing if item exists when we use option #1
+		
+	#if(Global.item_exists("Berry")):
+		#print("I have a berry")
+		#evidence_button.visible = true;
+		#for item in Global.inventory:
+			#if item != null and item["name"] == "Berry":
+				#evidence_button.text = "Button will be visible when player has the item; replace w/ question" + item["hashcode"]
+	#else:
+		#print("no berry")
+		#evidence_button.visible = false;
+	
 
 # Handle input with Ctrl+Enter
 func _input(event):
@@ -73,6 +96,9 @@ func _input(event):
 		elif (event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER) and not event.shift_pressed:
 			_on_submit_button_pressed()
 			get_viewport().set_input_as_handled()
+			
+func get_player_reference():
+	return Global.player_node
 
 func setup_character_buttons():
 	print("=== setup_character_buttons() called ===")
@@ -132,6 +158,7 @@ func _on_character_selected(character):
 
 func _on_submit_button_pressed() -> void:
 	send_player_message()
+	
 
 func send_player_message():
 	var player_message = talk_input.text.strip_edges()
@@ -192,6 +219,7 @@ func _on_leave_button_pressed() -> void:
 	submit_button.disabled = true
 	talk_input.editable = false
 	current_character = null
+	inventory_ui.visible = false
 	game_manager.exit_dialogue()
 
 # Typewriter effect for NPC messages (clean version)
