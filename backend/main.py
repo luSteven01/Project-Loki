@@ -13,7 +13,7 @@ from services import (
     initialize_database, check_openai_connection, check_mongodb_connection,
     generate_ai_response, get_api_stats, db
 )
-# from prompt import get_system_prompt
+from prompt import get_system_prompt
 from story import STORY_DATA
 from characters import get_all_characters, get_system_prompt_for_character, get_character_info
 
@@ -126,8 +126,6 @@ async def chat_with_detective_ai(request: ChatRequest):
                 "content": msg["content"]
             })
 
-        print('after for loop')
-
         # Add current user message
         conversation_messages.append({
             "role": "user",
@@ -144,9 +142,8 @@ async def chat_with_detective_ai(request: ChatRequest):
                 "content": request.message,
                 "timestamp": datetime.now().isoformat()
             },
-            {
-                # "role": request.character_id,  # Save character_id
-                "role": "assistant",    # OpenAI restricts roles to system/user/assistant
+            {   
+                "role": request.character_id,  # Save character_id
                 "content": ai_response,
                 "timestamp": datetime.now().isoformat()
             }

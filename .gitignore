@@ -2,6 +2,7 @@
 .godot/
 /android/
 
+
 # Environment variables
 .env
 .env.local
@@ -94,4 +95,6 @@ Thumbs.db
 # Project specific
 test_env.py
 playground.mongodb
-modern_interior_and_chararacters/
+godot/modern_interior_and_characters/
+
+

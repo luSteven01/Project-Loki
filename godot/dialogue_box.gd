@@ -1,6 +1,6 @@
 extends Panel
 
-var game_manager = null
+# var game_manager = null
 
 @onready var dialogue_text = $DialogueText
 @onready var npc_icons = $NPCIcons
@@ -10,53 +10,53 @@ var game_manager = null
 @onready var leave_button = $LeaveButton
 @onready var anim_player = $PlayerPortrait/AnimationPlayer
 @onready var character_buttons_container = $CharacterButtons # To be removed
-@onready var arrest_button = $ArrestButton
+@onready var game_manager = get_node_or_null("/root/Main/GameManager")
+
+
+# Option #1: have button that appears when player has a piece of evidence collected
+# We can add more buttons that appear based on the # of evidence we have (I think we have 5?)
+@onready var evidence_button = $EvidenceButton
+
+# Option #2 for evidence-related mechanisms, where we just have a smaller version of the inventory on the side
+# we can click on and click the "Show" option and show the button that way 
+@onready var inventory_ui = $InventoryUI
 
 var current_character = null
 var chat_history = []
-var is_typing = false
-var endgame_scripts = {}
 
-
-func _ready() -> void:
+func _ready() -> void:	
+	# Find GameManager node
+	if not game_manager:
+		dialogue_text.text = "Error: GameManager not found!"
+		print("ERROR: Cannot find GameManager node at /root/Main/GameManager")
+		return
+				
 	print("DialogueBox _ready() called")
 	print("dialogue_text: ", dialogue_text)
 	print("npc_icons: ", npc_icons)
 	print("talk_input: ", talk_input)
 	print("submit_button: ", submit_button)
 	print("leave_button: ", leave_button)
-	print("arrest_button: ", arrest_button)
 	print("character_buttons_container: ", character_buttons_container)
 	
-	$BGM.play()
-	endgame_scripts = load_json("res://data/endgame_scripts.json")
-
+	# Hide the evidence button(s) if we are doing my approach
+	evidence_button.visible = false
+		
 	# Hide all NPC icons
 	for icon in npc_icons.get_children():
 		icon.visible = false
-
+	
 	# Initialize UI state
-	# arrest_button.disabled = true
-	# submit_button.disabled = true
-	# talk_input.editable = false
-	disable_interaction()
+	submit_button.disabled = true
+	talk_input.editable = false
 	talk_input.wrap_mode = TextEdit.LINE_WRAPPING_BOUNDARY
 	dialogue_text.text = "Connecting to investigation database..."
 	print("Initial text set")
-
-	# Find GameManager node
-	game_manager = get_node_or_null("/root/Main/GameManager")
-	print("GameManager found: ", game_manager)
-
-	if not game_manager:
-		dialogue_text.text = "Error: GameManager not found!"
-		print("ERROR: Cannot find GameManager node at /root/Main/GameManager")
-		return
-
+	
 	# Wait for GameManager to load characters
 	print("Waiting for GameManager to load characters...")
 	await get_tree().create_timer(3.0).timeout
-
+	
 	if game_manager.has_method("get_characters"):
 		var chars = game_manager.call("get_characters")
 		print("Characters loaded: ", chars.size())
@@ -70,6 +70,19 @@ func _ready() -> void:
 	else:
 		dialogue_text.text = "Error: GameManager script not loaded correctly"
 		print("ERROR: GameManager does not have get_characters method")
+	
+	# just testing if item exists when we use option #1
+		
+	#if(Global.item_exists("Berry")):
+		#print("I have a berry")
+		#evidence_button.visible = true;
+		#for item in Global.inventory:
+			#if item != null and item["name"] == "Berry":
+				#evidence_button.text = "Button will be visible when player has the item; replace w/ question" + item["hashcode"]
+	#else:
+		#print("no berry")
+		#evidence_button.visible = false;
+	
 
 # Handle input with Ctrl+Enter
 func _input(event):
@@ -83,6 +96,9 @@ func _input(event):
 		elif (event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER) and not event.shift_pressed:
 			_on_submit_button_pressed()
 			get_viewport().set_input_as_handled()
+			
+func get_player_reference():
+	return Global.player_node
 
 func setup_character_buttons():
 	print("=== setup_character_buttons() called ===")
@@ -115,9 +131,6 @@ func setup_character_buttons():
 		print("✗ ERROR: character_buttons_container is null!")
 
 func _on_character_selected(character):
-	is_typing = false
-	stop_npc_talk()
-	stop_player_talk()
 	current_character = character
 	game_manager.call("select_character", character)
 	chat_history.clear()
@@ -139,11 +152,13 @@ func _on_character_selected(character):
 	dialogue_text.text += character.description + "\n\n"
 
 	# Enable input
-	enable_interaction()
+	submit_button.disabled = false
+	talk_input.editable = true
 	talk_input.grab_focus()
 
 func _on_submit_button_pressed() -> void:
 	send_player_message()
+	
 
 func send_player_message():
 	var player_message = talk_input.text.strip_edges()
@@ -156,10 +171,11 @@ func send_player_message():
 	game_manager.call("send_message", player_message, _on_message_received)
 
 	# Disable input
-	disable_interaction()
+	submit_button.disabled = true
+	talk_input.editable = false
 	
 	# Show player's message in dialogue window
-	dialogue_text.text += "\n\n[right][b][Player]:[/b]"
+	dialogue_text.text += "\n[right][b][Player]:[/b]"
 	await type_text_slowly(player_message + "\n")
 	dialogue_text.text += "[/right]"
 
@@ -181,49 +197,41 @@ func _on_message_received(response: String, error):
 		await get_tree().create_timer(0.6).timeout
 		add_message_to_display(current_character.name, response)
 
+	# Re-enable input
+	submit_button.disabled = false
+	talk_input.editable = true
+	talk_input.grab_focus()
 
-# Display NPC message with typewriter effect
+
 func add_message_to_display(sender: String, message: String):
-	disable_interaction()
 	dialogue_text.text += "\n[b]" + sender + ":[/b]"
 	start_npc_talk()
 	await type_text_slowly(message)
 	stop_npc_talk()
-	enable_interaction()
-	talk_input.grab_focus()
-
 
 func initialize_with_npc(npc):
 	# Legacy function for backwards compatibility
 	dialogue_text.text = ""
 	submit_button.disabled = true
-	arrest_button.disabled = true
-
 
 func _on_leave_button_pressed() -> void:
-	dialogue_text.text = "Investigation session ended."		
-	disable_interaction()
+	dialogue_text.text = "Investigation session ended."
+	submit_button.disabled = true
+	talk_input.editable = false
 	current_character = null
-	$BGM.stop()
-	get_node(".").visible = false
-
+	inventory_ui.visible = false
+	game_manager.exit_dialogue()
 
 # Typewriter effect for NPC messages (clean version)
 func type_text_slowly(full_text: String, speed := 0.03) -> void:
-	is_typing = true
-
 	# Add the NPC name once, no repetition
 	dialogue_text.text += "\n"
 	
 	# Type each character sequentially
 	for ch in full_text:
-		if not is_typing:
-			return
 		dialogue_text.text += ch
 		dialogue_text.scroll_to_line(dialogue_text.get_line_count() - 1)
 		await get_tree().create_timer(speed).timeout
-
-	is_typing = false
 
 # Expand text field for multiple rows
 func _process(_delta: float) -> void:
@@ -236,14 +244,14 @@ func _process(_delta: float) -> void:
 	talk_input.custom_minimum_size.y = new_height
 
 # Play npc portrait animation
-func start_npc_talk(action: String = "talk"):
+func start_npc_talk():
 	if not current_icon:
 		return
 	
 	var anim_npc_player = current_icon.get_node_or_null("AnimationPlayer")
 	if not anim_npc_player:
 		return
-	anim_npc_player.play(action)
+	anim_npc_player.play("talk")
 
 # Stop npc portrait animation
 func stop_npc_talk():
@@ -251,8 +259,6 @@ func stop_npc_talk():
 		return
 	
 	var anim_npc_player = current_icon.get_node_or_null("AnimationPlayer")
-	if not anim_npc_player:
-		return
 	anim_npc_player.stop()
 
 # Play player portrait animation
@@ -262,84 +268,3 @@ func start_player_talk():
 # Stop player portrait animation
 func stop_player_talk():
 	anim_player.stop()
-
-
-func _on_arrest_button_pressed() -> void:
-	if not current_character:
-		return
-	
-	# Play arrest sound
-	$ArrestSound.play()
-	disable_interaction()
-
-	# Show endgame script based on arrested character
-	var char_id = current_character.id
-	var script = endgame_scripts.get(char_id, "No ending found.")
-	var time = 3.0 + script.length() * 0.03
-
-	# Special case: if Abel is arrested, stop BGM and play endgame music
-	if char_id == "abel":
-		$BGM.stop()
-		$Endgame.play()
-	
-	
-	start_npc_talk("endgame")
-	dialogue_text.text += "\n\n[b]" + current_character.id.capitalize() + ":[/b]"
-	await type_text_slowly(script)
-	stop_npc_talk()
-
-	# WAIT 3 SECONDS BEFORE CONTINUING
-	await get_tree().create_timer(3).timeout
-
-	if char_id == "abel":
-		# Abel arrested - WIN
-		dialogue_text.text = "\n\n[center][b]You have successfully arrested the culprit! Congratulations, Detective![/b]\n\n"
-		script = load_credits()
-		await type_text_slowly(script)
-		dialogue_text.text += "[/center]"
-		time = 10.0 + script.length() * 0.03
-		
-	else:
-		# Others arrested - LOSE
-		dialogue_text.text = "\n\n[center][b]You have arrested the wrong person. The real culprit remains at large... Game Over.[/b][/center]"
-
-
-	# Leave chat dialogue and triggers endgame sequence
-	current_character = null
-	await get_tree().create_timer(time).timeout
-	_on_leave_button_pressed()
-
-
-
-func _on_arrest_button_mouse_entered() -> void:
-	if arrest_button.disabled:
-		return
-	# Hover = bright cold silver (blue-shifted & higher contrast)
-	arrest_button.modulate = Color(1.55, 1.55, 1.7, 1.0)
-
-
-func _on_arrest_button_mouse_exited() -> void:
-	# Normal color
-	arrest_button.modulate = Color(1.0, 1.0, 1.0, 1.0)
-
-# Lock all input interaction
-func disable_interaction() -> void:
-	arrest_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	submit_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	talk_input.editable = false
-	submit_button.disabled = true
-
-# Unlock all input interaction
-func enable_interaction():
-	arrest_button.mouse_filter = Control.MOUSE_FILTER_STOP
-	submit_button.mouse_filter = Control.MOUSE_FILTER_STOP
-	talk_input.editable = true
-	submit_button.disabled = false
-
-
-func load_json(path) -> Dictionary:
-	var file = FileAccess.open(path, FileAccess.READ)
-	return JSON.parse_string(file.get_as_text())
-
-func load_credits():
-	return FileAccess.get_file_as_string("res://data/credits.txt")

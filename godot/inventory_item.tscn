@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://birev6lmxdepy"]
+
+[ext_resource type="Script" uid="uid://dsnffpbrbju32" path="res://inventory_item.gd" id="1_gj4io"]
+[ext_resource type="Texture2D" uid="uid://cpsjaebpas6w4" path="res://Assets/Icons/icon1.png" id="2_gmchj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qpiqe"]
+radius = 16.03122
+
+[node name="InventoryItem" type="Node2D" groups=["Items"]]
+script = ExtResource("1_gj4io")
+item_type = "Consumable"
+item_name = "Test_Item"
+item_effect = "Test_Effect"
+item_texture = ExtResource("2_gmchj")
+item_hashcode = "abc12345"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_qpiqe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_gmchj")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
