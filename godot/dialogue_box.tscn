@@ -215,9 +215,9 @@ _data = {
 }
 
 [node name="DialogueBox" type="Panel"]
-offset_left = 90.0
+offset_left = 112.0
 offset_top = 57.0
-offset_right = 986.0
+offset_right = 1008.0
 offset_bottom = 617.0
 script = ExtResource("1_senjy")
 

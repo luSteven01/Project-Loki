@@ -222,19 +222,22 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
 size = Vector2(11.75, 7)
 
-[node name="Player" type="CharacterBody2D"]
-position = Vector2(147, 88)
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+z_index = 6
+y_sort_enabled = true
+position = Vector2(0, 8)
 motion_mode = 1
 script = ExtResource("1_cvnsp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_8erm5")
 animation = &"walk_up"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.125, 12.5)
+position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_cvnsp")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3.5, 3.5)
-position_smoothing_enabled = true
+y_sort_enabled = true
+zoom = Vector2(10, 10)

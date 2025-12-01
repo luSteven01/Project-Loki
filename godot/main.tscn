@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://sxywo3malpjm"]
+[gd_scene load_steps=6 format=3 uid="uid://sxywo3malpjm"]
 
+[ext_resource type="Script" uid="uid://t32sc8k7f1nb" path="res://main.gd" id="1_7mycd"]
 [ext_resource type="PackedScene" uid="uid://cg58uk0dqkydk" path="res://dialogue_box.tscn" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://b27e368f31x6p" path="res://game_manager.gd" id="2_game_manager"]
-[ext_resource type="PackedScene" uid="uid://cgip6bcxrd2o7" path="res://living_room.tscn" id="3_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://bf6erxp11kmdd" path="res://player_npc_scene.tscn" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://san5raef5e7y" path="res://player.tscn" id="4_lquwl"]
+[ext_resource type="PackedScene" uid="uid://ckfnt4evadw2e" path="res://living_room.tscn" id="5_lquwl"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_7mycd")
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("2_game_manager")
@@ -14,13 +16,19 @@ script = ExtResource("2_game_manager")
 
 [node name="DialogueBox" parent="CanvasLayer" instance=ExtResource("2_0xm2m")]
 visible = false
-offset_left = 129.0
-offset_top = 37.0
-offset_right = 1025.0
-offset_bottom = 597.0
+offset_left = 76.0
+offset_top = 14.0
+offset_right = 972.0
+offset_bottom = 574.0
+scale = Vector2(1.1064426, 1.1064426)
 
-[node name="LivingRoomFloor" parent="." instance=ExtResource("3_1bvp3")]
-z_index = 0
+[node name="WorldContext" type="Node2D" parent="."]
+y_sort_enabled = true
 
-[node name="PlayerNPC_Scene" parent="." instance=ExtResource("4_1bvp3")]
-z_index = 1
+[node name="Player" parent="WorldContext" instance=ExtResource("4_lquwl")]
+position = Vector2(127, 213)
+
+[node name="CurrentLevel" type="Node2D" parent="WorldContext"]
+y_sort_enabled = true
+
+[node name="LivingRoomFloor" parent="WorldContext/CurrentLevel" instance=ExtResource("5_lquwl")]
