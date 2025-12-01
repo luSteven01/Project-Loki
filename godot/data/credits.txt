@@ -1,0 +1,41 @@
+=== CREDITS ===
+
+Script & Story
+Christian Garo
+Steven Lu
+
+Tile Map Assembly & Environment Design
+Steven Lu
+
+Character Development
+Christian Garo – 2D Sprite Setup, Scene Construction, Character/NPC Nodes
+Tuan-Anh Ho – Portrait Integration, Animation, Dialogue Interaction
+
+Game Progression & Chat State Logic
+Tuan-Anh Ho
+
+OpenAI Prompting & AI Tooling
+Tuan-Anh Ho
+Seyoung Oh
+
+Backend & Database Development
+Seyoung Oh
+
+API & Project Environment Setup
+Seyoung Oh
+
+Components Integration
+Tuan-Anh Ho
+
+Background Music:
+Kiluaboy – "Clouds"
+Kiluaboy – "Blue Blood"
+EvanBoyerman – "Hopeful Cinematic Emotional Orchestra"
+
+Project Advisor:
+Dr. Gregory Courand
+
+Professor:
+Dr. Wencen Wu
+
+Thank you for playing.
