@@ -1,8 +1,170 @@
-[gd_scene load_steps=4 format=4 uid="uid://c60twqwpmith3"]
+[gd_scene load_steps=34 format=4 uid="uid://c60twqwpmith3"]
 
 [ext_resource type="TileSet" uid="uid://dsde60pw444bl" path="res://living_room_room_builder.tres" id="1_ipk1y"]
 [ext_resource type="TileSet" uid="uid://dn4d557brt3x0" path="res://kitchen_furniture.tres" id="2_xsyy8"]
 [ext_resource type="PackedScene" uid="uid://di4whfq6erra0" path="res://portal.tscn" id="3_xsyy8"]
+[ext_resource type="Script" uid="uid://ce3nx04u0yof6" path="res://adele_npc.gd" id="4_r0fwo"]
+[ext_resource type="Texture2D" uid="uid://cn3gol8ik50i6" path="res://art/spritesheets/Adele_SpriteSheet.png" id="5_0ip1g"]
+[ext_resource type="Script" uid="uid://diffu843wat04" path="res://chef_npc.gd" id="6_efyc0"]
+[ext_resource type="Texture2D" uid="uid://cr0bksq7yw6lm" path="res://art/spritesheets/Chef_SpriteSheet.png" id="7_xnsi2"]
+[ext_resource type="Script" uid="uid://djb7hc5d2j4r1" path="res://professor_schumacher_NPC.gd" id="8_jluyr"]
+[ext_resource type="Texture2D" uid="uid://yqvmb6qr5bww" path="res://art/spritesheets/Professor_Schumacher.png" id="9_k6unl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5opi"]
+atlas = ExtResource("5_0ip1g")
+region = Rect2(288, 33, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfxue"]
+atlas = ExtResource("5_0ip1g")
+region = Rect2(304, 33, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rn2yk"]
+atlas = ExtResource("5_0ip1g")
+region = Rect2(320, 33, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5xo1"]
+atlas = ExtResource("5_0ip1g")
+region = Rect2(336, 33, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odwhi"]
+atlas = ExtResource("5_0ip1g")
+region = Rect2(352, 33, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkafi"]
+atlas = ExtResource("5_0ip1g")
+region = Rect2(368, 33, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ivwby"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5opi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfxue")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rn2yk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5xo1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_odwhi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkafi")
+}],
+"loop": true,
+"name": &"down_idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_scder"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_geop4"]
+atlas = ExtResource("7_xnsi2")
+region = Rect2(288, 33, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4o244"]
+atlas = ExtResource("7_xnsi2")
+region = Rect2(304, 33, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1wmy"]
+atlas = ExtResource("7_xnsi2")
+region = Rect2(320, 33, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w0e4f"]
+atlas = ExtResource("7_xnsi2")
+region = Rect2(336, 33, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1ncv"]
+atlas = ExtResource("7_xnsi2")
+region = Rect2(352, 33, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rujb6"]
+atlas = ExtResource("7_xnsi2")
+region = Rect2(368, 33, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m008p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_geop4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4o244")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1wmy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w0e4f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1ncv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rujb6")
+}],
+"loop": true,
+"name": &"down_idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_06717"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gl6n0"]
+atlas = ExtResource("9_k6unl")
+region = Rect2(288, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dyqfs"]
+atlas = ExtResource("9_k6unl")
+region = Rect2(304, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uvic0"]
+atlas = ExtResource("9_k6unl")
+region = Rect2(320, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xv4y2"]
+atlas = ExtResource("9_k6unl")
+region = Rect2(336, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nt4s"]
+atlas = ExtResource("9_k6unl")
+region = Rect2(352, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fveue"]
+atlas = ExtResource("9_k6unl")
+region = Rect2(368, 32, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_anvgo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gl6n0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dyqfs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uvic0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xv4y2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nt4s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fveue")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h8ft4"]
 
 [node name="Kitchen" type="Node2D"]
 z_index = 6
@@ -54,3 +216,52 @@ y_sort_enabled = true
 position = Vector2(-36, 119)
 target_scene_path = "uid://ckfnt4evadw2e"
 target_position = Vector2(286, 99)
+
+[node name="Adele" type="CharacterBody2D" parent="." groups=["NPC"]]
+z_index = 2
+position = Vector2(200, 60)
+script = ExtResource("4_r0fwo")
+metadata/_custom_type_script = "uid://ce3nx04u0yof6"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Adele"]
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_ivwby")
+animation = &"down_idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Adele"]
+scale = Vector2(0.75, 0.75)
+shape = SubResource("CapsuleShape2D_scder")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Adele"]
+
+[node name="Chef" type="CharacterBody2D" parent="." groups=["NPC"]]
+z_index = 2
+position = Vector2(50, 55)
+scale = Vector2(0.75, 0.75)
+script = ExtResource("6_efyc0")
+metadata/_custom_type_script = "uid://diffu843wat04"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Chef"]
+sprite_frames = SubResource("SpriteFrames_m008p")
+animation = &"down_idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chef"]
+shape = SubResource("CapsuleShape2D_06717")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Chef"]
+
+[node name="Professor_Schumacher" type="CharacterBody2D" parent="." groups=["NPC"]]
+z_index = 2
+position = Vector2(12, 100)
+scale = Vector2(0.75, 0.75)
+script = ExtResource("8_jluyr")
+metadata/_custom_type_script = "uid://djb7hc5d2j4r1"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Professor_Schumacher"]
+sprite_frames = SubResource("SpriteFrames_anvgo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Professor_Schumacher"]
+position = Vector2(0, 5)
+shape = SubResource("CapsuleShape2D_h8ft4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Professor_Schumacher"]
