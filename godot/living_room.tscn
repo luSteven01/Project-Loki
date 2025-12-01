@@ -27136,3 +27136,17 @@ y_sort_enabled = true
 position = Vector2(309, 104)
 target_scene_path = "uid://c60twqwpmith3"
 target_position = Vector2(-35, 80)
+
+[node name="ToUpstairsRight" parent="Portals" instance=ExtResource("17_ftaf3")]
+z_index = 6
+position = Vector2(257, 12)
+scale = Vector2(1.5600009, 1)
+target_scene_path = "uid://twy61l66b23s"
+target_position = Vector2(255, -33)
+
+[node name="ToUpstairsleft" parent="Portals" instance=ExtResource("17_ftaf3")]
+z_index = 6
+position = Vector2(0, 12)
+scale = Vector2(1.5600009, 1)
+target_scene_path = "uid://twy61l66b23s"
+target_position = Vector2(0, -29)
