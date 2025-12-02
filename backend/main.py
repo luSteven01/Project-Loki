@@ -87,6 +87,7 @@ async def api_info():
             "evidence_discover_papers": "/evidence/discover/research_papers - Discover research papers (Code: RP002)",
             "evidence_discover_shirt": "/evidence/discover/torn_shirt - Discover torn shirt (Code: TS003)",
             "evidence_discover_button": "/evidence/discover/button - Discover button (Code: BT004)",
+            "evidence_discover_knife": "/evidence/discover/knife - Discover kitchen knife (Code: KN005) - MISLEADING",
             "session_evidence": "/session/{session_id}/evidence - Get discovered evidence for session"
         }
     }
@@ -505,6 +506,11 @@ async def discover_torn_shirt(request: EvidenceDiscoveryRequest):
 async def discover_button(request: EvidenceDiscoveryRequest):
     """Discover button evidence (Code: BT004)"""
     return await _discover_evidence_helper(request, "button")
+
+@app.post("/evidence/discover/knife")
+async def discover_knife(request: EvidenceDiscoveryRequest):
+    """Discover kitchen knife evidence (Code: KN005) - MISLEADING EVIDENCE"""
+    return await _discover_evidence_helper(request, "knife")
 
 async def _discover_evidence_helper(request: EvidenceDiscoveryRequest, evidence_id: str):
     """
