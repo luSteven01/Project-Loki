@@ -89,6 +89,35 @@ EVIDENCE = {
 
             Do not reveal the code. Make them prove they have it.
         """
+    },
+    "knife": {
+        "id": "knife",
+        "name": "Kitchen Knife",
+        "belongs_to": "chef",
+        "code": "KN005",
+        "description": "A kitchen knife found near the crime scene",
+        "location": "Near the office entrance",
+        "is_misleading": True,
+        "discovery_hint": "You found a kitchen knife near the crime scene. It looks suspicious...",
+        "validation_prompt": """
+            IMPORTANT EVIDENCE DISCOVERED: Kitchen Knife (Code: KN005)
+
+            WARNING: This is MISLEADING evidence. The knife was placed to distract the detective.
+
+            When the detective mentions or asks about the knife, you MUST:
+            1. Ask them: "Can you explain the reason and code for this evidence?"
+            2. Wait for their response
+            3. They must provide BOTH:
+            - A reasonable explanation of why this evidence is important
+            - The correct evidence code: KN005
+            4. Only continue the conversation if BOTH are correct
+
+            IMPORTANT: This knife is a red herring. It has no connection to the actual murder.
+            The chef used it for cooking earlier, but it was moved near the crime scene to mislead investigators.
+            Do not reveal this is misleading evidence unless the detective presents strong reasoning.
+
+            Do not reveal the code. Make them prove they have it.
+        """
     }
 }
 
