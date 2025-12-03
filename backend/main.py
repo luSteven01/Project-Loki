@@ -13,14 +13,29 @@ from services import (
     initialize_database, check_openai_connection, check_mongodb_connection,
     generate_ai_response, get_api_stats, db
 )
-from prompt import get_system_prompt
+# from prompt import get_system_prompt
 from story import STORY_DATA
 from characters import get_all_characters, get_system_prompt_for_character, get_character_info
+from evidence import (
+    get_all_evidence, get_evidence_by_id, validate_evidence_code,
+    get_evidence_validation_prompt, get_evidence_discovery_message
+)
 
 # Request model for character-specific chat endpoints
 class CharacterChatRequest(BaseModel):
     message: str
     session_id: Optional[str] = None
+
+# Request model for evidence discovery
+class EvidenceDiscoveryRequest(BaseModel):
+    session_id: str
+    code: str
+
+# Request model for evidence validation
+class EvidenceValidationRequest(BaseModel):
+    evidence_id: str
+    code: str
+    reason: str
 
 app = FastAPI(title="Professor Richards Detective Game API", version="1.0.0")
 
@@ -65,7 +80,15 @@ async def api_info():
             "chat_character": "/chat/{character_id} - Chat with specific character (e.g., /chat/abel, /chat/detective)",
             "health": "/health - API health check",
             "case-info": "/case-info - Basic case information",
-            "characters": "/characters - List all characters"
+            "characters": "/characters - List all characters",
+            "evidence": "/evidence - List all evidence",
+            "evidence_detail": "/evidence/{evidence_id} - Get evidence details",
+            "evidence_discover_gloves": "/evidence/discover/gloves - Discover gloves (Code: GL001)",
+            "evidence_discover_papers": "/evidence/discover/research_papers - Discover research papers (Code: RP002)",
+            "evidence_discover_shirt": "/evidence/discover/torn_shirt - Discover torn shirt (Code: TS003)",
+            "evidence_discover_button": "/evidence/discover/button - Discover button (Code: BT004)",
+            "evidence_discover_knife": "/evidence/discover/knife - Discover kitchen knife (Code: KN005) - MISLEADING",
+            "session_evidence": "/session/{session_id}/evidence - Get discovered evidence for session"
         }
     }
 
@@ -126,6 +149,8 @@ async def chat_with_detective_ai(request: ChatRequest):
                 "content": msg["content"]
             })
 
+        print('after for loop')
+
         # Add current user message
         conversation_messages.append({
             "role": "user",
@@ -142,8 +167,9 @@ async def chat_with_detective_ai(request: ChatRequest):
                 "content": request.message,
                 "timestamp": datetime.now().isoformat()
             },
-            {   
-                "role": request.character_id,  # Save character_id
+            {
+                # "role": request.character_id,  # Save character_id
+                "role": "assistant",    # OpenAI restricts roles to system/user/assistant
                 "content": ai_response,
                 "timestamp": datetime.now().isoformat()
             }
@@ -427,6 +453,148 @@ async def get_character_conversation_history(character_id: str):
     except Exception as e:
         print(f"Error in character history endpoint: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to retrieve history: {str(e)}")
+
+@app.get("/evidence")
+async def list_evidence():
+    """Get list of all available evidence"""
+    all_evidence = get_all_evidence()
+    # Return evidence without codes and validation prompts
+    evidence_list = []
+    for evidence_id, evidence_data in all_evidence.items():
+        evidence_list.append({
+            "id": evidence_data["id"],
+            "name": evidence_data["name"],
+            "description": evidence_data["description"],
+            "belongs_to": evidence_data["belongs_to"],
+            "location": evidence_data.get("location", "Unknown")
+        })
+    return {"evidence": evidence_list}
+
+@app.get("/evidence/{evidence_id}")
+async def get_evidence(evidence_id: str):
+    """Get details of a specific evidence (without code)"""
+    evidence = get_evidence_by_id(evidence_id)
+    if not evidence:
+        raise HTTPException(status_code=404, detail="Evidence not found")
+
+    # Return evidence without code and validation prompt
+    return {
+        "id": evidence["id"],
+        "name": evidence["name"],
+        "description": evidence["description"],
+        "belongs_to": evidence["belongs_to"],
+        "location": evidence.get("location", "Unknown"),
+        "discovery_hint": evidence.get("discovery_hint", "")
+    }
+
+@app.post("/evidence/discover/gloves")
+async def discover_gloves(request: EvidenceDiscoveryRequest):
+    """Discover gloves evidence (Code: GL001)"""
+    return await _discover_evidence_helper(request, "gloves")
+
+@app.post("/evidence/discover/research_papers")
+async def discover_research_papers(request: EvidenceDiscoveryRequest):
+    """Discover research papers evidence (Code: RP002)"""
+    return await _discover_evidence_helper(request, "research_papers")
+
+@app.post("/evidence/discover/torn_shirt")
+async def discover_torn_shirt(request: EvidenceDiscoveryRequest):
+    """Discover torn shirt evidence (Code: TS003)"""
+    return await _discover_evidence_helper(request, "torn_shirt")
+
+@app.post("/evidence/discover/button")
+async def discover_button(request: EvidenceDiscoveryRequest):
+    """Discover button evidence (Code: BT004)"""
+    return await _discover_evidence_helper(request, "button")
+
+@app.post("/evidence/discover/knife")
+async def discover_knife(request: EvidenceDiscoveryRequest):
+    """Discover kitchen knife evidence (Code: KN005) - MISLEADING EVIDENCE"""
+    return await _discover_evidence_helper(request, "knife")
+
+async def _discover_evidence_helper(request: EvidenceDiscoveryRequest, evidence_id: str):
+    """
+    Helper function to discover evidence and add validation prompt to session
+    Requires correct evidence code
+    """
+    try:
+        # Get session
+        session = await get_session(request.session_id)
+        if not session:
+            raise HTTPException(status_code=404, detail="Session not found")
+
+        # Validate evidence exists
+        evidence = get_evidence_by_id(evidence_id)
+        if not evidence:
+            raise HTTPException(status_code=404, detail="Evidence not found")
+
+        # Validate code
+        if not validate_evidence_code(evidence_id, request.code):
+            raise HTTPException(status_code=400, detail="Invalid evidence code")
+
+        # Check if already discovered
+        if evidence_id in session.discovered_evidence:
+            return {
+                "message": "Evidence already discovered",
+                "evidence": evidence["name"],
+                "already_discovered": True
+            }
+
+        # Add to discovered evidence
+        session.discovered_evidence.append(evidence_id)
+
+        # Add validation prompt to session messages
+        validation_prompt = get_evidence_validation_prompt(evidence_id)
+        discovery_message = get_evidence_discovery_message(evidence_id)
+
+        session.messages.append({
+            "role": "system",
+            "content": validation_prompt,
+            "timestamp": datetime.now().isoformat(),
+            "type": "evidence_discovery"
+        })
+
+        # Update session
+        await update_session(session)
+
+        return {
+            "message": "Evidence discovered successfully",
+            "evidence_id": evidence_id,
+            "evidence_name": evidence["name"],
+            "discovery_hint": discovery_message,
+            "session_id": session.id,
+            "ai_instruction": validation_prompt  # Show what was sent to AI
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error in evidence discovery: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to discover evidence: {str(e)}")
+
+@app.get("/session/{session_id}/evidence")
+async def get_session_evidence(session_id: str):
+    """Get all evidence discovered in a session"""
+    session = await get_session(session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    discovered = []
+    for evidence_id in session.discovered_evidence:
+        evidence = get_evidence_by_id(evidence_id)
+        if evidence:
+            discovered.append({
+                "id": evidence["id"],
+                "name": evidence["name"],
+                "description": evidence["description"],
+                "belongs_to": evidence["belongs_to"]
+            })
+
+    return {
+        "session_id": session_id,
+        "discovered_evidence": discovered,
+        "total_discovered": len(discovered)
+    }
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

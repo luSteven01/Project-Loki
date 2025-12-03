@@ -1,12 +1,12 @@
-[gd_scene load_steps=46 format=3 uid="uid://cg58uk0dqkydk"]
+[gd_scene load_steps=94 format=3 uid="uid://cg58uk0dqkydk"]
 
 [ext_resource type="Script" uid="uid://c2hcggxoe5ubs" path="res://dialogue_box.gd" id="1_senjy"]
-[ext_resource type="Texture2D" uid="uid://p8yl4jq1gme5" path="res://art/pngs/Portraits_01_128_V7.png" id="6_2klrv"]
-[ext_resource type="Texture2D" uid="uid://u4veyojq174v" path="res://art/background/house1.png" id="6_85jfh"]
-[ext_resource type="Texture2D" uid="uid://dgs7wlodgrksa" path="res://art/pngs/Portraits_01_128_V9.png" id="7_en6mc"]
-[ext_resource type="Texture2D" uid="uid://dv8mjr3ojmj6t" path="res://art/background/storage.png" id="7_med3p"]
-[ext_resource type="Texture2D" uid="uid://lkpadb5g0ub2" path="res://art/pngs/Portraits_01_128_V10.png" id="8_qjfks"]
-[ext_resource type="Texture2D" uid="uid://cab4cfjjdrse7" path="res://art/pngs/Portraits_01_128_V11.png" id="9_uucap"]
+[ext_resource type="Texture2D" uid="uid://fetd7f8vj5vm" path="res://art/pngs/pngimg.com - handcuffs_PNG25.png" id="2_m221u"]
+[ext_resource type="Shader" uid="uid://3uqjcawsdxjb" path="res://scroll.gdshader" id="2_tvktm"]
+[ext_resource type="Texture2D" uid="uid://2odrw3o5wnjq" path="res://art/background/house1.png" id="6_85jfh"]
+[ext_resource type="Texture2D" uid="uid://t4pqs7huncf1" path="res://art/background/storage.png" id="7_med3p"]
+[ext_resource type="Texture2D" uid="uid://cmpye4xf82j1n" path="res://art/pngs/Maid/038p_classic_maid2_3.png" id="9_lwmlg"]
+[ext_resource type="Texture2D" uid="uid://dojom6sqo32ma" path="res://art/pngs/Maid/038p_classic_maid2_2.png" id="10_oq8t6"]
 [ext_resource type="Texture2D" uid="uid://dgtl8nuk6tu5v" path="res://art/Enjl-Starry Space Background/background_4.png" id="12_uucap"]
 [ext_resource type="Texture2D" uid="uid://bf6oq1b57q848" path="res://art/pngs/Maid/038p_classic_maid2_1.png" id="13_8glcu"]
 [ext_resource type="Texture2D" uid="uid://dmkj8or2cqrec" path="res://art/pngs/035p_red_haired_girl2/035p_red_haired_girl2_1.png" id="13_clwgo"]
@@ -222,6 +222,7 @@ offset_bottom = 617.0
 script = ExtResource("1_senjy")
 
 [node name="DialogueText" type="RichTextLabel" parent="."]
+z_index = 2
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -291,6 +292,7 @@ mouse_filter = 2
 texture = ExtResource("12_uucap")
 
 [node name="CharacterButtons" type="HBoxContainer" parent="."]
+z_index = 5
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -528,3 +530,6 @@ layout_mode = 0
 
 [connection signal="pressed" from="LeaveButton" to="." method="_on_leavebutton_pressed"]
 [connection signal="pressed" from="LeaveButton" to="." method="_on_leave_button_pressed"]
+[connection signal="mouse_entered" from="ArrestButton" to="." method="_on_arrest_button_mouse_entered"]
+[connection signal="mouse_exited" from="ArrestButton" to="." method="_on_arrest_button_mouse_exited"]
+[connection signal="pressed" from="ArrestButton" to="." method="_on_arrest_button_pressed"]

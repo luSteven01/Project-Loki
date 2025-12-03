@@ -39,6 +39,7 @@ class GameSession(BaseModel):
     character_id: str  # Which character this session is with
     created_at: datetime
     messages: List[dict] = []
+    discovered_evidence: List[str] = []  # List of evidence IDs discovered
     ended: bool = False
 
 

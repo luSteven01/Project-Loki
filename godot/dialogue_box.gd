@@ -23,6 +23,9 @@ extends Panel
 
 var current_character = null
 var chat_history = []
+var is_typing = false
+var endgame_scripts = {}
+
 
 func _ready() -> void:	
 	# Find GameManager node
@@ -56,7 +59,7 @@ func _ready() -> void:
 	# Wait for GameManager to load characters
 	print("Waiting for GameManager to load characters...")
 	await get_tree().create_timer(3.0).timeout
-	
+
 	if game_manager.has_method("get_characters"):
 		var chars = game_manager.call("get_characters")
 		print("Characters loaded: ", chars.size())
@@ -131,6 +134,9 @@ func setup_character_buttons():
 		print("✗ ERROR: character_buttons_container is null!")
 
 func _on_character_selected(character):
+	is_typing = false
+	stop_npc_talk()
+	stop_player_talk()
 	current_character = character
 	game_manager.call("select_character", character)
 	chat_history.clear()
@@ -152,8 +158,7 @@ func _on_character_selected(character):
 	dialogue_text.text += character.description + "\n\n"
 
 	# Enable input
-	submit_button.disabled = false
-	talk_input.editable = true
+	enable_interaction()
 	talk_input.grab_focus()
 
 func _on_submit_button_pressed() -> void:
@@ -197,17 +202,16 @@ func _on_message_received(response: String, error):
 		await get_tree().create_timer(0.6).timeout
 		add_message_to_display(current_character.name, response)
 
-	# Re-enable input
-	submit_button.disabled = false
-	talk_input.editable = true
-	talk_input.grab_focus()
 
-
+# Display NPC message with typewriter effect
 func add_message_to_display(sender: String, message: String):
 	dialogue_text.text += "\n[b]" + sender + ":[/b]"
 	start_npc_talk()
 	await type_text_slowly(message)
 	stop_npc_talk()
+	enable_interaction()
+	talk_input.grab_focus()
+
 
 func initialize_with_npc(npc):
 	# Legacy function for backwards compatibility
@@ -221,6 +225,16 @@ func _on_leave_button_pressed() -> void:
 	current_character = null
 	inventory_ui.visible = false
 	game_manager.exit_dialogue()
+	arrest_button.disabled = true
+
+
+func _on_leave_button_pressed() -> void:
+	dialogue_text.text = "Investigation session ended."		
+	disable_interaction()
+	current_character = null
+	$BGM.stop()
+	get_node(".").visible = false
+
 
 # Typewriter effect for NPC messages (clean version)
 func type_text_slowly(full_text: String, speed := 0.03) -> void:
@@ -268,3 +282,84 @@ func start_player_talk():
 # Stop player portrait animation
 func stop_player_talk():
 	anim_player.stop()
+
+
+func _on_arrest_button_pressed() -> void:
+	if not current_character:
+		return
+	
+	# Play arrest sound
+	$ArrestSound.play()
+	disable_interaction()
+
+	# Show endgame script based on arrested character
+	var char_id = current_character.id
+	var script = endgame_scripts.get(char_id, "No ending found.")
+	var time = 3.0 + script.length() * 0.03
+
+	# Special case: if Abel is arrested, stop BGM and play endgame music
+	if char_id == "abel":
+		$BGM.stop()
+		$Endgame.play()
+	
+	
+	start_npc_talk("endgame")
+	dialogue_text.text += "\n\n[b]" + current_character.id.capitalize() + ":[/b]"
+	await type_text_slowly(script)
+	stop_npc_talk()
+
+	# WAIT 3 SECONDS BEFORE CONTINUING
+	await get_tree().create_timer(3).timeout
+
+	if char_id == "abel":
+		# Abel arrested - WIN
+		dialogue_text.text = "\n\n[center][b]You have successfully arrested the culprit! Congratulations, Detective![/b]\n\n"
+		script = load_credits()
+		await type_text_slowly(script)
+		dialogue_text.text += "[/center]"
+		time = 10.0 + script.length() * 0.03
+		
+	else:
+		# Others arrested - LOSE
+		dialogue_text.text = "\n\n[center][b]You have arrested the wrong person. The real culprit remains at large... Game Over.[/b][/center]"
+
+
+	# Leave chat dialogue and triggers endgame sequence
+	current_character = null
+	await get_tree().create_timer(time).timeout
+	_on_leave_button_pressed()
+
+
+
+func _on_arrest_button_mouse_entered() -> void:
+	if arrest_button.disabled:
+		return
+	# Hover = bright cold silver (blue-shifted & higher contrast)
+	arrest_button.modulate = Color(1.55, 1.55, 1.7, 1.0)
+
+
+func _on_arrest_button_mouse_exited() -> void:
+	# Normal color
+	arrest_button.modulate = Color(1.0, 1.0, 1.0, 1.0)
+
+# Lock all input interaction
+func disable_interaction() -> void:
+	arrest_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	submit_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	talk_input.editable = false
+	submit_button.disabled = true
+
+# Unlock all input interaction
+func enable_interaction():
+	arrest_button.mouse_filter = Control.MOUSE_FILTER_STOP
+	submit_button.mouse_filter = Control.MOUSE_FILTER_STOP
+	talk_input.editable = true
+	submit_button.disabled = false
+
+
+func load_json(path) -> Dictionary:
+	var file = FileAccess.open(path, FileAccess.READ)
+	return JSON.parse_string(file.get_as_text())
+
+func load_credits():
+	return FileAccess.get_file_as_string("res://data/credits.txt")
