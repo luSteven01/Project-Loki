@@ -4,5 +4,10 @@
 
 @export var npc_id : String
 @export var character_name : String
+@export var speed : float
+@export var loop_path : bool 
+@export var path : Path2D 
+@export var path_follow : PathFollow2D
+@export var animation_player : AnimationPlayer
 
 @abstract func _ready()

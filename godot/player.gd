@@ -9,7 +9,7 @@ extends CharacterBody2D
 var speed : float = 100.0
 
 # handling what sprite to use when pressing arrow keys
-var face_direction = "down"
+var face_direction = "down" 
 var animation_to_play = "down_idle"
 
 func _ready():

@@ -36,14 +36,14 @@ func _ready():
 
 	print("GameManager ready - connecting to backend...")
 	
-	if not npc_scene:
-		print("npc scene not loaded")
-	else:
-		print("npc scene loaded")
+	#if not npc_scene:
+		#print("npc scene not loaded")
+	#else:
+		#print("npc scene loaded")
 	
 	#var npc1 = npc_scene.get_child(1)
 	
-	spawn_random_items(3)
+	# spawn_random_items(3)
 	check_server_health()
 	
 	

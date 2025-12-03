@@ -1,13 +1,12 @@
 class_name Chef_NPC extends NPC
 
-@onready var animation_player = $AnimationPlayer
 
 # replace with other animations from a sprite sheet
-var animation_to_play = "front_idle"
+var animation_to_play = "down_idle"
 
 func _ready():
-	# animation_player.stop()
-	# animation_player.play(animation_to_play)
+	animation_player.stop()
+	animation_player.play(animation_to_play)
 	npc_id = "chef"
 	character_name = "The Chef"
-	pass
+	# pass

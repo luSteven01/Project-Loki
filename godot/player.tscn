@@ -673,9 +673,9 @@ _data = {
 radius = 19.413622
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-z_index = 2
+z_index = 10
 position = Vector2(120, 225)
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.58, 0.58)
 motion_mode = 1
 script = ExtResource("1_cvnsp")
 
@@ -708,6 +708,9 @@ visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 141.0
+offset_right = -167.0
+offset_bottom = -173.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.39341664, 0.5749391, 0.65857416, 1)
@@ -730,6 +733,7 @@ text = "Inventory"
 layout_mode = 0
 
 [node name="InteractUI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="InteractUI"]
 anchors_preset = 3

@@ -19,14 +19,14 @@ func _ready():
 
 
 func _on_body_entered(body):
-	if body.is_in_group("player"):
+	if body.is_in_group("Player"):
 		player_inside = true
 		if not is_interactive:
 			try_teleport()
 
 
 func _on_body_exited(body):
-	if body.is_in_group("player"):
+	if body.is_in_group("Player"):
 		player_inside = false
 
 

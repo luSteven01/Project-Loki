@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://c60twqwpmith3"]
+[gd_scene load_steps=43 format=4 uid="uid://c60twqwpmith3"]
 
 [ext_resource type="TileSet" uid="uid://dsde60pw444bl" path="res://living_room_room_builder.tres" id="1_ipk1y"]
 [ext_resource type="TileSet" uid="uid://dn4d557brt3x0" path="res://kitchen_furniture.tres" id="2_xsyy8"]
@@ -62,6 +62,69 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_scder"]
 
+[sub_resource type="Animation" id="Animation_r0fwo"]
+resource_name = "down_idle"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"down_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_0ip1g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"down_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_efyc0"]
+_data = {
+&"RESET": SubResource("Animation_0ip1g"),
+&"down_idle": SubResource("Animation_r0fwo")
+}
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_geop4"]
 atlas = ExtResource("7_xnsi2")
 region = Rect2(288, 33, 16, 32)
@@ -114,6 +177,69 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_06717"]
 
+[sub_resource type="Animation" id="Animation_xnsi2"]
+resource_name = "down_idle"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"down_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_jluyr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"down_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k6unl"]
+_data = {
+&"RESET": SubResource("Animation_jluyr"),
+&"down_idle": SubResource("Animation_xnsi2")
+}
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_gl6n0"]
 atlas = ExtResource("9_k6unl")
 region = Rect2(288, 32, 16, 32)
@@ -165,6 +291,69 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h8ft4"]
+
+[sub_resource type="Animation" id="Animation_ivwby"]
+resource_name = "down_idle"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_scder"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m008p"]
+_data = {
+&"RESET": SubResource("Animation_scder"),
+&"down_idle": SubResource("Animation_ivwby")
+}
 
 [node name="Kitchen" type="Node2D"]
 z_index = 6
@@ -220,10 +409,12 @@ position = Vector2(200, -5)
 target_scene_path = "uid://erx131uh6mij"
 target_position = Vector2(71, 36)
 
-[node name="Adele" type="CharacterBody2D" parent="." groups=["NPC"]]
+[node name="Adele" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animation_player") groups=["NPC"]]
 z_index = 2
-position = Vector2(200, 60)
+position = Vector2(174, 84)
+scale = Vector2(0.75, 0.75)
 script = ExtResource("4_r0fwo")
+animation_player = NodePath("AnimationPlayer")
 metadata/_custom_type_script = "uid://ce3nx04u0yof6"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Adele"]
@@ -236,12 +427,16 @@ scale = Vector2(0.75, 0.75)
 shape = SubResource("CapsuleShape2D_scder")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Adele"]
+libraries = {
+&"": SubResource("AnimationLibrary_efyc0")
+}
 
-[node name="Chef" type="CharacterBody2D" parent="." groups=["NPC"]]
-z_index = 2
-position = Vector2(50, 55)
-scale = Vector2(0.75, 0.75)
+[node name="Chef" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animation_player") groups=["NPC"]]
+z_index = 7
+position = Vector2(95, 25)
+scale = Vector2(0.6, 0.6)
 script = ExtResource("6_efyc0")
+animation_player = NodePath("AnimationPlayer")
 metadata/_custom_type_script = "uid://diffu843wat04"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Chef"]
@@ -252,12 +447,16 @@ animation = &"down_idle"
 shape = SubResource("CapsuleShape2D_06717")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Chef"]
+libraries = {
+&"": SubResource("AnimationLibrary_k6unl")
+}
 
-[node name="Professor_Schumacher" type="CharacterBody2D" parent="." groups=["NPC"]]
-z_index = 2
-position = Vector2(12, 100)
-scale = Vector2(0.75, 0.75)
+[node name="Professor_Schumacher" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animation_player") groups=["NPC"]]
+z_index = 7
+position = Vector2(174, 57)
+scale = Vector2(0.6, 0.6)
 script = ExtResource("8_jluyr")
+animation_player = NodePath("AnimationPlayer")
 metadata/_custom_type_script = "uid://djb7hc5d2j4r1"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Professor_Schumacher"]
@@ -268,3 +467,6 @@ position = Vector2(0, 5)
 shape = SubResource("CapsuleShape2D_h8ft4")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Professor_Schumacher"]
+libraries = {
+&"": SubResource("AnimationLibrary_m008p")
+}

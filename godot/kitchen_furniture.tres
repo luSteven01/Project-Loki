@@ -1,10 +1,10 @@
 [gd_resource type="TileSet" load_steps=11 format=3 uid="uid://dn4d557brt3x0"]
 
-[ext_resource type="Texture2D" uid="uid://diprp1sursf4p" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/12_Kitchen_Black_Shadow_16x16.png" id="1_tqp74"]
-[ext_resource type="Texture2D" uid="uid://b6x3jy8jidwhs" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/1_Generic_Black_Shadow_16x16.png" id="2_6gul2"]
-[ext_resource type="Texture2D" uid="uid://dslbedd3f5l61" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/20_Japanese_interiors_Black_Shadow_16x16.png" id="3_un1sw"]
-[ext_resource type="Texture2D" uid="uid://4lilwbtfcvbx" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/2_LivingRoom_Black_Shadow_16x16.png" id="4_f4olx"]
-[ext_resource type="Texture2D" uid="uid://2iqvoxkxqa0" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/16_Grocery_store_Black_Shadow_16x16.png" id="5_f4olx"]
+[ext_resource type="Texture2D" uid="uid://0ltc158wwoeg" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/12_Kitchen_Black_Shadow_16x16.png" id="1_tqp74"]
+[ext_resource type="Texture2D" uid="uid://bcmbaeodp3gc0" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/1_Generic_Black_Shadow_16x16.png" id="2_6gul2"]
+[ext_resource type="Texture2D" uid="uid://yftcgwfafdrf" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/20_Japanese_interiors_Black_Shadow_16x16.png" id="3_un1sw"]
+[ext_resource type="Texture2D" uid="uid://82n6tu753t4o" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/2_LivingRoom_Black_Shadow_16x16.png" id="4_f4olx"]
+[ext_resource type="Texture2D" uid="uid://bv4pnwcj63rbl" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/16_Grocery_store_Black_Shadow_16x16.png" id="5_f4olx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6gul2"]
 texture = ExtResource("1_tqp74")
