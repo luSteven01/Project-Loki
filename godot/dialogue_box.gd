@@ -11,6 +11,7 @@ extends Panel
 @onready var anim_player = $PlayerPortrait/AnimationPlayer
 @onready var character_buttons_container = $CharacterButtons # To be removed
 @onready var game_manager = get_node_or_null("/root/Main/GameManager")
+@onready var arrest_button = $ArrestButton
 
 
 # Option #1: have button that appears when player has a piece of evidence collected
@@ -218,14 +219,14 @@ func initialize_with_npc(npc):
 	dialogue_text.text = ""
 	submit_button.disabled = true
 
-func _on_leave_button_pressed() -> void:
-	dialogue_text.text = "Investigation session ended."
-	submit_button.disabled = true
-	talk_input.editable = false
-	current_character = null
-	inventory_ui.visible = false
-	game_manager.exit_dialogue()
-	arrest_button.disabled = true
+#func _on_leave_button_pressed() -> void:
+	#dialogue_text.text = "Investigation session ended."
+	#submit_button.disabled = true
+	#talk_input.editable = false
+	#current_character = null
+	#inventory_ui.visible = false
+	#game_manager.exit_dialogue()
+	#arrest_button.disabled = true
 
 
 func _on_leave_button_pressed() -> void:
@@ -258,7 +259,7 @@ func _process(_delta: float) -> void:
 	talk_input.custom_minimum_size.y = new_height
 
 # Play npc portrait animation
-func start_npc_talk():
+func start_npc_talk(action: String = "talk"):
 	if not current_icon:
 		return
 	
