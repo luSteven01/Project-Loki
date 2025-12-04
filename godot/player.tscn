@@ -688,7 +688,7 @@ position = Vector2(0, 2.6666667)
 shape = SubResource("CapsuleShape2D_2hs0m")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.5, 2.5)
+zoom = Vector2(5, 5)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -1,21 +1,21 @@
 [gd_scene load_steps=172 format=4 uid="uid://ckfnt4evadw2e"]
 
 [ext_resource type="TileSet" uid="uid://dsde60pw444bl" path="res://living_room_room_builder.tres" id="1_j7inc"]
-[ext_resource type="Texture2D" uid="uid://bcmbaeodp3gc0" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/1_Generic_Black_Shadow_16x16.png" id="2_weu2t"]
-[ext_resource type="Texture2D" uid="uid://ddhqewveg5xoa" path="res://modern_interior_and_characters/1_Interiors/16x16/Room_Builder_subfiles/Room_Builder_3d_walls_16x16.png" id="3_mj6ii"]
-[ext_resource type="Texture2D" uid="uid://f7me7ikqd68c" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/17_Visibile_Upstairs_System_Black_Shadow_16x16.png" id="4_joy5l"]
-[ext_resource type="Texture2D" uid="uid://82n6tu753t4o" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/2_LivingRoom_Black_Shadow_16x16.png" id="5_s8sbf"]
-[ext_resource type="Texture2D" uid="uid://ctoig1hkceoit" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/7_Art_Black_Shadow_16x16.png" id="6_nrb5j"]
-[ext_resource type="Texture2D" uid="uid://6gig4mce4r25" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/10_Birthday_party_Black_Shadow_16x16.png" id="7_is08k"]
-[ext_resource type="Texture2D" uid="uid://0ltc158wwoeg" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/12_Kitchen_Black_Shadow_16x16.png" id="8_5m0m6"]
-[ext_resource type="Texture2D" uid="uid://bujl7agkte5xd" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/22_Museum_Black_Shadow_16x16.png" id="9_wvrob"]
-[ext_resource type="Texture2D" uid="uid://eteio36qwxy4" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/9_Fishing_Black_Shadow_16x16.png" id="10_vi1qt"]
-[ext_resource type="Texture2D" uid="uid://bv4pnwcj63rbl" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/16_Grocery_store_Black_Shadow_16x16.png" id="11_e8d8u"]
-[ext_resource type="Texture2D" uid="uid://cd7q57vmlu8dn" path="res://modern_interior_and_characters/6_Home_Designs/Japanese_Interiors_Home_Designs/16x16/Japanese_Home_1_Layer_2_16x16.png" id="12_ppm0j"]
-[ext_resource type="Texture2D" uid="uid://c7ocmbu4r767c" path="res://modern_interior_and_characters/6_Home_Designs/Generic_Home_Designs/16x16/Generic_Home_1_Layer_2_.png" id="13_m0q5w"]
-[ext_resource type="Texture2D" uid="uid://cmaqwlnqlxfbt" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/4_Bedroom_Black_Shadow_16x16.png" id="14_x3nxe"]
-[ext_resource type="Texture2D" uid="uid://2y3jc2hems4e" path="res://modern_interior_and_characters/1_Interiors/16x16/Room_Builder_subfiles/Room_Builder_Arched_Entryways_16x16.png" id="15_lvk6u"]
-[ext_resource type="Texture2D" uid="uid://c70k8frqi76bw" path="res://modern_interior_and_characters/1_Interiors/16x16/Room_Builder_16x16.png" id="16_tgelg"]
+[ext_resource type="Texture2D" uid="uid://b6x3jy8jidwhs" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/1_Generic_Black_Shadow_16x16.png" id="2_weu2t"]
+[ext_resource type="Texture2D" uid="uid://cmyw7y5432oi6" path="res://modern_interior_and_characters/1_Interiors/16x16/Room_Builder_subfiles/Room_Builder_3d_walls_16x16.png" id="3_mj6ii"]
+[ext_resource type="Texture2D" uid="uid://b5r0jxrv5xypt" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/17_Visibile_Upstairs_System_Black_Shadow_16x16.png" id="4_joy5l"]
+[ext_resource type="Texture2D" uid="uid://4lilwbtfcvbx" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/2_LivingRoom_Black_Shadow_16x16.png" id="5_s8sbf"]
+[ext_resource type="Texture2D" uid="uid://c6q8nfiowwh4e" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/7_Art_Black_Shadow_16x16.png" id="6_nrb5j"]
+[ext_resource type="Texture2D" uid="uid://6at47exik06w" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/10_Birthday_party_Black_Shadow_16x16.png" id="7_is08k"]
+[ext_resource type="Texture2D" uid="uid://diprp1sursf4p" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/12_Kitchen_Black_Shadow_16x16.png" id="8_5m0m6"]
+[ext_resource type="Texture2D" uid="uid://d0re1ampqukog" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/22_Museum_Black_Shadow_16x16.png" id="9_wvrob"]
+[ext_resource type="Texture2D" uid="uid://cwonmo0lw3qam" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/9_Fishing_Black_Shadow_16x16.png" id="10_vi1qt"]
+[ext_resource type="Texture2D" uid="uid://2iqvoxkxqa0" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/16_Grocery_store_Black_Shadow_16x16.png" id="11_e8d8u"]
+[ext_resource type="Texture2D" uid="uid://7m2mbx4of5mo" path="res://modern_interior_and_characters/6_Home_Designs/Japanese_Interiors_Home_Designs/16x16/Japanese_Home_1_Layer_2_16x16.png" id="12_ppm0j"]
+[ext_resource type="Texture2D" uid="uid://bes5v62hkik1a" path="res://modern_interior_and_characters/6_Home_Designs/Generic_Home_Designs/16x16/Generic_Home_1_Layer_2_.png" id="13_m0q5w"]
+[ext_resource type="Texture2D" uid="uid://bc2siwpaywryr" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/4_Bedroom_Black_Shadow_16x16.png" id="14_x3nxe"]
+[ext_resource type="Texture2D" uid="uid://bx8yhc5vbewlr" path="res://modern_interior_and_characters/1_Interiors/16x16/Room_Builder_subfiles/Room_Builder_Arched_Entryways_16x16.png" id="15_lvk6u"]
+[ext_resource type="Texture2D" uid="uid://6iniep46bipv" path="res://modern_interior_and_characters/1_Interiors/16x16/Room_Builder_16x16.png" id="16_tgelg"]
 [ext_resource type="PackedScene" uid="uid://di4whfq6erra0" path="res://portal.tscn" id="17_ftaf3"]
 [ext_resource type="Script" uid="uid://crgqai07e6303" path="res://alice_npc.gd" id="18_5m0m6"]
 [ext_resource type="Texture2D" uid="uid://c5cxvxnqdgc1b" path="res://art/spritesheets/Alice_SpriteSheet.png" id="19_wvrob"]
@@ -27479,36 +27479,6 @@ animations = [{
 radius = 14.222229
 height = 37.333313
 
-[sub_resource type="Animation" id="Animation_op65r"]
-resource_name = "down_idle"
-length = 0.6
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"down_idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
-
 [sub_resource type="Animation" id="Animation_crfap"]
 length = 0.001
 tracks/0/type = "value"
@@ -27536,8 +27506,8 @@ tracks/1/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_7x8n8"]
-resource_name = "up_idle"
+[sub_resource type="Animation" id="Animation_op65r"]
+resource_name = "down_idle"
 length = 0.6
 loop_mode = 1
 step = 0.1
@@ -27551,67 +27521,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"up_idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
-
-[sub_resource type="Animation" id="Animation_n8djb"]
-resource_name = "left_idle"
-length = 0.6
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"left_idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
-
-[sub_resource type="Animation" id="Animation_jtheq"]
-resource_name = "right_idle"
-length = 0.6
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"right_idle"]
+"values": [&"down_idle"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -27656,6 +27566,36 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 5]
 }
 
+[sub_resource type="Animation" id="Animation_n8djb"]
+resource_name = "left_idle"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"left_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
 [sub_resource type="Animation" id="Animation_lwn3y"]
 resource_name = "left_walk"
 length = 0.6
@@ -27686,6 +27626,36 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 5]
 }
 
+[sub_resource type="Animation" id="Animation_jtheq"]
+resource_name = "right_idle"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"right_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
 [sub_resource type="Animation" id="Animation_ku0k8"]
 resource_name = "right_walk"
 length = 0.6
@@ -27702,6 +27672,36 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"right_walk"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_7x8n8"]
+resource_name = "up_idle"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"up_idle"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -27828,6 +27828,33 @@ animations = [{
 radius = 14.222229
 height = 35.555542
 
+[sub_resource type="Animation" id="Animation_wvrob"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"down_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_5m0m6"]
 resource_name = "down_idle"
 length = 0.6
@@ -27856,33 +27883,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
-}
-
-[sub_resource type="Animation" id="Animation_wvrob"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"down_idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dxm8n"]
@@ -27945,6 +27945,33 @@ animations = [{
 radius = 14.222221
 height = 48.888855
 
+[sub_resource type="Animation" id="Animation_e8d8u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"down_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_vi1qt"]
 resource_name = "down_idle"
 length = 0.6
@@ -27973,33 +28000,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
-}
-
-[sub_resource type="Animation" id="Animation_e8d8u"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"down_idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ppm0j"]
@@ -28060,6 +28060,33 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jt01b"]
 
+[sub_resource type="Animation" id="Animation_x3nxe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"down_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_m0q5w"]
 resource_name = "down_idle"
 length = 0.6
@@ -28088,33 +28115,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
-}
-
-[sub_resource type="Animation" id="Animation_x3nxe"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"down_idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lvk6u"]
@@ -28186,13 +28186,11 @@ scale = Vector2(1.5600009, 1)
 target_scene_path = "uid://twy61l66b23s"
 target_position = Vector2(0, -29)
 
-[node name="Alice" type="CharacterBody2D" parent="." node_paths=PackedStringArray("path", "path_follow", "animation_player") groups=["NPC"]]
+[node name="Alice" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animation_player") groups=["NPC"]]
 z_index = 7
 position = Vector2(17, 93)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("18_5m0m6")
-path = NodePath("")
-path_follow = NodePath("")
 animation_player = NodePath("AnimationPlayer")
 metadata/_custom_type_script = "uid://crgqai07e6303"
 
@@ -28234,7 +28232,7 @@ libraries = {
 
 [node name="Diane" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animation_player") groups=["NPC"]]
 z_index = 7
-position = Vector2(73, 164)
+position = Vector2(100, 141)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("22_ppm0j")
 animation_player = NodePath("AnimationPlayer")
