@@ -6,7 +6,7 @@ var player_node : Node = null
 
 # path reference to inventory slots 
 @onready var inventory_slot_scene = preload("res://inventory_slot.tscn")
-@onready var dialogue_box = preload("res://dialogue_box.tscn")
+@onready var dialogue_box = preload("res://dialogue/dialogue_box.tscn")
 # @onready var game_manager = get_node("/root/Main/GameManager")
 
 # holds inventory items
