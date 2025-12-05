@@ -34,6 +34,8 @@ scale = Vector2(1.7599993, 1)
 target_scene_path = "uid://ckfnt4evadw2e"
 target_position = Vector2(255, 29)
 
-[node name="Portal" parent="UpstairsPortals" instance=ExtResource("3_ph1ea")]
+[node name="ToOffice" parent="UpstairsPortals" instance=ExtResource("3_ph1ea")]
 position = Vector2(-68, 80.00001)
 scale = Vector2(0.59129345, 1.591613)
+target_scene_path = "uid://b1n1snapl458c"
+target_position = Vector2(145, 48)
