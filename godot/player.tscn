@@ -680,17 +680,18 @@ motion_mode = 1
 script = ExtResource("1_cvnsp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-4.7683716e-07, -12.068966)
+position = Vector2(-9.536743e-07, -17.241383)
 scale = Vector2(1.685345, 1.685345)
 sprite_frames = SubResource("SpriteFrames_sweqy")
 animation = &"down_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2.0553014e-07, 7.758625)
+position = Vector2(0, 2.5862083)
 scale = Vector2(1.0000004, 1.0000004)
 shape = SubResource("RectangleShape2D_sweqy")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -5.1724167)
 zoom = Vector2(5, 5)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -699,6 +700,7 @@ libraries = {
 }
 
 [node name="TalkTrigger" type="Area2D" parent="."]
+position = Vector2(0, -5.1724167)
 script = ExtResource("3_2hs0m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TalkTrigger"]
