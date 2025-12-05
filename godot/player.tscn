@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://chtsrbmck8nbk" path="res://player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://cd1uwlqa56jj2" path="res://art/spritesheets/Player_SpriteSheet.png" id="2_sweqy"]
-[ext_resource type="Script" uid="uid://dsvfq7ypy0rgu" path="res://talk_trigger.gd" id="3_2hs0m"]
+[ext_resource type="Script" path="res://talk_trigger.gd" id="3_2hs0m"]
 [ext_resource type="FontFile" uid="uid://do6g4q03tl1gj" path="res://Assets/Fonts/Schrödinger.ttf" id="4_1jxqw"]
 [ext_resource type="PackedScene" uid="uid://b5mjc6m5nx3he" path="res://inventory_ui.tscn" id="5_dw050"]
 
@@ -386,7 +386,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sweqy"]
-size = Vector2(10.344849, 6.2068825)
+size = Vector2(27.5862, 12.068968)
 
 [sub_resource type="Animation" id="Animation_eo4kk"]
 length = 0.001
@@ -669,23 +669,24 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1jxqw"]
-radius = 19.413622
+radius = 27.58619
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 7
 y_sort_enabled = true
-position = Vector2(119.99999, 226)
+position = Vector2(1.8189894e-12, 2.728484e-12)
 scale = Vector2(0.58, 0.58)
 motion_mode = 1
 script = ExtResource("1_cvnsp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1.315413e-05, -6.8965526)
+position = Vector2(-4.7683716e-07, -12.068966)
+scale = Vector2(1.685345, 1.685345)
 sprite_frames = SubResource("SpriteFrames_sweqy")
 animation = &"down_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.315413e-05, 5.172417)
+position = Vector2(2.0553014e-07, 7.758625)
 scale = Vector2(1.0000004, 1.0000004)
 shape = SubResource("RectangleShape2D_sweqy")
 
@@ -701,7 +702,7 @@ libraries = {
 script = ExtResource("3_2hs0m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TalkTrigger"]
-position = Vector2(1.3154128e-05, -3.4482758)
+position = Vector2(-2.728484e-12, -6.8965516)
 scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("CircleShape2D_1jxqw")
 

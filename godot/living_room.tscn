@@ -1,4 +1,4 @@
-[gd_scene load_steps=182 format=4 uid="uid://ckfnt4evadw2e"]
+[gd_scene load_steps=177 format=4 uid="uid://ckfnt4evadw2e"]
 
 [ext_resource type="TileSet" uid="uid://dsde60pw444bl" path="res://living_room_room_builder.tres" id="1_j7inc"]
 [ext_resource type="Texture2D" uid="uid://b6x3jy8jidwhs" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/1_Generic_Black_Shadow_16x16.png" id="2_weu2t"]
@@ -17,14 +17,14 @@
 [ext_resource type="Texture2D" uid="uid://bx8yhc5vbewlr" path="res://modern_interior_and_characters/1_Interiors/16x16/Room_Builder_subfiles/Room_Builder_Arched_Entryways_16x16.png" id="15_lvk6u"]
 [ext_resource type="Texture2D" uid="uid://6iniep46bipv" path="res://modern_interior_and_characters/1_Interiors/16x16/Room_Builder_16x16.png" id="16_tgelg"]
 [ext_resource type="PackedScene" uid="uid://di4whfq6erra0" path="res://portal.tscn" id="17_ftaf3"]
-[ext_resource type="Script" uid="uid://crgqai07e6303" path="res://alice_npc.gd" id="18_5m0m6"]
+[ext_resource type="Script" path="res://alice_npc.gd" id="18_5m0m6"]
 [ext_resource type="Texture2D" uid="uid://c5cxvxnqdgc1b" path="res://art/spritesheets/Alice_SpriteSheet.png" id="19_wvrob"]
-[ext_resource type="Script" uid="uid://cccfhypg3c710" path="res://abel_npc.gd" id="20_vi1qt"]
+[ext_resource type="Script" path="res://abel_npc.gd" id="20_vi1qt"]
 [ext_resource type="Texture2D" uid="uid://coqlw7546bsbq" path="res://modern_interior_and_characters/2_Characters/Character_Generator/0_Premade_Characters/16x16/Premade_Character_01.png" id="20_wvrob"]
 [ext_resource type="Texture2D" uid="uid://bmk02xw36x57o" path="res://art/spritesheets/Abel_SpriteSheet.png" id="21_e8d8u"]
-[ext_resource type="Script" uid="uid://dncbhhlg007yh" path="res://diane_npc.gd" id="22_ppm0j"]
+[ext_resource type="Script" path="res://diane_npc.gd" id="22_ppm0j"]
 [ext_resource type="Texture2D" uid="uid://cal2lqhht3fc2" path="res://art/spritesheets/Diane_Spritesheet.png" id="23_m0q5w"]
-[ext_resource type="Script" uid="uid://bugiktjhtu30j" path="res://maid_npc.gd" id="24_x3nxe"]
+[ext_resource type="Script" path="res://maid_npc.gd" id="24_x3nxe"]
 [ext_resource type="Texture2D" uid="uid://cfiix47feexnv" path="res://art/spritesheets/Maid_SpriteSheet.png" id="25_lvk6u"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_vc3g0"]
@@ -27853,7 +27853,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_66q48"]
-size = Vector2(20, 13.3333435)
+size = Vector2(31.111122, 17.777779)
 
 [sub_resource type="Animation" id="Animation_wvrob"]
 length = 0.001
@@ -27968,9 +27968,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n24go"]
-radius = 14.222221
-height = 48.888855
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvrob"]
+size = Vector2(25.555557, 18.8889)
 
 [sub_resource type="Animation" id="Animation_e8d8u"]
 length = 0.001
@@ -28085,7 +28084,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jt01b"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vi1qt"]
+size = Vector2(26.666656, 13.3333435)
 
 [sub_resource type="Animation" id="Animation_x3nxe"]
 length = 0.001
@@ -28149,42 +28149,6 @@ _data = {
 &"RESET": SubResource("Animation_x3nxe"),
 &"down_idle": SubResource("Animation_m0q5w")
 }
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lwn3y"]
-atlas = ExtResource("20_wvrob")
-region = Rect2(48, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ku0k8"]
-atlas = ExtResource("20_wvrob")
-region = Rect2(16, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tcxto"]
-atlas = ExtResource("20_wvrob")
-region = Rect2(32, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_eq6vi"]
-atlas = ExtResource("20_wvrob")
-region = Rect2(0, 0, 16, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_muxel"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lwn3y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ku0k8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tcxto")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_eq6vi")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [node name="LivingRoomFloor" type="Node2D"]
 y_sort_enabled = true
@@ -28250,7 +28214,7 @@ target_scene_path = "uid://twy61l66b23s"
 target_position = Vector2(0, -29)
 
 [node name="Alice" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animation_player") groups=["NPC"]]
-z_index = 7
+z_index = 6
 y_sort_enabled = true
 position = Vector2(17, 93)
 scale = Vector2(0.6, 0.6)
@@ -28275,7 +28239,7 @@ libraries = {
 }
 
 [node name="Abel" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animation_player") groups=["NPC"]]
-z_index = 7
+z_index = 6
 y_sort_enabled = true
 position = Vector2(73, 142)
 scale = Vector2(0.6, 0.6)
@@ -28290,7 +28254,7 @@ sprite_frames = SubResource("SpriteFrames_bo7r3")
 animation = &"down_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Abel"]
-position = Vector2(0, 15)
+position = Vector2(0, 13.3333435)
 scale = Vector2(0.75, 0.75)
 shape = SubResource("RectangleShape2D_66q48")
 
@@ -28300,7 +28264,7 @@ libraries = {
 }
 
 [node name="Diane" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animation_player") groups=["NPC"]]
-z_index = 7
+z_index = 6
 y_sort_enabled = true
 position = Vector2(100, 141)
 scale = Vector2(0.6, 0.6)
@@ -28309,13 +28273,15 @@ animation_player = NodePath("AnimationPlayer")
 metadata/_custom_type_script = "uid://dncbhhlg007yh"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Diane"]
+position = Vector2(-5.2452087e-06, -6.6666565)
+scale = Vector2(1.645834, 1.645834)
 sprite_frames = SubResource("SpriteFrames_fft52")
 animation = &"down_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Diane"]
-position = Vector2(0, 3.333333)
+position = Vector2(0, 13.75)
 scale = Vector2(0.75, 0.75)
-shape = SubResource("CapsuleShape2D_n24go")
+shape = SubResource("RectangleShape2D_wvrob")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Diane"]
 libraries = {
@@ -28323,7 +28289,7 @@ libraries = {
 }
 
 [node name="Maid" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animation_player") groups=["NPC"]]
-z_index = 7
+z_index = 6
 y_sort_enabled = true
 position = Vector2(200, 95)
 scale = Vector2(0.6, 0.6)
@@ -28332,21 +28298,16 @@ animation_player = NodePath("AnimationPlayer")
 metadata/_custom_type_script = "uid://bugiktjhtu30j"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Maid"]
+position = Vector2(-5.2452087e-06, -10.000003)
+scale = Vector2(1.645834, 1.645834)
 sprite_frames = SubResource("SpriteFrames_fos1y")
 animation = &"down_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Maid"]
-position = Vector2(0, 6.6666665)
-shape = SubResource("CapsuleShape2D_jt01b")
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_vi1qt")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Maid"]
 libraries = {
 &"": SubResource("AnimationLibrary_lvk6u")
 }
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-z_index = 6
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
-position = Vector2(58, 141)
-sprite_frames = SubResource("SpriteFrames_muxel")
