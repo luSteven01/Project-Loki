@@ -57,19 +57,19 @@ func _ready() -> void:
 	print("Waiting for GameManager to load characters...")
 	await get_tree().create_timer(3.0).timeout
 
-	if game_manager.has_method("get_characters"):
-		var chars = game_manager.call("get_characters")
-		print("Characters loaded: ", chars.size())
-		if chars.size() > 0:
-			# setup_character_buttons()
-			dialogue_text.text = "Select a character to interview"
-			print("Character buttons created")
-		else:
-			dialogue_text.text = "Failed to connect to server. Please check if backend is running at http://127.0.0.1:8000"
-			print("No characters loaded - server connection failed")
-	else:
-		dialogue_text.text = "Error: GameManager script not loaded correctly"
-		print("ERROR: GameManager does not have get_characters method")
+	# if game_manager.has_method("get_characters"):
+	# 	var chars = game_manager.call("get_characters")
+	# 	print("Characters loaded: ", chars.size())
+	# 	if chars.size() > 0:
+	# 		# setup_character_buttons()
+	# 		dialogue_text.text = "Select a character to interview"
+	# 		print("Character buttons created")
+	# 	else:
+	# 		dialogue_text.text = "Failed to connect to server. Please check if backend is running at http://127.0.0.1:8000"
+	# 		print("No characters loaded - server connection failed")
+	# else:
+	# 	dialogue_text.text = "Error: GameManager script not loaded correctly"
+	# 	print("ERROR: GameManager does not have get_characters method")
 
 # Handle input with Ctrl+Enter
 func _input(event):
@@ -209,6 +209,10 @@ func _on_leave_button_pressed() -> void:
 	disable_interaction()
 	current_character = null
 	$BGM.stop()
+
+	if game_manager:
+		game_manager.exit_dialogue()
+
 	get_node(".").visible = false
 
 

@@ -1,7 +1,6 @@
 extends Node
 
 @onready var dialogue_box = get_node("/root/Main/CanvasLayer/DialogueBox") # get dialogue box from main scene 
-# @onready var world_context = null
 @onready var world_context = get_node("/root/Main/WorldContext")
 
 
@@ -212,8 +211,8 @@ func enter_new_dialogue(npc: NPC):
 
 	# HIDE / DISABLE WORLD
 	if world_context:
-		# world_context.visible = false
-		disable_world_input()
+		world_context.visible = false
+		# disable_world_input()
 		
 	
 	# Update the dialogue box UI
@@ -238,31 +237,8 @@ func exit_dialogue():
 	
 	# SHOW WORLD AGAIN
 	if world_context:
-		# world_context.visible = true
-		enable_world_input()	
+		world_context.visible = true
 	
 	
 func is_dialogue_active():
 	return dialogue_box.visible
-
-func disable_world_input():
-	var player = world_context.get_node("Player")
-	if player:
-		player.set_process_input(false)
-		player.set_physics_process(false)
-
-	# OPTIONAL: stop NPCs too
-	for npc in world_context.get_tree().get_nodes_in_group("NPC"):
-		npc.set_process(false)
-		npc.set_physics_process(false)
-
-
-func enable_world_input():
-	var player = world_context.get_node("Player")
-	if player:
-		player.set_process_input(true)
-		player.set_physics_process(true)
-
-	for npc in world_context.get_tree().get_nodes_in_group("NPC"):
-		npc.set_process(true)
-		npc.set_physics_process(true)
