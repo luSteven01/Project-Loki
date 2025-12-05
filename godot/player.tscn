@@ -385,9 +385,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2hs0m"]
-radius = 5.3333282
-height = 26.666687
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sweqy"]
+size = Vector2(10.344849, 6.2068825)
 
 [sub_resource type="Animation" id="Animation_eo4kk"]
 length = 0.001
@@ -673,19 +672,22 @@ _data = {
 radius = 19.413622
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-z_index = 10
-position = Vector2(120, 225)
+z_index = 7
+y_sort_enabled = true
+position = Vector2(119.99999, 226)
 scale = Vector2(0.58, 0.58)
 motion_mode = 1
 script = ExtResource("1_cvnsp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1.315413e-05, -6.8965526)
 sprite_frames = SubResource("SpriteFrames_sweqy")
 animation = &"down_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2.6666667)
-shape = SubResource("CapsuleShape2D_2hs0m")
+position = Vector2(1.315413e-05, 5.172417)
+scale = Vector2(1.0000004, 1.0000004)
+shape = SubResource("RectangleShape2D_sweqy")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
@@ -699,6 +701,8 @@ libraries = {
 script = ExtResource("3_2hs0m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TalkTrigger"]
+position = Vector2(1.3154128e-05, -3.4482758)
+scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("CircleShape2D_1jxqw")
 
 [node name="InventoryUI" type="CanvasLayer" parent="."]
