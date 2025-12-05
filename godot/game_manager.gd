@@ -1,6 +1,7 @@
 extends Node
 
 @onready var dialogue_box = get_node("/root/Main/CanvasLayer/DialogueBox") # get dialogue box from main scene 
+@onready var world_context = get_node("/root/Main/WorldContext")
 
 # API Configuration
 const API_BASE_URL = "http://127.0.0.1:8000"
@@ -178,6 +179,11 @@ func enter_new_dialogue(npc: NPC):
 	# dialogue_box.initialize_with_npc(npc) # not needed i think, i just need the dialogue box to show up
 	print("currently in a conversation with: " + current_character.character_name)
 	dialogue_box.visible = true;
+
+	# HIDE / DISABLE WORLD
+	if world_context:
+		world_context.visible = false
+		
 	
 	# Update the dialogue box UI
 	dialogue_box.current_character = current_character
@@ -198,6 +204,11 @@ func exit_dialogue():
 	current_character = null
 	# select_character(null)
 	dialogue_box.visible = false;
+	
+	# SHOW WORLD AGAIN
+	if world_context:
+		world_context.visible = true
+	
 	
 func is_dialogue_active():
 	return dialogue_box.visible

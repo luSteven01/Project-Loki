@@ -13,7 +13,7 @@ func _on_body_exited(body: Node2D) -> void:
 		current_npc = null
 
 func _input(event):
-	if Input.is_key_pressed(KEY_F): # and game_manager.is_dialogue_active() == false
+	if Input.is_key_pressed(KEY_F) and not game_manager.is_dialogue_active():
 		if current_npc != null:
 			game_manager.enter_new_dialogue(current_npc)
 			#game_manager.inventory_check()

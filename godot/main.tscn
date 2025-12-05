@@ -21,7 +21,6 @@ offset_left = 76.0
 offset_top = 14.0
 offset_right = 972.0
 offset_bottom = 574.0
-scale = Vector2(1.1064426, 1.1064426)
 
 [node name="WorldContext" type="Node2D" parent="."]
 y_sort_enabled = true
