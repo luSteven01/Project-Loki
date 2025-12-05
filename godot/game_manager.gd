@@ -208,6 +208,8 @@ func enter_new_dialogue(npc: NPC):
 	# dialogue_box.initialize_with_npc(npc) # not needed i think, i just need the dialogue box to show up
 	print("currently in a conversation with: " + current_character.character_name)
 	dialogue_box.visible = true;
+	dialogue_box.start_dialogue_bgm()
+
 
 	# HIDE / DISABLE WORLD
 	if world_context:

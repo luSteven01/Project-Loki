@@ -21,14 +21,14 @@ var endgame_scripts = {}
 func _ready() -> void:
 	print("DialogueBox _ready() called")
 	print("dialogue_text: ", dialogue_text)
-	print("npc_icons: ", npc_icons)
+	# print("npc_icons: ", npc_icons)
 	print("talk_input: ", talk_input)
 	print("submit_button: ", submit_button)
 	print("leave_button: ", leave_button)
 	print("arrest_button: ", arrest_button)
 	print("character_buttons_container: ", character_buttons_container)
 	
-	$BGM.play()
+	# $BGM.play()
 	endgame_scripts = load_json("res://data/endgame_scripts.json")
 
 	# Hide all NPC icons
@@ -54,8 +54,8 @@ func _ready() -> void:
 		return
 
 	# Wait for GameManager to load characters
-	print("Waiting for GameManager to load characters...")
-	await get_tree().create_timer(3.0).timeout
+	# print("Waiting for GameManager to load characters...")
+	# await get_tree().create_timer(3.0).timeout
 
 	# if game_manager.has_method("get_characters"):
 	# 	var chars = game_manager.call("get_characters")
@@ -305,8 +305,7 @@ func _on_arrest_button_pressed() -> void:
 		script = load_credits()
 		await type_text_slowly(script)
 		dialogue_text.text += "[/center]"
-		time = 10.0 + script.length() * 0.03
-		
+		time = 10.0 + script.length() * 0.03	
 	else:
 		# Others arrested - LOSE
 		dialogue_text.text = "\n\n[center][b]You have arrested the wrong person. The real culprit remains at large... Game Over.[/b][/center]"
@@ -315,8 +314,7 @@ func _on_arrest_button_pressed() -> void:
 	# Leave chat dialogue and triggers endgame sequence
 	current_character = null
 	await get_tree().create_timer(time).timeout
-	_on_leave_button_pressed()
-
+	self.visible = false # Temporary end here; can add more endgame logic later
 
 
 func _on_arrest_button_mouse_entered() -> void:
@@ -351,3 +349,7 @@ func load_json(path) -> Dictionary:
 
 func load_credits():
 	return FileAccess.get_file_as_string("res://data/credits.txt")
+
+func start_dialogue_bgm():
+	$Endgame.stop()
+	$BGM.play()
