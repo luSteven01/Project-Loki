@@ -104,7 +104,7 @@ async def health_check():
         "timestamp": datetime.now().isoformat()
     }
 
-@app.post("/chat", response_model=ChatResponse)
+@app.post("/chat", response_model=ChatResponse, tags=["Chat"])
 async def chat_with_detective_ai(request: ChatRequest):
     """Main chat endpoint with character support"""
 
@@ -189,7 +189,7 @@ async def chat_with_detective_ai(request: ChatRequest):
         print(f"Error in chat endpoint: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to generate response: {str(e)}")
 
-@app.get("/session/{session_id}")
+@app.get("/session/{session_id}", tags=["Session"])
 async def get_session_info(session_id: str):
     """Get session information"""
     session = await get_session(session_id)
@@ -203,7 +203,7 @@ async def get_session_info(session_id: str):
         "ended": session.ended
     }
 
-@app.get("/session/{session_id}/history")
+@app.get("/session/{session_id}/history", tags=["Session"])
 async def get_conversation_history(session_id: str):
     """Get full conversation history"""
     session = await get_session(session_id)
@@ -215,7 +215,7 @@ async def get_conversation_history(session_id: str):
         "messages": session.messages
     }
 
-@app.delete("/session/{session_id}")
+@app.delete("/session/{session_id}", tags=["Session"])
 async def delete_session(session_id: str):
     """Delete a session"""
     from services import db
@@ -225,7 +225,7 @@ async def delete_session(session_id: str):
 
     return {"message": "Session deleted successfully"}
 
-@app.get("/case-info")
+@app.get("/case-info", tags=["Case Info"])
 async def get_case_info():
     """Get basic case information"""
     return {
@@ -239,7 +239,7 @@ async def get_case_info():
         }
     }
 
-@app.get("/suspects")
+@app.get("/suspects", tags=["Case Info"])
 async def get_suspects_summary():
     """Get summary of all suspects"""
     suspects_summary = {}
@@ -251,7 +251,7 @@ async def get_suspects_summary():
         }
     return suspects_summary
 
-@app.get("/timeline")
+@app.get("/timeline", tags=["Case Info"])
 async def get_timeline():
     """Get key timeline events"""
     return {
@@ -272,14 +272,14 @@ async def get_stats():
     """Get API usage statistics"""
     return await get_api_stats()
 
-@app.get("/characters")
+@app.get("/characters", tags=["Characters"])
 async def list_characters():
     """Get list of all available characters"""
     return {
         "characters": get_all_characters()
     }
 
-@app.get("/character/{character_id}")
+@app.get("/character/{character_id}", tags=["Characters"])
 async def get_character(character_id: str):
     """Get details of a specific character"""
     char_info = get_character_info(character_id)
@@ -287,7 +287,7 @@ async def get_character(character_id: str):
         raise HTTPException(status_code=404, detail="Character not found")
     return char_info
 
-@app.post("/chat/{character_id}", response_model=ChatResponse)
+@app.post("/chat/{character_id}", response_model=ChatResponse, tags=["Chat"])
 async def chat_with_character(character_id: str, request: CharacterChatRequest):
     """Chat endpoint for a specific character"""
 
@@ -369,7 +369,7 @@ async def chat_with_character(character_id: str, request: CharacterChatRequest):
         print(f"Error in chat endpoint: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to generate response: {str(e)}")
 
-@app.get("/history")
+@app.get("/history", tags=["History"])
 async def get_all_conversation_history():
     """Get all conversation history grouped by character"""
     try:
@@ -415,7 +415,7 @@ async def get_all_conversation_history():
         print(f"Error in history endpoint: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to retrieve history: {str(e)}")
 
-@app.get("/history/{character_id}")
+@app.get("/history/{character_id}", tags=["History"])
 async def get_character_conversation_history(character_id: str):
     """Get conversation history for a specific character"""
     try:
@@ -454,7 +454,7 @@ async def get_character_conversation_history(character_id: str):
         print(f"Error in character history endpoint: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to retrieve history: {str(e)}")
 
-@app.get("/evidence")
+@app.get("/evidence", tags=["Evidence"])
 async def list_evidence():
     """Get list of all available evidence"""
     all_evidence = get_all_evidence()
@@ -470,7 +470,7 @@ async def list_evidence():
         })
     return {"evidence": evidence_list}
 
-@app.get("/evidence/{evidence_id}")
+@app.get("/evidence/{evidence_id}", tags=["Evidence"])
 async def get_evidence(evidence_id: str):
     """Get details of a specific evidence (without code)"""
     evidence = get_evidence_by_id(evidence_id)
@@ -487,27 +487,27 @@ async def get_evidence(evidence_id: str):
         "discovery_hint": evidence.get("discovery_hint", "")
     }
 
-@app.post("/evidence/discover/gloves")
+@app.post("/evidence/discover/gloves", tags=["Evidence"])
 async def discover_gloves(request: EvidenceDiscoveryRequest):
     """Discover gloves evidence (Code: GL001)"""
     return await _discover_evidence_helper(request, "gloves")
 
-@app.post("/evidence/discover/research_papers")
+@app.post("/evidence/discover/research_papers", tags=["Evidence"])
 async def discover_research_papers(request: EvidenceDiscoveryRequest):
     """Discover research papers evidence (Code: RP002)"""
     return await _discover_evidence_helper(request, "research_papers")
 
-@app.post("/evidence/discover/torn_shirt")
+@app.post("/evidence/discover/torn_shirt", tags=["Evidence"])
 async def discover_torn_shirt(request: EvidenceDiscoveryRequest):
     """Discover torn shirt evidence (Code: TS003)"""
     return await _discover_evidence_helper(request, "torn_shirt")
 
-@app.post("/evidence/discover/button")
+@app.post("/evidence/discover/button", tags=["Evidence"])
 async def discover_button(request: EvidenceDiscoveryRequest):
     """Discover button evidence (Code: BT004)"""
     return await _discover_evidence_helper(request, "button")
 
-@app.post("/evidence/discover/knife")
+@app.post("/evidence/discover/knife", tags=["Evidence"])
 async def discover_knife(request: EvidenceDiscoveryRequest):
     """Discover kitchen knife evidence (Code: KN005) - MISLEADING EVIDENCE"""
     return await _discover_evidence_helper(request, "knife")
@@ -572,7 +572,7 @@ async def _discover_evidence_helper(request: EvidenceDiscoveryRequest, evidence_
         print(f"Error in evidence discovery: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to discover evidence: {str(e)}")
 
-@app.get("/session/{session_id}/evidence")
+@app.get("/session/{session_id}/evidence", tags=["Evidence"])
 async def get_session_evidence(session_id: str):
     """Get all evidence discovered in a session"""
     session = await get_session(session_id)

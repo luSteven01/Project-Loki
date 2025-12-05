@@ -8,5 +8,6 @@ services:
     env_file:
       - ../.env 
     volumes:
+      - .:/app
       - ./static:/app/static
     restart: unless-stopped
