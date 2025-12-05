@@ -1,10 +1,10 @@
-[gd_scene load_steps=94 format=3 uid="uid://cg58uk0dqkydk"]
+[gd_scene load_steps=93 format=3 uid="uid://cg58uk0dqkydk"]
 
 [ext_resource type="Script" uid="uid://c2hcggxoe5ubs" path="res://dialogue_box.gd" id="1_senjy"]
 [ext_resource type="Texture2D" uid="uid://fetd7f8vj5vm" path="res://art/pngs/pngimg.com - handcuffs_PNG25.png" id="2_m221u"]
 [ext_resource type="Shader" uid="uid://3uqjcawsdxjb" path="res://scroll.gdshader" id="2_tvktm"]
-[ext_resource type="Texture2D" uid="uid://2odrw3o5wnjq" path="res://art/background/house1.png" id="6_85jfh"]
-[ext_resource type="Texture2D" uid="uid://t4pqs7huncf1" path="res://art/background/storage.png" id="7_med3p"]
+[ext_resource type="Texture2D" uid="uid://u4veyojq174v" path="res://art/background/house1.png" id="6_85jfh"]
+[ext_resource type="Texture2D" uid="uid://dv8mjr3ojmj6t" path="res://art/background/storage.png" id="7_med3p"]
 [ext_resource type="Texture2D" uid="uid://cmpye4xf82j1n" path="res://art/pngs/Maid/038p_classic_maid2_3.png" id="9_lwmlg"]
 [ext_resource type="Texture2D" uid="uid://dojom6sqo32ma" path="res://art/pngs/Maid/038p_classic_maid2_2.png" id="10_oq8t6"]
 [ext_resource type="Texture2D" uid="uid://dgtl8nuk6tu5v" path="res://art/Enjl-Starry Space Background/background_4.png" id="12_uucap"]
@@ -25,9 +25,10 @@
 [ext_resource type="Texture2D" uid="uid://b55unqqddffra" path="res://art/pngs/035p_red_haired_girl2/035p_red_haired_girl2_2.png" id="21_4v6v6"]
 [ext_resource type="Texture2D" uid="uid://bemq02kr8p7np" path="res://art/pngs/035p_red_haired_girl2/035p_red_haired_girl2_3.png" id="21_jy1o0"]
 [ext_resource type="Texture2D" uid="uid://ug0ntuv6n0k1" path="res://art/background/Living room.jpg" id="24_5u6cq"]
+[ext_resource type="FontFile" uid="uid://do6g4q03tl1gj" path="res://Assets/Fonts/Schrödinger.ttf" id="24_bvavr"]
 [ext_resource type="Texture2D" uid="uid://bjx46b744bhog" path="res://art/pngs/008p_detective_male/008p_detective_male_A.png" id="24_jy1o0"]
 [ext_resource type="Texture2D" uid="uid://dghfvbsj31vb4" path="res://art/pngs/007p_detective_woman/007p_detective_woman_A.png" id="25_apwtg"]
-[ext_resource type="Texture2D" uid="uid://yqhhqen11c6i" path="res://art/pngs/008p_detective_male/008p_detective_male_D.png" id="25_ybase"]
+[ext_resource type="PackedScene" uid="uid://b5mjc6m5nx3he" path="res://inventory_ui.tscn" id="25_ybase"]
 [ext_resource type="Texture2D" uid="uid://c7cburyw1dacn" path="res://art/pngs/022tg_white_coat_women/022tg_wht_ct_w_1.png" id="26_apwtg"]
 [ext_resource type="Texture2D" uid="uid://cvyqku85xilx2" path="res://art/pngs/008p_detective_male/008p_detective_male_E.png" id="26_tarkj"]
 [ext_resource type="Texture2D" uid="uid://ds1kwd7rraens" path="res://art/pngs/022tg_white_coat_women/022tg_wht_ct_w_3.png" id="26_x3hjh"]
@@ -51,11 +52,7 @@
 [ext_resource type="Texture2D" uid="uid://iwtnxlhn0f83" path="res://art/pngs/Chef/15_1.png" id="46_oq8t6"]
 [ext_resource type="Texture2D" uid="uid://dsvd035air4q3" path="res://art/pngs/Chef/15_4.png" id="47_wkkny"]
 [ext_resource type="Texture2D" uid="uid://bb70cmr6tqbo0" path="res://art/pngs/Chef/15_10.png" id="48_4s7bp"]
-[ext_resource type="AudioStream" uid="uid://dwwejrb27ddsa" path="res://art/bgm/fissile__handcuffs-closing.wav" id="52_wkkny"]
 [ext_resource type="AudioStream" uid="uid://l6xl8u8ddf3q" path="res://art/bgm/427444__kiluaboy__blue-blood-ogg.ogg" id="53_4s7bp"]
-[ext_resource type="AudioStream" uid="uid://cooccpy4g808i" path="res://art/bgm/753968__evanboyerman__hopeful-cinematic-emotional-orchestra-background-music.wav" id="54_7qci8"]
-[ext_resource type="FontFile" uid="uid://do6g4q03tl1gj" path="res://Assets/Fonts/Schrödinger.ttf" id="24_bvavr"]
-[ext_resource type="PackedScene" uid="uid://b5mjc6m5nx3he" path="res://inventory_ui.tscn" id="25_ybase"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjfks"]
 bg_color = Color(0, 0, 0.121569, 1)
@@ -1141,10 +1138,10 @@ transform = Transform2D(1, 0, 0, 1, 0, 100)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 300.0
-offset_top = 500.0
-offset_right = -352.0
-offset_bottom = 102.0
+offset_left = 1005.0
+offset_top = -50.0
+offset_right = 466.0
+offset_bottom = -127.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.39341664, 0.5749391, 0.65857416, 1)
@@ -1164,7 +1161,12 @@ theme_override_font_sizes/font_size = 40
 text = "Inventory"
 
 [node name="Inventory_UI" parent="InventoryUI/ColorRect" instance=ExtResource("25_ybase")]
+layout_direction = 2
 layout_mode = 0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 611.0
+offset_bottom = 574.0
 
 [connection signal="pressed" from="SubmitButton" to="." method="_on_submit_button_pressed"]
 [connection signal="pressed" from="LeaveButton" to="." method="_on_leavebutton_pressed"]

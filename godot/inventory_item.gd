@@ -7,12 +7,13 @@ extends Node2D
 # name: identifier; displayed when player hovers over it
 # effect: describes what it does when used/equipped
 # texture: visual representation of item in the game
-
-@export var item_type = ""
-@export var item_name = ""
-@export var item_effect = ""
-@export var item_texture = Texture
-@export var item_hashcode = ""
+@export var evidence_id = ""
+var evidence_name = ""
+var evidence_owner = ""
+var evidence_description = ""
+var evidence_location = ""
+@export var evidence_texture = Texture
+@export var evidence_hashcode = ""
 
 # static; used to spawn items from scene onto main scene on load
 var scene_path = "res://inventory_item.tscn"
@@ -27,7 +28,21 @@ var player_in_range = false
 func _ready():
 	#assign texture property to sprite2D node if we are still not in editor; texture reflects in game itself
 	if not Engine.is_editor_hint():
-		icon_sprite.texture = item_texture
+
+		if evidence_id != "" and GameManager.evidence_list.has(evidence_id):
+			var evidence = GameManager.evidence_list[evidence_id]
+			
+			evidence_id = evidence["id"]
+			evidence_name = evidence["name"]
+			evidence_owner = evidence["belongs_to"]
+			evidence_description = evidence["description"]
+			evidence_location = evidence["location"]
+			
+			print(evidence_id + ", " + evidence_name + ", " + evidence_owner + ", " + evidence_description + ", " + evidence_location)
+		
+		icon_sprite.texture = evidence_texture
+	
+	
 	
 
 # in process func, assign texture property to sprite2D node if we are still in the editor
@@ -35,7 +50,7 @@ func _ready():
 # when we assign diff texture properties in main scene, updates in edtior & when we run the scene
 func _process(delta):
 	if Engine.is_editor_hint():
-		icon_sprite.texture = item_texture
+		icon_sprite.texture = evidence_texture
 		
 	# add item to inventory when E is pressed
 	if player_in_range and Input.is_action_just_pressed("ui_add"):
@@ -45,12 +60,13 @@ func _process(delta):
 func pickup_item():
 	var item = {
 		"quantity": 1,
-		"type": item_type,
-		"name": item_name,
-		"texture": item_texture,
-		"effect": item_effect,
+		"id": evidence_id,
+		"name": evidence_name,
+		"texture": evidence_texture,
+		"owner": evidence_owner,
+		"description": evidence_description,
+		"location": evidence_location,
 		"scene_path": scene_path,
-		"hashcode": item_hashcode
 	}
 	# Call add_item func from global script; pass item dictionary as parameter
 	# after adding, remove item from scene using queue_free()
@@ -70,20 +86,22 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		player_in_range = false
 		body.interact_ui.visible = false
 
-# item data for dropped item
+# item data
 func set_item_data(data):
-	item_type = data["type"]
-	item_name = data["name"]
-	item_effect = data["effect"]
-	item_texture = data["texture"]
+	evidence_id = data["id"]
+	evidence_name = data["name"]
+	evidence_owner = data["owner"]
+	evidence_texture = data["texture"]
 	# scene_path = data["scene_path"]
-	item_hashcode = data["hashcode"]
+	evidence_description = data["description"]
+	evidence_location = data["location"]
 
-func initiate_items(type, name, effect, texture, hashcode):
-	item_type = type
-	item_name = name
-	item_effect = effect
-	item_texture = texture
-	item_hashcode = hashcode
+func initiate_items(id, itemName, itemOwner, texture, description, location):
+	evidence_id = id
+	evidence_name = itemName
+	evidence_owner = itemOwner
+	evidence_texture = texture
+	evidence_description = description
+	evidence_location = location
 	
 	

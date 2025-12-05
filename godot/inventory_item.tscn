@@ -8,11 +8,12 @@ radius = 16.03122
 
 [node name="InventoryItem" type="Node2D" groups=["Items"]]
 script = ExtResource("1_gj4io")
-item_type = "Consumable"
-item_name = "Test_Item"
-item_effect = "Test_Effect"
+item_id = ""
+item_name = ""
+item_owner = ""
+item_description = ""
+item_location = ""
 item_texture = ExtResource("2_gmchj")
-item_hashcode = "abc12345"
 
 [node name="Area2D" type="Area2D" parent="."]
 

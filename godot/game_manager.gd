@@ -10,7 +10,7 @@ extends Node
 @onready var collision = get_node("/root/Main/PlayerNPC_Scene/ItemSpawnArea/CollisionShape2D")
 
 # API Configuration
-const API_BASE_URL = "http://127.0.0.1:8000"
+const API_BASE_URL = "http://localhost:8000"
 
 # State management
 var sessions = {}  # { character_id: session_id }
@@ -20,19 +20,29 @@ var characters = []
 var is_loading = false
 
 var http_request: HTTPRequest
+var evidence_request : HTTPRequest
 
 enum RequestType {
 	HEALTH_CHECK,
 	LOAD_CHARACTERS,
-	SEND_MESSAGE
+	SEND_MESSAGE,
+	RETRIEVE_EVIDENCE
 }
 var current_request_type = RequestType.HEALTH_CHECK
 
+var evidence_list = {} # for getting evidence from endpoint
+
+signal evidence_loaded
 
 func _ready():
 	http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.request_completed.connect(_on_request_completed)
+	
+	# Separate HTTPRequest node for loading evidence
+	evidence_request = HTTPRequest.new()
+	add_child(evidence_request)
+	evidence_request.request_completed.connect(_on_evidence_request_completed)
 
 	print("GameManager ready - connecting to backend...")
 	
@@ -114,6 +124,7 @@ func _on_request_completed(result, response_code, headers, body):
 		return
 
 	var data = json.data
+	
 
 	match current_request_type:
 		RequestType.HEALTH_CHECK:
@@ -123,12 +134,40 @@ func _on_request_completed(result, response_code, headers, body):
 		RequestType.SEND_MESSAGE:
 			handle_message_response(data)
 
+
+func _on_evidence_request_completed(result, response_code, headers, body):
+	if response_code != 200:
+		print("Request failed with code: ", response_code)
+		handle_request_error(response_code)
+		return
+
+	var json = JSON.new()
+	var error = json.parse(body.get_string_from_utf8())
+
+	if error != OK:
+		print("Failed to parse JSON: ", error)
+		return
+
+	var data = json.data
+	
+	match current_request_type:
+		RequestType.RETRIEVE_EVIDENCE:
+			handle_evidence_retrieval(data)
+
+
 func handle_health_check(data):
 	if data.api == "healthy" and data.mongodb == "connected" and data.openai == "connected":
 		print("✓ Server is healthy - loading characters...")
 		load_characters()
 	else:
 		print("✗ Server has issues:", data)
+	
+	if data.api == "healthy" and data.mongodb == "connected" and data.openai == "connected":
+		print("✓ Server is healthy - loading evidence...")
+		load_evidence()
+	else:
+		print("✗ Server has issues:", data)
+	
 
 func handle_characters_loaded(data):
 	characters = data.characters
@@ -252,9 +291,9 @@ func spawn_random_items(item_count):
 		attempts += 1
 	
 		# select random item from array and assign it a random position	
-		spawn_item(Global.spawnable_items[randi() % Global.spawnable_items.size()], position)
+		spawn_items(Global.spawnable_items[randi() % Global.spawnable_items.size()], position)
 		
-func spawn_item(data, position):
+func spawn_items(data, position):
 	var item_scene = preload("res://inventory_item.tscn")
 	var item_instance = item_scene.instantiate()
 	item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"], data["hashcode"])
@@ -272,3 +311,36 @@ func inventory_check():
 	else:
 		print("no berry")
 		dialogue_box.evidence_button.visible = false;
+
+func load_evidence():
+	print("Retrieving evidence from endpoint...")
+	current_request_type = RequestType.RETRIEVE_EVIDENCE
+	var error = evidence_request.request(API_BASE_URL + "/evidence")
+	if error != OK:
+		print("Failed to connect to server: ", error)
+
+func handle_evidence_retrieval(data):
+	var evidence_data = data["evidence"]
+	
+	for evidence in evidence_data:
+		var id = evidence["id"]
+		evidence_list[id] = evidence
+		#print("id: " , evidence["id"], " ",
+		#"name: ", evidence["name"], " ",
+		#"description: ", evidence["description"], " ",
+		#"belongs to: ", evidence["belongs_to"], " ",
+		#"location: " , evidence["location"])
+		
+		# this is basically the conditional i have to use to set the items 
+		#if(evidence["id"] == "gloves"):
+			#print("name: ", evidence["name"], " ",
+			#"description: ", evidence["description"], " ",
+			#"belongs to: ", evidence["belongs_to"], " ",
+			#"location: " , evidence["location"])
+		#for key in evidence_list.keys():
+			#print(key, ": ", evidence_list[key]["name"])
+		
+	print("this function works")
+	emit_signal("evidence_loaded")
+		
+	

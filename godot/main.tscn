@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://sxywo3malpjm"]
+[gd_scene load_steps=7 format=3 uid="uid://sxywo3malpjm"]
 
 [ext_resource type="Script" uid="uid://t32sc8k7f1nb" path="res://main.gd" id="1_7mycd"]
 [ext_resource type="PackedScene" uid="uid://cg58uk0dqkydk" path="res://dialogue_box.tscn" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://b27e368f31x6p" path="res://game_manager.gd" id="2_game_manager"]
 [ext_resource type="PackedScene" uid="uid://san5raef5e7y" path="res://player.tscn" id="4_lquwl"]
 [ext_resource type="PackedScene" uid="uid://ckfnt4evadw2e" path="res://living_room.tscn" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://birev6lmxdepy" path="res://inventory_item.tscn" id="6_7mycd"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_7mycd")
@@ -26,10 +27,19 @@ scale = Vector2(1.1064426, 1.1064426)
 y_sort_enabled = true
 
 [node name="Player" parent="WorldContext" instance=ExtResource("4_lquwl")]
-z_index = 10
 position = Vector2(130, 200)
 
 [node name="CurrentLevel" type="Node2D" parent="WorldContext"]
 y_sort_enabled = true
 
 [node name="LivingRoomFloor" parent="WorldContext/CurrentLevel" instance=ExtResource("5_lquwl")]
+
+[node name="InventoryItem" parent="WorldContext" instance=ExtResource("6_7mycd")]
+z_index = 6
+position = Vector2(250, 100)
+item_id = "gloves"
+item_name = "Gloves"
+item_owner = "diane"
+item_description = "A pair of gloves found at the crime scene"
+item_location = "Near the crime scene"
+item_hashcode = "GL001"

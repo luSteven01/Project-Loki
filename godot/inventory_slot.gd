@@ -66,7 +66,7 @@ func _on_drop_button_pressed() -> void:
 func _on_show_button_pressed() -> void:
 	usage_panel.visible = false
 	
-	if item != null and item["effect"] != "": # if item exists and there is an effect, apply item effect; change condition to check it 
+	if item != null and item["hashcode"] != "": # if item exists and there is an effect, apply item effect; change condition to check it 
 		Global.show_item(item)
 		# Global.remove_item(item["type"], item["effect"])
 		print("item hashcode: ", item["hashcode"])
