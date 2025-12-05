@@ -1,7 +1,9 @@
 extends Node
 
 @onready var dialogue_box = get_node("/root/Main/CanvasLayer/DialogueBox") # get dialogue box from main scene 
+# @onready var world_context = null
 @onready var world_context = get_node("/root/Main/WorldContext")
+
 
 # API Configuration
 const API_BASE_URL = "http://127.0.0.1:8000"
@@ -22,6 +24,13 @@ enum RequestType {
 var current_request_type = RequestType.HEALTH_CHECK
 
 func _ready():
+	print("we have world context: " + str(world_context != null))
+	print("Children of WorldContext:")
+	for c in world_context.get_children():
+		print(" - ", c.name)
+	print("GameManager instance path:", get_path())
+
+
 	http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.request_completed.connect(_on_request_completed)
@@ -105,6 +114,27 @@ func _on_request_completed(result, response_code, headers, body):
 		RequestType.SEND_MESSAGE:
 			handle_message_response(data)
 
+
+# func _on_evidence_request_completed(result, response_code, headers, body):
+# 	if response_code != 200:
+# 		print("Request failed with code: ", response_code)
+# 		handle_request_error(response_code)
+# 		return
+
+# 	var json = JSON.new()
+# 	var error = json.parse(body.get_string_from_utf8())
+
+# 	if error != OK:
+# 		print("Failed to parse JSON: ", error)
+# 		return
+
+# 	var data = json.data
+	
+# 	match current_request_type:
+# 		RequestType.RETRIEVE_EVIDENCE:
+# 			handle_evidence_retrieval(data)
+
+
 func handle_health_check(data):
 	if data.api == "healthy" and data.mongodb == "connected" and data.openai == "connected":
 		print("✓ Server is healthy - loading characters...")
@@ -182,7 +212,8 @@ func enter_new_dialogue(npc: NPC):
 
 	# HIDE / DISABLE WORLD
 	if world_context:
-		world_context.visible = false
+		# world_context.visible = false
+		disable_world_input()
 		
 	
 	# Update the dialogue box UI
@@ -207,8 +238,31 @@ func exit_dialogue():
 	
 	# SHOW WORLD AGAIN
 	if world_context:
-		world_context.visible = true
+		# world_context.visible = true
+		enable_world_input()	
 	
 	
 func is_dialogue_active():
 	return dialogue_box.visible
+
+func disable_world_input():
+	var player = world_context.get_node("Player")
+	if player:
+		player.set_process_input(false)
+		player.set_physics_process(false)
+
+	# OPTIONAL: stop NPCs too
+	for npc in world_context.get_tree().get_nodes_in_group("NPC"):
+		npc.set_process(false)
+		npc.set_physics_process(false)
+
+
+func enable_world_input():
+	var player = world_context.get_node("Player")
+	if player:
+		player.set_process_input(true)
+		player.set_physics_process(true)
+
+	for npc in world_context.get_tree().get_nodes_in_group("NPC"):
+		npc.set_process(true)
+		npc.set_physics_process(true)

@@ -61,7 +61,7 @@ func _ready() -> void:
 		var chars = game_manager.call("get_characters")
 		print("Characters loaded: ", chars.size())
 		if chars.size() > 0:
-			setup_character_buttons()
+			# setup_character_buttons()
 			dialogue_text.text = "Select a character to interview"
 			print("Character buttons created")
 		else:
@@ -84,35 +84,39 @@ func _input(event):
 			_on_submit_button_pressed()
 			get_viewport().set_input_as_handled()
 
-func setup_character_buttons():
-	print("=== setup_character_buttons() called ===")
-	if character_buttons_container:
-		print("✓ character_buttons_container exists")
-		print("  Position: ", character_buttons_container.position)
-		print("  Size: ", character_buttons_container.size)
-		print("  Visible: ", character_buttons_container.visible)
+		elif (event.keycode == KEY_ESCAPE):
+			_on_leave_button_pressed()
+			get_viewport().set_input_as_handled()
 
-		# Clear existing buttons
-		for child in character_buttons_container.get_children():
-			child.queue_free()
+# func setup_character_buttons():
+	# print("=== setup_character_buttons() called ===")
+	# if character_buttons_container:
+	# 	print("✓ character_buttons_container exists")
+	# 	print("  Position: ", character_buttons_container.position)
+	# 	print("  Size: ", character_buttons_container.size)
+	# 	print("  Visible: ", character_buttons_container.visible)
 
-		# Create character buttons
-		var characters = game_manager.call("get_characters")
-		print("✓ Creating buttons for ", characters.size(), " characters")
+	# 	# Clear existing buttons
+	# 	for child in character_buttons_container.get_children():
+	# 		child.queue_free()
 
-		for i in range(characters.size()):
-			var character = characters[i]
-			var button = Button.new()
-			button.text = character.avatar + " " + character.name
-			button.custom_minimum_size = Vector2(120, 40)
-			button.pressed.connect(_on_character_selected.bind(character))
-			character_buttons_container.add_child(button)
-			print("  [", i, "] Created button: ", button.text, " | Size: ", button.size)
+	# 	# Create character buttons
+	# 	var characters = game_manager.call("get_characters")
+	# 	print("✓ Creating buttons for ", characters.size(), " characters")
 
-		print("✓ All buttons added to container")
-		print("  Total children: ", character_buttons_container.get_child_count())
-	else:
-		print("✗ ERROR: character_buttons_container is null!")
+	# 	for i in range(characters.size()):
+	# 		var character = characters[i]
+	# 		var button = Button.new()
+	# 		button.text = character.avatar + " " + character.name
+	# 		button.custom_minimum_size = Vector2(120, 40)
+	# 		button.pressed.connect(_on_character_selected.bind(character))
+	# 		character_buttons_container.add_child(button)
+	# 		print("  [", i, "] Created button: ", button.text, " | Size: ", button.size)
+
+	# 	print("✓ All buttons added to container")
+	# 	print("  Total children: ", character_buttons_container.get_child_count())
+	# else:
+	# 	print("✗ ERROR: character_buttons_container is null!")
 
 func _on_character_selected(character):
 	is_typing = false
