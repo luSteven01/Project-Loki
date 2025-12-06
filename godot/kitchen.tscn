@@ -396,8 +396,12 @@ tile_set = ExtResource("2_xsyy8")
 [node name="Kitchen_food" type="TileMapLayer" parent="."]
 z_index = 6
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAGAAIAAAAKACMAAAAHAAIAAAAMACMAAAAEAAIAAAALACIAAAAAAAEAAAAEACQAAAAAAAIAAAAEACUAAAADAAIAAAANACMAAAAFAAIAAAAMACQAAAAIAAIAAAAJACMAAAAMAAIABAAMAEQAAAA=")
+tile_map_data = PackedByteArray("AAAGAAIAAAAKACMAAAAHAAIAAAAMACMAAAAEAAIAAAALACIAAAAAAAEAAAAEACQAAAAAAAIAAAAEACUAAAADAAIAAAANACMAAAAIAAIAAAAJACMAAAAMAAIABAAMAEQAAAA=")
 tile_set = ExtResource("2_xsyy8")
+
+[node name="Evidence" type="Node2D" parent="."]
+
+[node name="Knife" type="TileMapLayer" parent="Evidence"]
 
 [node name="Portals" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -411,6 +415,7 @@ target_position = Vector2(286, 99)
 position = Vector2(200, -5)
 target_scene_path = "uid://erx131uh6mij"
 target_position = Vector2(71, 36)
+is_interactive = true
 
 [node name="Adele" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animation_player") groups=["NPC"]]
 z_index = 6
@@ -419,7 +424,6 @@ position = Vector2(174, 84)
 scale = Vector2(0.75, 0.75)
 script = ExtResource("4_r0fwo")
 animation_player = NodePath("AnimationPlayer")
-metadata/_custom_type_script = "uid://ce3nx04u0yof6"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Adele"]
 position = Vector2(-0.16666788, -9.666659)
@@ -444,7 +448,6 @@ position = Vector2(95, 25)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("6_efyc0")
 animation_player = NodePath("AnimationPlayer")
-metadata/_custom_type_script = "uid://diffu843wat04"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Chef"]
 position = Vector2(-5.722046e-06, -11.666666)
@@ -468,7 +471,6 @@ position = Vector2(57.000004, 60.000004)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("8_jluyr")
 animation_player = NodePath("AnimationPlayer")
-metadata/_custom_type_script = "uid://djb7hc5d2j4r1"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Professor_Schumacher"]
 position = Vector2(5.2452087e-06, -10.000003)

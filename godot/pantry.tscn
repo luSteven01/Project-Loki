@@ -66,3 +66,4 @@ position = Vector2(72, 54)
 scale = Vector2(0.806026, 1)
 target_scene_path = "uid://c60twqwpmith3"
 target_position = Vector2(200, 0)
+is_interactive = true

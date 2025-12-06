@@ -692,7 +692,7 @@ shape = SubResource("RectangleShape2D_sweqy")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -5.1724167)
-zoom = Vector2(5, 5)
+zoom = Vector2(15, 15)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
