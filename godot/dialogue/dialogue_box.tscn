@@ -1,6 +1,6 @@
 [gd_scene load_steps=94 format=3 uid="uid://cg58uk0dqkydk"]
 
-[ext_resource type="Script" uid="uid://c2hcggxoe5ubs" path="res://dialogue_box.gd" id="1_senjy"]
+[ext_resource type="Script" uid="uid://c2hcggxoe5ubs" path="res://dialogue/dialogue_box.gd" id="1_senjy"]
 [ext_resource type="Texture2D" uid="uid://fetd7f8vj5vm" path="res://art/pngs/pngimg.com - handcuffs_PNG25.png" id="2_m221u"]
 [ext_resource type="Shader" uid="uid://3uqjcawsdxjb" path="res://scroll.gdshader" id="2_tvktm"]
 [ext_resource type="Texture2D" uid="uid://2odrw3o5wnjq" path="res://art/background/house1.png" id="6_85jfh"]
