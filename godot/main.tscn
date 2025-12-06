@@ -16,13 +16,6 @@ script = ExtResource("2_game_manager")
 
 [node name="DialogueBox" parent="CanvasLayer" instance=ExtResource("2_0xm2m")]
 visible = false
-offset_left = 76.0
-offset_top = 14.0
-offset_right = 972.0
-offset_bottom = 574.0
-scale = Vector2(1.1064426, 1.1064426)
-size_flags_horizontal = 4
-size_flags_vertical = 4
 
 [node name="WorldContext" type="Node2D" parent="."]
 y_sort_enabled = true
