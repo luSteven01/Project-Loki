@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://sxywo3malpjm"]
 
 [ext_resource type="Script" uid="uid://t32sc8k7f1nb" path="res://main.gd" id="1_7mycd"]
-[ext_resource type="PackedScene" uid="uid://cg58uk0dqkydk" path="res://dialogue_box.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://cg58uk0dqkydk" path="res://dialogue/dialogue_box.tscn" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://b27e368f31x6p" path="res://game_manager.gd" id="2_game_manager"]
 [ext_resource type="PackedScene" uid="uid://san5raef5e7y" path="res://player.tscn" id="4_lquwl"]
 [ext_resource type="PackedScene" uid="uid://ckfnt4evadw2e" path="res://living_room.tscn" id="5_lquwl"]
@@ -21,6 +21,8 @@ offset_top = 14.0
 offset_right = 972.0
 offset_bottom = 574.0
 scale = Vector2(1.1064426, 1.1064426)
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="WorldContext" type="Node2D" parent="."]
 y_sort_enabled = true

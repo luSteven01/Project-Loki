@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://chtsrbmck8nbk" path="res://player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://cd1uwlqa56jj2" path="res://art/spritesheets/Player_SpriteSheet.png" id="2_sweqy"]
-[ext_resource type="Script" path="res://talk_trigger.gd" id="3_2hs0m"]
+[ext_resource type="Script" uid="uid://dsvfq7ypy0rgu" path="res://talk_trigger.gd" id="3_2hs0m"]
 [ext_resource type="FontFile" uid="uid://do6g4q03tl1gj" path="res://Assets/Fonts/Schrödinger.ttf" id="4_1jxqw"]
 [ext_resource type="PackedScene" uid="uid://b5mjc6m5nx3he" path="res://inventory_ui.tscn" id="5_dw050"]
 
@@ -692,7 +692,7 @@ shape = SubResource("RectangleShape2D_sweqy")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -5.1724167)
-zoom = Vector2(15, 15)
+zoom = Vector2(3, 3)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

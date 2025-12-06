@@ -6,39 +6,26 @@ var player_node : Node = null
 
 # path reference to inventory slots 
 @onready var inventory_slot_scene = preload("res://inventory_slot.tscn")
-@onready var dialogue_box = preload("res://dialogue_box.tscn")
+@onready var dialogue_box = preload("res://dialogue/dialogue_box.tscn")
+# @onready var game_manager = get_node("/root/Main/GameManager")
 
 # holds inventory items
 var inventory = []
 
 var dialogue = null
+var game_manager_instance = null;
 
-# items we spawn on load
-var spawnable_items = [
-	{"type": "Consumable", 
-	"name": "Berry", 
-	"effect": "Health", 
-	"texture": preload("res://Assets/Icons/icon31.png"),
-	"hashcode": "f13e7"}
-	
-	#{"type": "Consumable", 
-	#"name": "Mushroom", 
-	#"effect": "Mana", 
-	#"texture": preload("res://Assets/Icons/icon32.png"),
-	#"hashcode": "275a0"},
-	
-	#{"type": "Consumable", 
-	#"name": "Coin", 
-	#"effect": "Money", 
-	#"texture": preload("res://Assets/Icons/icon20.png"),
-	#"hashcode": "ba572"},
-	#
-	#{"type": "Consumable", 
-	#"name": "Shell", 
-	#"effect": "SlotIncrease", 
-	#"texture": preload("res://Assets/Icons/icon30.png"),
-	#"hashcode": "3b48d"}
-]
+var api_url = null
+
+# items available to collect
+#var spawnable_items = [
+	#{"id": game_manager_instance.evidence_list["id"],
+	#"name": evidence_data["name"],
+	#"description": evidence_data["description"],
+	#"owner": evidence_data["belongs_to"],
+	#"location": evidence_data.get("location", "Unknown")}
+	#""
+#]
 
 # signal for updating inventory
 signal inventory_updated
@@ -49,12 +36,15 @@ func _ready():
 	dialogue = dialogue_box.instantiate()
 	add_child(dialogue)
 	dialogue.visible = false
-	inventory.resize(5)
+	inventory.resize(5)	
+	
+	#game_manager_instance = game_manager.instantiate()
+	#add_child(game_manager_instance)
 
 func add_item(item):
 	for i in range(inventory.size()):
 		# check if item w/ type and effect already exist to stack quantity
-		if inventory[i] != null and inventory[i]["type"] == item["type"] and inventory[i]["effect"] == item["effect"]:
+		if inventory[i] != null and inventory[i]["name"] == item["name"] and inventory[i]["hashcode"] == item["hashcode"]:
 			inventory[i]["quantity"] += item["quantity"]
 			inventory_updated.emit()
 			print("added item: ", inventory)

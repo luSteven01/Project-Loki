@@ -1,42 +1,63 @@
+
 extends Node
 
 @onready var dialogue_box = get_node("/root/Main/CanvasLayer/DialogueBox") # get dialogue box from main scene 
-@onready var world_context = get_node("/root/Main/WorldContext")
+@onready var npc_scene = get_node("/root/Main/PlayerNPC_Scene")
 
+# Nodes for spawning items, for testing purposes
+#@onready var items = get_node("/root/Main/PlayerNPC_Scene/ItemSpawnArea/Items")
+#@onready var item_spawn_area = get_node("/root/Main/PlayerNPC_Scene/ItemSpawnArea")
+#@onready var collision = get_node("/root/Main/PlayerNPC_Scene/ItemSpawnArea/CollisionShape2D")
 
 # API Configuration
-const API_BASE_URL = "http://127.0.0.1:8000"
+const API_BASE_URL = "http://localhost:8000"
 
 # State management
 var sessions = {}  # { character_id: session_id }
 var current_character = null
 var characters = []
+# var NPCs = [] # for getting the NPCs that are in-game
 var is_loading = false
 
 var http_request: HTTPRequest
+var evidence_request : HTTPRequest
 
 enum RequestType {
 	HEALTH_CHECK,
 	LOAD_CHARACTERS,
-	SEND_MESSAGE
+	SEND_MESSAGE,
+	RETRIEVE_EVIDENCE
 }
 var current_request_type = RequestType.HEALTH_CHECK
 
+var evidence_list = {} # for getting evidence from endpoint
+
+signal evidence_loaded
+
 func _ready():
-	print("we have world context: " + str(world_context != null))
-	print("Children of WorldContext:")
-	for c in world_context.get_children():
-		print(" - ", c.name)
-	print("GameManager instance path:", get_path())
-
-
 	http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.request_completed.connect(_on_request_completed)
+	
+	# Separate HTTPRequest node for loading evidence
+	evidence_request = HTTPRequest.new()
+	add_child(evidence_request)
+	evidence_request.request_completed.connect(_on_evidence_request_completed)
 
 	print("GameManager ready - connecting to backend...")
+	
+	#if not npc_scene:
+		#print("npc scene not loaded")
+	#else:
+		#print("npc scene loaded")
+	
+	#var npc1 = npc_scene.get_child(1)
+	
+	# spawn_random_items(3)
 	check_server_health()
-
+	
+	
+	
 # ============================================
 # API Functions
 # ============================================
@@ -54,21 +75,20 @@ func load_characters():
 	var error = http_request.request(API_BASE_URL + "/characters")
 	if error != OK:
 		print("Failed to load characters: ", error)
-
+	
 func send_message(message: String, callback: Callable):
 	if not current_character or is_loading:
 		print("Cannot send message: no character selected or already loading")
 		return
 
 	is_loading = true
-	print("Sending message to ", current_character.name, ": ", message)
+	print("Sending message to ", current_character["character_name"], ": ", message)
 
-	var url = API_BASE_URL + "/chat"
+	var url = API_BASE_URL + "/chat/" + current_character["npc_id"]
 	var headers = ["Content-Type: application/json"]
 
 	var body = {
 		"message": message,
-		"character_id": current_character["npc_id"],
 		"session_id": sessions.get(current_character["npc_id"], null)
 	}
 
@@ -80,7 +100,7 @@ func send_message(message: String, callback: Callable):
 	if error != OK:
 		print("Failed to send message: ", error)
 		is_loading = false
-		callback.call(null, "Failed to send message")
+		callback.call("", "Failed to send message")
 
 func select_character(character):
 	current_character = character
@@ -104,6 +124,7 @@ func _on_request_completed(result, response_code, headers, body):
 		return
 
 	var data = json.data
+	
 
 	match current_request_type:
 		RequestType.HEALTH_CHECK:
@@ -114,24 +135,24 @@ func _on_request_completed(result, response_code, headers, body):
 			handle_message_response(data)
 
 
-# func _on_evidence_request_completed(result, response_code, headers, body):
-# 	if response_code != 200:
-# 		print("Request failed with code: ", response_code)
-# 		handle_request_error(response_code)
-# 		return
+func _on_evidence_request_completed(result, response_code, headers, body):
+	if response_code != 200:
+		print("Request failed with code: ", response_code)
+		handle_request_error(response_code)
+		return
 
-# 	var json = JSON.new()
-# 	var error = json.parse(body.get_string_from_utf8())
+	var json = JSON.new()
+	var error = json.parse(body.get_string_from_utf8())
 
-# 	if error != OK:
-# 		print("Failed to parse JSON: ", error)
-# 		return
+	if error != OK:
+		print("Failed to parse JSON: ", error)
+		return
 
-# 	var data = json.data
+	var data = json.data
 	
-# 	match current_request_type:
-# 		RequestType.RETRIEVE_EVIDENCE:
-# 			handle_evidence_retrieval(data)
+	match current_request_type:
+		RequestType.RETRIEVE_EVIDENCE:
+			handle_evidence_retrieval(data)
 
 
 func handle_health_check(data):
@@ -140,6 +161,13 @@ func handle_health_check(data):
 		load_characters()
 	else:
 		print("✗ Server has issues:", data)
+	
+	if data.api == "healthy" and data.mongodb == "connected" and data.openai == "connected":
+		print("✓ Server is healthy - loading evidence...")
+		load_evidence()
+	else:
+		print("✗ Server has issues:", data)
+	
 
 func handle_characters_loaded(data):
 	characters = data.characters
@@ -149,13 +177,19 @@ func handle_characters_loaded(data):
 
 	if characters.size() > 0:
 		select_character(characters[0])
+		
+	# load characters instantiated from the scene + debug print statement 
+	#get_in_game_NPCs()
+	#for npc in NPCs:
+		#print("character_name: " + npc.character_name + ", " + "npc_id: " + npc.npc_id)
+	
 
 func handle_message_response(data):
 	if not sessions.has(current_character["npc_id"]):
 		sessions[current_character["npc_id"]] = data.session_id
-		print("New session created for ", current_character.name, ": ", data.session_id)
+		print("New session created for ", current_character["character_name"], ": ", data.session_id)
 
-	print("Received response from ", current_character.name)
+	print("Received response from ", current_character["npc_id"])
 
 	if http_request.has_meta("callback"):
 		var callback = http_request.get_meta("callback")
@@ -185,7 +219,7 @@ func get_current_character():
 
 func is_ready() -> bool:
 	return characters.size() > 0
-
+	
 
 # ============================================
 # Gameplay Functionality
@@ -208,14 +242,6 @@ func enter_new_dialogue(npc: NPC):
 	# dialogue_box.initialize_with_npc(npc) # not needed i think, i just need the dialogue box to show up
 	print("currently in a conversation with: " + current_character.character_name)
 	dialogue_box.visible = true;
-	dialogue_box.start_dialogue_bgm()
-
-
-	# HIDE / DISABLE WORLD
-	if world_context:
-		world_context.visible = false
-		# disable_world_input()
-		
 	
 	# Update the dialogue box UI
 	dialogue_box.current_character = current_character
@@ -237,10 +263,84 @@ func exit_dialogue():
 	# select_character(null)
 	dialogue_box.visible = false;
 	
-	# SHOW WORLD AGAIN
-	if world_context:
-		world_context.visible = true
-	
-	
 func is_dialogue_active():
 	return dialogue_box.visible
+
+# ============================================
+# Functions for spawning items & inventory related stuff
+# theres also functions for spawning items; might remove
+# ============================================
+# random position for the item within collision shape in spawn area
+#func get_random_position():
+	#var area_rect = collision.shape.get_rect()
+	#
+	## random x, y position within boundaries 
+	#var x = randf_range(0, area_rect.position.x)
+	#var y = randf_range(0, area_rect.position.y)
+	#
+	#return item_spawn_area.to_global(Vector2(x, y))
+	
+# spawn random items from global item spawner array; can be repeated 
+func spawn_random_items(item_count):
+	var attempts = 0
+	var spawned_count = 0
+	
+	while spawned_count < item_count and attempts < 100:
+		var position = get_random_position()
+		spawned_count += 1
+		attempts += 1
+	
+		# select random item from array and assign it a random position	
+		spawn_items(Global.spawnable_items[randi() % Global.spawnable_items.size()], position)
+		
+func spawn_items(data, position):
+	var item_scene = preload("res://inventory_item.tscn")
+	var item_instance = item_scene.instantiate()
+	item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"], data["hashcode"])
+	item_instance.global_position = position
+	items.add_child(item_instance)
+
+# can change if-statement to include other evidence, this is just for testing 
+func inventory_check():
+	if(Global.item_exists("Berry")):
+		print("I have a berry")
+		dialogue_box.evidence_button.visible = true;
+		for item in Global.inventory:
+			if item != null and item["name"] == "Berry":
+				dialogue_box.evidence_button.text = "Button will be visible when player has the item; replace w/ question" + item["hashcode"]
+	else:
+		print("no berry")
+		#dialogue_box.evidence_button.visible = false;
+
+func load_evidence():
+	print("Retrieving evidence from endpoint...")
+	current_request_type = RequestType.RETRIEVE_EVIDENCE
+	var error = evidence_request.request(API_BASE_URL + "/evidence")
+	if error != OK:
+		print("Failed to connect to server: ", error)
+
+func handle_evidence_retrieval(data):
+	var evidence_data = data["evidence"]
+	
+	for evidence in evidence_data:
+		var id = evidence["id"]
+		evidence_list[id] = evidence
+		#print("id: " , evidence["id"], " ",
+		#"name: ", evidence["name"], " ",
+		#"description: ", evidence["description"], " ",
+		#"belongs to: ", evidence["belongs_to"], " ",
+		#"location: " , evidence["location"])
+		
+		# this is basically the conditional i have to use to set the items 
+		#if(evidence["id"] == "gloves"):
+			#print("name: ", evidence["name"], " ",
+			#"description: ", evidence["description"], " ",
+			#"belongs to: ", evidence["belongs_to"], " ",
+			#"location: " , evidence["location"])
+		#for key in evidence_list.keys():
+			#print(key, ": ", evidence_list[key]["name"])
+		
+	print("this function works")
+	emit_signal("evidence_loaded")
+		
+	

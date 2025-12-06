@@ -39,11 +39,11 @@ func set_item(new_item):
 	icon.texture = new_item["texture"]
 	quantity_label.text = str(item["quantity"])
 	item_name.text = str(item["name"])
-	item_type.text = str(item["type"])
-	if item["effect"] != "":
-		item_effect.text = str("-  ", item["effect"])
-	else:
-		item_effect.text = ""
+	#item_type.text = str(item["type"])
+	#if item["effect"] != "":
+		#item_effect.text = str("-  ", item["effect"])
+	#else:
+		#item_effect.text = ""
 
 # this function won't be used in the final game, we can remove this 
 func _on_drop_button_pressed() -> void:
@@ -66,7 +66,7 @@ func _on_drop_button_pressed() -> void:
 func _on_show_button_pressed() -> void:
 	usage_panel.visible = false
 	
-	if item != null and item["effect"] != "": # if item exists and there is an effect, apply item effect; change condition to check it 
+	if item != null and item["hashcode"] != "": # if item exists and there is an effect, apply item effect; change condition to check it 
 		Global.show_item(item)
 		# Global.remove_item(item["type"], item["effect"])
 		print("item hashcode: ", item["hashcode"])
