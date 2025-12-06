@@ -21,7 +21,7 @@ var endgame_scripts = {}
 func _ready() -> void:
 	print("DialogueBox _ready() called")
 	print("dialogue_text: ", dialogue_text)
-	# print("npc_icons: ", npc_icons)
+	print("npc_icons: ", npc_icons)
 	print("talk_input: ", talk_input)
 	print("submit_button: ", submit_button)
 	print("leave_button: ", leave_button)
