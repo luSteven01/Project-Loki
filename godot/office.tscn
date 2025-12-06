@@ -60,5 +60,5 @@ target_position = Vector2(-53, 80)
 is_interactive = true
 
 [node name="Item" parent="." instance=ExtResource("4_43ocd")]
-position = Vector2(119, 64)
-id = "button"
+position = Vector2(71, 43)
+item_id = "button"

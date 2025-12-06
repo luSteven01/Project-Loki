@@ -4,10 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://60nrd0rwsbvo" path="res://art/pngs/evidence_button.png" id="2_fwctq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0r86x"]
-radius = 10.049875
 
 [node name="Item" type="Area2D"]
-collision_mask = 128
+collision_layer = 2
 script = ExtResource("1_fwctq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

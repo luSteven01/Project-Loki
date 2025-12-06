@@ -61,6 +61,9 @@ func send_message(message: String, callback: Callable):
 		return
 
 	is_loading = true
+	var evidence = Global.get_inventory_items()
+	message += "\nEvidence and key: " + str(evidence)
+
 	print("Sending message to ", current_character.name, ": ", message)
 
 	var url = API_BASE_URL + "/chat"
@@ -85,6 +88,7 @@ func send_message(message: String, callback: Callable):
 func select_character(character):
 	current_character = character
 	print("Selected character: ", character.name, " (", character.id, ")")
+
 
 # ============================================
 # Response Handlers

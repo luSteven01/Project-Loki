@@ -676,6 +676,7 @@ z_index = 7
 y_sort_enabled = true
 position = Vector2(1.8189894e-12, 2.728484e-12)
 scale = Vector2(0.58, 0.58)
+collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_cvnsp")
 

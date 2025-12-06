@@ -35,6 +35,7 @@ func _ready():
 	
 
 func add_item(item_id: String, texture: Texture2D) -> void:
+	print("Adding item:", item_id)
 	if inventory.has(item_id):
 		inventory[item_id]["collected"] = true
 		inventory[item_id]["icon"] = texture
