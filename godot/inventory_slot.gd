@@ -1,6 +1,5 @@
 extends Control
 
-#Scene-Tree Node references
 @onready var icon = $InnerBorder/ItemIcon
 @onready var quantity_label = $InnerBorder/ItemQuantity
 @onready var details_panel = $DetailsPanel
@@ -10,81 +9,51 @@ extends Control
 @onready var usage_panel = $UsagePanel
 @onready var outer_border = $OuterBorder
 
-# signals for dragging items
 signal drag_start(slot)
 signal drag_end()
 
-# holds data for item
-var item = null
-	
-# show item when we hover mouse over item
-func _on_item_button_mouse_entered() -> void:
-	if item != null:
+var item_id: String = ""
+var item_data: Dictionary = {}
+
+
+func set_empty():
+	icon.texture = null
+	item_name.text = ""
+	quantity_label.text = ""
+
+
+func set_item(id: String, data: Dictionary):
+	item_id = id
+	item_data = data
+
+	item_name.text = id.capitalize()
+	icon.texture = data.get("icon", null)
+
+	quantity_label.text = ""
+	item_type.text = ""
+	item_effect.text = ""
+
+
+func _on_item_button_mouse_entered():
+	if item_data != {}:
 		usage_panel.visible = false
 		details_panel.visible = true
 
-# hide item details when we are not hovering over the item
-func _on_item_button_mouse_exited() -> void:
+
+func _on_item_button_mouse_exited():
 	details_panel.visible = false
 
-# create empty slot w/ no values
-func set_empty():
-	icon.texture = null
-	quantity_label.text = ""
-	
-# set slots w/ details of new item we want to add to inventory; update icon and item details and quantity based on
-# new item dictionary passed to it by inventory item component
-func set_item(new_item):
-	item = new_item
-	icon.texture = new_item["texture"]
-	quantity_label.text = str(item["quantity"])
-	item_name.text = str(item["name"])
-	#item_type.text = str(item["type"])
-	#if item["effect"] != "":
-		#item_effect.text = str("-  ", item["effect"])
-	#else:
-		#item_effect.text = ""
 
-# this function won't be used in the final game, we can remove this 
-func _on_drop_button_pressed() -> void:
-	if item != null:
-		var drop_position = Global.player_node.global_position
-		
-		# give item a drop offset of 50x to right of player's position
-		# turn offset based off player rotation so its dropped in player's direction
-		
-		var drop_offset = Vector2(0, 50)
-		drop_offset = drop_offset.rotated(Global.player_node.rotation)
-		
-		# remove item from inventory
-		Global.drop_item(item, drop_position + drop_offset)
-		Global.remove_item(item["type"], item["effect"])
-		
-		usage_panel.visible = false
-	
-	
-func _on_show_button_pressed() -> void:
-	usage_panel.visible = false
-	
-	if item != null and item["hashcode"] != "": # if item exists and there is an effect, apply item effect; change condition to check it 
-		Global.show_item(item)
-		# Global.remove_item(item["type"], item["effect"])
-		print("item hashcode: ", item["hashcode"])
-	else:
-		print("Item could not be found. ")
-
-# item button events
-func _on_item_button_gui_input(event: InputEvent) -> void:
+func _on_item_button_gui_input(event: InputEvent):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-			if item != null:
+			if item_data != {}:
 				usage_panel.visible = !usage_panel.visible
+
 		if event.button_index == MOUSE_BUTTON_RIGHT:
-			if event.is_pressed(): # start dragging w/ right mouse
-				outer_border.modulate = Color(1, 1, 0)
+			if event.is_pressed():
+				outer_border.modulate = Color(1,1,0)
 				drag_start.emit(self)
 			else:
-				outer_border.modulate = Color(1, 1, 1)
+				outer_border.modulate = Color(1,1,1)
 				drag_end.emit()
-		
-		

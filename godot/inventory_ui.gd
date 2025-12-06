@@ -12,23 +12,19 @@ func _ready():
 # update inventory UI
 func _on_inventory_update():
 	clear_grid_container()
-	
-	# iterate through each item in global inventory array
-	# for each item, add a slot
-	for item in Global.inventory:
-		# for each item, create new slot from inventory slot scene & add to grid container
+
+	for item_id in Global.inventory.keys():
+		var item_data = Global.inventory[item_id]
+
 		var slot = Global.inventory_slot_scene.instantiate()
-		
 		slot.drag_start.connect(_on_drag_start)
 		slot.drag_end.connect(_on_drag_end)
 		grid_container.add_child(slot)
-		
-		# check if slot position we are creating contains an item. no item = empty slot
-		if item != null:
-			slot.set_item(item)
+
+		if item_data["collected"]:
+			slot.set_item(item_id, item_data)
 		else:
 			slot.set_empty()
-		
 	
 		
 # when adding existing item to inventory, quantity might not update

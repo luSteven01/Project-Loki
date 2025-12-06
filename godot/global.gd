@@ -9,23 +9,18 @@ var player_node : Node = null
 @onready var dialogue_box = preload("res://dialogue/dialogue_box.tscn")
 # @onready var game_manager = get_node("/root/Main/GameManager")
 
+var inventory = {
+	"button" : {"collected": false, "icon": null},
+	"shirt" : {"collected": false, "icon": null},
+	"knife" : {"collected": false, "icon": null},
+	"gloves" : {"collected": false, "icon": null}
+}  # { item_id: item_data }
 # holds inventory items
-var inventory = []
 
 var dialogue = null
 var game_manager_instance = null;
 
 var api_url = null
-
-# items available to collect
-#var spawnable_items = [
-	#{"id": game_manager_instance.evidence_list["id"],
-	#"name": evidence_data["name"],
-	#"description": evidence_data["description"],
-	#"owner": evidence_data["belongs_to"],
-	#"location": evidence_data.get("location", "Unknown")}
-	#""
-#]
 
 # signal for updating inventory
 signal inventory_updated
@@ -36,25 +31,14 @@ func _ready():
 	dialogue = dialogue_box.instantiate()
 	add_child(dialogue)
 	dialogue.visible = false
-	inventory.resize(5)	
+	#inventory.resize(5)	
 	
-	#game_manager_instance = game_manager.instantiate()
-	#add_child(game_manager_instance)
 
-func add_item(item):
-	for i in range(inventory.size()):
-		# check if item w/ type and effect already exist to stack quantity
-		if inventory[i] != null and inventory[i]["name"] == item["name"] and inventory[i]["hashcode"] == item["hashcode"]:
-			inventory[i]["quantity"] += item["quantity"]
-			inventory_updated.emit()
-			print("added item: ", inventory)
-			return true
-		elif inventory[i] == null: # place new item in slot if there is an empty slot
-			inventory[i] = item
-			inventory_updated.emit()
-			print("added item: ", inventory)
-			return true
-	return false
+func add_item(item_id: String, texture: Texture2D) -> void:
+	if inventory.has(item_id):
+		inventory[item_id]["collected"] = true
+		inventory[item_id]["icon"] = texture
+		inventory_updated.emit()
 
 # go through inventory array & remove item w/ certain type and effect
 func remove_item(item_type, item_effect):
@@ -155,3 +139,11 @@ func show_item(item):
 
 
 	
+# Get items from inventory
+func get_inventory_items() -> Array:
+	var items = ["8d2b06e94a2e0e80febfa85b932c8326d84b55d411aa11dfdd8f5f5d4d4d492b"]
+	
+	for item_id in inventory.keys():
+		if inventory[item_id] and inventory[item_id]["collected"]:
+			items.append(item_id)
+	return items

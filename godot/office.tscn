@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=4 uid="uid://b1n1snapl458c"]
+[gd_scene load_steps=4 format=4 uid="uid://b1n1snapl458c"]
 
 [ext_resource type="TileSet" uid="uid://db12q282dcpov" path="res://office_tiles.tres" id="1_g3mwp"]
 [ext_resource type="PackedScene" uid="uid://di4whfq6erra0" path="res://portal.tscn" id="2_ei2s5"]
+[ext_resource type="PackedScene" uid="uid://bo7mu2y1heqyu" path="res://evidence/item.tscn" id="4_43ocd"]
 
 [node name="Office" type="Node2D"]
 y_sort_enabled = true
@@ -57,3 +58,7 @@ scale = Vector2(1, 1.5999987)
 target_scene_path = "uid://twy61l66b23s"
 target_position = Vector2(-53, 80)
 is_interactive = true
+
+[node name="Item" parent="." instance=ExtResource("4_43ocd")]
+position = Vector2(119, 64)
+id = "button"

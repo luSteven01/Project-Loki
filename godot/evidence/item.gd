@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var id: String = ""
+@export var item_id: String = ""
 @export var is_collected: bool = false
 
 var player_in_range: bool = false
@@ -8,6 +8,22 @@ var player_in_range: bool = false
 func _ready() -> void:
 	pass
 	
+func _process(delta: float) -> void:
+	# add item to inventory when E is pressed
+	if player_in_range and Input.is_action_just_pressed("ui_add") and not is_collected:
+		pickup_item()
+
+func pickup_item() -> void:
+	is_collected = true
+
+	if Global.player_node:
+		Global.add_item(item_id, $Sprite2D.texture)
+	
+	$DeleteTimer.start()
+
+
+func get_icon() -> Texture2D:
+	return $Sprite2D.texture
 
 
 func _on_delete_timer_timeout() -> void:
@@ -15,7 +31,7 @@ func _on_delete_timer_timeout() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	print("body enter")
+	print("I AM ENTERING enter")
 	if body.is_in_group("Player"):
 		player_in_range = true
 		body.interact_ui.visible = true
