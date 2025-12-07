@@ -10,10 +10,10 @@ var player_node : Node = null
 # @onready var game_manager = get_node("/root/Main/GameManager")
 
 var inventory = {
-	"button" : {"collected": false, "icon": null},
-	"shirt" : {"collected": false, "icon": null},
-	"knife" : {"collected": false, "icon": null},
-	"gloves" : {"collected": false, "icon": null}
+	"button" : {"collected": false, "icon": null, "description": ""},
+	"shirt" : {"collected": false, "icon": null, "description": ""},
+	"knife" : {"collected": false, "icon": null, "description": ""},
+	"gloves" : {"collected": false, "icon": null, "description": ""}
 }  # { item_id: item_data }
 # holds inventory items
 
@@ -34,11 +34,12 @@ func _ready():
 	#inventory.resize(5)	
 	
 
-func add_item(item_id: String, texture: Texture2D) -> void:
+func add_item(item_id: String, texture: Texture2D, desc: String) -> void:
 	print("Adding item:", item_id)
 	if inventory.has(item_id):
 		inventory[item_id]["collected"] = true
 		inventory[item_id]["icon"] = texture
+		inventory[item_id]["description"] = desc
 		inventory_updated.emit()
 
 # go through inventory array & remove item w/ certain type and effect

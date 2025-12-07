@@ -1,7 +1,8 @@
 extends Area2D
 
-@export var item_id: String = ""
+@export var item_id: String = "button"
 @export var is_collected: bool = false
+@export var description: String = "A plain shirt button found on Richards"
 
 var player_in_range: bool = false
 
@@ -17,7 +18,7 @@ func pickup_item() -> void:
 	is_collected = true
 
 	if Global.player_node:
-		Global.add_item(item_id, $Sprite2D.texture)
+		Global.add_item(item_id, $Sprite2D.texture, description)
 	
 	$DeleteTimer.start()
 

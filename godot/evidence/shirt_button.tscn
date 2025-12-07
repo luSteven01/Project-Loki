@@ -1,114 +1,25 @@
-[gd_scene load_steps=17 format=3 uid="uid://c8hancljq0r8m"]
+[gd_scene load_steps=4 format=3 uid="uid://ccmn7ncyelod3"]
 
-[ext_resource type="Texture2D" uid="uid://btcu2iyyd3w1h" path="res://modern_interior_and_characters/3_Animated_objects/16x16/spritesheets/animated_moldy_fruit_basket.png" id="1_0r86x"]
-[ext_resource type="Script" uid="uid://cunvdc6cr1fxd" path="res://evidence/shirt_button.gd" id="1_u7ta7"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u7ta7"]
-atlas = ExtResource("1_0r86x")
-region = Rect2(0, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_w7e8x"]
-atlas = ExtResource("1_0r86x")
-region = Rect2(16, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s85vo"]
-atlas = ExtResource("1_0r86x")
-region = Rect2(32, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yeek0"]
-atlas = ExtResource("1_0r86x")
-region = Rect2(48, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j6vr8"]
-atlas = ExtResource("1_0r86x")
-region = Rect2(64, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l586m"]
-atlas = ExtResource("1_0r86x")
-region = Rect2(80, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5s6ra"]
-atlas = ExtResource("1_0r86x")
-region = Rect2(96, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d5gl5"]
-atlas = ExtResource("1_0r86x")
-region = Rect2(112, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_axup6"]
-atlas = ExtResource("1_0r86x")
-region = Rect2(128, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e20w3"]
-atlas = ExtResource("1_0r86x")
-region = Rect2(144, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1mffd"]
-atlas = ExtResource("1_0r86x")
-region = Rect2(160, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lm7q7"]
-atlas = ExtResource("1_0r86x")
-region = Rect2(176, 0, 16, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_y621l"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u7ta7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w7e8x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s85vo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yeek0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j6vr8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l586m")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5s6ra")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d5gl5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_axup6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_e20w3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1mffd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lm7q7")
-}],
-"loop": true,
-"name": &"open",
-"speed": 6.0
-}]
+[ext_resource type="Script" uid="uid://84t5g250rp12" path="res://evidence/item.gd" id="1_u7ta7"]
+[ext_resource type="Texture2D" uid="uid://60nrd0rwsbvo" path="res://art/pngs/evidence_button.png" id="2_u7ta7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0r86x"]
-radius = 37.01351
 
 [node name="ShirtButton" type="Area2D"]
+collision_layer = 2
 script = ExtResource("1_u7ta7")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_y621l")
-animation = &"open"
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_u7ta7")
+region_rect = Rect2(0, 7.1163197, 16, 16.677818)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_0r86x")
 
 [node name="DeleteTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

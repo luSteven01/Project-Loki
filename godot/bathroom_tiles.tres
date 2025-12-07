@@ -1,8 +1,8 @@
 [gd_resource type="TileSet" load_steps=7 format=3 uid="uid://12tfn5y23jv8"]
 
-[ext_resource type="Texture2D" uid="uid://b6x3jy8jidwhs" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/1_Generic_Black_Shadow_16x16.png" id="2_6g7pp"]
-[ext_resource type="Texture2D" uid="uid://6iniep46bipv" path="res://modern_interior_and_characters/1_Interiors/16x16/Room_Builder_16x16.png" id="3_e1ojc"]
-[ext_resource type="Texture2D" uid="uid://xnace3orjymc" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/3_Bathroom_Black_Shadow_16x16.png" id="5_6g7pp"]
+[ext_resource type="Texture2D" uid="uid://bcmbaeodp3gc0" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/1_Generic_Black_Shadow_16x16.png" id="2_6g7pp"]
+[ext_resource type="Texture2D" uid="uid://c70k8frqi76bw" path="res://modern_interior_and_characters/1_Interiors/16x16/Room_Builder_16x16.png" id="3_e1ojc"]
+[ext_resource type="Texture2D" uid="uid://5uyiu0p8k0tj" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/3_Bathroom_Black_Shadow_16x16.png" id="5_6g7pp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2gv51"]
 texture = ExtResource("3_e1ojc")

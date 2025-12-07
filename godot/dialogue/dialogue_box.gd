@@ -53,23 +53,6 @@ func _ready() -> void:
 		print("ERROR: Cannot find GameManager node at /root/Main/GameManager")
 		return
 
-	# Wait for GameManager to load characters
-	# print("Waiting for GameManager to load characters...")
-	# await get_tree().create_timer(3.0).timeout
-
-	# if game_manager.has_method("get_characters"):
-	# 	var chars = game_manager.call("get_characters")
-	# 	print("Characters loaded: ", chars.size())
-	# 	if chars.size() > 0:
-	# 		# setup_character_buttons()
-	# 		dialogue_text.text = "Select a character to interview"
-	# 		print("Character buttons created")
-	# 	else:
-	# 		dialogue_text.text = "Failed to connect to server. Please check if backend is running at http://127.0.0.1:8000"
-	# 		print("No characters loaded - server connection failed")
-	# else:
-	# 	dialogue_text.text = "Error: GameManager script not loaded correctly"
-	# 	print("ERROR: GameManager does not have get_characters method")
 
 # Handle input with Ctrl+Enter
 func _input(event):
@@ -88,35 +71,6 @@ func _input(event):
 			_on_leave_button_pressed()
 			get_viewport().set_input_as_handled()
 
-# func setup_character_buttons():
-	# print("=== setup_character_buttons() called ===")
-	# if character_buttons_container:
-	# 	print("✓ character_buttons_container exists")
-	# 	print("  Position: ", character_buttons_container.position)
-	# 	print("  Size: ", character_buttons_container.size)
-	# 	print("  Visible: ", character_buttons_container.visible)
-
-	# 	# Clear existing buttons
-	# 	for child in character_buttons_container.get_children():
-	# 		child.queue_free()
-
-	# 	# Create character buttons
-	# 	var characters = game_manager.call("get_characters")
-	# 	print("✓ Creating buttons for ", characters.size(), " characters")
-
-	# 	for i in range(characters.size()):
-	# 		var character = characters[i]
-	# 		var button = Button.new()
-	# 		button.text = character.avatar + " " + character.name
-	# 		button.custom_minimum_size = Vector2(120, 40)
-	# 		button.pressed.connect(_on_character_selected.bind(character))
-	# 		character_buttons_container.add_child(button)
-	# 		print("  [", i, "] Created button: ", button.text, " | Size: ", button.size)
-
-	# 	print("✓ All buttons added to container")
-	# 	print("  Total children: ", character_buttons_container.get_child_count())
-	# else:
-	# 	print("✗ ERROR: character_buttons_container is null!")
 
 func _on_character_selected(character):
 	is_typing = false
@@ -173,6 +127,9 @@ func send_player_message():
 	talk_input.text = ""
 
 func _on_message_received(response: String, error):
+	while is_typing:
+		await get_tree().create_timer(0.5).timeout
+
 	# Remove loading message
 	var lines = dialogue_text.text.split("\n")
 	if lines.size() > 0 and "thinking" in lines[-1]:
