@@ -2,7 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://12tfn5y23jv8" path="res://bathroom_tiles.tres" id="1_kv4is"]
 [ext_resource type="PackedScene" uid="uid://di4whfq6erra0" path="res://portal.tscn" id="2_jou8l"]
-[ext_resource type="PackedScene" uid="uid://bo7mu2y1heqyu" path="res://evidence/item.tscn" id="3_44qet"]
+[ext_resource type="PackedScene" uid="uid://8xy5xj6ser8f" path="res://evidence/torn_shirt.tscn" id="3_44qet"]
 
 [node name="UpstairsBathroom" type="Node2D"]
 y_sort_enabled = true
@@ -39,6 +39,5 @@ target_scene_path = "uid://twy61l66b23s"
 target_position = Vector2(297, -59)
 is_interactive = true
 
-[node name="Item" parent="." instance=ExtResource("3_44qet")]
-position = Vector2(11.966193, 49)
-item_id = "shirt"
+[node name="TornShirt" parent="." instance=ExtResource("3_44qet")]
+position = Vector2(7.977462, 40)

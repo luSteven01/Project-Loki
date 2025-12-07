@@ -1,22 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccmn7ncyelod3"]
+[gd_scene load_steps=4 format=3 uid="uid://8xy5xj6ser8f"]
 
-[ext_resource type="Script" uid="uid://84t5g250rp12" path="res://evidence/item.gd" id="1_u7ta7"]
-[ext_resource type="Texture2D" uid="uid://60nrd0rwsbvo" path="res://art/pngs/evidence_button.png" id="2_u7ta7"]
+[ext_resource type="Script" uid="uid://84t5g250rp12" path="res://evidence/item.gd" id="1_owm5e"]
+[ext_resource type="Texture2D" uid="uid://tfi7gh2xgkyv" path="res://art/pngs/Clothing_Store_Singles_Shadowless_190.png" id="2_owm5e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0r86x"]
 
-[node name="ShirtButton" type="Area2D"]
+[node name="TornShirt" type="Area2D"]
 collision_layer = 2
-script = ExtResource("1_u7ta7")
-item_id = "button"
-description = "A plain shirt button found on Richards"
+script = ExtResource("1_owm5e")
+item_id = "shirt"
+description = "A torn shirt missing a button"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_u7ta7")
+texture = ExtResource("2_owm5e")
 region_rect = Rect2(0, 7.1163197, 16, 16.677818)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 7)
 shape = SubResource("CircleShape2D_0r86x")
 
 [node name="DeleteTimer" type="Timer" parent="."]

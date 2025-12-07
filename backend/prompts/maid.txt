@@ -64,7 +64,7 @@ knows about the letters Alice sent to Professor Richards' that the professor wan
 
 - **If evidence "shirt" is in in the VALID_EVIDENCE and asked about the torn shirt:**
   → Respond: You give a hint that the shirt may not belong to Richards. For example: "I… I don’t know this shirt. I never wash this one for Mister Richards. Maybe… it not from our house?"
-- Else: 
+- Else if evidence "shirt" is not in the VALID_EVIDENCE:
   → Neutral State – You imply player to look for evidence first. For example "I would like to see it. Why do you ask?"
 
 

@@ -1,8 +1,8 @@
 extends Area2D
 
-@export var item_id: String = "button"
+@export var item_id: String = ""
 @export var is_collected: bool = false
-@export var description: String = "A plain shirt button found on Richards"
+@export var description: String = ""
 
 var player_in_range: bool = false
 

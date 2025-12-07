@@ -15,6 +15,7 @@ func _on_inventory_update():
 
 	for item_id in Global.inventory.keys():
 		var item_data = Global.inventory[item_id]
+		print(item_data)
 
 		var slot = Global.inventory_slot_scene.instantiate()
 		slot.drag_start.connect(_on_drag_start)
