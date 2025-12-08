@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://4lkfxis773re"]
+
+[ext_resource type="Script" uid="uid://84t5g250rp12" path="res://evidence/item.gd" id="1_fn22r"]
+[ext_resource type="Texture2D" uid="uid://bgackfhl4aj47" path="res://art/pngs/Jail_Singles_Shadowless_121.png" id="2_fn22r"]
+[ext_resource type="AudioStream" uid="uid://d2w5vyp76kdmi" path="res://art/bgm/SFX/822563__qubodup__pick-up-book-item.wav" id="3_fn22r"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fn22r"]
+radius = 12.0
+height = 38.0
+
+[node name="ResearchPaper" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_fn22r")
+item_id = "paper"
+description = "A few pages from Richards' research paper"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_fn22r")
+region_rect = Rect2(0, 7.1163197, 16, 16.677818)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 10)
+shape = SubResource("CapsuleShape2D_fn22r")
+
+[node name="DeleteTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="PickUp" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_fn22r")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="DeleteTimer" to="." method="_on_delete_timer_timeout"]

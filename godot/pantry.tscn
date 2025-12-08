@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=4 uid="uid://erx131uh6mij"]
+
+[ext_resource type="TileSet" uid="uid://dsde60pw444bl" path="res://living_room_room_builder.tres" id="1_p3pww"]
+[ext_resource type="TileSet" uid="uid://c24h1ei3ucpog" path="res://pantry_furniture.tres" id="2_bvupd"]
+[ext_resource type="PackedScene" uid="uid://di4whfq6erra0" path="res://portal.tscn" id="3_nnwea"]
+[ext_resource type="PackedScene" uid="uid://4lkfxis773re" path="res://evidence/ResearchPaper.tscn" id="4_hu826"]
+
+[node name="Pantry" type="Node2D"]
+y_sort_enabled = true
+
+[node name="PantryFloor" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAAAAAAAgAjACwAAAABAAAAAgAjACwAAAACAAAAAgAjACwAAAADAAAAAgAjACwAAAAEAAAAAgAjACwAAAAFAAAAAgAjACwAAAAGAAAAAgAjACwAAAAHAAAAAgAjACwAAAAIAAAAAgAjACwAAAAAAAEAAgAjACwAAAABAAEAAgAjACwAAAACAAEAAgAjACwAAAADAAEAAgAjACwAAAAEAAEAAgAjACwAAAAFAAEAAgAjACwAAAAGAAEAAgAjACwAAAAHAAEAAgAjACwAAAAIAAEAAgAjACwAAAAAAAIAAgAjACwAAAABAAIAAgAjACwAAAACAAIAAgAjACwAAAADAAIAAgAjACwAAAAEAAIAAgAjACwAAAAFAAIAAgAjACwAAAAGAAIAAgAjACwAAAAHAAIAAgAjACwAAAAIAAIAAgAjACwAAAA=")
+tile_set = ExtResource("1_p3pww")
+
+[node name="PantryWalls" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAIAP7/AgAYABcAAAAIAP//AgAYABgAAAAJAP7/AgANAAYAAAAJAP//AgANAAcAAAAJAAAAAgANAAcAAAAJAAEAAgANAAcAAAAJAAIAAgANAAcAAAD//wIAAgALAAcAAAD//wMAAgALAAgAAAAJAAMAAgANAAgAAAAAAAMAAgAMAAgAAAABAAMAAgAMAAgAAAACAAMAAgAMAAgAAAAFAAMAAgAMAAgAAAAGAAMAAgAMAAgAAAAHAAMAAgAMAAgAAAAIAAMAAgAMAAgAAAD///7/AgALAAYAAAD/////AgALAAcAAAD//wAAAgALAAcAAAD//wEAAgALAAcAAAAAAP7/AgAWABcAAAAAAP//AgAWABgAAAABAP7/AgAXABcAAAABAP//AgAXABgAAAACAP7/AgAXABcAAAACAP//AgAXABgAAAADAP7/AgAXABcAAAADAP//AgAXABgAAAAEAP7/AgAXABcAAAAEAP//AgAXABgAAAAFAP7/AgAXABcAAAAFAP//AgAXABgAAAAGAP7/AgAXABcAAAAGAP//AgAXABgAAAAHAP7/AgAXABcAAAAHAP//AgAXABgAAAAEAAMAAQAEACcAAAADAAMAAgAMAAgAAAA=")
+tile_set = ExtResource("1_p3pww")
+
+[node name="PantryFurniture" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAABAP7/AgACAAgAAAABAAAAAgACAAoAAAACAP7/AgACAAgAAAACAP//AgACAAkAAAACAAAAAgACAAoAAAADAP7/AgACAAgAAAADAP//AgACAAkAAAADAAAAAgACAAoAAAAEAP7/AgACAAgAAAAEAP//AgACAAkAAAAEAAAAAgACAAoAAAAFAP7/AgACAAgAAAAFAP//AgACAAkAAAAFAAAAAgACAAoAAAAGAP7/AgACAAgAAAAGAP//AgACAAkAAAAGAAAAAgACAAoAAAAHAP7/AgACAAgAAAAHAP//AgACAAkAAAAHAAAAAgACAAoAAAAAAP7/AgABAAgAAAAAAP//AgABAAkAAAAAAAAAAgABAAoAAAAIAP7/AgADAAgAAAAIAP//AgADAAkAAAAIAAAAAgADAAoAAAABAP//AgACAAkAAAA=")
+tile_set = ExtResource("2_bvupd")
+
+[node name="PantryFurniture2" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAIAP//AgAIABAAAAAIAAAAAgAIABEAAAAIAAEAAgAIABEAAAAIAAIAAgAIABEAAAAAAP//AgAJABAAAAAAAAAAAgAJABEAAAAAAAEAAgAJAA8AAAAAAAIAAgAJAA8AAAA=")
+tile_set = ExtResource("2_bvupd")
+
+[node name="PantryFurnitureFloor" type="TileMapLayer" parent="."]
+z_index = 6
+tile_map_data = PackedByteArray("AAABAAEAAgAHAD4AAAABAAAAAgAHAD0AAAAHAAAACQADAAoAAAA=")
+tile_set = ExtResource("2_bvupd")
+
+[node name="PantryFurnitureFloor2" type="TileMapLayer" parent="."]
+z_index = 6
+tile_map_data = PackedByteArray("AAAHAAAABAAHAB8AAAAHAAEABAAHACAAAAA=")
+tile_set = ExtResource("2_bvupd")
+
+[node name="PantryResearchPaperClue" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAABAP3/BQAJAAoAAAABAP7/BQAJAAsAAAA=")
+tile_set = ExtResource("2_bvupd")
+
+[node name="PantryFood" type="TileMapLayer" parent="."]
+z_index = 6
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAAAAIAAgAMABQAAAAIAAAAAgAAABIAAAAIAAEAAgAAABMAAAAAAP//AgABABIAAAAAAAAAAgABABMAAAAAAAEAAgANABQAAAABAP//AgAMAAsAAAACAP//AgAPAAsAAAADAP//AgAOAAoAAAAEAP//AgAPAAoAAAABAAAAAgAGAD0AAAA=")
+tile_set = ExtResource("2_bvupd")
+
+[node name="PantryFood2" type="TileMapLayer" parent="."]
+z_index = 6
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAABAP//AgAKAA0AAAACAP//AgAJAAwAAAADAP//AgAKAA0AAAAEAP//AgAKAAwAAAAFAP//AgAJAAwAAAAGAP//AgAJAA4AAAAHAP//AgAKAA4AAAA=")
+tile_set = ExtResource("2_bvupd")
+
+[node name="PantryFood3" type="TileMapLayer" parent="."]
+z_index = 6
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAFAP//AgAFAA4AAAAHAP//AgAHAA4AAAABAP3/AAAOABsAAAACAP3/AAAPABsAAAACAP7/AAAPABwAAAADAP7/AAAPABoAAAABAP7/AAAOABwAAAAGAP7/AgACAA0AAAAEAP7/AgAEAA0AAAAHAP7/AgADAA4AAAAFAP7/AgABAAwAAAAIAAIAAAAKAAsAABAIAP//AAAKAAwAABA=")
+tile_set = ExtResource("2_bvupd")
+
+[node name="Portals" type="Node2D" parent="."]
+
+[node name="ToKitchen" parent="Portals" instance=ExtResource("3_nnwea")]
+position = Vector2(72, 54)
+scale = Vector2(0.806026, 1)
+target_scene_path = "uid://c60twqwpmith3"
+target_position = Vector2(200, 0)
+is_interactive = true
+
+[node name="ResearchPaper" parent="." instance=ExtResource("4_hu826")]
+z_index = 4
+position = Vector2(19, -19.000002)

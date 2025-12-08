@@ -1,0 +1,126 @@
+[gd_scene load_steps=9 format=3 uid="uid://cg58uk0dqkydk"]
+
+[ext_resource type="Script" uid="uid://c2hcggxoe5ubs" path="res://dialogue_box.gd" id="1_senjy"]
+[ext_resource type="Texture2D" uid="uid://b0uytv8p3usna" path="res://art/pngs/Portraits_01_128_V2.png" id="2_351bv"]
+[ext_resource type="Texture2D" uid="uid://cw2rdeipj3unc" path="res://art/pngs/Portraits_01_128_V3.png" id="3_85jfh"]
+[ext_resource type="Texture2D" uid="uid://cmtclqlu2a4l1" path="res://art/pngs/Portraits_01_128_V4.png" id="4_med3p"]
+[ext_resource type="Texture2D" uid="uid://wekdw53wj1dm" path="res://art/pngs/Portraits_01_128_V6.png" id="5_f71wr"]
+
+[sub_resource type="Animation" id="Animation_2klrv"]
+resource_name = "talk"
+length = 0.95
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_351bv"), ExtResource("3_85jfh"), ExtResource("4_med3p"), ExtResource("5_f71wr")]
+}
+
+[sub_resource type="Animation" id="Animation_en6mc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_351bv")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qjfks"]
+_data = {
+&"RESET": SubResource("Animation_en6mc"),
+&"talk": SubResource("Animation_2klrv")
+}
+
+[node name="DialogueBox" type="Panel"]
+offset_left = 112.0
+offset_top = 57.0
+offset_right = 1008.0
+offset_bottom = 617.0
+script = ExtResource("1_senjy")
+
+[node name="DialogueText" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 192.0
+offset_top = 60.0
+offset_right = -32.0
+offset_bottom = -163.0
+bbcode_enabled = true
+text = "Here is where the Conversation text is going to show. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+
+[node name="PlayerTextInput" type="TextEdit" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 450.0
+offset_right = -224.0
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Talk here..."
+
+[node name="SubmitButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 712.0
+offset_top = 450.0
+offset_right = -109.0
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Submit"
+
+[node name="LeaveButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 804.0
+offset_top = 450.0
+offset_right = -17.0
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Leave
+"
+
+[node name="NPCPortrait" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 278.0
+offset_right = 168.0
+offset_bottom = 406.0
+texture = ExtResource("2_351bv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPCPortrait"]
+libraries = {
+&"": SubResource("AnimationLibrary_qjfks")
+}
+
+[node name="Background" type="TextureRect" parent="NPCPortrait"]
+layout_mode = 0
+offset_right = 127.0
+offset_bottom = 130.0
+
+[connection signal="pressed" from="SubmitButton" to="." method="_on_submit_button_pressed"]
+[connection signal="pressed" from="LeaveButton" to="." method="_on_leavebutton_pressed"]
+[connection signal="pressed" from="LeaveButton" to="." method="_on_leave_button_pressed"]

@@ -1,0 +1,116 @@
+[gd_scene load_steps=8 format=4 uid="uid://twy61l66b23s"]
+
+[ext_resource type="TileSet" uid="uid://b74qekya3mwcy" path="res://upstairs_tile_set.tres" id="1_07lkv"]
+[ext_resource type="PackedScene" uid="uid://stek8yeve0d2" path="res://evidence/gloves.tscn" id="3_0wqdw"]
+[ext_resource type="PackedScene" uid="uid://di4whfq6erra0" path="res://portal.tscn" id="3_ph1ea"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_07lkv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_07lkv"]
+size = Vector2(29, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ph1ea"]
+size = Vector2(21, 11)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_07lkv"]
+a = Vector2(-17, 0)
+b = Vector2(18, 0)
+
+[node name="UpstairsHall" type="Node2D"]
+
+[node name="UpstairsHallFloor" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD+//7/AgAjACwAAAD+/wIAAgAjACwAAAD+/wMAAgAjACwAAAD+/wQAAgAjACwAAAD+/wUAAgAjACwAAAD+/wYAAgAjACwAAAD+/wcAAgAjACwAAAD+/wgAAgAjACwAAAD+/wkAAgAjACwAAAD+/woAAgAjACwAAAD///7/AgAjACwAAAAAAP7/AgAjACwAAAABAP7/AgAjACwAAAACAP7/AgAjACwAAAADAP7/AgAjACwAAAAEAP7/AgAjACwAAAAFAP7/AgAjACwAAAAGAP7/AgAjACwAAAAHAP7/AgAjACwAAAAIAP7/AgAjACwAAAAJAP7/AgAjACwAAAAKAP7/AgAjACwAAAALAP7/AgAjACwAAAAMAP7/AgAjACwAAAANAP7/AgAjACwAAAAOAP7/AgAjACwAAAAPAP7/AgAjACwAAAAQAP7/AgAjACwAAAARAP7/AgAjACwAAAARAP//AgAjACwAAAARAAAAAgAjACwAAAARAAEAAgAjACwAAAD9//7/AgAjACwAAAD9////AgAjACwAAAD9/wAAAgAjACwAAAD9/wEAAgAjACwAAAD9/wIAAgAjACwAAAD9/wMAAgAjACwAAAD9/wQAAgAjACwAAAD9/wUAAgAjACwAAAD9/wYAAgAjACwAAAD9/wcAAgAjACwAAAD9/wgAAgAjACwAAAD9/wkAAgAjACwAAAD9/woAAgAjACwAAAD9//3/AgAjACwAAAD+//3/AgAjACwAAAD///3/AgAjACwAAAAAAP3/AgAjACwAAAABAP3/AgAjACwAAAACAP3/AgAjACwAAAADAP3/AgAjACwAAAAEAP3/AgAjACwAAAAFAP3/AgAjACwAAAAGAP3/AgAjACwAAAAHAP3/AgAjACwAAAAIAP3/AgAjACwAAAAJAP3/AgAjACwAAAAKAP3/AgAjACwAAAALAP3/AgAjACwAAAAMAP3/AgAjACwAAAANAP3/AgAjACwAAAAOAP3/AgAjACwAAAAPAP3/AgAjACwAAAAQAP3/AgAjACwAAAARAP3/AgAjACwAAAASAP3/AgAjACwAAAASAP7/AgAjACwAAAASAP//AgAjACwAAAASAAAAAgAjACwAAAASAAEAAgAjACwAAAD+////AgAjACwAAAD+/wAAAgAjACwAAAD+/wEAAgAjACwAAAATAP3/AgAjACwAAAATAP7/AgAjACwAAAATAP//AgAjACwAAAATAAAAAgAjACwAAAATAAEAAgAjACwAAAD8/wMAAgAjACwAAAD8/wQAAgAjACwAAAD8/wUAAgAjACwAAAD8/wYAAgAjACwAAAD8/wcAAgAjACwAAAD8/wgAAgAjACwAAAD8/wkAAgAjACwAAAD8/woAAgAjACwAAAD8//3/AgAjACwAAAD8//7/AgAjACwAAAD8////AgAjACwAAAD8/wAAAgAjACwAAAD8/wEAAgAjACwAAAD8/wIAAgAjACwAAAD8//z/AgAjACwAAAD9//z/AgAjACwAAAD+//z/AgAjACwAAAD///z/AgAjACwAAAAAAPz/AgAjACwAAAABAPz/AgAjACwAAAACAPz/AgAjACwAAAADAPz/AgAjACwAAAAEAPz/AgAjACwAAAAFAPz/AgAjACwAAAAGAPz/AgAjACwAAAAHAPz/AgAjACwAAAAIAPz/AgAjACwAAAAJAPz/AgAjACwAAAAKAPz/AgAjACwAAAALAPz/AgAjACwAAAAMAPz/AgAjACwAAAANAPz/AgAjACwAAAAOAPz/AgAjACwAAAAPAPz/AgAjACwAAAAQAPz/AgAjACwAAAARAPz/AgAjACwAAAASAPz/AgAjACwAAAATAPz/AgAjACwAAAABAPv/AgAjACwAAAACAPv/AgAjACwAAAADAPv/AgAjACwAAAAEAPv/AgAjACwAAAAFAPv/AgAjACwAAAAGAPv/AgAjACwAAAAHAPv/AgAjACwAAAAIAPv/AgAjACwAAAAJAPv/AgAjACwAAAAKAPv/AgAjACwAAAALAPv/AgAjACwAAAAMAPv/AgAjACwAAAANAPv/AgAjACwAAAAOAPv/AgAjACwAAAA=")
+tile_set = ExtResource("1_07lkv")
+collision_enabled = false
+navigation_enabled = false
+
+[node name="UpstairsHallWalls" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAARAP7/AgANAAYAAAARAP//AgANAAcAAAARAAAAAgANAAcAAAARAAEAAgANAAcAAAD7//z/AgALAAcAAAD7//3/AgALAAcAAAD7//7/AgALAAcAAAD7////AgALAAcAAAD7/wAAAgALAAcAAAD7/wEAAgALAAcAAAD7/wIAAgALAAcAAAD7/wMAAgALAAcAAAD7/wYAAgALAAcAAAD7/wcAAgALAAcAAAD7/wgAAgALAAcAAAD7/wkAAgALAAcAAAD7/woAAgALAAcAAAD7/wsAAgALAAgAAAAUAP3/AgANAAcAAAAUAP7/AgANAAcAAAAUAP//AgANAAcAAAAUAAAAAgANAAcAAAAUAAEAAgANAAcAAAD+/wsAAgAFAAYAAAD8/wsAAgAMAAYAAAD9/wsAAgAMAAYAAAD+/woAAgALAAcAAAD+/wkAAgALAAcAAAD+/wgAAgALAAcAAAD+/wcAAgALAAcAAAD+/wYAAgALAAcAAAD+/wUAAgALAAcAAAD+/wQAAgALAAcAAAD+/wMAAgALAAcAAAD+/wIAAgALAAcAAAD+/wEAAgALAAcAAAD+/wAAAgALAAcAAAD+////AgALAAcAAAD+//7/AgALAAYAAAAQAPv/AgAXAA4AAAARAPv/AgAXAA4AAAAQAPr/AgAXAA0AAAARAPr/AgAXAA0AAAD8//r/AgAWAA0AAAD8//v/AgAWAA4AAAATAPr/AgAYAA0AAAATAPv/AgAYAA4AAAASAPr/AgAXAA0AAAASAPv/AgAXAA4AAAD7//r/AgALAAYAAAD7//v/AgALAAcAAAAUAPr/AgANAAYAAAAUAPv/AgANAAcAAAACAP//AgAMAAgAAAADAP//AgAMAAgAAAAEAP//AgAMAAgAAAAFAP//AgAMAAgAAAAGAP//AgAMAAgAAAAHAP//AgAMAAgAAAAIAP//AgAMAAgAAAAJAP//AgAMAAgAAAAKAP//AgAMAAgAAAALAP//AgAMAAgAAAAMAP//AgAMAAgAAAANAP//AgAMAAgAAAAOAP//AgANAAgAAAABAP//AgALAAgAAAARAAIAAgAGAAYAAAASAAIAAgAMAAYAAAATAAIAAgAMAAYAAAAUAAIAAgANAAgAAAAPAPn/AgANAAYAAAAPAPr/AgAWAA0AAAAPAPv/AgAWAA4AAAABAPn/AgAXAA0AAAABAPr/AgAXAA4AAAACAPn/AgAXAA0AAAACAPr/AgAXAA4AAAADAPn/AgAXAA0AAAADAPr/AgAXAA4AAAAEAPn/AgAXAA0AAAAEAPr/AgAXAA4AAAAFAPn/AgAXAA0AAAAFAPr/AgAXAA4AAAAGAPn/AgAXAA0AAAAGAPr/AgAXAA4AAAAHAPn/AgAXAA0AAAAHAPr/AgAXAA4AAAAIAPn/AgAXAA0AAAAIAPr/AgAXAA4AAAAJAPn/AgAXAA0AAAAJAPr/AgAXAA4AAAAKAPn/AgAXAA0AAAAKAPr/AgAXAA4AAAALAPn/AgAXAA0AAAALAPr/AgAXAA4AAAAMAPn/AgAXAA0AAAAMAPr/AgAXAA4AAAANAPn/AgAXAA0AAAANAPr/AgAXAA4AAAAOAPn/AgAXAA0AAAAOAPr/AgAXAA4AAAAAAPn/AgALAAYAAAAAAPr/AgAYAA0AAAAAAPv/AgAYAA4AAAD9//r/AgAXAA0AAAD9//v/AgAXAA4AAAD+//r/AgAXAA0AAAD+//v/AgAXAA4AAAD///r/AgAXAA0AAAD///v/AgAXAA4AAAAUAPz/AgANAAcAAAD7/wQAAQAEACcAAFD7/wUAAQAEACcAAFA=")
+tile_set = ExtResource("1_07lkv")
+
+[node name="UpstairsFurniture" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAASAPr/AQABACgAAAASAPv/AQABACkAAAARAPv/AAABAA0AAAARAPz/AAABAA4AAAAPAPr/AAANABUAAAAPAPv/AAANABYAAAAPAPz/AAANABcAAAAQAPr/AAAOABUAAAAQAPv/AAAOABYAAAAQAPz/AAAOABcAAAABAPn/BQAKAEAAAAABAPr/BQAKAEEAAAABAPv/BQAKAEIAAAACAPn/BQALAEAAAAACAPr/BQALAEEAAAACAPv/BQALAEIAAAAEAPn/BQAKAEYAAAAEAPr/BQAKAEcAAAAEAPv/BQAKAEgAAAAFAPn/BQALAEYAAAAFAPr/BQALAEcAAAAFAPv/BQALAEgAAAAHAPn/BQAMAEkAAAAHAPr/BQAMAEoAAAAHAPv/BQAMAEsAAAAIAPn/BQANAEkAAAAIAPr/BQANAEoAAAAIAPv/BQANAEsAAAAKAPn/BQAOAEYAAAAKAPr/BQAOAEcAAAAKAPv/BQAOAEgAAAALAPn/BQAPAEYAAAALAPr/BQAPAEcAAAALAPv/BQAPAEgAAAANAPn/BQAMAEYAAAANAPr/BQAMAEcAAAANAPv/BQAMAEgAAAAOAPn/BQANAEYAAAAOAPr/BQANAEcAAAAOAPv/BQANAEgAAAARAAEAAQAAABsAAAASAAEAAQABABsAAAATAAEAAQACABsAAAD+//r/BQAGABUAAAD+//v/BQAGABYAAAD///r/BQAHABUAAAD///v/BQAHABYAAAA=")
+tile_set = ExtResource("1_07lkv")
+
+[node name="FurnitureBody2D" type="StaticBody2D" parent="UpstairsFurniture"]
+physics_material_override = SubResource("PhysicsMaterial_07lkv")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="UpstairsFurniture/FurnitureBody2D"]
+position = Vector2(31, -74)
+shape = SubResource("RectangleShape2D_07lkv")
+
+[node name="LambCollisionShape" type="CollisionShape2D" parent="UpstairsFurniture/FurnitureBody2D"]
+position = Vector2(296.5, 26.5)
+shape = SubResource("RectangleShape2D_ph1ea")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="UpstairsFurniture/FurnitureBody2D"]
+position = Vector2(79.5, -74)
+shape = SubResource("RectangleShape2D_07lkv")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="UpstairsFurniture/FurnitureBody2D"]
+position = Vector2(127, -74)
+shape = SubResource("RectangleShape2D_07lkv")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="UpstairsFurniture/FurnitureBody2D"]
+position = Vector2(176, -74)
+shape = SubResource("RectangleShape2D_07lkv")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="UpstairsFurniture/FurnitureBody2D"]
+position = Vector2(223, -74)
+shape = SubResource("RectangleShape2D_07lkv")
+
+[node name="UpstairsFurniture2" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAADAPn/BQAEABUAAAADAPr/BQAEABYAAAAGAPn/BQAEABcAAAAGAPr/BQAEABgAAAAMAPn/BQAOABsAAAAMAPr/BQAOABwAAAAJAPn/BQAOABcAAAAJAPr/BQAOABgAAAD8//r/BQAAACwAAAD8//v/BQAAAC0AAAD8//z/BQAAAC4AAAD9//r/BQABACwAAAD9//v/BQABAC0AAAD9//z/BQABAC4AAAA=")
+tile_set = ExtResource("1_07lkv")
+
+[node name="Lamp" type="TileMapLayer" parent="."]
+z_index = 9
+tile_map_data = PackedByteArray("AAASAAAAAAAPAAcAAAASAAEAAAAPAAgAAAA=")
+tile_set = ExtResource("1_07lkv")
+
+[node name="TopOfStairs" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAOAP3/AQAEAA8AAAAOAP7/AQAEABAAAAAOAP//AQAEABEAAAABAP7/AQAHABAAAAABAP//AQAHABEAAAD///7/AQAFABAAAAD/////AQAFABEAAAAAAP7/AQAGABAAAAAAAP//AQAGABEAAAAPAP7/AQAFABAAAAAPAP//AQAFABEAAAAQAP7/AQAGABAAAAAQAP//AQAGABEAAAABAP3/AQAHAA8AAAA=")
+tile_set = ExtResource("1_07lkv")
+
+[node name="UpstairsPortals" type="Node2D" parent="."]
+
+[node name="UpstairsToLivingRoomRight" parent="UpstairsPortals" instance=ExtResource("3_ph1ea")]
+z_index = 6
+position = Vector2(255.00002, 1)
+scale = Vector2(1.7599993, 1)
+target_scene_path = "uid://ckfnt4evadw2e"
+target_position = Vector2(255, 29)
+
+[node name="ToOffice" parent="UpstairsPortals" instance=ExtResource("3_ph1ea")]
+position = Vector2(-68, 80.00001)
+scale = Vector2(0.59129345, 1.591613)
+target_scene_path = "uid://b1n1snapl458c"
+target_position = Vector2(145, 48)
+is_interactive = true
+
+[node name="ToUpstairsBathroom" parent="UpstairsPortals" instance=ExtResource("3_ph1ea")]
+position = Vector2(296, -72)
+scale = Vector2(0.6800195, 1)
+target_scene_path = "uid://dmixh485a5snd"
+target_position = Vector2(56, 55)
+is_interactive = true
+
+[node name="UpstairsToLivingRoomLeft" parent="." instance=ExtResource("3_ph1ea")]
+position = Vector2(1, 2)
+scale = Vector2(1.7599993, 1)
+target_scene_path = "uid://ckfnt4evadw2e"
+target_position = Vector2(0, 29)
+
+[node name="SpaceBarrier" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpaceBarrier"]
+position = Vector2(0, 11)
+shape = SubResource("SegmentShape2D_07lkv")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="SpaceBarrier"]
+position = Vector2(254, 10)
+shape = SubResource("SegmentShape2D_07lkv")
+
+[node name="Gloves" parent="." instance=ExtResource("3_0wqdw")]
+position = Vector2(302, 21)
+scale = Vector2(0.5, 0.5)
