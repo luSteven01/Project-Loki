@@ -16,7 +16,6 @@ script = ExtResource("2_game_manager")
 
 [node name="DialogueBox" parent="CanvasLayer" instance=ExtResource("2_0xm2m")]
 visible = false
-script = null
 
 [node name="WorldContext" type="Node2D" parent="."]
 y_sort_enabled = true

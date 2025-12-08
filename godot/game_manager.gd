@@ -2,6 +2,7 @@ extends Node
 
 @onready var dialogue_box = get_node("/root/Main/CanvasLayer/DialogueBox") # get dialogue box from main scene 
 @onready var world_context = get_node("/root/Main/WorldContext")
+# var dialogue_box = null
 
 
 # API Configuration
@@ -31,8 +32,20 @@ func _ready():
 	#for c in world_context.get_children():
 		#print(" - ", c.name)
 	#print("GameManager instance path:", get_path())
-
-
+	#print("dialogue box", dialogue_box)
+	#print("world context", world_context)
+	
+	if has_node("/root/Main/WorldContext"):
+		world_context = get_node("/root/Main/WorldContext")
+		print("we have world context: " + str(world_context != null))
+		print("Children of WorldContext:")
+		for c in world_context.get_children():
+			print(" - ", c.name)
+		print("GameManager instance path:", get_path())
+	else:
+		world_context = null
+		print("on main menu")
+		
 	http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.request_completed.connect(_on_request_completed)
@@ -41,10 +54,13 @@ func _ready():
 	add_child(evidence_request)
 	evidence_request.request_completed.connect(_on_evidence_request_completed)
 	
-	
-
 	print("GameManager ready - connecting to backend...")
 	check_server_health()
+	
+	
+#func init_dialogue_box(node):
+	#dialogue_box = node
+	#print("dialogue box registered")
 
 # ============================================
 # API Functions
@@ -301,4 +317,7 @@ func handle_evidence_retrieval(data):
 			#print(key, ": ", evidence_list[key]["name"])
 		
 	print("this function works")
+
+func game_over():
+	get_tree().change_scene_to_file("res://game_over_scene.tscn")
 	

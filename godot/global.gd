@@ -31,10 +31,11 @@ signal inventory_updated
 func _ready():
 	# initialize inventory with 10 slots initially
 	# when we remove/add items, notify game that inventory is updated to update inventory UI
-	dialogue = dialogue_box.instantiate()
-	add_child(dialogue)
-	dialogue.visible = false
+	# dialogue = dialogue_box.instantiate()
+	# add_child(dialogue)
+	# dialogue.visible = false
 	#inventory.resize(5)	
+	pass
 	
 
 func add_item(item_id: String, texture: Texture2D, desc: String) -> void:

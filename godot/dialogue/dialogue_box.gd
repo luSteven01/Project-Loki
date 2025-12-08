@@ -1,6 +1,7 @@
 extends Panel
 
 var game_manager = null
+var dialogue_box = null
 
 @onready var dialogue_text = $DialogueText
 @onready var npc_icons = $NPCIcons
@@ -28,6 +29,8 @@ func _ready() -> void:
 	print("arrest_button: ", arrest_button)
 	print("character_buttons_container: ", character_buttons_container)
 	
+	# print("DialogueBox ready at path: ", get_path())
+	
 	# $BGM.play()
 	endgame_scripts = load_json("res://data/endgame_scripts.json")
 
@@ -52,6 +55,10 @@ func _ready() -> void:
 		dialogue_text.text = "Error: GameManager not found!"
 		print("ERROR: Cannot find GameManager node at /root/Main/GameManager")
 		return
+		
+	# initialize dialogue box with itself to guarantee it loads
+	# game_manager = get_node_or_null("/root/Main/GameManager")
+	# game_manager.init_dialogue_box(self)
 
 
 # Handle input with Ctrl+Enter
@@ -266,12 +273,15 @@ func _on_arrest_button_pressed() -> void:
 	else:
 		# Others arrested - LOSE
 		dialogue_text.text = "\n\n[center][b]You have arrested the wrong person. The real culprit remains at large... Game Over.[/b][/center]"
-
-
-	# Leave chat dialogue and triggers endgame sequence
+		# get_tree().change_scene_to_file("res://game_over_scene.tscn")
+		
+		await get_tree().create_timer(time).timeout
+		get_tree().change_scene_to_file("res://game_over_scene.tscn")
+		
+# Leave chat dialogue and triggers endgame sequence
 	current_character = null
-	await get_tree().create_timer(time).timeout
-	self.visible = false # Temporary end here; can add more endgame logic later
+	# hide UI safely when switching scenes
+	self.visible = false # = false # Temporary end here; can add more endgame logic later
 
 
 func _on_arrest_button_mouse_entered() -> void:

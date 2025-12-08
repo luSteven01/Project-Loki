@@ -12,8 +12,10 @@ func _ready():
 	if starting_scene == null:
 		starting_scene = load("res://living_room.tscn")
 	
+	
 	# Load the first level immediately (safe to do here)
 	_perform_level_change(starting_scene, starting_position)
+	# GameManager.init_dialogue_box($CanvasLayer/DialogueBox)
 
 func _on_level_change_requested(new_scene_packed: PackedScene, new_pos: Vector2):
 	# Wait for the frame to finish to avoid "Flushing Queries" crash
