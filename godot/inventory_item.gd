@@ -10,9 +10,9 @@ extends Node2D
 @export var evidence_id = ""
 #var evidence_name = ""
 #var evidence_owner = ""
-#var evidence_description = ""
+var evidence_description = ""
 #var evidence_location = ""
-#@export var evidence_texture = Texture
+@export var evidence_texture = Texture
 #@export var evidence_hashcode = ""
 
 # static; used to spawn items from scene onto main scene on load
@@ -27,20 +27,11 @@ var player_in_range = false
 
 func _ready():
 	#assign texture property to sprite2D node if we are still not in editor; texture reflects in game itself
-	#if not Engine.is_editor_hint():
-
-		if evidence_id != "" and GameManager.evidence_list.has(evidence_id):
-			var evidence = GameManager.evidence_list[evidence_id]
-			
-			evidence_id = evidence["id"]
-			#evidence_name = evidence["name"]
-			#evidence_owner = evidence["belongs_to"]
-			#evidence_description = evidence["description"]
-			#evidence_location = evidence["location"]
-			#
-			#print(evidence_id + ", " + evidence_name + ", " + evidence_owner + ", " + evidence_description + ", " + evidence_location)
-		#
-		#icon_sprite.texture = evidence_texture
+	if not Engine.is_editor_hint():
+		icon_sprite.texture = evidence_texture
+		
+	if evidence_id == "":
+		print("⚠ WARNING: Item in scene has no evidence_id:", self.name)
 	
 	
 	
@@ -62,7 +53,7 @@ func pickup_item():
 		"quantity": 1,
 		"id": evidence_id,
 		#"name": evidence_name,
-		#"texture": evidence_texture,
+		"texture": evidence_texture,
 		#"owner": evidence_owner,
 		#"description": evidence_description,
 		#"location": evidence_location,
@@ -71,7 +62,7 @@ func pickup_item():
 	# Call add_item func from global script; pass item dictionary as parameter
 	# after adding, remove item from scene using queue_free()
 	if Global.player_node:
-		Global.add_item(item)
+		Global.add_item(item, evidence_texture, evidence_description)
 		self.queue_free()
 
 

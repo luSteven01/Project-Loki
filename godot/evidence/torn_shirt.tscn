@@ -8,7 +8,7 @@
 [node name="TornShirt" type="Area2D"]
 collision_layer = 2
 script = ExtResource("1_owm5e")
-item_id = "shirt"
+item_id = "torn_shirt"
 description = "A torn shirt missing a button"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

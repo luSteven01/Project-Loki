@@ -12,27 +12,36 @@ var sessions = {}  # { character_id: session_id }
 var current_character = null
 var characters = []
 var is_loading = false
+var evidence_list = {} # for getting evidence from endpoint
 
 var http_request: HTTPRequest
+var evidence_request : HTTPRequest
 
 enum RequestType {
 	HEALTH_CHECK,
 	LOAD_CHARACTERS,
-	SEND_MESSAGE
+	SEND_MESSAGE,
+	RETRIEVE_EVIDENCE
 }
 var current_request_type = RequestType.HEALTH_CHECK
 
 func _ready():
-	print("we have world context: " + str(world_context != null))
-	print("Children of WorldContext:")
-	for c in world_context.get_children():
-		print(" - ", c.name)
-	print("GameManager instance path:", get_path())
+	#print("we have world context: " + str(world_context != null))
+	#print("Children of WorldContext:")
+	#for c in world_context.get_children():
+		#print(" - ", c.name)
+	#print("GameManager instance path:", get_path())
 
 
 	http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.request_completed.connect(_on_request_completed)
+	
+	evidence_request = HTTPRequest.new()
+	add_child(evidence_request)
+	evidence_request.request_completed.connect(_on_evidence_request_completed)
+	
+	
 
 	print("GameManager ready - connecting to backend...")
 	check_server_health()
@@ -118,30 +127,33 @@ func _on_request_completed(result, response_code, headers, body):
 			handle_message_response(data)
 
 
-# func _on_evidence_request_completed(result, response_code, headers, body):
-# 	if response_code != 200:
-# 		print("Request failed with code: ", response_code)
-# 		handle_request_error(response_code)
-# 		return
+func _on_evidence_request_completed(result, response_code, headers, body):
+	if response_code != 200:
+		print("Request failed with code: ", response_code)
+		handle_request_error(response_code)
+		return
 
-# 	var json = JSON.new()
-# 	var error = json.parse(body.get_string_from_utf8())
+	var json = JSON.new()
+	var error = json.parse(body.get_string_from_utf8())
 
-# 	if error != OK:
-# 		print("Failed to parse JSON: ", error)
-# 		return
+	if error != OK:
+		print("Failed to parse JSON: ", error)
+		return
 
-# 	var data = json.data
+	var data = json.data
 	
-# 	match current_request_type:
-# 		RequestType.RETRIEVE_EVIDENCE:
-# 			handle_evidence_retrieval(data)
+	match current_request_type:
+		RequestType.RETRIEVE_EVIDENCE:
+			handle_evidence_retrieval(data)
 
 
 func handle_health_check(data):
 	if data.api == "healthy" and data.mongodb == "connected" and data.openai == "connected":
 		print("✓ Server is healthy - loading characters...")
 		load_characters()
+	if data.api == "healthy" and data.mongodb == "connected" and data.openai == "connected":
+		print("✓ Server is healthy - loading evidence...")
+		load_evidence()
 	else:
 		print("✗ Server has issues:", data)
 
@@ -248,3 +260,45 @@ func exit_dialogue():
 	
 func is_dialogue_active():
 	return dialogue_box.visible
+
+func load_evidence():
+	print("Retrieving evidence from endpoint...")
+	current_request_type = RequestType.RETRIEVE_EVIDENCE
+	var error = evidence_request.request(API_BASE_URL + "/evidence")
+	if error != OK:
+		print("Failed to connect to server: ", error)
+
+# retrieving item ids from endpoint
+func handle_evidence_retrieval(data):
+	var evidence_data = data["evidence"]
+	
+	for evidence in evidence_data:
+		var id = evidence["id"]
+		evidence_list[id] = evidence
+		#print("id: " , evidence["id"], " ",
+		#"name: ", evidence["name"], " ",
+		#"description: ", evidence["description"], " ",
+		#"belongs to: ", evidence["belongs_to"], " ",
+		#"location: " , evidence["location"])
+		
+		# dynamic inventory entry; update if there is an entry; otherwise create one based off endpoint 
+		if Global.inventory.has(id):
+			Global.inventory[id]["description"] = evidence["description"]
+		else:
+			Global.inventory[id] = {
+				"collected": false,
+				"icon": null,
+				"description": evidence["description"]
+			}
+		
+		# this is basically the conditional i have to use to set the items 
+		#if(evidence["id"] == "gloves"):
+			#print("name: ", evidence["name"], " ",
+			#"description: ", evidence["description"], " ",
+			#"belongs to: ", evidence["belongs_to"], " ",
+			#"location: " , evidence["location"])
+		#for key in evidence_list.keys():
+			#print(key, ": ", evidence_list[key]["name"])
+		
+	print("this function works")
+	

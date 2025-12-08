@@ -11,11 +11,14 @@ var player_node : Node = null
 
 var inventory = {
 	"button" : {"collected": false, "icon": null, "description": ""},
-	"shirt" : {"collected": false, "icon": null, "description": ""},
+	"torn_shirt" : {"collected": false, "icon": null, "description": ""},
 	"knife" : {"collected": false, "icon": null, "description": ""},
-	"gloves" : {"collected": false, "icon": null, "description": ""}
+	"gloves" : {"collected": false, "icon": null, "description": ""},
+	"research_papers" : {"collected": false, "icon": null, "description": ""}
 }  # { item_id: item_data }
+# var inventory = {}
 # holds inventory items
+
 
 var dialogue = null
 var game_manager_instance = null;
@@ -84,13 +87,13 @@ func drop_item(item_data, drop_position):
 	item_instance.global_position = drop_position
 	get_tree().current_scene.add_child(item_instance)
 	
-func swap_inventory_items(index1, index2):
-	if index1 < 0 or index1 > inventory.size() or index2 < 0 or index2 > inventory.size():
+func swap_inventory_items(item_id1, item_id2):
+	if item_id1 < 0 or item_id1 > inventory.size() or item_id2 < 0 or item_id2 > inventory.size():
 		return false
 	
-	var tempSlot = inventory[index1]
-	inventory[index1] = inventory[index2]
-	inventory[index2] = tempSlot
+	var tempSlot = inventory[item_id1]
+	inventory[item_id1] = inventory[item_id2]
+	inventory[item_id2] = tempSlot
 	
 	inventory_updated.emit()
 	return true
@@ -139,13 +142,12 @@ func show_item(item):
 		_: # if we have an item like a quest item, add the effect here; can also call a function
 			print("No item") 
 
-
 	
 # Get items from inventory
 func get_inventory_items() -> Array:
-	var items = ["8d2b06e94a2e0e80febfa85b932c8326d84b55d411aa11dfdd8f5f5d4d4d492b"]
+	var items = []
 	
 	for item_id in inventory.keys():
-		if inventory[item_id] and inventory[item_id]["collected"]:
-			items.append(item_id)
+		if inventory[item_id]["collected"]:
+			items.append(item_id)	
 	return items

@@ -11,8 +11,9 @@ config_version=5
 [application]
 
 config/name="Project-Loki"
-run/main_scene="uid://sxywo3malpjm"
+run/main_scene="uid://fmqag7o5wuup"
 config/features=PackedStringArray("4.5", "Forward Plus")
+boot_splash/fullsize=false
 config/icon="res://icon.svg"
 
 [autoload]
