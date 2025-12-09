@@ -3,6 +3,7 @@ extends Node
 @onready var current_level_node = $WorldContext/CurrentLevel
 @onready var player = $WorldContext/Player
 @onready var main_menu_scene = $CanvasLayer/MainMenu
+@onready var game_over_scene = $CanvasLayer/GameOverScene
 @export var starting_scene: PackedScene
 @export var starting_position: Vector2 = Vector2(127, 213)
 
@@ -10,6 +11,7 @@ func _ready():
 	# Hide world
 	$WorldContext.visible = false
 	player.hide()
+	game_over_scene.hide()
 
 	SceneManager.level_change_requested.connect(_on_level_change_requested)
 

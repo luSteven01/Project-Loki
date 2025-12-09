@@ -24,7 +24,7 @@ enum RequestType {
 var current_request_type = RequestType.HEALTH_CHECK
 
 func _ready():
-
+	dialogue_box.visible = false
 	world_context = get_node("/root/Main/WorldContext")
 	print("we have world context: " + str(world_context != null))
 	print("Children of WorldContext:")
