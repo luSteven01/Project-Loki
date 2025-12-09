@@ -1,7 +1,5 @@
 extends Panel
-
-var game_manager = null
-var dialogue_box = null
+signal game_over
 
 @onready var dialogue_text = $DialogueText
 @onready var npc_icons = $NPCIcons
@@ -18,6 +16,8 @@ var chat_history = []
 var is_typing = false
 var endgame_scripts = {}
 var is_win = false
+var game_manager = null
+var dialogue_box = null
 
 
 func _ready() -> void:
@@ -272,12 +272,13 @@ func _on_arrest_button_pressed() -> void:
 		# get_tree().change_scene_to_file("res://game_over_scene.tscn")
 		
 		await get_tree().create_timer(time).timeout
-		get_tree().change_scene_to_file("res://game_over_scene.tscn")
+		# get_tree().change_scene_to_file("res://game_over_scene.tscn")
 		
 # Leave chat dialogue and triggers endgame sequence
 	current_character = null
 	await get_tree().create_timer(time).timeout
-	self.visible = false # Temporary end here; can add more endgame logic later
+	# self.visible = false # Temporary end here; can add more endgame logic later
+	game_over.emit()
 
 
 func _on_arrest_button_mouse_entered() -> void:

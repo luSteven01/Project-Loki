@@ -35,4 +35,5 @@ y_sort_enabled = true
 [node name="LivingRoomFloor" parent="WorldContext/CurrentLevel" instance=ExtResource("5_lquwl")]
 position = Vector2(0, 1)
 
+[connection signal="game_over" from="CanvasLayer/DialogueBox" to="." method="_on_dialogue_box_game_over"]
 [connection signal="start_game" from="CanvasLayer/MainMenu" to="." method="_on_main_menu_start_game"]

@@ -8,11 +8,7 @@ extends Node
 @export var starting_position: Vector2 = Vector2(127, 213)
 
 func _ready():
-	# Hide world
-	$WorldContext.visible = false
-	player.hide()
-	game_over_scene.hide()
-
+	hide_world()
 	SceneManager.level_change_requested.connect(_on_level_change_requested)
 
 	# Freeze all gameplay
@@ -54,11 +50,24 @@ func _perform_level_change(new_scene_packed: PackedScene, new_pos: Vector2):
 func _on_main_menu_start_game() -> void:
 	# hide menu
 	main_menu_scene.visible = false
-		
-	# show world
-	$WorldContext.visible = true
-	player.show()
-	get_tree().paused = false
+	show_world()
 
 	# Load the first level immediately (safe to do here)
 	_perform_level_change(starting_scene, starting_position)
+
+
+func _on_dialogue_box_game_over() -> void:
+	hide_world()
+	game_over_scene.visible = true
+
+
+func hide_world() -> void:
+	$WorldContext.visible = false
+	player.hide()
+	game_over_scene.hide()
+
+
+func show_world() -> void:
+	$WorldContext.visible = true
+	player.show()
+	get_tree().paused = false
