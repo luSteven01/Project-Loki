@@ -37,3 +37,4 @@ position = Vector2(0, 1)
 
 [connection signal="game_over" from="CanvasLayer/DialogueBox" to="." method="_on_dialogue_box_game_over"]
 [connection signal="start_game" from="CanvasLayer/MainMenu" to="." method="_on_main_menu_start_game"]
+[connection signal="back_to_main" from="CanvasLayer/GameOverScene" to="." method="_on_game_over_scene_back_to_main"]

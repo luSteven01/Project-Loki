@@ -71,3 +71,10 @@ func show_world() -> void:
 	$WorldContext.visible = true
 	player.show()
 	get_tree().paused = false
+
+
+func _on_game_over_scene_back_to_main() -> void:
+	game_over_scene.visible = false
+	main_menu_scene.visible = true
+	hide_world() 
+	get_tree().paused = true
