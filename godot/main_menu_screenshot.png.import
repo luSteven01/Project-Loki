@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bm60vqx01msl4"
-path="res://.godot/imported/pngimg.com - handcuffs_PNG27.png-d01a3a4963e54f46913fedbece25faff.ctex"
+uid="uid://dndql6uijwo1k"
+path="res://.godot/imported/main_menu_screenshot.png-a46b2f679c65b3a223b91be1df1d1e7a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/pngs/pngimg.com - handcuffs_PNG27.png"
-dest_files=["res://.godot/imported/pngimg.com - handcuffs_PNG27.png-d01a3a4963e54f46913fedbece25faff.ctex"]
+source_file="res://main_menu_screenshot.png"
+dest_files=["res://.godot/imported/main_menu_screenshot.png-a46b2f679c65b3a223b91be1df1d1e7a.ctex"]
 
 [params]
 

@@ -2,6 +2,8 @@ extends Node
 
 @onready var dialogue_box = get_node("/root/Main/CanvasLayer/DialogueBox") # get dialogue box from main scene 
 @onready var world_context = get_node("/root/Main/WorldContext")
+# var dialogue_box = null
+
 
 # API Configuration
 const API_BASE_URL = "http://127.0.0.1:8000"
@@ -18,30 +20,25 @@ enum RequestType {
 	HEALTH_CHECK,
 	LOAD_CHARACTERS,
 	SEND_MESSAGE
-}
+	}
 var current_request_type = RequestType.HEALTH_CHECK
 
 func _ready():
+
+	world_context = get_node("/root/Main/WorldContext")
 	print("we have world context: " + str(world_context != null))
 	print("Children of WorldContext:")
 	for c in world_context.get_children():
 		print(" - ", c.name)
 	print("GameManager instance path:", get_path())
-
-
-	print("we have world context: " + str(world_context != null))
-	print("Children of WorldContext:")
-	for c in world_context.get_children():
-		print(" - ", c.name)
-	print("GameManager instance path:", get_path())
-
-
+		
 	http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.request_completed.connect(_on_request_completed)
-
+	
 	print("GameManager ready - connecting to backend...")
 	check_server_health()
+	
 
 # ============================================
 # API Functions
@@ -96,7 +93,6 @@ func select_character(character):
 	print("Selected character: ", character.name, " (", character.id, ")")
 
 
-
 # ============================================
 # Response Handlers
 # ============================================
@@ -125,47 +121,6 @@ func _on_request_completed(result, response_code, headers, body):
 			handle_message_response(data)
 
 
-# func _on_evidence_request_completed(result, response_code, headers, body):
-# 	if response_code != 200:
-# 		print("Request failed with code: ", response_code)
-# 		handle_request_error(response_code)
-# 		return
-
-# 	var json = JSON.new()
-# 	var error = json.parse(body.get_string_from_utf8())
-
-# 	if error != OK:
-# 		print("Failed to parse JSON: ", error)
-# 		return
-
-# 	var data = json.data
-	
-# 	match current_request_type:
-# 		RequestType.RETRIEVE_EVIDENCE:
-# 			handle_evidence_retrieval(data)
-
-
-
-# func _on_evidence_request_completed(result, response_code, headers, body):
-# 	if response_code != 200:
-# 		print("Request failed with code: ", response_code)
-# 		handle_request_error(response_code)
-# 		return
-
-# 	var json = JSON.new()
-# 	var error = json.parse(body.get_string_from_utf8())
-
-# 	if error != OK:
-# 		print("Failed to parse JSON: ", error)
-# 		return
-
-# 	var data = json.data
-	
-# 	match current_request_type:
-# 		RequestType.RETRIEVE_EVIDENCE:
-# 			handle_evidence_retrieval(data)
-
-
 func handle_health_check(data):
 	if data.api == "healthy" and data.mongodb == "connected" and data.openai == "connected":
 		print("✓ Server is healthy - loading characters...")
@@ -183,8 +138,6 @@ func handle_characters_loaded(data):
 		select_character(characters[0])
 
 func handle_message_response(data):
-	if not sessions.has(current_character["npc_id"]):
-		sessions[current_character["npc_id"]] = data.session_id
 	if not sessions.has(current_character["npc_id"]):
 		sessions[current_character["npc_id"]] = data.session_id
 		print("New session created for ", current_character.name, ": ", data.session_id)
@@ -225,16 +178,12 @@ func is_ready() -> bool:
 # Gameplay Functionality
 # ============================================
 
-#signal on_player_talk
-#signal on_npc_talk (npc_dialogue)
-
 func enter_new_dialogue(npc: NPC):
 	current_character = npc
 	# dialogue_box.initialize_with_npc(npc) # not needed i think, i just need the dialogue box to show up
 	print("currently in a conversation with: " + current_character.character_name)
-	dialogue_box.visible = true
+	dialogue_box.visible = true;
 	dialogue_box.start_dialogue_bgm()
-	dialogue_box.talk_input.text = ""
 
 
 	# HIDE / DISABLE WORLD
@@ -270,3 +219,8 @@ func exit_dialogue():
 	
 func is_dialogue_active():
 	return dialogue_box.visible
+	
+
+func game_over():
+	get_tree().change_scene_to_file("res://game_over_scene.tscn")
+	

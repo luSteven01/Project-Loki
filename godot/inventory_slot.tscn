@@ -69,8 +69,9 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_yqceb")
 
 [node name="DetailsPanel" type="ColorRect" parent="."]
 layout_mode = 0
-offset_top = -135.0
-offset_right = 151.0
+offset_left = 1.0
+offset_top = -170.0
+offset_right = 242.0
 offset_bottom = -5.0
 color = Color(0.039215688, 0.101960786, 0.24705882, 1)
 
@@ -89,8 +90,9 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 5.0
-offset_top = -93.0
-offset_right = 145.0
+offset_top = -111.0
+offset_right = 252.0
+offset_bottom = -18.0
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("3_ewbek")
 theme_override_font_sizes/font_size = 20
@@ -100,10 +102,11 @@ autowrap_mode = 2
 [node name="UsagePanel" type="ColorRect" parent="."]
 visible = false
 layout_mode = 0
-offset_top = -135.0
-offset_right = 240.0
-offset_bottom = -5.0
-color = Color(0.59607846, 0.93333334, 0.8, 1)
+offset_left = 1.0
+offset_top = 155.0
+offset_right = 241.0
+offset_bottom = 285.0
+color = Color(0.039215688, 0.101960786, 0.24705882, 1)
 
 [node name="ShowButton" type="Button" parent="UsagePanel"]
 layout_mode = 1

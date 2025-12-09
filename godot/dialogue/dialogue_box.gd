@@ -1,6 +1,7 @@
 extends Panel
 
 var game_manager = null
+var dialogue_box = null
 
 @onready var dialogue_text = $DialogueText
 @onready var npc_icons = $NPCIcons
@@ -68,7 +69,7 @@ func _input(event):
 			_on_submit_button_pressed()
 			get_viewport().set_input_as_handled()
 
-		elif (event.keycode == KEY_ESCAPE):
+		elif event.is_action_pressed("escape"):
 			_on_leave_button_pressed()
 			get_viewport().set_input_as_handled()
 
@@ -268,9 +269,12 @@ func _on_arrest_button_pressed() -> void:
 	else:
 		# Others arrested - LOSE
 		dialogue_text.text = "\n\n[center][b]You have arrested the wrong person. The real culprit remains at large... Game Over.[/b][/center]"
-
-
-	# Leave chat dialogue and triggers endgame sequence
+		# get_tree().change_scene_to_file("res://game_over_scene.tscn")
+		
+		await get_tree().create_timer(time).timeout
+		get_tree().change_scene_to_file("res://game_over_scene.tscn")
+		
+# Leave chat dialogue and triggers endgame sequence
 	current_character = null
 	await get_tree().create_timer(time).timeout
 	self.visible = false # Temporary end here; can add more endgame logic later

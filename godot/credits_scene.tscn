@@ -1,0 +1,173 @@
+[gd_scene load_steps=10 format=3 uid="uid://cnyfskrj71wdi"]
+
+[ext_resource type="Script" uid="uid://lmyk1ts68we0" path="res://credits_scene.gd" id="1_idxpi"]
+[ext_resource type="Texture2D" uid="uid://dndql6uijwo1k" path="res://main_menu_screenshot.png" id="2_tb6kb"]
+[ext_resource type="FontFile" uid="uid://do6g4q03tl1gj" path="res://Assets/Fonts/Schrödinger.ttf" id="3_3uxir"]
+[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Fonts/ARCADECLASSIC.TTF" id="4_tthvq"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_idnep"]
+texture = ExtResource("2_tb6kb")
+modulate_color = Color(0.30692267, 0.3069227, 0.3069227, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x4att"]
+bg_color = Color(0.21770847, 0.4065661, 0.4385785, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.11329522, 0.21686533, 0.26579273, 0.6)
+shadow_size = 5
+shadow_offset = Vector2(3.5, 3.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ch8e3"]
+bg_color = Color(0.02745624, 0.08325962, 0.09140562, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.11329522, 0.21686533, 0.26579273, 0.6)
+shadow_size = 5
+shadow_offset = Vector2(3.5, 3.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hsdfs"]
+bg_color = Color(0.09973741, 0.21064502, 0.22905695, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.11329522, 0.21686533, 0.26579273, 0.6)
+shadow_size = 5
+shadow_offset = Vector2(3.5, 3.5)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aq8by"]
+
+[node name="CreditsScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_idxpi")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_idnep")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -468.0
+offset_top = -326.0
+offset_right = 338.0
+offset_bottom = 321.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("3_3uxir")
+theme_override_font_sizes/normal_font_size = 22
+theme_override_font_sizes/bold_font_size = 22
+theme_override_font_sizes/bold_italics_font_size = 22
+theme_override_font_sizes/italics_font_size = 22
+theme_override_font_sizes/mono_font_size = 22
+text = "=== CREDITS ===
+
+Script & Story
+Christian Garo
+Steven Lu
+
+Tile Map Assembly & Environment Design
+Steven Lu
+
+Character Development
+Christian Garo – 2D Sprite Setup, Scene Construction, Character/NPC Nodes
+Tuan-Anh Ho – Portrait Integration, Animation, Dialogue Interaction
+
+Game Progression & Chat State Logic
+Tuan-Anh Ho
+
+OpenAI Prompting & AI Tooling
+Tuan-Anh Ho
+Seyoung Oh
+
+Backend & Database Development
+Seyoung Oh
+
+API & Project Environment Setup
+Seyoung Oh
+
+Components Integration
+Tuan-Anh Ho
+
+Background Music:
+Kiluaboy – \"Clouds\"
+Kiluaboy – \"Blue Blood\"
+EvanBoyerman – \"Hopeful Cinematic Emotional Orchestra\"
+
+Project Advisor:
+Dr. Gregory Courand
+
+Professor:
+Dr. Wencen Wu
+
+Thank you for playing."
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -459.0
+offset_top = -582.0
+offset_right = 305.0
+offset_bottom = -291.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0.030192709, 0.039544772, 0.003941892, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 10
+theme_override_fonts/font = ExtResource("4_tthvq")
+theme_override_font_sizes/font_size = 64
+text = "AI Deception:
+Lies and Secrets of Shertown"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -292.0
+offset_top = -180.0
+offset_right = 292.0
+offset_bottom = -75.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_tthvq")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_x4att")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ch8e3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hsdfs")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_aq8by")
+text = "Back"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
