@@ -242,7 +242,7 @@ func _on_arrest_button_pressed() -> void:
 	# Show endgame script based on arrested character
 	var char_id = current_character["npc_id"]
 	var script = endgame_scripts.get(char_id, "No ending found.")
-	var time = 3.0 + script.length() * 0.03
+	var time = 2.0 + script.length() * 0.03
 
 	# Special case: if Abel is arrested, stop BGM and play endgame music
 	if char_id == "abel" and Global.inventory["shirt"]["collected"] and Global.inventory["button"]["collected"]:
@@ -265,19 +265,17 @@ func _on_arrest_button_pressed() -> void:
 		script = load_credits()
 		await type_text_slowly(script)
 		dialogue_text.text += "[/center]"
-		time = 10.0 + script.length() * 0.03	
+		time = script.length() * 0.03	
 	else:
 		# Others arrested - LOSE
-		dialogue_text.text = "\n\n[center][b]You have arrested the wrong person. The real culprit remains at large... Game Over.[/b][/center]"
-		# get_tree().change_scene_to_file("res://game_over_scene.tscn")
+		dialogue_text.text = "\n\n[center][b]You have arrested the wrong person. The real culprit remains at large... Game Over.[/b][/center]"		
+		# await get_tree().create_timer(time).timeout
 		
-		await get_tree().create_timer(time).timeout
-		# get_tree().change_scene_to_file("res://game_over_scene.tscn")
-		
-# Leave chat dialogue and triggers endgame sequence
+	# Leave chat dialogue and triggers endgame sequence
 	current_character = null
 	await get_tree().create_timer(time).timeout
-	# self.visible = false # Temporary end here; can add more endgame logic later
+	self.visible = false
+	$BGM.stop()
 	game_over.emit()
 
 
