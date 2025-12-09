@@ -16,6 +16,4 @@ func _input(event):
 	if Input.is_key_pressed(KEY_F) and not game_manager.is_dialogue_active():
 		if current_npc != null:
 			game_manager.enter_new_dialogue(current_npc)
-			#game_manager.inventory_check()
-			#game_manager.dialogue_box.inventory_ui.visible = true;
 			get_viewport().set_input_as_handled()

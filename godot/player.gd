@@ -4,7 +4,6 @@ extends CharacterBody2D
 @onready var inventory_ui = $InventoryUI
 @onready var interact_ui = $InteractUI
 @onready var game_manager = get_node("/root/Main/GameManager")
-# @export var inventory = $Inventory
 
 # Player moves at 50 pixels/second
 var speed : float = 100.0
@@ -17,7 +16,6 @@ var animation_to_play = "down_idle"
 
 func _ready():
 	Global.init_player_reference(self)
-	# Global.inventory_updated.connect(_on_inventory_updated)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	animation_player.stop()
 	animation_player.play("down_idle")
@@ -54,9 +52,7 @@ func _physics_process(delta):
 	else:
 		timer = 0	
 		
-	# if we get another sprite sheet thats a lot better for characters, uncomment this line
 	animation_to_play = face_direction + "_" + ("walk" if velocity.length() > 0.0 else "idle")
 	animation_player.play(animation_to_play)
 	# applies velocity to move character
 	move_and_slide()
-	# pass

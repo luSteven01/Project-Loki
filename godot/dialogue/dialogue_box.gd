@@ -119,7 +119,7 @@ func send_player_message():
 	disable_interaction()
 	
 	# Show player's message in dialogue window
-	dialogue_text.text += "\n\n[right][b][Player]:[/b]"
+	dialogue_text.text += "\n\n[right][b]Me:[/b]"
 	await type_text_slowly(player_message + "\n")
 	dialogue_text.text += "[/right]"
 
