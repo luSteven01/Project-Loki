@@ -1,6 +1,5 @@
 extends Panel
-
-var game_manager = null
+signal game_over
 
 @onready var dialogue_text = $DialogueText
 @onready var npc_icons = $NPCIcons
@@ -17,6 +16,8 @@ var chat_history = []
 var is_typing = false
 var endgame_scripts = {}
 var is_win = false
+var game_manager = null
+var dialogue_box = null
 
 
 func _ready() -> void:
@@ -68,7 +69,7 @@ func _input(event):
 			_on_submit_button_pressed()
 			get_viewport().set_input_as_handled()
 
-		elif (event.keycode == KEY_ESCAPE):
+		elif event.is_action_pressed("escape"):
 			_on_leave_button_pressed()
 			get_viewport().set_input_as_handled()
 
@@ -118,7 +119,7 @@ func send_player_message():
 	disable_interaction()
 	
 	# Show player's message in dialogue window
-	dialogue_text.text += "\n\n[right][b][Player]:[/b]"
+	dialogue_text.text += "\n\n[right][b]Me:[/b]"
 	await type_text_slowly(player_message + "\n")
 	dialogue_text.text += "[/right]"
 
@@ -241,7 +242,7 @@ func _on_arrest_button_pressed() -> void:
 	# Show endgame script based on arrested character
 	var char_id = current_character["npc_id"]
 	var script = endgame_scripts.get(char_id, "No ending found.")
-	var time = 3.0 + script.length() * 0.03
+	var time = 2.0 + script.length() * 0.03
 
 	# Special case: if Abel is arrested, stop BGM and play endgame music
 	if char_id == "abel" and Global.inventory["shirt"]["collected"] and Global.inventory["button"]["collected"]:
@@ -264,16 +265,18 @@ func _on_arrest_button_pressed() -> void:
 		script = load_credits()
 		await type_text_slowly(script)
 		dialogue_text.text += "[/center]"
-		time = 10.0 + script.length() * 0.03	
+		time = script.length() * 0.03	
 	else:
 		# Others arrested - LOSE
-		dialogue_text.text = "\n\n[center][b]You have arrested the wrong person. The real culprit remains at large... Game Over.[/b][/center]"
-
-
+		dialogue_text.text = "\n\n[center][b]You have arrested the wrong person. The real culprit remains at large... Game Over.[/b][/center]"		
+		# await get_tree().create_timer(time).timeout
+		
 	# Leave chat dialogue and triggers endgame sequence
 	current_character = null
 	await get_tree().create_timer(time).timeout
-	self.visible = false # Temporary end here; can add more endgame logic later
+	self.visible = false
+	$BGM.stop()
+	game_over.emit()
 
 
 func _on_arrest_button_mouse_entered() -> void:
