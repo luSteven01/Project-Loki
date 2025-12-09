@@ -1,7 +1,6 @@
 extends Area2D
 
 @onready var game_manager = get_node("/root/Main/GameManager")
-@onready var inventory_ui = get_node("/root/Main/CanvasLayer/Inventory_UI")
 
 var current_npc
 
@@ -18,12 +17,5 @@ func _input(event):
 		if current_npc != null:
 			game_manager.enter_new_dialogue(current_npc)
 			#game_manager.inventory_check()
+			#game_manager.dialogue_box.inventory_ui.visible = true;
 			get_viewport().set_input_as_handled()
-		
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_I and not game_manager.is_dialogue_active():
-			print("open inventory ui")
-			print(inventory_ui.visible)
-			inventory_ui.visible = !inventory_ui.visible
-			get_tree().paused = inventory_ui.visible # pause while inventory is open 
-	

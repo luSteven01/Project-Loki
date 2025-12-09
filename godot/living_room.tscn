@@ -1,4 +1,4 @@
-[gd_scene load_steps=172 format=4 uid="uid://ckfnt4evadw2e"]
+[gd_scene load_steps=179 format=4 uid="uid://ckfnt4evadw2e"]
 
 [ext_resource type="TileSet" uid="uid://dsde60pw444bl" path="res://living_room_room_builder.tres" id="1_j7inc"]
 [ext_resource type="Texture2D" uid="uid://bcmbaeodp3gc0" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/1_Generic_Black_Shadow_16x16.png" id="2_weu2t"]
@@ -17,13 +17,14 @@
 [ext_resource type="Texture2D" uid="uid://2y3jc2hems4e" path="res://modern_interior_and_characters/1_Interiors/16x16/Room_Builder_subfiles/Room_Builder_Arched_Entryways_16x16.png" id="15_lvk6u"]
 [ext_resource type="Texture2D" uid="uid://c70k8frqi76bw" path="res://modern_interior_and_characters/1_Interiors/16x16/Room_Builder_16x16.png" id="16_tgelg"]
 [ext_resource type="PackedScene" uid="uid://di4whfq6erra0" path="res://portal.tscn" id="17_ftaf3"]
-[ext_resource type="Script" uid="uid://crgqai07e6303" path="res://alice_npc.gd" id="18_5m0m6"]
+[ext_resource type="Script" path="res://alice_npc.gd" id="18_5m0m6"]
 [ext_resource type="Texture2D" uid="uid://c5cxvxnqdgc1b" path="res://art/spritesheets/Alice_SpriteSheet.png" id="19_wvrob"]
-[ext_resource type="Script" uid="uid://cccfhypg3c710" path="res://abel_npc.gd" id="20_vi1qt"]
+[ext_resource type="Script" path="res://abel_npc.gd" id="20_vi1qt"]
+[ext_resource type="Texture2D" uid="uid://exgd5k7cc34x" path="res://modern_interior_and_characters/2_Characters/Character_Generator/0_Premade_Characters/16x16/Premade_Character_01.png" id="20_wvrob"]
 [ext_resource type="Texture2D" uid="uid://bmk02xw36x57o" path="res://art/spritesheets/Abel_SpriteSheet.png" id="21_e8d8u"]
-[ext_resource type="Script" uid="uid://dncbhhlg007yh" path="res://diane_npc.gd" id="22_ppm0j"]
+[ext_resource type="Script" path="res://diane_npc.gd" id="22_ppm0j"]
 [ext_resource type="Texture2D" uid="uid://cal2lqhht3fc2" path="res://art/spritesheets/Diane_Spritesheet.png" id="23_m0q5w"]
-[ext_resource type="Script" uid="uid://bugiktjhtu30j" path="res://maid_npc.gd" id="24_x3nxe"]
+[ext_resource type="Script" path="res://maid_npc.gd" id="24_x3nxe"]
 [ext_resource type="Texture2D" uid="uid://cfiix47feexnv" path="res://art/spritesheets/Maid_SpriteSheet.png" id="25_lvk6u"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_vc3g0"]
@@ -27096,6 +27097,13 @@ pattern_5 = SubResource("TileMapPattern_elsr4")
 pattern_6 = SubResource("TileMapPattern_nx705")
 pattern_7 = SubResource("TileMapPattern_tr0o5")
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_wvrob"]
+a = Vector2(-16, 0)
+b = Vector2(19, 0)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_vi1qt"]
+b = Vector2(0, 20)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_c22gg"]
 atlas = ExtResource("19_wvrob")
 region = Rect2(288, 33, 16, 32)
@@ -27119,6 +27127,22 @@ region = Rect2(352, 33, 16, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_w7q4m"]
 atlas = ExtResource("19_wvrob")
 region = Rect2(368, 33, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_op65r"]
+atlas = ExtResource("20_wvrob")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_crfap"]
+atlas = ExtResource("20_wvrob")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7x8n8"]
+atlas = ExtResource("20_wvrob")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8djb"]
+atlas = ExtResource("20_wvrob")
+region = Rect2(48, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5m0m6"]
 atlas = ExtResource("19_wvrob")
@@ -27308,6 +27332,18 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_w7q4m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_op65r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crfap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7x8n8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8djb")
 }],
 "loop": true,
 "name": &"down_idle",
@@ -27475,46 +27511,15 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ftaf3"]
-radius = 14.222229
-height = 37.333313
-
-[sub_resource type="Animation" id="Animation_op65r"]
-resource_name = "down_idle"
-length = 0.6
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"down_idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jtheq"]
+size = Vector2(26.666664, 20)
 
 [sub_resource type="Animation" id="Animation_crfap"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/path = NodePath("../Alice/AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -27526,7 +27531,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/path = NodePath("../Alice/AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -27536,87 +27541,27 @@ tracks/1/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_7x8n8"]
-resource_name = "up_idle"
+[sub_resource type="Animation" id="Animation_op65r"]
+resource_name = "down_idle"
 length = 0.6
 loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/path = NodePath("../Alice/AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"up_idle"]
+"values": [&"down_idle"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
-
-[sub_resource type="Animation" id="Animation_n8djb"]
-resource_name = "left_idle"
-length = 0.6
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"left_idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
-
-[sub_resource type="Animation" id="Animation_jtheq"]
-resource_name = "right_idle"
-length = 0.6
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"right_idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/path = NodePath("../Alice/AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -27634,7 +27579,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/path = NodePath("../Alice/AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -27646,7 +27591,37 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/path = NodePath("../Alice/AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_n8djb"]
+resource_name = "left_idle"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Alice/AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"left_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Alice/AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -27664,7 +27639,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/path = NodePath("../Alice/AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -27676,7 +27651,37 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/path = NodePath("../Alice/AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_jtheq"]
+resource_name = "right_idle"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Alice/AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"right_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Alice/AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -27694,7 +27699,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/path = NodePath("../Alice/AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -27706,7 +27711,37 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/path = NodePath("../Alice/AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_7x8n8"]
+resource_name = "up_idle"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Alice/AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"up_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Alice/AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -27724,7 +27759,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/path = NodePath("../Alice/AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -27736,7 +27771,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/path = NodePath("../Alice/AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -27824,9 +27859,35 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ipsaa"]
-radius = 14.222229
-height = 35.555542
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_66q48"]
+size = Vector2(31.111122, 17.777779)
+
+[sub_resource type="Animation" id="Animation_wvrob"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"down_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_5m0m6"]
 resource_name = "down_idle"
@@ -27856,33 +27917,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
-}
-
-[sub_resource type="Animation" id="Animation_wvrob"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"down_idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dxm8n"]
@@ -27941,9 +27975,35 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n24go"]
-radius = 14.222221
-height = 48.888855
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvrob"]
+size = Vector2(25.555557, 18.8889)
+
+[sub_resource type="Animation" id="Animation_e8d8u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"down_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_vi1qt"]
 resource_name = "down_idle"
@@ -27973,33 +28033,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
-}
-
-[sub_resource type="Animation" id="Animation_e8d8u"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"down_idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ppm0j"]
@@ -28058,7 +28091,35 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jt01b"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vi1qt"]
+size = Vector2(26.666656, 13.3333435)
+
+[sub_resource type="Animation" id="Animation_x3nxe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"down_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_m0q5w"]
 resource_name = "down_idle"
@@ -28090,33 +28151,6 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 5]
 }
 
-[sub_resource type="Animation" id="Animation_x3nxe"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"down_idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lvk6u"]
 _data = {
 &"RESET": SubResource("Animation_x3nxe"),
@@ -28127,7 +28161,7 @@ _data = {
 y_sort_enabled = true
 
 [node name="LivingRoom_Floor" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAD//wAAAgAjACwAAAD//wEAAgAjACwAAAD//wIAAgAjACwAAAD//wMAAgAjACwAAAD//wQAAgAjACwAAAD//wUAAgAjACwAAAD//wYAAgAjACwAAAD//wcAAgAjACwAAAD//wgAAgAjACwAAAD//wkAAgAjACwAAAD//woAAgAjACwAAAAAAAAAAgAjACwAAAAAAAEAAgAjACwAAAAAAAIAAgAjACwAAAAAAAMAAgAjACwAAAAAAAQAAgAjACwAAAAAAAUAAgAjACwAAAAAAAYAAgAjACwAAAAAAAcAAgAjACwAAAAAAAgAAgAjACwAAAAAAAkAAgAjACwAAAAAAAoAAgAjACwAAAABAAAAAgAjACwAAAABAAEAAgAjACwAAAABAAIAAgAjACwAAAABAAMAAgAjACwAAAABAAQAAgAjACwAAAABAAUAAgAjACwAAAABAAYAAgAjACwAAAABAAcAAgAjACwAAAABAAgAAgAjACwAAAABAAkAAgAjACwAAAABAAoAAgAjACwAAAACAAAAAgAjACwAAAACAAEAAgAjACwAAAACAAIAAgAjACwAAAACAAMAAgAjACwAAAACAAUAAgAjACwAAAACAAYAAgAjACwAAAACAAcAAgAjACwAAAACAAgAAgAjACwAAAACAAkAAgAjACwAAAACAAoAAgAjACwAAAADAAAAAgAjACwAAAADAAEAAgAjACwAAAADAAIAAgAjACwAAAADAAMAAgAjACwAAAADAAQAAQADABwAAAADAAUAAQADABwAAAADAAYAAQADABwAAAADAAcAAQADABwAAAADAAgAAQADABwAAAADAAkAAgAjACwAAAADAAoAAgAjACwAAAADAA0AAgArABgAAAADAA4AAgArABgAAAADAA8AAgArABgAAAAEAAAAAgAjACwAAAAEAAEAAgAjACwAAAAEAAIAAgAjACwAAAAEAAMAAgAjACwAAAAEAAQAAQADABwAAAAEAAUAAQADABwAAAAEAAYAAQADABwAAAAEAAcAAQADABwAAAAEAAgAAQADABwAAAAEAAkAAgAjACwAAAAEAAoAAgAjACwAAAAEAAsAAgArABgAAAAEAAwAAgArABgAAAAEAA0AAgArABgAAAAEAA4AAgArABgAAAAEAA8AAgArABgAAAAFAAAAAgAjACwAAAAFAAEAAgAjACwAAAAFAAIAAgAjACwAAAAFAAMAAgAjACwAAAAFAAQAAQADABwAAAAFAAUAAQADABwAAAAFAAYAAQADABwAAAAFAAcAAQADABwAAAAFAAgAAQADABwAAAAFAAkAAgAjACwAAAAFAAoAAgAjACwAAAAFAA0AAgArABgAAAAFAA4AAgArABgAAAAFAA8AAgArABgAAAAGAAAAAgAjACwAAAAGAAEAAgAjACwAAAAGAAIAAgAjACwAAAAGAAMAAgAjACwAAAAGAAQAAQADABwAAAAGAAUAAQADABwAAAAGAAYAAQADABwAAAAGAAcAAQADABwAAAAGAAgAAQADABwAAAAGAAkAAgAjACwAAAAGAAoAAgAjACwAAAAGAAsAAgAjACwAAAAGAAwAAgArABgAAAAGAA0AAgArABgAAAAGAA4AAgArABgAAAAGAA8AAgArABgAAAAHAAAAAgAjACwAAAAHAAEAAgAjACwAAAAHAAIAAgAjACwAAAAHAAMAAgAjACwAAAAHAAQAAQADABwAAAAHAAUAAQADABwAAAAHAAYAAQADABwAAAAHAAcAAQADABwAAAAHAAgAAQADABwAAAAHAAkAAgAjACwAAAAHAAoAAgAjACwAAAAHAAsAAgAjACwAAAAHAAwAAgArABgAAAAHAA0AAgArABgAAAAHAA4AAgArABgAAAAHAA8AAgArABgAAAAIAAAAAgAjACwAAAAIAAEAAgAjACwAAAAIAAIAAgAjACwAAAAIAAMAAgAjACwAAAAIAAQAAQADABwAAAAIAAUAAQADABwAAAAIAAYAAQADABwAAAAIAAcAAQADABwAAAAIAAgAAQADABwAAAAIAAkAAgAjACwAAAAIAAoAAgAjACwAAAAIAAsAAgAjACwAAAAIAAwAAgArABgAAAAIAA0AAgArABgAAAAIAA4AAgArABgAAAAIAA8AAgArABgAAAAJAAAAAgAjACwAAAAJAAEAAgAjACwAAAAJAAIAAgAjACwAAAAJAAMAAgAjACwAAAAJAAQAAQADABwAAAAJAAUAAQADABwAAAAJAAYAAQADABwAAAAJAAcAAQADABwAAAAJAAgAAQADABwAAAAJAAkAAgAjACwAAAAJAAoAAgAjACwAAAAJAAsAAgAjACwAAAAJAAwAAgArABgAAAAJAA0AAgArABgAAAAJAA4AAgArABgAAAAJAA8AAgArABgAAAAKAAAAAgAjACwAAAAKAAEAAgAjACwAAAAKAAIAAgAjACwAAAAKAAMAAgAjACwAAAAKAAQAAQADABwAAAAKAAUAAQADABwAAAAKAAYAAQADABwAAAAKAAcAAQADABwAAAAKAAgAAQADABwAAAAKAAkAAgAjACwAAAAKAAoAAgAjACwAAAAKAA0AAgArABgAAAAKAA4AAgArABgAAAAKAA8AAgArABgAAAALAAAAAgAjACwAAAALAAEAAgAjACwAAAALAAIAAgAjACwAAAALAAMAAgAjACwAAAALAAQAAQADABwAAAALAAUAAQADABwAAAALAAYAAQADABwAAAALAAcAAQADABwAAAALAAgAAQADABwAAAALAAkAAgAjACwAAAALAAoAAgAjACwAAAALAAsAAgArABgAAAALAAwAAgArABgAAAALAA0AAgArABgAAAALAA4AAgArABgAAAALAA8AAgArABgAAAAMAAAAAgAjACwAAAAMAAEAAgAjACwAAAAMAAIAAgAjACwAAAAMAAMAAgAjACwAAAAMAAQAAQADABwAAAAMAAUAAQADABwAAAAMAAYAAQADABwAAAAMAAcAAQADABwAAAAMAAgAAQADABwAAAAMAAkAAgAjACwAAAAMAAoAAgAjACwAAAAMAA0AAgArABgAAAAMAA4AAgArABgAAAAMAA8AAgArABgAAAANAAAAAgAjACwAAAANAAEAAgAjACwAAAANAAIAAgAjACwAAAANAAMAAgAjACwAAAANAAQAAgAjACwAAAANAAUAAgAjACwAAAANAAYAAgAjACwAAAANAAcAAgAjACwAAAANAAgAAgAjACwAAAANAAkAAgAjACwAAAANAAoAAgAjACwAAAAOAAAAAgAjACwAAAAOAAEAAgAjACwAAAAOAAIAAgAjACwAAAAOAAMAAgAjACwAAAAOAAQAAgAjACwAAAAOAAUAAgAjACwAAAAOAAYAAgAjACwAAAAOAAcAAgAjACwAAAAOAAgAAgAjACwAAAAOAAkAAgAjACwAAAAOAAoAAgAjACwAAAAPAAAAAgAjACwAAAAPAAEAAgAjACwAAAAPAAIAAgAjACwAAAAPAAMAAgAjACwAAAAPAAQAAgAjACwAAAAPAAUAAgAjACwAAAAPAAYAAgAjACwAAAAPAAcAAgAjACwAAAAPAAgAAgAjACwAAAAPAAkAAgAjACwAAAAPAAoAAgAjACwAAAAQAAEAAgAjACwAAAAQAAIAAgAjACwAAAAQAAMAAgAjACwAAAAQAAQAAgAjACwAAAAQAAUAAgAjACwAAAAQAAYAAgAjACwAAAAQAAcAAgAjACwAAAAQAAgAAgAjACwAAAAQAAkAAgAjACwAAAAQAAoAAgAjACwAAAARAAYAAgAjACwAAAASAAYAAgAjACwAAAATAAYAAgAjACwAAAA=")
+tile_map_data = PackedByteArray("AAD//wAAAgAjACwAAAD//wEAAgAjACwAAAD//wIAAgAjACwAAAD//wMAAgAjACwAAAD//wQAAgAjACwAAAD//wUAAgAjACwAAAD//wYAAgAjACwAAAD//wcAAgAjACwAAAD//wgAAgAjACwAAAD//wkAAgAjACwAAAD//woAAgAjACwAAAAAAAAAAgAjACwAAAAAAAEAAgAjACwAAAAAAAIAAgAjACwAAAAAAAMAAgAjACwAAAAAAAQAAgAjACwAAAAAAAUAAgAjACwAAAAAAAYAAgAjACwAAAAAAAcAAgAjACwAAAAAAAgAAgAjACwAAAAAAAkAAgAjACwAAAAAAAoAAgAjACwAAAABAAAAAgAjACwAAAABAAEAAgAjACwAAAABAAIAAgAjACwAAAABAAMAAgAjACwAAAABAAQAAgAjACwAAAABAAUAAgAjACwAAAABAAcAAgAjACwAAAABAAgAAgAjACwAAAABAAkAAgAjACwAAAABAAoAAgAjACwAAAACAAAAAgAjACwAAAACAAEAAgAjACwAAAACAAIAAgAjACwAAAACAAMAAgAjACwAAAACAAUAAgAjACwAAAACAAYAAgAjACwAAAACAAcAAgAjACwAAAACAAgAAgAjACwAAAACAAkAAgAjACwAAAACAAoAAgAjACwAAAADAAAAAgAjACwAAAADAAEAAgAjACwAAAADAAIAAgAjACwAAAADAAMAAgAjACwAAAADAAQAAQADABwAAAADAAUAAQADABwAAAADAAYAAQADABwAAAADAAcAAQADABwAAAADAAgAAQADABwAAAADAAkAAgAjACwAAAADAAoAAgAjACwAAAADAA0AAgArABgAAAADAA4AAgArABgAAAADAA8AAgArABgAAAAEAAAAAgAjACwAAAAEAAEAAgAjACwAAAAEAAIAAgAjACwAAAAEAAMAAgAjACwAAAAEAAQAAQADABwAAAAEAAUAAQADABwAAAAEAAYAAQADABwAAAAEAAcAAQADABwAAAAEAAgAAQADABwAAAAEAAkAAgAjACwAAAAEAAoAAgAjACwAAAAEAAsAAgArABgAAAAEAAwAAgArABgAAAAEAA0AAgArABgAAAAEAA4AAgArABgAAAAEAA8AAgArABgAAAAFAAAAAgAjACwAAAAFAAEAAgAjACwAAAAFAAIAAgAjACwAAAAFAAMAAgAjACwAAAAFAAQAAQADABwAAAAFAAUAAQADABwAAAAFAAYAAQADABwAAAAFAAcAAQADABwAAAAFAAgAAQADABwAAAAFAAkAAgAjACwAAAAFAAoAAgAjACwAAAAFAA0AAgArABgAAAAFAA4AAgArABgAAAAFAA8AAgArABgAAAAGAAAAAgAjACwAAAAGAAEAAgAjACwAAAAGAAIAAgAjACwAAAAGAAMAAgAjACwAAAAGAAQAAQADABwAAAAGAAUAAQADABwAAAAGAAYAAQADABwAAAAGAAcAAQADABwAAAAGAAgAAQADABwAAAAGAAkAAgAjACwAAAAGAAoAAgAjACwAAAAGAAsAAgAjACwAAAAGAAwAAgArABgAAAAGAA0AAgArABgAAAAGAA4AAgArABgAAAAGAA8AAgArABgAAAAHAAAAAgAjACwAAAAHAAEAAgAjACwAAAAHAAIAAgAjACwAAAAHAAMAAgAjACwAAAAHAAQAAQADABwAAAAHAAUAAQADABwAAAAHAAYAAQADABwAAAAHAAcAAQADABwAAAAHAAgAAQADABwAAAAHAAkAAgAjACwAAAAHAAoAAgAjACwAAAAHAAsAAgAjACwAAAAHAAwAAgArABgAAAAHAA0AAgArABgAAAAHAA4AAgArABgAAAAHAA8AAgArABgAAAAIAAAAAgAjACwAAAAIAAEAAgAjACwAAAAIAAIAAgAjACwAAAAIAAMAAgAjACwAAAAIAAQAAQADABwAAAAIAAUAAQADABwAAAAIAAYAAQADABwAAAAIAAcAAQADABwAAAAIAAgAAQADABwAAAAIAAkAAgAjACwAAAAIAAoAAgAjACwAAAAIAAsAAgAjACwAAAAIAAwAAgArABgAAAAIAA0AAgArABgAAAAIAA4AAgArABgAAAAIAA8AAgArABgAAAAJAAAAAgAjACwAAAAJAAEAAgAjACwAAAAJAAIAAgAjACwAAAAJAAMAAgAjACwAAAAJAAQAAQADABwAAAAJAAUAAQADABwAAAAJAAYAAQADABwAAAAJAAcAAQADABwAAAAJAAgAAQADABwAAAAJAAkAAgAjACwAAAAJAAoAAgAjACwAAAAJAAsAAgAjACwAAAAJAAwAAgArABgAAAAJAA0AAgArABgAAAAJAA4AAgArABgAAAAJAA8AAgArABgAAAAKAAAAAgAjACwAAAAKAAEAAgAjACwAAAAKAAIAAgAjACwAAAAKAAMAAgAjACwAAAAKAAQAAQADABwAAAAKAAUAAQADABwAAAAKAAYAAQADABwAAAAKAAcAAQADABwAAAAKAAgAAQADABwAAAAKAAkAAgAjACwAAAAKAAoAAgAjACwAAAAKAA0AAgArABgAAAAKAA4AAgArABgAAAAKAA8AAgArABgAAAALAAAAAgAjACwAAAALAAEAAgAjACwAAAALAAIAAgAjACwAAAALAAMAAgAjACwAAAALAAQAAQADABwAAAALAAUAAQADABwAAAALAAYAAQADABwAAAALAAcAAQADABwAAAALAAgAAQADABwAAAALAAkAAgAjACwAAAALAAoAAgAjACwAAAALAAsAAgArABgAAAALAAwAAgArABgAAAALAA0AAgArABgAAAALAA4AAgArABgAAAALAA8AAgArABgAAAAMAAAAAgAjACwAAAAMAAEAAgAjACwAAAAMAAIAAgAjACwAAAAMAAMAAgAjACwAAAAMAAQAAQADABwAAAAMAAUAAQADABwAAAAMAAYAAQADABwAAAAMAAcAAQADABwAAAAMAAgAAQADABwAAAAMAAkAAgAjACwAAAAMAAoAAgAjACwAAAAMAA0AAgArABgAAAAMAA4AAgArABgAAAAMAA8AAgArABgAAAANAAAAAgAjACwAAAANAAEAAgAjACwAAAANAAIAAgAjACwAAAANAAMAAgAjACwAAAANAAQAAgAjACwAAAANAAUAAgAjACwAAAANAAYAAgAjACwAAAANAAcAAgAjACwAAAANAAgAAgAjACwAAAANAAkAAgAjACwAAAANAAoAAgAjACwAAAAOAAAAAgAjACwAAAAOAAEAAgAjACwAAAAOAAIAAgAjACwAAAAOAAMAAgAjACwAAAAOAAQAAgAjACwAAAAOAAUAAgAjACwAAAAOAAYAAgAjACwAAAAOAAcAAgAjACwAAAAOAAgAAgAjACwAAAAOAAkAAgAjACwAAAAOAAoAAgAjACwAAAAPAAAAAgAjACwAAAAPAAEAAgAjACwAAAAPAAIAAgAjACwAAAAPAAMAAgAjACwAAAAPAAQAAgAjACwAAAAPAAUAAgAjACwAAAAPAAYAAgAjACwAAAAPAAcAAgAjACwAAAAPAAgAAgAjACwAAAAPAAkAAgAjACwAAAAPAAoAAgAjACwAAAAQAAEAAgAjACwAAAAQAAIAAgAjACwAAAAQAAMAAgAjACwAAAAQAAQAAgAjACwAAAAQAAUAAgAjACwAAAAQAAYAAgAjACwAAAAQAAcAAgAjACwAAAAQAAgAAgAjACwAAAAQAAkAAgAjACwAAAAQAAoAAgAjACwAAAARAAYAAgAjACwAAAASAAYAAgAjACwAAAATAAYAAgAjACwAAAABAAYAAgAjACwAAAA=")
 tile_set = ExtResource("1_j7inc")
 
 [node name="LivingRoomUpstairs" type="TileMapLayer" parent="."]
@@ -28164,7 +28198,26 @@ tile_set = SubResource("TileSet_4jyax")
 tile_map_data = PackedByteArray("AAARAAEABAANAAcAAAARAAIABAANAAcAAAARAAgABAANAAcAAAARAAkABAANAAcAAAARAAoABAANAAcAAAACAAsABAAFAAcAAAANAAsABAAFAAcAABAOAAsABAAMAAgAAAAPAAsABAAMAAgAAAAQAAsABAAMAAgAAAARAP//BAANAAYAAAARAAsABAANAAgAAAABAAsABAAMAAgAAAAPAP//BAAXAA0AAAAPAAAABAAXAA4AAAAOAP//BAAXAA0AAAAOAAAABAAXAA4AAAANAP//BAAXAA0AAAANAAAABAAXAA4AAAAMAP//BAAXAA0AAAAMAAAABAAXAA4AAAALAP//BAAXAA0AAAALAAAABAAXAA4AAAAKAP//BAAXAA0AAAAKAAAABAAXAA4AAAAJAP//BAANAAYAABAJAAAABAACABsAAAAIAAAABAABABsAAAAHAAAABAABABsAAAAGAP//BAANAAYAAAAGAAAABAAAABsAAAADAP//BAAXAA0AAAADAAAABAAXAA4AAAACAP//BAAXAA0AAAACAAAABAAXAA4AAAABAAAABAAXAA4AAAAQAP//BAAXAA0AAAAQAAAABAAXAA4AAAARAAAABAANAAcAAAAGAAEABAAAABwAAAAHAAEABAABABwAAAAIAAEABAABABwAAAAJAAEABAACABwAAAAAAAsABAAMAAgAAAD//wsABAAMAAgAAAD+/wsABAALAAgAAAAAAP//BAAXAA0AAAD/////BAAXAA0AAAD+////BAALAAYAAAAFAP//BAAXAA0AAAAEAP//BAAXAA0AAAD//wAABAAXAA4AAAD+/wAABAALAAcAAAD+/wEABAALAAcAAAD+/wIABAALAAcAAAD+/wMABAALAAcAAAD+/wQABAALAAcAAAD+/wUABAALAAcAAAD+/wYABAALAAcAAAD+/wcABAALAAcAAAD+/wgABAALAAcAAAD+/wkABAALAAcAAAD+/woABAALAAcAAAABAP//BAAXAA0AAAAEAAsABAAXAA0AAAADAAwABAAXAA4AAAAKAAsABAAWAA0AAAALAAsABAAXAA0AAAAMAAsABAAXAA0AAAAKAAwABAAWAA4AAAALAAwABAAXAA4AAAAMAAwABAAXAA4AAAACAAwABAANAAcAABACAA0ABAANAAcAABACAA4ABAANAAcAABANAAwABAANAAcAAAANAA0ABAANAAcAAAANAA4ABAANAAcAAAAGAAwABAAyAB8AAAAHAAwABAAzAB8AAAAIAAwABAAzAB8AAAAJAAwABAAyAB8AABADAAsABAAXAA0AAAAEAAwABAAXAA4AAAADABAABAAMAAgAAAAEABAABAAMAAgAAAAFABAABAAMAAgAAAAGABAABAAMAAgAAAAJABAABAAMAAgAAAAKABAABAAMAAgAAAALABAABAAMAAgAAAAMABAABAAMAAgAAAANABAABAANAAgAAAACABAABAANAAgAABACAA8ABAANAAcAABANAA8ABAANAAcAAAAFAAsABAAYAA0AAAAFAAwABAAYAA4AAAAEAAEAAAALAB8AAAAFAAEAAAAKAB8AAAACAAEAAAAJAB8AAAACAAIAAAAJACAAAAADAAEAAAALAB8AAAADAAIAAAALACAAAAAEAAIAAAALACAAAAAFAAIAAAAKACAAAAALAAEAAAALAB8AAAALAAIAAAALACAAAAAMAAEAAAALAB8AAAAMAAIAAAALACAAAAANAAEAAAAKAB8AAAANAAIAAAAKACAAAAAKAAEAAAAJAB8AAAAKAAIAAAAJACAAAAAEAAAABAAXAA4AAAAFAAAABAAXAA4AAAARAAMABAANAAcAAAASAAQABAAXAA0AAAASAAUABAAXAA4AAAARAAUABAAWAA4AAAARAAQABAAWAA0AAAATAAQABAAYAA0AAAATAAUABAAYAA4AAAASAAcABAAMAAYAAAATAAcABAAMAAYAAAARAAcABAAGAAcAAAAAAAAABAAXAA4AAAA=")
 tile_set = SubResource("TileSet_qlebq")
 
+[node name="SpaceBarriers" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpaceBarriers"]
+position = Vector2(0, 4)
+shape = SubResource("SegmentShape2D_wvrob")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="SpaceBarriers"]
+position = Vector2(254, 4)
+shape = SubResource("SegmentShape2D_wvrob")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="SpaceBarriers"]
+position = Vector2(127, 259)
+shape = SubResource("SegmentShape2D_wvrob")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="SpaceBarriers"]
+position = Vector2(318, 93)
+shape = SubResource("SegmentShape2D_vi1qt")
+
 [node name="Portals" type="Node2D" parent="."]
+visible = false
 y_sort_enabled = true
 
 [node name="ToKitchen" parent="Portals" instance=ExtResource("17_ftaf3")]
@@ -28186,24 +28239,24 @@ scale = Vector2(1.5600009, 1)
 target_scene_path = "uid://twy61l66b23s"
 target_position = Vector2(0, -29)
 
-[node name="Alice" type="CharacterBody2D" parent="." node_paths=PackedStringArray("path", "path_follow", "animation_player") groups=["NPC"]]
-z_index = 7
+[node name="Alice" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animation_player") groups=["NPC"]]
+z_index = 6
+y_sort_enabled = true
 position = Vector2(17, 93)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("18_5m0m6")
-path = NodePath("")
-path_follow = NodePath("")
 animation_player = NodePath("AnimationPlayer")
-metadata/_custom_type_script = "uid://crgqai07e6303"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Alice"]
+position = Vector2(-7.1525574e-07, -11.666659)
+scale = Vector2(1.6562498, 1.6562498)
 sprite_frames = SubResource("SpriteFrames_tgelg")
 animation = &"down_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Alice"]
-position = Vector2(0, 2)
+position = Vector2(0, 6.6666565)
 scale = Vector2(0.75, 0.75)
-shape = SubResource("CapsuleShape2D_ftaf3")
+shape = SubResource("RectangleShape2D_jtheq")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Alice"]
 libraries = {
@@ -28211,21 +28264,23 @@ libraries = {
 }
 
 [node name="Abel" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animation_player") groups=["NPC"]]
-z_index = 7
+z_index = 6
+y_sort_enabled = true
 position = Vector2(73, 142)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("20_vi1qt")
 animation_player = NodePath("AnimationPlayer")
-metadata/_custom_type_script = "uid://cccfhypg3c710"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Abel"]
+position = Vector2(1.4305115e-06, -3.3333302)
+scale = Vector2(1.5416665, 1.5416665)
 sprite_frames = SubResource("SpriteFrames_bo7r3")
 animation = &"down_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Abel"]
-position = Vector2(0, 1.6666665)
+position = Vector2(0, 13.3333435)
 scale = Vector2(0.75, 0.75)
-shape = SubResource("CapsuleShape2D_ipsaa")
+shape = SubResource("RectangleShape2D_66q48")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Abel"]
 libraries = {
@@ -28233,21 +28288,23 @@ libraries = {
 }
 
 [node name="Diane" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animation_player") groups=["NPC"]]
-z_index = 7
-position = Vector2(73, 164)
+z_index = 6
+y_sort_enabled = true
+position = Vector2(100, 141)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("22_ppm0j")
 animation_player = NodePath("AnimationPlayer")
-metadata/_custom_type_script = "uid://dncbhhlg007yh"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Diane"]
+position = Vector2(-5.2452087e-06, -6.6666565)
+scale = Vector2(1.645834, 1.645834)
 sprite_frames = SubResource("SpriteFrames_fft52")
 animation = &"down_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Diane"]
-position = Vector2(0, 3.333333)
+position = Vector2(0, 13.75)
 scale = Vector2(0.75, 0.75)
-shape = SubResource("CapsuleShape2D_n24go")
+shape = SubResource("RectangleShape2D_wvrob")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Diane"]
 libraries = {
@@ -28255,20 +28312,22 @@ libraries = {
 }
 
 [node name="Maid" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animation_player") groups=["NPC"]]
-z_index = 7
+z_index = 6
+y_sort_enabled = true
 position = Vector2(200, 95)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("24_x3nxe")
 animation_player = NodePath("AnimationPlayer")
-metadata/_custom_type_script = "uid://bugiktjhtu30j"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Maid"]
+position = Vector2(-5.2452087e-06, -10.000003)
+scale = Vector2(1.645834, 1.645834)
 sprite_frames = SubResource("SpriteFrames_fos1y")
 animation = &"down_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Maid"]
-position = Vector2(0, 6.6666665)
-shape = SubResource("CapsuleShape2D_jt01b")
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_vi1qt")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Maid"]
 libraries = {

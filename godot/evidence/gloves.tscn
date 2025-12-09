@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://stek8yeve0d2"]
+
+[ext_resource type="Script" uid="uid://84t5g250rp12" path="res://evidence/item.gd" id="1_ytpoy"]
+[ext_resource type="Texture2D" uid="uid://cokytm87o4y8b" path="res://art/pngs/Glove.png" id="2_ytpoy"]
+[ext_resource type="AudioStream" uid="uid://cu3h4i53axrb3" path="res://art/bgm/SFX/571629__ugila__item-pickup.wav" id="3_tma7j"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ytpoy"]
+radius = 14.035668
+
+[node name="Gloves" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_ytpoy")
+item_id = "gloves"
+description = "Gloves with dirt markings, clearly just used"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ytpoy")
+region_rect = Rect2(0, 7.1163197, 16, 16.677818)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ytpoy")
+
+[node name="DeleteTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="PickUp" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_tma7j")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="DeleteTimer" to="." method="_on_delete_timer_timeout"]

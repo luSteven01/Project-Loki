@@ -1,10 +1,11 @@
-[gd_scene load_steps=67 format=3 uid="uid://san5raef5e7y"]
+[gd_scene load_steps=68 format=3 uid="uid://san5raef5e7y"]
 
 [ext_resource type="Script" uid="uid://chtsrbmck8nbk" path="res://player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://cd1uwlqa56jj2" path="res://art/spritesheets/Player_SpriteSheet.png" id="2_sweqy"]
 [ext_resource type="Script" uid="uid://dsvfq7ypy0rgu" path="res://talk_trigger.gd" id="3_2hs0m"]
 [ext_resource type="FontFile" uid="uid://do6g4q03tl1gj" path="res://Assets/Fonts/Schrödinger.ttf" id="4_1jxqw"]
 [ext_resource type="PackedScene" uid="uid://b5mjc6m5nx3he" path="res://inventory_ui.tscn" id="5_dw050"]
+[ext_resource type="AudioStream" uid="uid://b54qy5klrebol" path="res://art/bgm/SFX/816019__qubodup__fps-footsteps.wav" id="6_2hs0m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3b1uw"]
 atlas = ExtResource("2_sweqy")
@@ -385,9 +386,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2hs0m"]
-radius = 5.3333282
-height = 26.666687
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sweqy"]
+size = Vector2(27.5862, 12.068968)
 
 [sub_resource type="Animation" id="Animation_eo4kk"]
 length = 0.001
@@ -670,26 +670,31 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1jxqw"]
-radius = 19.413622
+radius = 27.58619
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-z_index = 10
-position = Vector2(120, 225)
+z_index = 7
+y_sort_enabled = true
+position = Vector2(1.8189894e-12, 2.728484e-12)
 scale = Vector2(0.58, 0.58)
-collision_layer = 128
+collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_cvnsp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-9.536743e-07, -17.241383)
+scale = Vector2(1.685345, 1.685345)
 sprite_frames = SubResource("SpriteFrames_sweqy")
 animation = &"down_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2.6666667)
-shape = SubResource("CapsuleShape2D_2hs0m")
+position = Vector2(0, 2.5862083)
+scale = Vector2(1.0000004, 1.0000004)
+shape = SubResource("RectangleShape2D_sweqy")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.5, 2.5)
+position = Vector2(0, -5.1724167)
+zoom = Vector2(3, 3)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -697,9 +702,12 @@ libraries = {
 }
 
 [node name="TalkTrigger" type="Area2D" parent="."]
+position = Vector2(0, -5.1724167)
 script = ExtResource("3_2hs0m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TalkTrigger"]
+position = Vector2(-2.728484e-12, -6.8965516)
+scale = Vector2(1.0000001, 1.0000001)
 shape = SubResource("CircleShape2D_1jxqw")
 
 [node name="InventoryUI" type="CanvasLayer" parent="."]
@@ -766,6 +774,9 @@ theme_override_fonts/font = ExtResource("4_1jxqw")
 theme_override_font_sizes/font_size = 28
 text = "Press \"E\" to pickup"
 metadata/_edit_use_anchors_ = true
+
+[node name="WalkingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_2hs0m")
 
 [connection signal="body_entered" from="TalkTrigger" to="TalkTrigger" method="_on_body_entered"]
 [connection signal="body_exited" from="TalkTrigger" to="TalkTrigger" method="_on_body_exited"]

@@ -16,6 +16,7 @@ var current_character = null
 var chat_history = []
 var is_typing = false
 var endgame_scripts = {}
+var is_win = false
 
 
 func _ready() -> void:
@@ -127,6 +128,9 @@ func send_player_message():
 	talk_input.text = ""
 
 func _on_message_received(response: String, error):
+	while is_typing:
+		await get_tree().create_timer(0.5).timeout
+
 	# Remove loading message
 	var lines = dialogue_text.text.split("\n")
 	if lines.size() > 0 and "thinking" in lines[-1]:
@@ -240,11 +244,12 @@ func _on_arrest_button_pressed() -> void:
 	var time = 3.0 + script.length() * 0.03
 
 	# Special case: if Abel is arrested, stop BGM and play endgame music
-	if char_id == "abel":
+	if char_id == "abel" and Global.inventory["shirt"]["collected"] and Global.inventory["button"]["collected"]:
+		is_win = true
 		$BGM.stop()
 		$Endgame.play()
-	
-	
+		script = endgame_scripts.get("winner", "No script found.")		
+
 	start_npc_talk("endgame")
 	dialogue_text.text += "\n\n[b]" + current_character["npc_id"].capitalize() + ":[/b]"
 	await type_text_slowly(script)
@@ -253,7 +258,7 @@ func _on_arrest_button_pressed() -> void:
 	# WAIT 3 SECONDS BEFORE CONTINUING
 	await get_tree().create_timer(3).timeout
 
-	if char_id == "abel":
+	if is_win:
 		# Abel arrested - WIN
 		dialogue_text.text = "\n\n[center][b]You have successfully arrested the culprit! Congratulations, Detective![/b]\n\n"
 		script = load_credits()

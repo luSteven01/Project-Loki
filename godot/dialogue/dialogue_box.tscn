@@ -1,10 +1,9 @@
-[gd_scene load_steps=94 format=3 uid="uid://cg58uk0dqkydk"]
+[gd_scene load_steps=95 format=3 uid="uid://cg58uk0dqkydk"]
 
 [ext_resource type="Script" uid="uid://c2hcggxoe5ubs" path="res://dialogue/dialogue_box.gd" id="1_senjy"]
 [ext_resource type="Texture2D" uid="uid://fetd7f8vj5vm" path="res://art/pngs/pngimg.com - handcuffs_PNG25.png" id="2_m221u"]
 [ext_resource type="Shader" uid="uid://3uqjcawsdxjb" path="res://scroll.gdshader" id="2_tvktm"]
-[ext_resource type="Texture2D" uid="uid://2odrw3o5wnjq" path="res://art/background/house1.png" id="6_85jfh"]
-[ext_resource type="Texture2D" uid="uid://t4pqs7huncf1" path="res://art/background/storage.png" id="7_med3p"]
+[ext_resource type="Texture2D" uid="uid://dv8mjr3ojmj6t" path="res://art/background/storage.png" id="7_med3p"]
 [ext_resource type="Texture2D" uid="uid://cmpye4xf82j1n" path="res://art/pngs/Maid/038p_classic_maid2_3.png" id="9_lwmlg"]
 [ext_resource type="Texture2D" uid="uid://dojom6sqo32ma" path="res://art/pngs/Maid/038p_classic_maid2_2.png" id="10_oq8t6"]
 [ext_resource type="Texture2D" uid="uid://dgtl8nuk6tu5v" path="res://art/Enjl-Starry Space Background/background_4.png" id="12_uucap"]
@@ -24,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://dv4bhj2pk1mbk" path="res://art/pngs/012p_doctor_male/012p_doctor_male_G.png" id="20_jy1o0"]
 [ext_resource type="Texture2D" uid="uid://b55unqqddffra" path="res://art/pngs/035p_red_haired_girl2/035p_red_haired_girl2_2.png" id="21_4v6v6"]
 [ext_resource type="Texture2D" uid="uid://bemq02kr8p7np" path="res://art/pngs/035p_red_haired_girl2/035p_red_haired_girl2_3.png" id="21_jy1o0"]
+[ext_resource type="Texture2D" uid="uid://dad5ie04gn723" path="res://art/background/Dine.jpg" id="22_gyais"]
 [ext_resource type="Texture2D" uid="uid://ug0ntuv6n0k1" path="res://art/background/Living room.jpg" id="24_5u6cq"]
 [ext_resource type="Texture2D" uid="uid://bjx46b744bhog" path="res://art/pngs/008p_detective_male/008p_detective_male_A.png" id="24_jy1o0"]
 [ext_resource type="Texture2D" uid="uid://dghfvbsj31vb4" path="res://art/pngs/007p_detective_woman/007p_detective_woman_A.png" id="25_apwtg"]
@@ -47,7 +47,8 @@
 [ext_resource type="Texture2D" uid="uid://jie55n2dxps8" path="res://art/pngs/Chef/15_8.png" id="38_tvktm"]
 [ext_resource type="Texture2D" uid="uid://cw10x07fvq2wm" path="res://art/pngs/022tg_white_coat_women/022tg_wht_ct_w_9.png" id="39_0qotn"]
 [ext_resource type="Texture2D" uid="uid://bnxmtnbtkggsa" path="res://art/pngs/022tg_white_coat_women/022tg_wht_ct_w_5.png" id="40_lwmlg"]
-[ext_resource type="Texture2D" uid="uid://c6b6it4d10ywd" path="res://art/pngs/pngimg.com - handcuffs_PNG27.png" id="44_m221u"]
+[ext_resource type="Texture2D" uid="uid://b8nm1ksh1njrg" path="res://art/background/Kitchen.jpg" id="41_7nkog"]
+[ext_resource type="Texture2D" uid="uid://bm60vqx01msl4" path="res://art/pngs/pngimg.com - handcuffs_PNG27.png" id="44_m221u"]
 [ext_resource type="Texture2D" uid="uid://iwtnxlhn0f83" path="res://art/pngs/Chef/15_1.png" id="46_oq8t6"]
 [ext_resource type="Texture2D" uid="uid://dsvd035air4q3" path="res://art/pngs/Chef/15_4.png" id="47_wkkny"]
 [ext_resource type="Texture2D" uid="uid://bb70cmr6tqbo0" path="res://art/pngs/Chef/15_10.png" id="48_4s7bp"]
@@ -506,10 +507,19 @@ _data = {
 }
 
 [node name="DialogueBox" type="Panel"]
-offset_left = 112.0
-offset_top = 57.0
-offset_right = 1008.0
-offset_bottom = 617.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -448.0
+offset_top = -280.0
+offset_right = 448.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_senjy")
 
 [node name="DialogueText" type="RichTextLabel" parent="."]
@@ -825,14 +835,15 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -13.0
-offset_top = -28.0
-offset_right = 176.0
-offset_bottom = 113.0
+offset_left = -221.0
+offset_top = -31.0
+offset_right = 15.0
+offset_bottom = 79.25668
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("6_85jfh")
+texture = ExtResource("22_gyais")
 expand_mode = 5
+stretch_mode = 6
 
 [node name="Portrait" type="TextureRect" parent="NPCIcons/Alice/NPCControl"]
 layout_mode = 0
@@ -853,11 +864,11 @@ offset_bottom = 242.0
 
 [node name="Background" type="TextureRect" parent="NPCIcons/Alice/PlayerControl"]
 layout_mode = 0
-offset_left = -185.0
-offset_top = -155.0
-offset_right = 292.0
-offset_bottom = 322.0
-texture = ExtResource("7_med3p")
+offset_left = -11.0
+offset_top = -34.0
+offset_right = 429.0
+offset_bottom = 258.52084
+texture = ExtResource("22_gyais")
 expand_mode = 5
 stretch_mode = 6
 
@@ -1060,11 +1071,13 @@ offset_bottom = 242.0
 
 [node name="Background" type="TextureRect" parent="NPCIcons/Chef/NPCControl"]
 layout_mode = 0
-offset_left = -10.0
-offset_top = -187.0
-offset_right = 502.0
-offset_bottom = 325.0
-texture = ExtResource("7_med3p")
+offset_left = -104.0
+offset_top = -24.0
+offset_right = 360.0
+offset_bottom = 334.0
+texture = ExtResource("41_7nkog")
+expand_mode = 5
+stretch_mode = 6
 
 [node name="Portrait" type="TextureRect" parent="NPCIcons/Chef/NPCControl"]
 layout_mode = 0
@@ -1085,11 +1098,13 @@ offset_bottom = 242.0
 
 [node name="Background" type="TextureRect" parent="NPCIcons/Chef/PlayerControl"]
 layout_mode = 0
-offset_left = -294.0
-offset_top = -187.0
-offset_right = 218.0
-offset_bottom = 325.0
-texture = ExtResource("7_med3p")
+offset_left = -364.0
+offset_top = -3.0
+offset_right = 201.3233
+offset_bottom = 368.0
+texture = ExtResource("41_7nkog")
+expand_mode = 3
+stretch_mode = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="NPCIcons/Chef"]
 libraries = {

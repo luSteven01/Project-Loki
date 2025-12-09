@@ -4,8 +4,9 @@ extends Control
 @onready var quantity_label = $InnerBorder/ItemQuantity
 @onready var details_panel = $DetailsPanel
 @onready var item_name = $DetailsPanel/ItemName
-@onready var item_type = $DetailsPanel/ItemType
-@onready var item_effect = $DetailsPanel/ItemEffect
+# @onready var item_type = $DetailsPanel/ItemType
+# @onready var item_effect = $DetailsPanel/ItemEffect
+@onready var item_desc = $DetailsPanel/ItemDesc
 @onready var usage_panel = $UsagePanel
 @onready var outer_border = $OuterBorder
 
@@ -19,7 +20,7 @@ var item_data: Dictionary = {}
 func set_empty():
 	icon.texture = null
 	item_name.text = ""
-	quantity_label.text = ""
+	item_desc.text = ""
 
 
 func set_item(id: String, data: Dictionary):
@@ -28,10 +29,7 @@ func set_item(id: String, data: Dictionary):
 
 	item_name.text = id.capitalize()
 	icon.texture = data.get("icon", null)
-
-	quantity_label.text = ""
-	item_type.text = ""
-	item_effect.text = ""
+	item_desc.text = data.get("description", "")
 
 
 func _on_item_button_mouse_entered():

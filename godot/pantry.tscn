@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=4 uid="uid://erx131uh6mij"]
+[gd_scene load_steps=5 format=4 uid="uid://erx131uh6mij"]
 
 [ext_resource type="TileSet" uid="uid://dsde60pw444bl" path="res://living_room_room_builder.tres" id="1_p3pww"]
 [ext_resource type="TileSet" uid="uid://c24h1ei3ucpog" path="res://pantry_furniture.tres" id="2_bvupd"]
 [ext_resource type="PackedScene" uid="uid://di4whfq6erra0" path="res://portal.tscn" id="3_nnwea"]
+[ext_resource type="PackedScene" uid="uid://4lkfxis773re" path="res://evidence/ResearchPaper.tscn" id="4_hu826"]
 
 [node name="Pantry" type="Node2D"]
 y_sort_enabled = true
@@ -66,3 +67,8 @@ position = Vector2(72, 54)
 scale = Vector2(0.806026, 1)
 target_scene_path = "uid://c60twqwpmith3"
 target_position = Vector2(200, 0)
+is_interactive = true
+
+[node name="ResearchPaper" parent="." instance=ExtResource("4_hu826")]
+z_index = 4
+position = Vector2(19, -19.000002)
