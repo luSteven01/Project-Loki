@@ -9,4 +9,5 @@ func _ready():
 	animation_player.play(animation_to_play)
 	npc_id = "schumacher"
 	character_name = "Professor Schumacher"
+	description = "Professor Richards' colleague"
 	# pass

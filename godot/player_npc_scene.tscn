@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://djb7hc5d2j4r1" path="res://professor_schumacher_NPC.gd" id="10_5tuil"]
 [ext_resource type="Texture2D" uid="uid://cr0bksq7yw6lm" path="res://art/spritesheets/Chef_SpriteSheet.png" id="11_4mykb"]
 [ext_resource type="Texture2D" uid="uid://cal2lqhht3fc2" path="res://art/spritesheets/Diane_Spritesheet.png" id="13_3b1uw"]
-[ext_resource type="PackedScene" uid="uid://cgip6bcxrd2o7" path="res://living_room.tscn" id="13_nem03"]
+[ext_resource type="PackedScene" uid="uid://ckfnt4evadw2e" path="res://living_room.tscn" id="13_nem03"]
 [ext_resource type="Texture2D" uid="uid://cfiix47feexnv" path="res://art/spritesheets/Maid_SpriteSheet.png" id="15_5tuil"]
 [ext_resource type="Texture2D" uid="uid://yqvmb6qr5bww" path="res://art/spritesheets/Professor_Schumacher.png" id="17_y1m2g"]
 
@@ -1306,7 +1306,6 @@ shape = SubResource("CapsuleShape2D_prm42")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Professor_Schumacher"]
 
 [node name="LivingRoomFloor" parent="." instance=ExtResource("13_nem03")]
-z_index = 0
 
 [node name="ItemSpawnArea" type="Area2D" parent="."]
 position = Vector2(134, 102)

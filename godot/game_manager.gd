@@ -194,7 +194,8 @@ func enter_new_dialogue(npc: NPC):
 	
 	# Update the dialogue box UI
 	dialogue_box.current_character = current_character
-	dialogue_box.dialogue_text.text = "Now interviewing: " + current_character.character_name + "\n"
+	dialogue_box.dialogue_text.text = "[center]Now interviewing " + current_character.character_name + "\n"
+	dialogue_box.dialogue_text.text += current_character.description + "[/center]\n"
 	dialogue_box.submit_button.disabled = false
 	dialogue_box.talk_input.editable = true
 	dialogue_box.talk_input.grab_focus()

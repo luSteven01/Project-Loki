@@ -9,4 +9,5 @@ func _ready():
 	animation_player.play(animation_to_play)
 	npc_id = "adele"
 	character_name = "Adele"
+	description = "Professor Richards' wife, party hostess"
 	# pass

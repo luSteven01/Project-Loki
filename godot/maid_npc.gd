@@ -7,3 +7,4 @@ func _ready():
 	animation_player.play(animation_to_play)
 	npc_id = "maid"
 	character_name = "The Maid"
+	description = "Maid that greets everyone at the party and tends to household tasks"
