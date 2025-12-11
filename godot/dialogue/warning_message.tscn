@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjpgpmt00jbm2"]
+
+[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Fonts/ARCADECLASSIC.TTF" id="1_l5u70"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcp2p"]
+bg_color = Color(0.12156863, 0.12156863, 0.12156863, 0.78431374)
+
+[node name="WarningMessage" type="Panel"]
+offset_right = 159.0
+offset_bottom = 112.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_rcp2p")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.2509804, 0.2509804, 1)
+theme_override_fonts/font = ExtResource("1_l5u70")
+theme_override_font_sizes/font_size = 20
+text = "Once arrested, the game will end!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2

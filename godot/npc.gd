@@ -9,5 +9,6 @@
 @export var path : Path2D 
 @export var path_follow : PathFollow2D
 @export var animation_player : AnimationPlayer
+@export var description: String
 
 @abstract func _ready()

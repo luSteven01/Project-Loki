@@ -1,6 +1,6 @@
-[gd_scene load_steps=95 format=3 uid="uid://cg58uk0dqkydk"]
+[gd_scene load_steps=97 format=3 uid="uid://cg58uk0dqkydk"]
 
-[ext_resource type="Script" uid="uid://c2hcggxoe5ubs" path="res://dialogue/dialogue_box.gd" id="1_senjy"]
+[ext_resource type="Script" uid="uid://cv03s4m7cq8dt" path="res://dialogue/dialogue_box.gd" id="1_senjy"]
 [ext_resource type="Texture2D" uid="uid://fetd7f8vj5vm" path="res://art/pngs/pngimg.com - handcuffs_PNG25.png" id="2_m221u"]
 [ext_resource type="Shader" uid="uid://3uqjcawsdxjb" path="res://scroll.gdshader" id="2_tvktm"]
 [ext_resource type="Texture2D" uid="uid://dv8mjr3ojmj6t" path="res://art/background/storage.png" id="7_med3p"]
@@ -44,17 +44,19 @@
 [ext_resource type="Texture2D" uid="uid://spa0k1vdvy0j" path="res://art/pngs/Chef/15_9.png" id="31_loyjw"]
 [ext_resource type="Texture2D" uid="uid://c2kpd8nf30xbh" path="res://art/pngs/Chef/15_6.png" id="36_1rv3u"]
 [ext_resource type="Texture2D" uid="uid://dow3bq711qo7r" path="res://art/pngs/022tg_white_coat_women/022tg_wht_ct_w_2.png" id="38_kbiji"]
-[ext_resource type="Texture2D" uid="uid://jie55n2dxps8" path="res://art/pngs/Chef/15_8.png" id="38_tvktm"]
+[ext_resource type="Texture2D" uid="uid://dbqwukpu54luv" path="res://art/pngs/Chef/15_8.png" id="38_tvktm"]
 [ext_resource type="Texture2D" uid="uid://cw10x07fvq2wm" path="res://art/pngs/022tg_white_coat_women/022tg_wht_ct_w_9.png" id="39_0qotn"]
 [ext_resource type="Texture2D" uid="uid://bnxmtnbtkggsa" path="res://art/pngs/022tg_white_coat_women/022tg_wht_ct_w_5.png" id="40_lwmlg"]
 [ext_resource type="Texture2D" uid="uid://b8nm1ksh1njrg" path="res://art/background/Kitchen.jpg" id="41_7nkog"]
 [ext_resource type="Texture2D" uid="uid://bm60vqx01msl4" path="res://art/pngs/pngimg.com - handcuffs_PNG27.png" id="44_m221u"]
-[ext_resource type="Texture2D" uid="uid://iwtnxlhn0f83" path="res://art/pngs/Chef/15_1.png" id="46_oq8t6"]
+[ext_resource type="Texture2D" uid="uid://um1nfsfhvlbo" path="res://art/pngs/Chef/15_1.png" id="46_oq8t6"]
 [ext_resource type="Texture2D" uid="uid://dsvd035air4q3" path="res://art/pngs/Chef/15_4.png" id="47_wkkny"]
 [ext_resource type="Texture2D" uid="uid://bb70cmr6tqbo0" path="res://art/pngs/Chef/15_10.png" id="48_4s7bp"]
 [ext_resource type="AudioStream" uid="uid://dwwejrb27ddsa" path="res://art/bgm/fissile__handcuffs-closing.wav" id="52_wkkny"]
 [ext_resource type="AudioStream" uid="uid://l6xl8u8ddf3q" path="res://art/bgm/427444__kiluaboy__blue-blood-ogg.ogg" id="53_4s7bp"]
 [ext_resource type="AudioStream" uid="uid://cooccpy4g808i" path="res://art/bgm/753968__evanboyerman__hopeful-cinematic-emotional-orchestra-background-music.wav" id="54_7qci8"]
+[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Fonts/ARCADECLASSIC.TTF" id="56_e0sw0"]
+[ext_resource type="PackedScene" uid="uid://bjpgpmt00jbm2" path="res://dialogue/warning_message.tscn" id="57_774fd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjfks"]
 bg_color = Color(0, 0, 0.121569, 1)
@@ -515,7 +517,7 @@ anchor_bottom = 0.5
 offset_left = -448.0
 offset_top = -280.0
 offset_right = 448.0
-offset_bottom = 280.0
+offset_bottom = 310.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -531,7 +533,7 @@ anchor_bottom = 1.0
 offset_left = 229.0
 offset_top = 70.0
 offset_right = -222.0
-offset_bottom = -149.0
+offset_bottom = -179.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_qjfks")
 bbcode_enabled = true
 
@@ -543,7 +545,7 @@ anchor_bottom = 1.0
 offset_left = 32.0
 offset_top = 450.0
 offset_right = -224.0
-offset_bottom = -65.0
+offset_bottom = -95.0
 grow_horizontal = 2
 grow_vertical = 2
 placeholder_text = "Talk here..."
@@ -556,7 +558,7 @@ anchor_bottom = 1.0
 offset_left = 712.0
 offset_top = 450.0
 offset_right = -109.0
-offset_bottom = -65.0
+offset_bottom = -95.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_uucap")
@@ -572,7 +574,7 @@ anchor_bottom = 1.0
 offset_left = 804.0
 offset_top = 450.0
 offset_right = -17.0
-offset_bottom = -65.0
+offset_bottom = -95.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_8glcu")
@@ -1146,6 +1148,23 @@ volume_db = 9.0
 
 [node name="Endgame" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("54_7qci8")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 729.0
+offset_top = 551.0
+offset_right = 886.0
+offset_bottom = 573.0
+theme_override_fonts/normal_font = ExtResource("56_e0sw0")
+theme_override_font_sizes/normal_font_size = 20
+text = "Arrest Suspect"
+
+[node name="WarningMessage" parent="." instance=ExtResource("57_774fd")]
+layout_mode = 0
+offset_left = 827.0
+offset_top = 522.0
+offset_right = 986.0
+offset_bottom = 634.0
 
 [connection signal="pressed" from="SubmitButton" to="." method="_on_submit_button_pressed"]
 [connection signal="pressed" from="LeaveButton" to="." method="_on_leavebutton_pressed"]

@@ -9,4 +9,5 @@ func _ready():
 	animation_player.play(animation_to_play)
 	npc_id = "chef"
 	character_name = "The Chef"
+	description = "Personal chef responsible for cooking food at the dinner party"
 	# pass

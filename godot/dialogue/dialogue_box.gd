@@ -10,6 +10,7 @@ signal game_over
 @onready var anim_player = $PlayerPortrait/AnimationPlayer
 @onready var character_buttons_container = $CharacterButtons # To be removed
 @onready var arrest_button = $ArrestButton
+@onready var warning_popup = $WarningMessage
 
 var current_character = null
 var chat_history = []
@@ -18,6 +19,7 @@ var endgame_scripts = {}
 var is_win = false
 var game_manager = null
 var dialogue_box = null
+var keyboard_lock = false
 
 
 func _ready() -> void:
@@ -54,10 +56,15 @@ func _ready() -> void:
 		dialogue_text.text = "Error: GameManager not found!"
 		print("ERROR: Cannot find GameManager node at /root/Main/GameManager")
 		return
+	
 
 
 # Handle input with Ctrl+Enter
 func _input(event):
+	if keyboard_lock:
+		get_viewport().set_input_as_handled()
+		return
+		
 	if event is InputEventKey and event.pressed:
 		# Shift + Enter → newline
 		if (event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER) and event.shift_pressed:
@@ -117,6 +124,7 @@ func send_player_message():
 
 	# Disable input
 	disable_interaction()
+	keyboard_lock = true
 	
 	# Show player's message in dialogue window
 	dialogue_text.text += "\n\n[right][b]Me:[/b]"
@@ -148,11 +156,13 @@ func _on_message_received(response: String, error):
 # Display NPC message with typewriter effect
 func add_message_to_display(sender: String, message: String):
 	disable_interaction()
+	keyboard_lock = true
 	dialogue_text.text += "\n[b]" + sender + ":[/b]"
 	start_npc_talk()
 	await type_text_slowly(message)
 	stop_npc_talk()
 	enable_interaction()
+	keyboard_lock = false
 	talk_input.grab_focus()
 
 
@@ -238,6 +248,7 @@ func _on_arrest_button_pressed() -> void:
 	# Play arrest sound
 	$ArrestSound.play()
 	disable_interaction()
+	keyboard_lock = true
 
 	# Show endgame script based on arrested character
 	var char_id = current_character["npc_id"]
@@ -284,11 +295,13 @@ func _on_arrest_button_mouse_entered() -> void:
 		return
 	# Hover = bright cold silver (blue-shifted & higher contrast)
 	arrest_button.modulate = Color(1.55, 1.55, 1.7, 1.0)
+	warning_popup.show()
 
 
 func _on_arrest_button_mouse_exited() -> void:
 	# Normal color
 	arrest_button.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	warning_popup.hide()
 
 # Lock all input interaction
 func disable_interaction() -> void:
@@ -296,6 +309,8 @@ func disable_interaction() -> void:
 	submit_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	talk_input.editable = false
 	submit_button.disabled = true
+	leave_button.disabled = true
+	warning_popup.hide()
 
 # Unlock all input interaction
 func enable_interaction():
@@ -303,6 +318,7 @@ func enable_interaction():
 	submit_button.mouse_filter = Control.MOUSE_FILTER_STOP
 	talk_input.editable = true
 	submit_button.disabled = false
+	leave_button.disabled = false
 
 
 func load_json(path) -> Dictionary:
