@@ -778,6 +778,7 @@ text = "Press \"E\" to pickup"
 metadata/_edit_use_anchors_ = true
 
 [node name="ItemMessage" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="ItemMessage"]
 anchors_preset = -1
