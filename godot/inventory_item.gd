@@ -64,6 +64,7 @@ func pickup_item():
 	if Global.player_node:
 		Global.add_item(item, evidence_texture, evidence_description)
 		self.queue_free()
+		
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -76,6 +77,7 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		player_in_range = false
 		body.interact_ui.visible = false
+		body.hide_item_message()
 
 # item data
 func set_item_data(data):

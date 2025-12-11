@@ -1,10 +1,11 @@
-[gd_scene load_steps=67 format=3 uid="uid://san5raef5e7y"]
+[gd_scene load_steps=68 format=3 uid="uid://san5raef5e7y"]
 
 [ext_resource type="Script" uid="uid://chtsrbmck8nbk" path="res://player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://cd1uwlqa56jj2" path="res://art/spritesheets/Player_SpriteSheet.png" id="2_sweqy"]
 [ext_resource type="Script" uid="uid://dsvfq7ypy0rgu" path="res://talk_trigger.gd" id="3_2hs0m"]
 [ext_resource type="FontFile" uid="uid://do6g4q03tl1gj" path="res://Assets/Fonts/Schrödinger.ttf" id="4_1jxqw"]
 [ext_resource type="PackedScene" uid="uid://b5mjc6m5nx3he" path="res://inventory_ui.tscn" id="5_dw050"]
+[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Fonts/ARCADECLASSIC.TTF" id="6_2hs0m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3b1uw"]
 atlas = ExtResource("2_sweqy")
@@ -744,16 +745,18 @@ layout_mode = 0
 visible = false
 
 [node name="ColorRect" type="ColorRect" parent="InteractUI"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -300.0
-offset_top = -50.0
-grow_horizontal = 0
-grow_vertical = 0
-color = Color(0.015399602, 0.18038115, 0.18636328, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -149.0
+offset_top = -129.0
+offset_right = 151.0
+offset_bottom = -79.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.092973895, 0.1452035, 0.3443106, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="InteractUI/ColorRect"]
@@ -774,5 +777,37 @@ theme_override_font_sizes/font_size = 28
 text = "Press \"E\" to pickup"
 metadata/_edit_use_anchors_ = true
 
+[node name="ItemMessage" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="ItemMessage"]
+anchors_preset = -1
+anchor_left = 0.504
+anchor_top = 0.27600002
+anchor_right = 0.504
+anchor_bottom = 0.27600002
+offset_left = -249.68
+offset_top = -125.08002
+offset_right = 250.32
+offset_bottom = 54.919983
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.028886512, 0.2462441, 0.32730383, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ItemMessage/ColorRect"]
+layout_mode = 1
+offset_left = 2.0
+offset_top = -34.0
+offset_right = 499.0
+offset_bottom = 164.0
+theme_override_fonts/normal_font = ExtResource("6_2hs0m")
+theme_override_font_sizes/normal_font_size = 24
+vertical_alignment = 1
+visible_characters_behavior = 1
+
+[node name="HideUITimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="body_entered" from="TalkTrigger" to="TalkTrigger" method="_on_body_entered"]
 [connection signal="body_exited" from="TalkTrigger" to="TalkTrigger" method="_on_body_exited"]
+[connection signal="timeout" from="HideUITimer" to="." method="_on_hide_ui_timer_timeout"]
