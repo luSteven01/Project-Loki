@@ -74,8 +74,8 @@ func send_message(message: String, callback: Callable):
 
 	var body = {
 		"message": message,
-		"character_id": current_character["npc_id"],
-		"session_id": sessions.get(current_character["npc_id"], null)
+		"character_id": current_character.npc_id,
+		"session_id": sessions.get(current_character.npc_id, null)
 	}
 
 	current_request_type = RequestType.SEND_MESSAGE

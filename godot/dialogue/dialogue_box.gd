@@ -10,6 +10,7 @@ signal game_over
 @onready var anim_player = $PlayerPortrait/AnimationPlayer
 @onready var character_buttons_container = $CharacterButtons # To be removed
 @onready var arrest_button = $ArrestButton
+@onready var warning_popup = $WarningMessage
 
 var current_character = null
 var chat_history = []
@@ -284,11 +285,13 @@ func _on_arrest_button_mouse_entered() -> void:
 		return
 	# Hover = bright cold silver (blue-shifted & higher contrast)
 	arrest_button.modulate = Color(1.55, 1.55, 1.7, 1.0)
+	warning_popup.show()
 
 
 func _on_arrest_button_mouse_exited() -> void:
 	# Normal color
 	arrest_button.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	warning_popup.hide()
 
 # Lock all input interaction
 func disable_interaction() -> void:
@@ -296,6 +299,7 @@ func disable_interaction() -> void:
 	submit_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	talk_input.editable = false
 	submit_button.disabled = true
+	warning_popup.hide()
 
 # Unlock all input interaction
 func enable_interaction():
