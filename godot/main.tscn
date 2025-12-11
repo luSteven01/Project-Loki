@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://sxywo3malpjm"]
+[gd_scene load_steps=9 format=3 uid="uid://sxywo3malpjm"]
 
 [ext_resource type="Script" uid="uid://t32sc8k7f1nb" path="res://main.gd" id="1_7mycd"]
 [ext_resource type="PackedScene" uid="uid://cg58uk0dqkydk" path="res://dialogue/dialogue_box.tscn" id="2_0xm2m"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://san5raef5e7y" path="res://player.tscn" id="4_lquwl"]
 [ext_resource type="PackedScene" uid="uid://iig257w46eir" path="res://game_over_scene.tscn" id="5_272bh"]
 [ext_resource type="PackedScene" uid="uid://ckfnt4evadw2e" path="res://living_room.tscn" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://bm7sppc0ficu4" path="res://intro.tscn" id="6_5vw27"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_7mycd")
@@ -15,6 +16,8 @@ script = ExtResource("1_7mycd")
 script = ExtResource("2_game_manager")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Intro" parent="CanvasLayer" instance=ExtResource("6_5vw27")]
 
 [node name="DialogueBox" parent="CanvasLayer" instance=ExtResource("2_0xm2m")]
 
@@ -35,6 +38,11 @@ y_sort_enabled = true
 [node name="LivingRoomFloor" parent="WorldContext/CurrentLevel" instance=ExtResource("5_lquwl")]
 position = Vector2(0, 1)
 
+[node name="IntroTimer" type="Timer" parent="."]
+wait_time = 30.0
+
+[connection signal="intro_closed" from="CanvasLayer/Intro" to="." method="_on_intro_intro_closed"]
 [connection signal="game_over" from="CanvasLayer/DialogueBox" to="." method="_on_dialogue_box_game_over"]
 [connection signal="start_game" from="CanvasLayer/MainMenu" to="." method="_on_main_menu_start_game"]
 [connection signal="back_to_main" from="CanvasLayer/GameOverScene" to="." method="_on_game_over_scene_back_to_main"]
+[connection signal="timeout" from="IntroTimer" to="." method="_on_intro_timer_timeout"]

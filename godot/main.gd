@@ -4,8 +4,11 @@ extends Node
 @onready var player = $WorldContext/Player
 @onready var main_menu_scene = $CanvasLayer/MainMenu
 @onready var game_over_scene = $CanvasLayer/GameOverScene
+@onready var intro_scene = $CanvasLayer/Intro
+
 @export var starting_scene: PackedScene
 @export var starting_position: Vector2 = Vector2(127, 213)
+
 
 func _ready():
 	hide_world()
@@ -78,3 +81,11 @@ func _on_game_over_scene_back_to_main() -> void:
 	main_menu_scene.visible = true
 	hide_world() 
 	get_tree().paused = true
+
+
+func _on_intro_intro_closed() -> void:
+	intro_scene.visible = false
+
+
+func _on_intro_timer_timeout() -> void:
+	intro_scene.visible = false

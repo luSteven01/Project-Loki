@@ -19,6 +19,7 @@ var endgame_scripts = {}
 var is_win = false
 var game_manager = null
 var dialogue_box = null
+var keyboard_lock = false
 
 
 func _ready() -> void:
@@ -55,10 +56,15 @@ func _ready() -> void:
 		dialogue_text.text = "Error: GameManager not found!"
 		print("ERROR: Cannot find GameManager node at /root/Main/GameManager")
 		return
+	
 
 
 # Handle input with Ctrl+Enter
 func _input(event):
+	if keyboard_lock:
+		get_viewport().set_input_as_handled()
+		return
+		
 	if event is InputEventKey and event.pressed:
 		# Shift + Enter → newline
 		if (event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER) and event.shift_pressed:
@@ -118,6 +124,7 @@ func send_player_message():
 
 	# Disable input
 	disable_interaction()
+	keyboard_lock = true
 	
 	# Show player's message in dialogue window
 	dialogue_text.text += "\n\n[right][b]Me:[/b]"
@@ -149,11 +156,13 @@ func _on_message_received(response: String, error):
 # Display NPC message with typewriter effect
 func add_message_to_display(sender: String, message: String):
 	disable_interaction()
+	keyboard_lock = true
 	dialogue_text.text += "\n[b]" + sender + ":[/b]"
 	start_npc_talk()
 	await type_text_slowly(message)
 	stop_npc_talk()
 	enable_interaction()
+	keyboard_lock = false
 	talk_input.grab_focus()
 
 
@@ -239,6 +248,7 @@ func _on_arrest_button_pressed() -> void:
 	# Play arrest sound
 	$ArrestSound.play()
 	disable_interaction()
+	keyboard_lock = true
 
 	# Show endgame script based on arrested character
 	var char_id = current_character["npc_id"]
@@ -299,6 +309,7 @@ func disable_interaction() -> void:
 	submit_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	talk_input.editable = false
 	submit_button.disabled = true
+	leave_button.disabled = true
 	warning_popup.hide()
 
 # Unlock all input interaction
@@ -307,6 +318,7 @@ func enable_interaction():
 	submit_button.mouse_filter = Control.MOUSE_FILTER_STOP
 	talk_input.editable = true
 	submit_button.disabled = false
+	leave_button.disabled = false
 
 
 func load_json(path) -> Dictionary:
