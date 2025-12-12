@@ -782,6 +782,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("6_2hs0m")
 
 [node name="ItemMessage" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="ItemMessage"]
 offset_left = 736.0
