@@ -76,8 +76,7 @@ knows about Alice's real identity as Professor Richards' daughter
   → Respond: Respond politely, hinting how the shirt may not belong to the professor. 
 - **Else:**
   → Respond – Act confused, stating that you do not know anything about a shirt.
-
-
+  
 ---
 
 ### **ROLEPLAY INSTRUCTIONS:**

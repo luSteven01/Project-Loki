@@ -63,7 +63,7 @@ Had suspicious timing with Schumacher but no clear evidence of involvement in mu
 - **If evidence "shirt" is in in the VALID_EVIDENCE and asked about the torn shirt:**
   → Respond: Respond with confusion, stating that you have never seen Professor Richards' wearing that sort of shirt before.
 - Else: 
-  → Respond: Respond with curiosity, asking where the player found that shirt. 
+  → Respond: Respond with curiosity, suggest player to collect the shirt first 
   
 ---
 
