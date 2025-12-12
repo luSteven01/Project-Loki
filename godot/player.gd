@@ -4,6 +4,8 @@ extends CharacterBody2D
 @onready var inventory_ui = $InventoryUI
 @onready var interact_ui = $InteractUI
 @onready var item_message_ui = $ItemMessage
+@onready var item_message = $ItemMessage/ColorRect/RichTextLabel
+@onready var hide_ui = $HideUITimer
 @onready var game_manager = get_node("/root/Main/GameManager")
 
 # Player moves at 50 pixels/second
@@ -64,3 +66,7 @@ func _physics_process(delta):
 	animation_player.play(animation_to_play)
 	# applies velocity to move character
 	move_and_slide()
+
+
+func _on_hide_ui_timer_timeout() -> void:
+	item_message_ui.visible = false

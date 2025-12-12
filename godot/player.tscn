@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://san5raef5e7y"]
+[gd_scene load_steps=69 format=3 uid="uid://san5raef5e7y"]
 
 [ext_resource type="Script" uid="uid://chtsrbmck8nbk" path="res://player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://cd1uwlqa56jj2" path="res://art/spritesheets/Player_SpriteSheet.png" id="2_sweqy"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://do6g4q03tl1gj" path="res://Assets/Fonts/Schrödinger.ttf" id="4_1jxqw"]
 [ext_resource type="PackedScene" uid="uid://b5mjc6m5nx3he" path="res://inventory_ui.tscn" id="5_dw050"]
 [ext_resource type="AudioStream" uid="uid://b54qy5klrebol" path="res://art/bgm/SFX/816019__qubodup__fps-footsteps.wav" id="6_2hs0m"]
+[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Fonts/ARCADECLASSIC.TTF" id="7_1jxqw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3b1uw"]
 atlas = ExtResource("2_sweqy")
@@ -779,6 +780,33 @@ metadata/_edit_use_anchors_ = true
 
 [node name="WalkingSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_2hs0m")
+
+[node name="ItemMessage" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="ItemMessage"]
+offset_left = 736.0
+offset_top = 67.0
+offset_right = 1221.0
+offset_bottom = 317.0
+color = Color(0.14572525, 0.252256, 0.47400486, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ItemMessage/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 9.0
+offset_right = -38.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("7_1jxqw")
+theme_override_font_sizes/normal_font_size = 26
+
+[node name="HideUITimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
 
 [connection signal="body_entered" from="TalkTrigger" to="TalkTrigger" method="_on_body_entered"]
 [connection signal="body_exited" from="TalkTrigger" to="TalkTrigger" method="_on_body_exited"]
