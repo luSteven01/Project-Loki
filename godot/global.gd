@@ -39,12 +39,12 @@ func add_item(item_id: String, texture: Texture2D, desc: String) -> void:
 		inventory[item_id]["description"] = desc
 		match item_id:
 			"button":
-				player_node.show_item_message("This is Professor Richards' body alright... There seems to be empty folders on his desk missing some papers, but they aren't anywhere in this room... Checking his body, the time of death seems to be around 5:55 - 6:00PM... What's that in his hand? It looks like a button ripped off from a shirt? It doesn't seem like he has any missing buttons on his shirt either.\"")
+				player_node.show_item_message("This is Professor Richards' body alright... There seems to be empty folders on his desk missing some papers, but they aren't anywhere in this room... Checking his body, the time of death seems to be around 5:55 - 6:00PM... Seems like he fell and his head hit against the desk, causing his death. I see the potted plant was moved from his desk to the ground where he might have tripped. What's that in his hand? It looks like a button ripped off from a shirt? It doesn't seem like he has any missing buttons on his shirt either.\"")
 			"shirt":
 				player_node.show_item_message("
 				\"I found a torn shirt in the laundry basket in this bathroom. It looks like it is missing a button. Who left it here?\"")
 			"knife":
-				player_node.show_item_message("\"The chef left his knife out in the kitchen table. There seems to be a red stain on it...but from what?\"")
+				player_node.show_item_message("\"Could this knife be the murder weapon? There seems to be a red stain on it...but from what?\"")
 			"gloves":
 				player_node.show_item_message("\"I found some gloves with dirt stained on it inside one of the drawers of this dresser. Why would someone put them here?\"")
 			"papers":
