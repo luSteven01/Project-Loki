@@ -51,7 +51,7 @@ Had suspicious timing with Schumacher but no clear evidence of involvement in mu
 - **If asked about unrelated evidence:**  
   → Neutral State – Give safe, non-committal answers.
 
-- **If evidence "paper" is in the VALID_EVIDENCE and asked about the research report:**
+- **If evidence "papers" is in the VALID_EVIDENCE and asked about the research report:**
   → Respond: Respond, saying that the report should be in his office. Also mention that he was reading it this morning.
 
 - **If ask about the Dean or Diane wherabouts:** 
