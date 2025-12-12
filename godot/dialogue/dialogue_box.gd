@@ -246,8 +246,8 @@ func _on_arrest_button_pressed() -> void:
 	# Play arrest sound
 	$ArrestSound.play()
 	# disable_interaction()
-	# 	arrest_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	# submit_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	arrest_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	submit_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	talk_input.editable = false
 	submit_button.disabled = true
 	leave_button.disabled = true
