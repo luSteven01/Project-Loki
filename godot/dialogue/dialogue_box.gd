@@ -279,6 +279,10 @@ func _on_arrest_button_pressed() -> void:
 	# Leave chat dialogue and triggers endgame sequence
 	current_character = null
 	await get_tree().create_timer(time).timeout
+	
+	# Unlock interaction
+	enable_interaction()
+	keyboard_lock = false
 	self.visible = false
 	$BGM.stop()
 	game_over.emit()
