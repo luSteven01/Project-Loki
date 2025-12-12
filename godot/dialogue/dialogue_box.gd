@@ -241,7 +241,13 @@ func _on_arrest_button_pressed() -> void:
 	
 	# Play arrest sound
 	$ArrestSound.play()
-	disable_interaction()
+	# disable_interaction()
+	# 	arrest_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# submit_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	talk_input.editable = false
+	submit_button.disabled = true
+	leave_button.disabled = true
+	# arrest_button.disabled = true
 	keyboard_lock = true
 
 	# Show endgame script based on arrested character
@@ -281,8 +287,9 @@ func _on_arrest_button_pressed() -> void:
 	await get_tree().create_timer(time).timeout
 	
 	# Unlock interaction
-	# enable_interaction()
-	# keyboard_lock = false
+	arrest_button.disabled = true
+	enable_interaction()
+	keyboard_lock = false
 	self.visible = false
 	$BGM.stop()
 	game_over.emit()
