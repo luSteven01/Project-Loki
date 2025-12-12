@@ -814,7 +814,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="WalkingSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_2hs0m")
-volume_db = -30.0
+volume_db = -6.0
 
 [node name="ItemMessage" type="CanvasLayer" parent="."]
 

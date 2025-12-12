@@ -280,7 +280,7 @@ func _on_arrest_button_pressed() -> void:
 		script = load_credits()
 		await type_text_slowly(script)
 		dialogue_text.text += "[/center]"
-		time = script.length() * 0.03	
+		time = min(script.length() * 0.03, 6.0)
 	else:
 		# Others arrested - LOSE
 		dialogue_text.text = "\n\n[center][b]You have arrested the wrong person. The real culprit remains at large... Game Over.[/b][/center]"		
@@ -308,6 +308,8 @@ func _on_arrest_button_mouse_entered() -> void:
 
 
 func _on_arrest_button_mouse_exited() -> void:
+	if arrest_button.disabled:
+		return	
 	# Normal color
 	arrest_button.modulate = Color(1.0, 1.0, 1.0, 1.0)
 	warning_popup.hide()
