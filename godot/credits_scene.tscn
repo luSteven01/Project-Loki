@@ -73,6 +73,11 @@ offset_bottom = 321.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("3_3uxir")
+theme_override_font_sizes/normal_font_size = 22
+theme_override_font_sizes/bold_font_size = 22
+theme_override_font_sizes/bold_italics_font_size = 22
+theme_override_font_sizes/italics_font_size = 22
+theme_override_font_sizes/mono_font_size = 22
 text = "=== CREDITS ===
 
 Script & Story
@@ -140,11 +145,18 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="BackButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 583.0
-offset_top = 938.0
-offset_right = 1167.0
-offset_bottom = 1043.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -292.0
+offset_top = -180.0
+offset_right = 292.0
+offset_bottom = -75.0
+grow_horizontal = 2
+grow_vertical = 0
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)

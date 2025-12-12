@@ -9,4 +9,5 @@ func _ready():
 	animation_player.play(animation_to_play)
 	npc_id = "diane"
 	character_name = "Diane"
+	description = "Abel's mother, dean of the university"
 	# pass

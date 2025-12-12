@@ -1,7 +1,20 @@
-[gd_scene load_steps=3 format=4 uid="uid://twy61l66b23s"]
+[gd_scene load_steps=8 format=4 uid="uid://twy61l66b23s"]
 
 [ext_resource type="TileSet" uid="uid://b74qekya3mwcy" path="res://upstairs_tile_set.tres" id="1_07lkv"]
+[ext_resource type="PackedScene" uid="uid://stek8yeve0d2" path="res://evidence/gloves.tscn" id="3_0wqdw"]
 [ext_resource type="PackedScene" uid="uid://di4whfq6erra0" path="res://portal.tscn" id="3_ph1ea"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_07lkv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_07lkv"]
+size = Vector2(29, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ph1ea"]
+size = Vector2(21, 11)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_07lkv"]
+a = Vector2(-17, 0)
+b = Vector2(18, 0)
 
 [node name="UpstairsHall" type="Node2D"]
 
@@ -19,8 +32,40 @@ tile_set = ExtResource("1_07lkv")
 tile_map_data = PackedByteArray("AAASAPr/AQABACgAAAASAPv/AQABACkAAAARAPv/AAABAA0AAAARAPz/AAABAA4AAAAPAPr/AAANABUAAAAPAPv/AAANABYAAAAPAPz/AAANABcAAAAQAPr/AAAOABUAAAAQAPv/AAAOABYAAAAQAPz/AAAOABcAAAABAPn/BQAKAEAAAAABAPr/BQAKAEEAAAABAPv/BQAKAEIAAAACAPn/BQALAEAAAAACAPr/BQALAEEAAAACAPv/BQALAEIAAAAEAPn/BQAKAEYAAAAEAPr/BQAKAEcAAAAEAPv/BQAKAEgAAAAFAPn/BQALAEYAAAAFAPr/BQALAEcAAAAFAPv/BQALAEgAAAAHAPn/BQAMAEkAAAAHAPr/BQAMAEoAAAAHAPv/BQAMAEsAAAAIAPn/BQANAEkAAAAIAPr/BQANAEoAAAAIAPv/BQANAEsAAAAKAPn/BQAOAEYAAAAKAPr/BQAOAEcAAAAKAPv/BQAOAEgAAAALAPn/BQAPAEYAAAALAPr/BQAPAEcAAAALAPv/BQAPAEgAAAANAPn/BQAMAEYAAAANAPr/BQAMAEcAAAANAPv/BQAMAEgAAAAOAPn/BQANAEYAAAAOAPr/BQANAEcAAAAOAPv/BQANAEgAAAARAAEAAQAAABsAAAASAAEAAQABABsAAAATAAEAAQACABsAAAD+//r/BQAGABUAAAD+//v/BQAGABYAAAD///r/BQAHABUAAAD///v/BQAHABYAAAA=")
 tile_set = ExtResource("1_07lkv")
 
+[node name="FurnitureBody2D" type="StaticBody2D" parent="UpstairsFurniture"]
+physics_material_override = SubResource("PhysicsMaterial_07lkv")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="UpstairsFurniture/FurnitureBody2D"]
+position = Vector2(31, -74)
+shape = SubResource("RectangleShape2D_07lkv")
+
+[node name="LambCollisionShape" type="CollisionShape2D" parent="UpstairsFurniture/FurnitureBody2D"]
+position = Vector2(296.5, 26.5)
+shape = SubResource("RectangleShape2D_ph1ea")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="UpstairsFurniture/FurnitureBody2D"]
+position = Vector2(79.5, -74)
+shape = SubResource("RectangleShape2D_07lkv")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="UpstairsFurniture/FurnitureBody2D"]
+position = Vector2(127, -74)
+shape = SubResource("RectangleShape2D_07lkv")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="UpstairsFurniture/FurnitureBody2D"]
+position = Vector2(176, -74)
+shape = SubResource("RectangleShape2D_07lkv")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="UpstairsFurniture/FurnitureBody2D"]
+position = Vector2(223, -74)
+shape = SubResource("RectangleShape2D_07lkv")
+
 [node name="UpstairsFurniture2" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAASAAAAAAAPAAcAAAASAAEAAAAPAAgAAAADAPn/BQAEABUAAAADAPr/BQAEABYAAAAGAPn/BQAEABcAAAAGAPr/BQAEABgAAAAMAPn/BQAOABsAAAAMAPr/BQAOABwAAAAJAPn/BQAOABcAAAAJAPr/BQAOABgAAAD8//r/BQAAACwAAAD8//v/BQAAAC0AAAD8//z/BQAAAC4AAAD9//r/BQABACwAAAD9//v/BQABAC0AAAD9//z/BQABAC4AAAA=")
+tile_map_data = PackedByteArray("AAADAPn/BQAEABUAAAADAPr/BQAEABYAAAAGAPn/BQAEABcAAAAGAPr/BQAEABgAAAAMAPn/BQAOABsAAAAMAPr/BQAOABwAAAAJAPn/BQAOABcAAAAJAPr/BQAOABgAAAD8//r/BQAAACwAAAD8//v/BQAAAC0AAAD8//z/BQAAAC4AAAD9//r/BQABACwAAAD9//v/BQABAC0AAAD9//z/BQABAC4AAAA=")
+tile_set = ExtResource("1_07lkv")
+
+[node name="Lamp" type="TileMapLayer" parent="."]
+z_index = 9
+tile_map_data = PackedByteArray("AAASAAAAAAAPAAcAAAASAAEAAAAPAAgAAAA=")
 tile_set = ExtResource("1_07lkv")
 
 [node name="TopOfStairs" type="TileMapLayer" parent="."]
@@ -28,12 +73,6 @@ tile_map_data = PackedByteArray("AAAOAP3/AQAEAA8AAAAOAP7/AQAEABAAAAAOAP//AQAEABE
 tile_set = ExtResource("1_07lkv")
 
 [node name="UpstairsPortals" type="Node2D" parent="."]
-
-[node name="UpstairsToLivingRoomLeft" parent="UpstairsPortals" instance=ExtResource("3_ph1ea")]
-position = Vector2(1, 2)
-scale = Vector2(1.7599993, 1)
-target_scene_path = "uid://ckfnt4evadw2e"
-target_position = Vector2(0, 29)
 
 [node name="UpstairsToLivingRoomRight" parent="UpstairsPortals" instance=ExtResource("3_ph1ea")]
 z_index = 6
@@ -55,3 +94,23 @@ scale = Vector2(0.6800195, 1)
 target_scene_path = "uid://dmixh485a5snd"
 target_position = Vector2(56, 55)
 is_interactive = true
+
+[node name="UpstairsToLivingRoomLeft" parent="." instance=ExtResource("3_ph1ea")]
+position = Vector2(1, 2)
+scale = Vector2(1.7599993, 1)
+target_scene_path = "uid://ckfnt4evadw2e"
+target_position = Vector2(0, 29)
+
+[node name="SpaceBarrier" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpaceBarrier"]
+position = Vector2(0, 11)
+shape = SubResource("SegmentShape2D_07lkv")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="SpaceBarrier"]
+position = Vector2(254, 10)
+shape = SubResource("SegmentShape2D_07lkv")
+
+[node name="Gloves" parent="." instance=ExtResource("3_0wqdw")]
+position = Vector2(302, 21)
+scale = Vector2(0.5, 0.5)

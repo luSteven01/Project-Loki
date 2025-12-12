@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3 uid="uid://bm7sppc0ficu4"]
+
+[ext_resource type="Script" uid="uid://b5uqrrn43qbmf" path="res://intro.gd" id="1_ayt76"]
+[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Fonts/ARCADECLASSIC.TTF" id="1_s2ta7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2ta7"]
+bg_color = Color(0.039215688, 0.101960786, 0.18431373, 0.5254902)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ayt76"]
+bg_color = Color(0.24705882, 0.7882353, 0.7882353, 1)
+
+[node name="Intro" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s2ta7")
+script = ExtResource("1_ayt76")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -570.0
+offset_right = 570.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_s2ta7")
+theme_override_font_sizes/font_size = 24
+text = "Shertown  had  always  been  a  quiet  place…  but  that  changed  last night.
+
+What  was  meant  to  be  a  private  celebration  at  the  Richards  estate  ended  abruptly  when  Professor  Harold  Richards  was  discovered  dead  in  his  personal  study.
+
+The  circumstances  surrounding  his  death  are  uncertain.
+The  study  itself  raises  more  questions  than  answers:  signs  of  disturbance  without  clear  evidence  of  a  struggle,  objects  out  of  place  with  no  obvious  motive.
+
+As  the  lead  detective  on   this  case,  your  responsibility  is  to  uncover  what  truly  happened  inside  that  house.
+Everyone  has  their  own  version  of  the  night.  Everyone  has  something  to  protect.  And  in  a  case  like  this…  anyone  could  be  the  culprit.
+
+Your  job  is  to  gather  evidence,  interview  each suspect,  and  identify  the  inconsistencies  that  reveal  the  truth.
+
+Shertown  needs  your  answers.
+The  investigation  begins  now,  Detective."
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -121.5
+offset_top = -152.0
+offset_right = 121.5
+offset_bottom = -86.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_s2ta7")
+theme_override_font_sizes/font_size = 56
+theme_override_styles/normal = SubResource("StyleBoxFlat_ayt76")
+text = "Got it!"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

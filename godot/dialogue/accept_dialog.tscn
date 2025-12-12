@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://bo7gj6spitqg6"]
+
+[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Fonts/ARCADECLASSIC.TTF" id="1_fhwaw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lwqk7"]
+bg_color = Color(0.16470589, 0.16470589, 0.22745098, 0.78431374)
+
+[node name="AcceptDialog" type="Panel"]
+offset_right = 160.0
+offset_bottom = 121.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lwqk7")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_fhwaw")
+theme_override_font_sizes/font_size = 20
+text = "ONCE ARRESTED, THE GAME WILL END"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2

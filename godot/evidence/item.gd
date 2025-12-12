@@ -7,7 +7,8 @@ extends Area2D
 var player_in_range: bool = false
 
 func _ready() -> void:
-	pass
+	if Global.inventory.has(item_id) and Global.inventory[item_id]["collected"]:
+		queue_free()
 	
 func _process(delta: float) -> void:
 	# add item to inventory when E is pressed
@@ -16,6 +17,10 @@ func _process(delta: float) -> void:
 
 func pickup_item() -> void:
 	is_collected = true
+	
+	if $PickUp:
+		$PickUp.play()
+		await $PickUp.finished
 
 	if Global.player_node:
 		Global.add_item(item_id, $Sprite2D.texture, description)

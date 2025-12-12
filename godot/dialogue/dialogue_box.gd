@@ -1,7 +1,5 @@
 extends Panel
-
-var game_manager = null
-var dialogue_box = null
+signal game_over
 
 @onready var dialogue_text = $DialogueText
 @onready var npc_icons = $NPCIcons
@@ -12,11 +10,16 @@ var dialogue_box = null
 @onready var anim_player = $PlayerPortrait/AnimationPlayer
 @onready var character_buttons_container = $CharacterButtons # To be removed
 @onready var arrest_button = $ArrestButton
+@onready var warning_popup = $WarningMessage
 
 var current_character = null
 var chat_history = []
 var is_typing = false
 var endgame_scripts = {}
+var is_win = false
+var game_manager = null
+var dialogue_box = null
+var keyboard_lock = false
 
 
 func _ready() -> void:
@@ -28,8 +31,6 @@ func _ready() -> void:
 	print("leave_button: ", leave_button)
 	print("arrest_button: ", arrest_button)
 	print("character_buttons_container: ", character_buttons_container)
-	
-	# print("DialogueBox ready at path: ", get_path())
 	
 	# $BGM.play()
 	endgame_scripts = load_json("res://data/endgame_scripts.json")
@@ -55,14 +56,15 @@ func _ready() -> void:
 		dialogue_text.text = "Error: GameManager not found!"
 		print("ERROR: Cannot find GameManager node at /root/Main/GameManager")
 		return
-		
-	# initialize dialogue box with itself to guarantee it loads
-	# game_manager = get_node_or_null("/root/Main/GameManager")
-	# game_manager.init_dialogue_box(self)
+	
 
 
 # Handle input with Ctrl+Enter
 func _input(event):
+	if keyboard_lock:
+		get_viewport().set_input_as_handled()
+		return
+		
 	if event is InputEventKey and event.pressed:
 		# Shift + Enter → newline
 		if (event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER) and event.shift_pressed:
@@ -74,7 +76,7 @@ func _input(event):
 			_on_submit_button_pressed()
 			get_viewport().set_input_as_handled()
 
-		elif (event.keycode == KEY_ESCAPE):
+		elif event.is_action_pressed("escape"):
 			_on_leave_button_pressed()
 			get_viewport().set_input_as_handled()
 
@@ -122,9 +124,10 @@ func send_player_message():
 
 	# Disable input
 	disable_interaction()
+	keyboard_lock = true
 	
 	# Show player's message in dialogue window
-	dialogue_text.text += "\n\n[right][b][Player]:[/b]"
+	dialogue_text.text += "\n\n[right][b]Me:[/b]"
 	await type_text_slowly(player_message + "\n")
 	dialogue_text.text += "[/right]"
 
@@ -153,11 +156,13 @@ func _on_message_received(response: String, error):
 # Display NPC message with typewriter effect
 func add_message_to_display(sender: String, message: String):
 	disable_interaction()
+	keyboard_lock = true
 	dialogue_text.text += "\n[b]" + sender + ":[/b]"
 	start_npc_talk()
 	await type_text_slowly(message)
 	stop_npc_talk()
 	enable_interaction()
+	keyboard_lock = false
 	talk_input.grab_focus()
 
 
@@ -243,18 +248,20 @@ func _on_arrest_button_pressed() -> void:
 	# Play arrest sound
 	$ArrestSound.play()
 	disable_interaction()
+	keyboard_lock = true
 
 	# Show endgame script based on arrested character
 	var char_id = current_character["npc_id"]
 	var script = endgame_scripts.get(char_id, "No ending found.")
-	var time = 3.0 + script.length() * 0.03
+	var time = 2.0 + script.length() * 0.03
 
 	# Special case: if Abel is arrested, stop BGM and play endgame music
-	if char_id == "abel":
+	if char_id == "abel" and Global.inventory["shirt"]["collected"] and Global.inventory["button"]["collected"]:
+		is_win = true
 		$BGM.stop()
 		$Endgame.play()
-	
-	
+		script = endgame_scripts.get("winner", "No script found.")		
+
 	start_npc_talk("endgame")
 	dialogue_text.text += "\n\n[b]" + current_character["npc_id"].capitalize() + ":[/b]"
 	await type_text_slowly(script)
@@ -263,25 +270,24 @@ func _on_arrest_button_pressed() -> void:
 	# WAIT 3 SECONDS BEFORE CONTINUING
 	await get_tree().create_timer(3).timeout
 
-	if char_id == "abel":
+	if is_win:
 		# Abel arrested - WIN
 		dialogue_text.text = "\n\n[center][b]You have successfully arrested the culprit! Congratulations, Detective![/b]\n\n"
 		script = load_credits()
 		await type_text_slowly(script)
 		dialogue_text.text += "[/center]"
-		time = 10.0 + script.length() * 0.03	
+		time = script.length() * 0.03	
 	else:
 		# Others arrested - LOSE
-		dialogue_text.text = "\n\n[center][b]You have arrested the wrong person. The real culprit remains at large... Game Over.[/b][/center]"
-		# get_tree().change_scene_to_file("res://game_over_scene.tscn")
+		dialogue_text.text = "\n\n[center][b]You have arrested the wrong person. The real culprit remains at large... Game Over.[/b][/center]"		
+		# await get_tree().create_timer(time).timeout
 		
-		await get_tree().create_timer(time).timeout
-		get_tree().change_scene_to_file("res://game_over_scene.tscn")
-		
-# Leave chat dialogue and triggers endgame sequence
+	# Leave chat dialogue and triggers endgame sequence
 	current_character = null
-	# hide UI safely when switching scenes
-	self.visible = false # = false # Temporary end here; can add more endgame logic later
+	await get_tree().create_timer(time).timeout
+	self.visible = false
+	$BGM.stop()
+	game_over.emit()
 
 
 func _on_arrest_button_mouse_entered() -> void:
@@ -289,11 +295,13 @@ func _on_arrest_button_mouse_entered() -> void:
 		return
 	# Hover = bright cold silver (blue-shifted & higher contrast)
 	arrest_button.modulate = Color(1.55, 1.55, 1.7, 1.0)
+	warning_popup.show()
 
 
 func _on_arrest_button_mouse_exited() -> void:
 	# Normal color
 	arrest_button.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	warning_popup.hide()
 
 # Lock all input interaction
 func disable_interaction() -> void:
@@ -301,6 +309,8 @@ func disable_interaction() -> void:
 	submit_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	talk_input.editable = false
 	submit_button.disabled = true
+	leave_button.disabled = true
+	warning_popup.hide()
 
 # Unlock all input interaction
 func enable_interaction():
@@ -308,6 +318,7 @@ func enable_interaction():
 	submit_button.mouse_filter = Control.MOUSE_FILTER_STOP
 	talk_input.editable = true
 	submit_button.disabled = false
+	leave_button.disabled = false
 
 
 func load_json(path) -> Dictionary:

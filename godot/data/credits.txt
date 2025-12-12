@@ -9,7 +9,7 @@ Steven Lu
 
 Character Development
 Christian Garo – 2D Sprite Setup, Scene Construction, Character/NPC Nodes
-Tuan-Anh Ho – Portrait Integration, Animation, Dialogue Interaction
+Tuan-Anh Ho – Dialogue Interaction and Animation, Evidence UI and SFX
 
 Game Progression & Chat State Logic
 Tuan-Anh Ho
@@ -27,10 +27,14 @@ Seyoung Oh
 Components Integration
 Tuan-Anh Ho
 
-Background Music:
+Background Music
 Kiluaboy – "Clouds"
 Kiluaboy – "Blue Blood"
 EvanBoyerman – "Hopeful Cinematic Emotional Orchestra"
+
+Quality Control
+Steven Lu
+Tuan-Anh Ho
 
 Project Advisor:
 Dr. Gregory Courand

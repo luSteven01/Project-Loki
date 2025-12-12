@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dsvfq7ypy0rgu" path="res://talk_trigger.gd" id="3_2hs0m"]
 [ext_resource type="FontFile" uid="uid://do6g4q03tl1gj" path="res://Assets/Fonts/Schrödinger.ttf" id="4_1jxqw"]
 [ext_resource type="PackedScene" uid="uid://b5mjc6m5nx3he" path="res://inventory_ui.tscn" id="5_dw050"]
-[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Fonts/ARCADECLASSIC.TTF" id="6_2hs0m"]
+[ext_resource type="AudioStream" uid="uid://b54qy5klrebol" path="res://art/bgm/SFX/816019__qubodup__fps-footsteps.wav" id="6_2hs0m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3b1uw"]
 atlas = ExtResource("2_sweqy")
@@ -777,37 +777,8 @@ theme_override_font_sizes/font_size = 28
 text = "Press \"E\" to pickup"
 metadata/_edit_use_anchors_ = true
 
-[node name="ItemMessage" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="ColorRect" type="ColorRect" parent="ItemMessage"]
-anchors_preset = -1
-anchor_left = 0.504
-anchor_top = 0.27600002
-anchor_right = 0.504
-anchor_bottom = 0.27600002
-offset_left = -249.68
-offset_top = -125.08002
-offset_right = 250.32
-offset_bottom = 54.919983
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.028886512, 0.2462441, 0.32730383, 1)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="ItemMessage/ColorRect"]
-layout_mode = 1
-offset_left = 2.0
-offset_top = -34.0
-offset_right = 499.0
-offset_bottom = 164.0
-theme_override_fonts/normal_font = ExtResource("6_2hs0m")
-theme_override_font_sizes/normal_font_size = 24
-vertical_alignment = 1
-visible_characters_behavior = 1
-
-[node name="HideUITimer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
+[node name="WalkingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_2hs0m")
 
 [connection signal="body_entered" from="TalkTrigger" to="TalkTrigger" method="_on_body_entered"]
 [connection signal="body_exited" from="TalkTrigger" to="TalkTrigger" method="_on_body_exited"]

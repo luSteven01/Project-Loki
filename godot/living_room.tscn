@@ -1,4 +1,4 @@
-[gd_scene load_steps=177 format=4 uid="uid://ckfnt4evadw2e"]
+[gd_scene load_steps=179 format=4 uid="uid://ckfnt4evadw2e"]
 
 [ext_resource type="TileSet" uid="uid://dsde60pw444bl" path="res://living_room_room_builder.tres" id="1_j7inc"]
 [ext_resource type="Texture2D" uid="uid://bcmbaeodp3gc0" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/1_Generic_Black_Shadow_16x16.png" id="2_weu2t"]
@@ -17,14 +17,14 @@
 [ext_resource type="Texture2D" uid="uid://2y3jc2hems4e" path="res://modern_interior_and_characters/1_Interiors/16x16/Room_Builder_subfiles/Room_Builder_Arched_Entryways_16x16.png" id="15_lvk6u"]
 [ext_resource type="Texture2D" uid="uid://c70k8frqi76bw" path="res://modern_interior_and_characters/1_Interiors/16x16/Room_Builder_16x16.png" id="16_tgelg"]
 [ext_resource type="PackedScene" uid="uid://di4whfq6erra0" path="res://portal.tscn" id="17_ftaf3"]
-[ext_resource type="Script" uid="uid://crgqai07e6303" path="res://alice_npc.gd" id="18_5m0m6"]
+[ext_resource type="Script" path="res://alice_npc.gd" id="18_5m0m6"]
 [ext_resource type="Texture2D" uid="uid://c5cxvxnqdgc1b" path="res://art/spritesheets/Alice_SpriteSheet.png" id="19_wvrob"]
-[ext_resource type="Script" uid="uid://cccfhypg3c710" path="res://abel_npc.gd" id="20_vi1qt"]
+[ext_resource type="Script" path="res://abel_npc.gd" id="20_vi1qt"]
 [ext_resource type="Texture2D" uid="uid://exgd5k7cc34x" path="res://modern_interior_and_characters/2_Characters/Character_Generator/0_Premade_Characters/16x16/Premade_Character_01.png" id="20_wvrob"]
 [ext_resource type="Texture2D" uid="uid://bmk02xw36x57o" path="res://art/spritesheets/Abel_SpriteSheet.png" id="21_e8d8u"]
-[ext_resource type="Script" uid="uid://dncbhhlg007yh" path="res://diane_npc.gd" id="22_ppm0j"]
+[ext_resource type="Script" path="res://diane_npc.gd" id="22_ppm0j"]
 [ext_resource type="Texture2D" uid="uid://cal2lqhht3fc2" path="res://art/spritesheets/Diane_Spritesheet.png" id="23_m0q5w"]
-[ext_resource type="Script" uid="uid://bugiktjhtu30j" path="res://maid_npc.gd" id="24_x3nxe"]
+[ext_resource type="Script" path="res://maid_npc.gd" id="24_x3nxe"]
 [ext_resource type="Texture2D" uid="uid://cfiix47feexnv" path="res://art/spritesheets/Maid_SpriteSheet.png" id="25_lvk6u"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_vc3g0"]
@@ -22397,7 +22397,6 @@ texture = ExtResource("2_weu2t")
 2:39/0 = 0
 3:39/0 = 0
 4:39/0 = 0
-4:39/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 5:39/0 = 0
 6:39/0 = 0
 7:39/0 = 0
@@ -27098,6 +27097,13 @@ pattern_5 = SubResource("TileMapPattern_elsr4")
 pattern_6 = SubResource("TileMapPattern_nx705")
 pattern_7 = SubResource("TileMapPattern_tr0o5")
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_wvrob"]
+a = Vector2(-16, 0)
+b = Vector2(19, 0)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_vi1qt"]
+b = Vector2(0, 20)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_c22gg"]
 atlas = ExtResource("19_wvrob")
 region = Rect2(288, 33, 16, 32)
@@ -28189,10 +28195,29 @@ tile_map_data = PackedByteArray("AAAKAP//AgAMABsAAAAKAAAAAgAMABwAAAAKAAEAAgAMAB0
 tile_set = SubResource("TileSet_4jyax")
 
 [node name="LivingRoomWalls0" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAARAAEABAANAAcAAAARAAIABAANAAcAAAARAAgABAANAAcAAAARAAkABAANAAcAAAARAAoABAANAAcAAAACAAsABAAFAAcAAAANAAsABAAFAAcAABAOAAsABAAMAAgAAAAPAAsABAAMAAgAAAAQAAsABAAMAAgAAAARAP//BAANAAYAAAARAAsABAANAAgAAAABAAsABAAMAAgAAAAPAP//BAAXAA0AAAAPAAAABAAXAA4AAAAOAP//BAAXAA0AAAAOAAAABAAXAA4AAAANAP//BAAXAA0AAAANAAAABAAXAA4AAAAMAP//BAAXAA0AAAAMAAAABAAXAA4AAAALAP//BAAXAA0AAAALAAAABAAXAA4AAAAKAP//BAAXAA0AAAAKAAAABAAXAA4AAAAJAP//BAANAAYAABAJAAAABAACABsAAAAIAAAABAABABsAAAAHAAAABAABABsAAAAGAP//BAANAAYAAAAGAAAABAAAABsAAAADAP//BAAXAA0AAAADAAAABAAXAA4AAAACAP//BAAXAA0AAAACAAAABAAXAA4AAAABAAAABAAXAA4AAAAQAP//BAAXAA0AAAAQAAAABAAXAA4AAAARAAAABAANAAcAAAAGAAEABAAAABwAAAAHAAEABAABABwAAAAIAAEABAABABwAAAAJAAEABAACABwAAAAAAAsABAAMAAgAAAD//wsABAAMAAgAAAD+/wsABAALAAgAAAAAAP//BAAXAA0AAAD/////BAAXAA0AAAD+////BAALAAYAAAAFAP//BAAXAA0AAAAEAP//BAAXAA0AAAD//wAABAAXAA4AAAD+/wAABAALAAcAAAD+/wEABAALAAcAAAD+/wIABAALAAcAAAD+/wMABAALAAcAAAD+/wQABAALAAcAAAD+/wUABAALAAcAAAD+/wYABAALAAcAAAD+/wcABAALAAcAAAD+/wgABAALAAcAAAD+/wkABAALAAcAAAD+/woABAALAAcAAAABAP//BAAXAA0AAAAEAAsABAAXAA0AAAADAAwABAAXAA4AAAAKAAsABAAWAA0AAAALAAsABAAXAA0AAAAMAAsABAAXAA0AAAAKAAwABAAWAA4AAAALAAwABAAXAA4AAAAMAAwABAAXAA4AAAACAAwABAANAAcAABACAA0ABAANAAcAABACAA4ABAANAAcAABANAAwABAANAAcAAAANAA0ABAANAAcAAAANAA4ABAANAAcAAAAGAAwABAAyAB8AAAAHAAwABAAzAB8AAAAIAAwABAAzAB8AAAAJAAwABAAyAB8AABADAAsABAAXAA0AAAAEAAwABAAXAA4AAAADABAABAAMAAgAAAAEABAABAAMAAgAAAAFABAABAAMAAgAAAAGABAABAAMAAgAAAAJABAABAAMAAgAAAAKABAABAAMAAgAAAALABAABAAMAAgAAAAMABAABAAMAAgAAAANABAABAANAAgAAAACABAABAANAAgAABACAA8ABAANAAcAABANAA8ABAANAAcAAAAFAAsABAAYAA0AAAAFAAwABAAYAA4AAAAEAAEAAAALAB8AAAAFAAEAAAAKAB8AAAACAAEAAAAJAB8AAAACAAIAAAAJACAAAAADAAEAAAALAB8AAAADAAIAAAALACAAAAAEAAIAAAALACAAAAAFAAIAAAAKACAAAAALAAEAAAALAB8AAAALAAIAAAALACAAAAAMAAEAAAALAB8AAAAMAAIAAAALACAAAAANAAEAAAAKAB8AAAANAAIAAAAKACAAAAAKAAEAAAAJAB8AAAAKAAIAAAAJACAAAAAEAAAABAAXAA4AAAAFAAAABAAXAA4AAAARAAMABAANAAcAAAASAAQABAAXAA0AAAASAAUABAAXAA4AAAARAAUABAAWAA4AAAARAAQABAAWAA0AAAATAAQABAAYAA0AAAATAAUABAAYAA4AAAASAAcABAAMAAYAAAATAAcABAAMAAYAAAARAAcABAAGAAcAAAAAAAAABAAXAA4AAAAHABAAAAAEACcAAAAIABAAAAAEACcAAAA=")
+tile_map_data = PackedByteArray("AAARAAEABAANAAcAAAARAAIABAANAAcAAAARAAgABAANAAcAAAARAAkABAANAAcAAAARAAoABAANAAcAAAACAAsABAAFAAcAAAANAAsABAAFAAcAABAOAAsABAAMAAgAAAAPAAsABAAMAAgAAAAQAAsABAAMAAgAAAARAP//BAANAAYAAAARAAsABAANAAgAAAABAAsABAAMAAgAAAAPAP//BAAXAA0AAAAPAAAABAAXAA4AAAAOAP//BAAXAA0AAAAOAAAABAAXAA4AAAANAP//BAAXAA0AAAANAAAABAAXAA4AAAAMAP//BAAXAA0AAAAMAAAABAAXAA4AAAALAP//BAAXAA0AAAALAAAABAAXAA4AAAAKAP//BAAXAA0AAAAKAAAABAAXAA4AAAAJAP//BAANAAYAABAJAAAABAACABsAAAAIAAAABAABABsAAAAHAAAABAABABsAAAAGAP//BAANAAYAAAAGAAAABAAAABsAAAADAP//BAAXAA0AAAADAAAABAAXAA4AAAACAP//BAAXAA0AAAACAAAABAAXAA4AAAABAAAABAAXAA4AAAAQAP//BAAXAA0AAAAQAAAABAAXAA4AAAARAAAABAANAAcAAAAGAAEABAAAABwAAAAHAAEABAABABwAAAAIAAEABAABABwAAAAJAAEABAACABwAAAAAAAsABAAMAAgAAAD//wsABAAMAAgAAAD+/wsABAALAAgAAAAAAP//BAAXAA0AAAD/////BAAXAA0AAAD+////BAALAAYAAAAFAP//BAAXAA0AAAAEAP//BAAXAA0AAAD//wAABAAXAA4AAAD+/wAABAALAAcAAAD+/wEABAALAAcAAAD+/wIABAALAAcAAAD+/wMABAALAAcAAAD+/wQABAALAAcAAAD+/wUABAALAAcAAAD+/wYABAALAAcAAAD+/wcABAALAAcAAAD+/wgABAALAAcAAAD+/wkABAALAAcAAAD+/woABAALAAcAAAABAP//BAAXAA0AAAAEAAsABAAXAA0AAAADAAwABAAXAA4AAAAKAAsABAAWAA0AAAALAAsABAAXAA0AAAAMAAsABAAXAA0AAAAKAAwABAAWAA4AAAALAAwABAAXAA4AAAAMAAwABAAXAA4AAAACAAwABAANAAcAABACAA0ABAANAAcAABACAA4ABAANAAcAABANAAwABAANAAcAAAANAA0ABAANAAcAAAANAA4ABAANAAcAAAAGAAwABAAyAB8AAAAHAAwABAAzAB8AAAAIAAwABAAzAB8AAAAJAAwABAAyAB8AABADAAsABAAXAA0AAAAEAAwABAAXAA4AAAADABAABAAMAAgAAAAEABAABAAMAAgAAAAFABAABAAMAAgAAAAGABAABAAMAAgAAAAJABAABAAMAAgAAAAKABAABAAMAAgAAAALABAABAAMAAgAAAAMABAABAAMAAgAAAANABAABAANAAgAAAACABAABAANAAgAABACAA8ABAANAAcAABANAA8ABAANAAcAAAAFAAsABAAYAA0AAAAFAAwABAAYAA4AAAAEAAEAAAALAB8AAAAFAAEAAAAKAB8AAAACAAEAAAAJAB8AAAACAAIAAAAJACAAAAADAAEAAAALAB8AAAADAAIAAAALACAAAAAEAAIAAAALACAAAAAFAAIAAAAKACAAAAALAAEAAAALAB8AAAALAAIAAAALACAAAAAMAAEAAAALAB8AAAAMAAIAAAALACAAAAANAAEAAAAKAB8AAAANAAIAAAAKACAAAAAKAAEAAAAJAB8AAAAKAAIAAAAJACAAAAAEAAAABAAXAA4AAAAFAAAABAAXAA4AAAARAAMABAANAAcAAAASAAQABAAXAA0AAAASAAUABAAXAA4AAAARAAUABAAWAA4AAAARAAQABAAWAA0AAAATAAQABAAYAA0AAAATAAUABAAYAA4AAAASAAcABAAMAAYAAAATAAcABAAMAAYAAAARAAcABAAGAAcAAAAAAAAABAAXAA4AAAA=")
 tile_set = SubResource("TileSet_qlebq")
 
+[node name="SpaceBarriers" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpaceBarriers"]
+position = Vector2(0, 4)
+shape = SubResource("SegmentShape2D_wvrob")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="SpaceBarriers"]
+position = Vector2(254, 4)
+shape = SubResource("SegmentShape2D_wvrob")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="SpaceBarriers"]
+position = Vector2(127, 259)
+shape = SubResource("SegmentShape2D_wvrob")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="SpaceBarriers"]
+position = Vector2(318, 93)
+shape = SubResource("SegmentShape2D_vi1qt")
+
 [node name="Portals" type="Node2D" parent="."]
+visible = false
 y_sort_enabled = true
 
 [node name="ToKitchen" parent="Portals" instance=ExtResource("17_ftaf3")]
@@ -28221,7 +28246,6 @@ position = Vector2(17, 93)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("18_5m0m6")
 animation_player = NodePath("AnimationPlayer")
-metadata/_custom_type_script = "uid://crgqai07e6303"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Alice"]
 position = Vector2(-7.1525574e-07, -11.666659)
@@ -28246,7 +28270,6 @@ position = Vector2(73, 142)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("20_vi1qt")
 animation_player = NodePath("AnimationPlayer")
-metadata/_custom_type_script = "uid://cccfhypg3c710"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Abel"]
 position = Vector2(1.4305115e-06, -3.3333302)
@@ -28271,7 +28294,6 @@ position = Vector2(100, 141)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("22_ppm0j")
 animation_player = NodePath("AnimationPlayer")
-metadata/_custom_type_script = "uid://dncbhhlg007yh"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Diane"]
 position = Vector2(-5.2452087e-06, -6.6666565)
@@ -28296,7 +28318,6 @@ position = Vector2(200, 95)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("24_x3nxe")
 animation_player = NodePath("AnimationPlayer")
-metadata/_custom_type_script = "uid://bugiktjhtu30j"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Maid"]
 position = Vector2(-5.2452087e-06, -10.000003)

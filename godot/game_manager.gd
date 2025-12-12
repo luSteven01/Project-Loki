@@ -13,54 +13,32 @@ var sessions = {}  # { character_id: session_id }
 var current_character = null
 var characters = []
 var is_loading = false
-var evidence_list = {} # for getting evidence from endpoint
 
 var http_request: HTTPRequest
-var evidence_request : HTTPRequest
 
 enum RequestType {
 	HEALTH_CHECK,
 	LOAD_CHARACTERS,
-	SEND_MESSAGE,
-	RETRIEVE_EVIDENCE
-}
+	SEND_MESSAGE
+	}
 var current_request_type = RequestType.HEALTH_CHECK
 
 func _ready():
-	#print("we have world context: " + str(world_context != null))
-	#print("Children of WorldContext:")
-	#for c in world_context.get_children():
-		#print(" - ", c.name)
-	#print("GameManager instance path:", get_path())
-	#print("dialogue box", dialogue_box)
-	#print("world context", world_context)
-	
-	if has_node("/root/Main/WorldContext"):
-		world_context = get_node("/root/Main/WorldContext")
-		print("we have world context: " + str(world_context != null))
-		print("Children of WorldContext:")
-		for c in world_context.get_children():
-			print(" - ", c.name)
-		print("GameManager instance path:", get_path())
-	else:
-		world_context = null
-		print("on main menu")
+	dialogue_box.visible = false
+	world_context = get_node("/root/Main/WorldContext")
+	print("we have world context: " + str(world_context != null))
+	print("Children of WorldContext:")
+	for c in world_context.get_children():
+		print(" - ", c.name)
+	print("GameManager instance path:", get_path())
 		
 	http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.request_completed.connect(_on_request_completed)
 	
-	evidence_request = HTTPRequest.new()
-	add_child(evidence_request)
-	evidence_request.request_completed.connect(_on_evidence_request_completed)
-	
 	print("GameManager ready - connecting to backend...")
 	check_server_health()
 	
-	
-#func init_dialogue_box(node):
-	#dialogue_box = node
-	#print("dialogue box registered")
 
 # ============================================
 # API Functions
@@ -96,8 +74,8 @@ func send_message(message: String, callback: Callable):
 
 	var body = {
 		"message": message,
-		"character_id": current_character["npc_id"],
-		"session_id": sessions.get(current_character["npc_id"], null)
+		"character_id": current_character.npc_id,
+		"session_id": sessions.get(current_character.npc_id, null)
 	}
 
 	current_request_type = RequestType.SEND_MESSAGE
@@ -143,33 +121,10 @@ func _on_request_completed(result, response_code, headers, body):
 			handle_message_response(data)
 
 
-func _on_evidence_request_completed(result, response_code, headers, body):
-	if response_code != 200:
-		print("Request failed with code: ", response_code)
-		handle_request_error(response_code)
-		return
-
-	var json = JSON.new()
-	var error = json.parse(body.get_string_from_utf8())
-
-	if error != OK:
-		print("Failed to parse JSON: ", error)
-		return
-
-	var data = json.data
-	
-	match current_request_type:
-		RequestType.RETRIEVE_EVIDENCE:
-			handle_evidence_retrieval(data)
-
-
 func handle_health_check(data):
 	if data.api == "healthy" and data.mongodb == "connected" and data.openai == "connected":
 		print("✓ Server is healthy - loading characters...")
 		load_characters()
-	if data.api == "healthy" and data.mongodb == "connected" and data.openai == "connected":
-		print("✓ Server is healthy - loading evidence...")
-		load_evidence()
 	else:
 		print("✗ Server has issues:", data)
 
@@ -223,18 +178,6 @@ func is_ready() -> bool:
 # Gameplay Functionality
 # ============================================
 
-#signal on_player_talk
-
-#signal on_npc_talk (npc_dialogue)
-
-# append in-game NPCs to an array 
-#func get_in_game_NPCs():
-	#for npc in npc_scene.get_children():
-		#if npc is NPC:
-			#NPCs.append(npc)
-			#print("npc name: " + npc.character_name)
-			#print("npc id: " + npc.npc_id)
-
 func enter_new_dialogue(npc: NPC):
 	current_character = npc
 	# dialogue_box.initialize_with_npc(npc) # not needed i think, i just need the dialogue box to show up
@@ -251,7 +194,8 @@ func enter_new_dialogue(npc: NPC):
 	
 	# Update the dialogue box UI
 	dialogue_box.current_character = current_character
-	dialogue_box.dialogue_text.text = "Now interviewing: " + current_character.character_name + "\n"
+	dialogue_box.dialogue_text.text = "[center]Now interviewing " + current_character.character_name + "\n"
+	dialogue_box.dialogue_text.text += current_character.description + "[/center]\n"
 	dialogue_box.submit_button.disabled = false
 	dialogue_box.talk_input.editable = true
 	dialogue_box.talk_input.grab_focus()
@@ -276,47 +220,7 @@ func exit_dialogue():
 	
 func is_dialogue_active():
 	return dialogue_box.visible
-
-func load_evidence():
-	print("Retrieving evidence from endpoint...")
-	current_request_type = RequestType.RETRIEVE_EVIDENCE
-	var error = evidence_request.request(API_BASE_URL + "/evidence")
-	if error != OK:
-		print("Failed to connect to server: ", error)
-
-# retrieving item ids from endpoint
-func handle_evidence_retrieval(data):
-	var evidence_data = data["evidence"]
 	
-	for evidence in evidence_data:
-		var id = evidence["id"]
-		evidence_list[id] = evidence
-		#print("id: " , evidence["id"], " ",
-		#"name: ", evidence["name"], " ",
-		#"description: ", evidence["description"], " ",
-		#"belongs to: ", evidence["belongs_to"], " ",
-		#"location: " , evidence["location"])
-		
-		# dynamic inventory entry; update if there is an entry; otherwise create one based off endpoint 
-		if Global.inventory.has(id):
-			Global.inventory[id]["description"] = evidence["description"]
-		else:
-			Global.inventory[id] = {
-				"collected": false,
-				"icon": null,
-				"description": evidence["description"]
-			}
-		
-		# this is basically the conditional i have to use to set the items 
-		#if(evidence["id"] == "gloves"):
-			#print("name: ", evidence["name"], " ",
-			#"description: ", evidence["description"], " ",
-			#"belongs to: ", evidence["belongs_to"], " ",
-			#"location: " , evidence["location"])
-		#for key in evidence_list.keys():
-			#print(key, ": ", evidence_list[key]["name"])
-		
-	print("this function works")
 
 func game_over():
 	get_tree().change_scene_to_file("res://game_over_scene.tscn")

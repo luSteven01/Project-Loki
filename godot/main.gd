@@ -2,20 +2,22 @@ extends Node
 
 @onready var current_level_node = $WorldContext/CurrentLevel
 @onready var player = $WorldContext/Player
+@onready var main_menu_scene = $CanvasLayer/MainMenu
+@onready var game_over_scene = $CanvasLayer/GameOverScene
+@onready var intro_scene = $CanvasLayer/Intro
 
 @export var starting_scene: PackedScene
 @export var starting_position: Vector2 = Vector2(127, 213)
 
+
 func _ready():
+	hide_world()
 	SceneManager.level_change_requested.connect(_on_level_change_requested)
-	
-	if starting_scene == null:
-		starting_scene = load("res://living_room.tscn")
-	
-	
-	# Load the first level immediately (safe to do here)
-	_perform_level_change(starting_scene, starting_position)
-	# GameManager.init_dialogue_box($CanvasLayer/DialogueBox)
+
+	# Freeze all gameplay
+	get_tree().paused = true
+	main_menu_scene.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+
 
 func _on_level_change_requested(new_scene_packed: PackedScene, new_pos: Vector2):
 	# Wait for the frame to finish to avoid "Flushing Queries" crash
@@ -46,3 +48,44 @@ func _perform_level_change(new_scene_packed: PackedScene, new_pos: Vector2):
 
 	# 4. Move Player
 	player.global_position = new_pos
+
+
+func _on_main_menu_start_game() -> void:
+	# hide menu
+	main_menu_scene.visible = false
+	show_world()
+
+	# Load the first level immediately (safe to do here)
+	_perform_level_change(starting_scene, starting_position)
+
+
+func _on_dialogue_box_game_over() -> void:
+	hide_world()
+	game_over_scene.visible = true
+
+
+func hide_world() -> void:
+	$WorldContext.visible = false
+	player.hide()
+	game_over_scene.hide()
+
+
+func show_world() -> void:
+	$WorldContext.visible = true
+	player.show()
+	get_tree().paused = false
+
+
+func _on_game_over_scene_back_to_main() -> void:
+	game_over_scene.visible = false
+	main_menu_scene.visible = true
+	hide_world() 
+	get_tree().paused = true
+
+
+func _on_intro_intro_closed() -> void:
+	intro_scene.visible = false
+
+
+func _on_intro_timer_timeout() -> void:
+	intro_scene.visible = false

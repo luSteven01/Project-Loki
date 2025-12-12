@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://c60twqwpmith3"]
+[gd_scene load_steps=45 format=4 uid="uid://c60twqwpmith3"]
 
 [ext_resource type="TileSet" uid="uid://dsde60pw444bl" path="res://living_room_room_builder.tres" id="1_ipk1y"]
 [ext_resource type="TileSet" uid="uid://dn4d557brt3x0" path="res://kitchen_furniture.tres" id="2_xsyy8"]
@@ -9,6 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://cr0bksq7yw6lm" path="res://art/spritesheets/Chef_SpriteSheet.png" id="7_xnsi2"]
 [ext_resource type="Script" path="res://professor_schumacher_NPC.gd" id="8_jluyr"]
 [ext_resource type="Texture2D" uid="uid://yqvmb6qr5bww" path="res://art/spritesheets/Professor_Schumacher.png" id="9_k6unl"]
+[ext_resource type="PackedScene" uid="uid://bjfgxbtjijt0i" path="res://evidence/knife.tscn" id="10_0ip1g"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_0ip1g"]
+b = Vector2(0, 21)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v5opi"]
 atlas = ExtResource("5_0ip1g")
@@ -399,9 +403,11 @@ y_sort_enabled = true
 tile_map_data = PackedByteArray("AAAGAAIAAAAKACMAAAAHAAIAAAAMACMAAAAEAAIAAAALACIAAAAAAAEAAAAEACQAAAAAAAIAAAAEACUAAAADAAIAAAANACMAAAAIAAIAAAAJACMAAAAMAAIABAAMAEQAAAA=")
 tile_set = ExtResource("2_xsyy8")
 
-[node name="Evidence" type="Node2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
 
-[node name="Knife" type="TileMapLayer" parent="Evidence"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-46, 76)
+shape = SubResource("SegmentShape2D_0ip1g")
 
 [node name="Portals" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -485,3 +491,8 @@ shape = SubResource("RectangleShape2D_0ip1g")
 libraries = {
 &"": SubResource("AnimationLibrary_m008p")
 }
+
+[node name="knife" parent="." instance=ExtResource("10_0ip1g")]
+z_index = 6
+position = Vector2(88, 41)
+item_id = "knife"

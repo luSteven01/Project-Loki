@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://fmqag7o5wuup"]
+[gd_scene load_steps=10 format=3 uid="uid://fmqag7o5wuup"]
 
 [ext_resource type="Texture2D" uid="uid://dndql6uijwo1k" path="res://main_menu_screenshot.png" id="1_7vrkn"]
 [ext_resource type="Script" uid="uid://dv3e1y3a6ux54" path="res://main_menu.gd" id="1_fu7sn"]
 [ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Fonts/ARCADECLASSIC.TTF" id="2_fu7sn"]
+[ext_resource type="PackedScene" uid="uid://cnyfskrj71wdi" path="res://credits_scene.tscn" id="4_jix8l"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jix8l"]
 texture = ExtResource("1_7vrkn")
@@ -143,6 +144,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CreditsScene" parent="CanvasLayer" instance=ExtResource("4_jix8l")]
+
+[connection signal="credits" from="." to="." method="_on_credits"]
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="close" from="CanvasLayer/CreditsScene" to="." method="_on_credits_scene_close"]
