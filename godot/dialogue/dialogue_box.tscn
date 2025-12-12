@@ -1140,6 +1140,7 @@ libraries = {
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("53_4s7bp")
+volume_db = -50.0
 parameters/looping = true
 
 [node name="ArrestSound" type="AudioStreamPlayer" parent="."]

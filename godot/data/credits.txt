@@ -15,6 +15,8 @@ Game Progression & Chat State Logic
 Tuan-Anh Ho
 
 OpenAI Prompting & AI Tooling
+Steven Lu
+Christian Garo
 Tuan-Anh Ho
 Seyoung Oh
 
@@ -24,7 +26,8 @@ Seyoung Oh
 API & Project Environment Setup
 Seyoung Oh
 
-Components Integration
+UI
+Christian Garo
 Tuan-Anh Ho
 
 Background Music
@@ -35,6 +38,9 @@ EvanBoyerman – "Hopeful Cinematic Emotional Orchestra"
 Quality Control
 Steven Lu
 Tuan-Anh Ho
+
+DevOps for Game Development
+Steven Lu
 
 Project Advisor:
 Dr. Gregory Courand
