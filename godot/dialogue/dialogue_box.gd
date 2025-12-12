@@ -308,6 +308,7 @@ func disable_interaction() -> void:
 	talk_input.editable = false
 	submit_button.disabled = true
 	leave_button.disabled = true
+	arrest_button.disabled = true
 	warning_popup.hide()
 
 # Unlock all input interaction
@@ -317,6 +318,7 @@ func enable_interaction():
 	talk_input.editable = true
 	submit_button.disabled = false
 	leave_button.disabled = false
+	arrest_button.disabled = false
 
 
 func load_json(path) -> Dictionary:
@@ -329,3 +331,40 @@ func load_credits():
 func start_dialogue_bgm():
 	$Endgame.stop()
 	$BGM.play()
+
+
+func reset():
+	# Reset internal state
+	current_character = null
+	current_icon = null
+	chat_history.clear()
+	is_typing = false
+	is_win = false
+	keyboard_lock = false
+
+	# Reset UI
+	dialogue_text.text = "Connecting to investigation database..."
+	talk_input.text = ""
+	talk_input.editable = false
+	submit_button.disabled = true
+	leave_button.disabled = false  # matches your initial _ready()
+	
+	# Reset Arrest button
+	arrest_button.disabled = true
+	arrest_button.modulate = Color(1, 1, 1, 1)
+	warning_popup.hide()
+
+	# Hide NPC icons
+	for icon in npc_icons.get_children():
+		icon.visible = false
+
+	# Stop animations
+	stop_npc_talk()
+	stop_player_talk()
+
+	# Stop audio
+	$BGM.stop()
+	$Endgame.stop()
+
+	# Hide the dialogue box itself
+	self.visible = false

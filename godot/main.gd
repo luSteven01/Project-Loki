@@ -51,8 +51,12 @@ func _perform_level_change(new_scene_packed: PackedScene, new_pos: Vector2):
 
 
 func _on_main_menu_start_game() -> void:
+	$GameManager.reset()
+
 	# hide menu
 	main_menu_scene.visible = false
+
+	player.global_position = starting_position
 	show_world()
 
 	# Load the first level immediately (safe to do here)
