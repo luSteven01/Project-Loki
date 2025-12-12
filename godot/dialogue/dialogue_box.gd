@@ -43,7 +43,9 @@ func _ready() -> void:
 	# arrest_button.disabled = true
 	# submit_button.disabled = true
 	# talk_input.editable = false
+	# warning_popup.hide()
 	disable_interaction()
+	leave_button.disabled = false
 	talk_input.wrap_mode = TextEdit.LINE_WRAPPING_BOUNDARY
 	dialogue_text.text = "Connecting to investigation database..."
 	print("Initial text set")
@@ -57,7 +59,6 @@ func _ready() -> void:
 		print("ERROR: Cannot find GameManager node at /root/Main/GameManager")
 		return
 	
-
 
 # Handle input with Ctrl+Enter
 func _input(event):
@@ -166,16 +167,9 @@ func add_message_to_display(sender: String, message: String):
 	talk_input.grab_focus()
 
 
-func initialize_with_npc(npc):
-	# Legacy function for backwards compatibility
-	dialogue_text.text = ""
-	submit_button.disabled = true
-	arrest_button.disabled = true
-
-
 func _on_leave_button_pressed() -> void:
 	dialogue_text.text = "Investigation session ended."		
-	disable_interaction()
+	# disable_interaction()
 	current_character = null
 	$BGM.stop()
 

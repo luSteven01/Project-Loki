@@ -1166,6 +1166,7 @@ offset_top = 522.0
 offset_right = 986.0
 offset_bottom = 634.0
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="SubmitButton" to="." method="_on_submit_button_pressed"]
 [connection signal="pressed" from="LeaveButton" to="." method="_on_leavebutton_pressed"]
 [connection signal="pressed" from="LeaveButton" to="." method="_on_leave_button_pressed"]
