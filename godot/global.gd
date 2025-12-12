@@ -12,7 +12,7 @@ var inventory = {
 	"shirt" : {"collected": false, "icon": null, "description": ""},
 	"knife" : {"collected": false, "icon": null, "description": ""},
 	"gloves" : {"collected": false, "icon": null, "description": ""},
-	"paper" : {"collected": false, "icon": null, "description": ""}
+	"papers" : {"collected": false, "icon": null, "description": ""}
 }  # { item_id: item_data }
 # holds inventory items
 

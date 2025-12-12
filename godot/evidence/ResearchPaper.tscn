@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://4lkfxis773re"]
 
-[ext_resource type="Script" uid="uid://84t5g250rp12" path="res://evidence/item.gd" id="1_fn22r"]
+[ext_resource type="Script" uid="uid://dwab8e8a4lodb" path="res://evidence/item.gd" id="1_fn22r"]
 [ext_resource type="Texture2D" uid="uid://bgackfhl4aj47" path="res://art/pngs/Jail_Singles_Shadowless_121.png" id="2_fn22r"]
 [ext_resource type="AudioStream" uid="uid://d2w5vyp76kdmi" path="res://art/bgm/SFX/822563__qubodup__pick-up-book-item.wav" id="3_fn22r"]
 
@@ -11,7 +11,7 @@ height = 38.0
 [node name="ResearchPaper" type="Area2D"]
 collision_layer = 2
 script = ExtResource("1_fn22r")
-item_id = "paper"
+item_id = "papers"
 description = "A few pages from Richards' research paper"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

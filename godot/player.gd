@@ -22,6 +22,9 @@ func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	animation_player.stop()
 	animation_player.play("down_idle")
+	inventory_ui.visible = false
+	interact_ui.visible = false
+	item_message_ui.visible = false
 
 func _input(event):
 	if event.is_action_pressed("ui_inventory") and not game_manager.is_dialogue_active():
