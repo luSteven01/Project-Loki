@@ -62,6 +62,10 @@ func _ready() -> void:
 
 # Handle input with Ctrl+Enter
 func _input(event):
+	# Allow mouse wheel scrolling
+	if event is InputEventMouse:
+		return
+
 	if keyboard_lock:
 		get_viewport().set_input_as_handled()
 		return
