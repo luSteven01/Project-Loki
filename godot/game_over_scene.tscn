@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://iig257w46eir"]
+[gd_scene load_steps=9 format=3 uid="uid://iig257w46eir"]
 
 [ext_resource type="Texture2D" uid="uid://corbg2eyb2pqe" path="res://suspect_at_large.jpg" id="1_c4ct6"]
 [ext_resource type="Script" uid="uid://cg567k4vqutbg" path="res://game_over_scene.gd" id="1_ce141"]
@@ -40,26 +40,6 @@ shadow_size = 5
 shadow_offset = Vector2(3.5, 3.5)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ypqks"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ejwbb"]
-bg_color = Color(0.02745624, 0.08325962, 0.09140562, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_color = Color(0.11329522, 0.21686533, 0.26579273, 0.6)
-shadow_size = 5
-shadow_offset = Vector2(3.5, 3.5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ki0s"]
-bg_color = Color(0.09973741, 0.21064502, 0.22905695, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_color = Color(0.11329522, 0.21686533, 0.26579273, 0.6)
-shadow_size = 5
-shadow_offset = Vector2(3.5, 3.5)
 
 [node name="GameOverScene" type="Control"]
 layout_mode = 3
@@ -125,8 +105,8 @@ theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_ce141")
 theme_override_font_sizes/font_size = 64
 theme_override_styles/normal = SubResource("StyleBoxFlat_v4qw4")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ejwbb")
-theme_override_styles/hover = SubResource("StyleBoxFlat_7ki0s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_rx2wj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_o2goy")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ypqks")
 text = "Exit"
 

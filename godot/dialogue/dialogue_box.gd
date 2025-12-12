@@ -77,7 +77,7 @@ func _input(event):
 			_on_submit_button_pressed()
 			get_viewport().set_input_as_handled()
 
-		elif event.is_action_pressed("escape"):
+		elif event.keycode == KEY_ESCAPE:
 			_on_leave_button_pressed()
 			get_viewport().set_input_as_handled()
 
