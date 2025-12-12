@@ -7,6 +7,9 @@ extends CharacterBody2D
 @onready var item_message = $ItemMessage/ColorRect/RichTextLabel
 @onready var hide_ui = $HideUITimer
 @onready var game_manager = get_node("/root/Main/GameManager")
+@onready var door_message_ui = $DoorMessage
+@onready var door_message = $DoorMessage/ColorRect/Label
+
 
 # Player moves at 50 pixels/second
 var speed : float = 100.0
@@ -25,18 +28,24 @@ func _ready():
 	inventory_ui.visible = false
 	interact_ui.visible = false
 	item_message_ui.visible = false
+	door_message_ui.visible = false
+
 
 func _input(event):
 	if event.is_action_pressed("ui_inventory") and not game_manager.is_dialogue_active():
 		inventory_ui.visible = !inventory_ui.visible
 		get_tree().paused = inventory_ui.visible # pause while inventory is open 
+		
+	if event is InputEventMouseButton \
+	and event.button_index == MOUSE_BUTTON_LEFT \
+	and event.pressed \
+	and item_message_ui.visible:
+		hide_item_message()
 
 func show_item_message(popup_message):
 	item_message_ui.visible = true
 	item_message.text = popup_message
-	
-	hide_ui.stop()
-	hide_ui.start()
+
 	
 # for setting velocity and performing other physics calculations
 func _physics_process(delta):
@@ -71,5 +80,20 @@ func _physics_process(delta):
 	move_and_slide()
 
 
-func _on_hide_ui_timer_timeout() -> void:
+func hide_item_message() -> void:
 	item_message_ui.visible = false
+
+var _door_prompt_sources := {}
+
+func show_door_prompt(text: String, source: Node) -> void:
+	_door_prompt_sources[source] = text
+	door_message_ui.visible = true
+	door_message.text = text
+
+func hide_door_prompt(source: Node) -> void:
+	_door_prompt_sources.erase(source)
+	if _door_prompt_sources.is_empty():
+		door_message_ui.visible = false
+	else:
+		var last_source = _door_prompt_sources.keys()[-1]
+		door_message.text = _door_prompt_sources[last_source]

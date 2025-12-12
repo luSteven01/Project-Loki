@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ccmn7ncyelod3"]
 
-[ext_resource type="Script" uid="uid://84t5g250rp12" path="res://evidence/item.gd" id="1_u7ta7"]
+[ext_resource type="Script" uid="uid://dwab8e8a4lodb" path="res://evidence/item.gd" id="1_u7ta7"]
 [ext_resource type="Texture2D" uid="uid://60nrd0rwsbvo" path="res://art/pngs/evidence_button.png" id="2_u7ta7"]
 [ext_resource type="AudioStream" uid="uid://br21n6624g7wb" path="res://art/bgm/SFX/278142__ricemaster__effect_notify.wav" id="3_w7e8x"]
 
@@ -26,6 +26,7 @@ one_shot = true
 
 [node name="PickUp" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_w7e8x")
+volume_db = -40.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

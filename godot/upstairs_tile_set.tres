@@ -1,10 +1,10 @@
 [gd_resource type="TileSet" load_steps=11 format=3 uid="uid://b74qekya3mwcy"]
 
-[ext_resource type="Texture2D" uid="uid://82n6tu753t4o" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/2_LivingRoom_Black_Shadow_16x16.png" id="1_5yb8h"]
-[ext_resource type="Texture2D" uid="uid://bcmbaeodp3gc0" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/1_Generic_Black_Shadow_16x16.png" id="2_6xw88"]
-[ext_resource type="Texture2D" uid="uid://c70k8frqi76bw" path="res://modern_interior_and_characters/1_Interiors/16x16/Room_Builder_16x16.png" id="3_ggfeo"]
-[ext_resource type="Texture2D" uid="uid://blo6j1t453jsk" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/26_Condominium_Black_Shadow_16x16.png" id="5_6xw88"]
-[ext_resource type="Texture2D" uid="uid://bujl7agkte5xd" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/22_Museum_Black_Shadow_16x16.png" id="6_ggfeo"]
+[ext_resource type="Texture2D" uid="uid://4lilwbtfcvbx" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/2_LivingRoom_Black_Shadow_16x16.png" id="1_5yb8h"]
+[ext_resource type="Texture2D" uid="uid://b6x3jy8jidwhs" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/1_Generic_Black_Shadow_16x16.png" id="2_6xw88"]
+[ext_resource type="Texture2D" uid="uid://6iniep46bipv" path="res://modern_interior_and_characters/1_Interiors/16x16/Room_Builder_16x16.png" id="3_ggfeo"]
+[ext_resource type="Texture2D" uid="uid://bxgh7btro580c" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/26_Condominium_Black_Shadow_16x16.png" id="5_6xw88"]
+[ext_resource type="Texture2D" uid="uid://d0re1ampqukog" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/22_Museum_Black_Shadow_16x16.png" id="6_ggfeo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aaoyf"]
 texture = ExtResource("1_5yb8h")

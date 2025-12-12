@@ -60,4 +60,5 @@ target_position = Vector2(-53, 80)
 is_interactive = true
 
 [node name="ShirtButton" parent="." instance=ExtResource("3_u8nhc")]
+z_index = -1
 position = Vector2(70, 40)

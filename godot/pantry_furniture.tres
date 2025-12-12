@@ -1,12 +1,12 @@
 [gd_resource type="TileSet" load_steps=17 format=3 uid="uid://c24h1ei3ucpog"]
 
-[ext_resource type="Texture2D" uid="uid://bcmbaeodp3gc0" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/1_Generic_Black_Shadow_16x16.png" id="2_335ty"]
-[ext_resource type="Texture2D" uid="uid://bv4pnwcj63rbl" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/16_Grocery_store_Black_Shadow_16x16.png" id="3_ibyjs"]
-[ext_resource type="Texture2D" uid="uid://c70k8frqi76bw" path="res://modern_interior_and_characters/1_Interiors/16x16/Room_Builder_16x16.png" id="3_xaru5"]
-[ext_resource type="Texture2D" uid="uid://0ltc158wwoeg" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/12_Kitchen_Black_Shadow_16x16.png" id="4_7vkxe"]
-[ext_resource type="Texture2D" uid="uid://bwtrrd7g6cg6v" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/5_Classroom_and_library_Black_Shadow_16x16.png" id="5_335ty"]
-[ext_resource type="Texture2D" uid="uid://bs3ikabkud3c5" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/14_Basement_Black_Shadow_16x16.png" id="5_xaru5"]
-[ext_resource type="Texture2D" uid="uid://dwsv31dselo64" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/19_Hospital_Black_Shadow_16x16.png" id="7_7vkxe"]
+[ext_resource type="Texture2D" uid="uid://b6x3jy8jidwhs" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/1_Generic_Black_Shadow_16x16.png" id="2_335ty"]
+[ext_resource type="Texture2D" uid="uid://2iqvoxkxqa0" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/16_Grocery_store_Black_Shadow_16x16.png" id="3_ibyjs"]
+[ext_resource type="Texture2D" uid="uid://6iniep46bipv" path="res://modern_interior_and_characters/1_Interiors/16x16/Room_Builder_16x16.png" id="3_xaru5"]
+[ext_resource type="Texture2D" uid="uid://diprp1sursf4p" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/12_Kitchen_Black_Shadow_16x16.png" id="4_7vkxe"]
+[ext_resource type="Texture2D" uid="uid://n0dpcelokqf1" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/5_Classroom_and_library_Black_Shadow_16x16.png" id="5_335ty"]
+[ext_resource type="Texture2D" uid="uid://dmll8464cpjkp" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/14_Basement_Black_Shadow_16x16.png" id="5_xaru5"]
+[ext_resource type="Texture2D" uid="uid://c7glmiwewwhdm" path="res://modern_interior_and_characters/1_Interiors/16x16/Theme_Sorter_Black_Shadow/19_Hospital_Black_Shadow_16x16.png" id="7_7vkxe"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_7vkxe"]
 tile_data = PackedInt32Array(0, 458756, 32)

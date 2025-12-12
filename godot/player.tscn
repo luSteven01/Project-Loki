@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://san5raef5e7y"]
+[gd_scene load_steps=68 format=3 uid="uid://san5raef5e7y"]
 
 [ext_resource type="Script" uid="uid://chtsrbmck8nbk" path="res://player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://cd1uwlqa56jj2" path="res://art/spritesheets/Player_SpriteSheet.png" id="2_sweqy"]
@@ -6,7 +6,6 @@
 [ext_resource type="FontFile" uid="uid://do6g4q03tl1gj" path="res://Assets/Fonts/Schrödinger.ttf" id="4_1jxqw"]
 [ext_resource type="PackedScene" uid="uid://b5mjc6m5nx3he" path="res://inventory_ui.tscn" id="5_dw050"]
 [ext_resource type="AudioStream" uid="uid://b54qy5klrebol" path="res://art/bgm/SFX/816019__qubodup__fps-footsteps.wav" id="6_2hs0m"]
-[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Fonts/ARCADECLASSIC.TTF" id="7_1jxqw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3b1uw"]
 atlas = ExtResource("2_sweqy")
@@ -775,11 +774,47 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("4_1jxqw")
 theme_override_font_sizes/font_size = 28
-text = "Press \"E\" to pickup"
+text = "Press \"E\" to inspect"
+metadata/_edit_use_anchors_ = true
+
+[node name="DoorMessage" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="DoorMessage"]
+anchors_preset = -1
+anchor_left = 0.526
+anchor_top = 0.5
+anchor_right = 0.526
+anchor_bottom = 0.5
+offset_left = -206.92004
+offset_top = -129.0
+offset_right = 205.07996
+offset_bottom = -79.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.092973895, 0.1452035, 0.3443106, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="DoorMessage/ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 2.0740001
+anchor_right = 0.5
+anchor_bottom = 2.0740001
+offset_left = -196.0
+offset_top = -92.700005
+offset_right = 194.0
+offset_bottom = -63.700005
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_1jxqw")
+theme_override_font_sizes/font_size = 28
+text = "Press 'Spacebar' To Enter"
 metadata/_edit_use_anchors_ = true
 
 [node name="WalkingSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_2hs0m")
+volume_db = -30.0
 
 [node name="ItemMessage" type="CanvasLayer" parent="."]
 
@@ -787,8 +822,18 @@ stream = ExtResource("6_2hs0m")
 offset_left = 736.0
 offset_top = 67.0
 offset_right = 1221.0
-offset_bottom = 317.0
+offset_bottom = 409.0
 color = Color(0.14572525, 0.252256, 0.47400486, 1)
+
+[node name="Label" type="Label" parent="ItemMessage/ColorRect"]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 316.0
+offset_right = 377.0
+offset_bottom = 339.0
+theme_override_fonts/font = ExtResource("4_1jxqw")
+theme_override_font_sizes/font_size = 18
+text = "Left-click anywhere to close"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ItemMessage/ColorRect"]
 layout_mode = 1
@@ -798,14 +843,16 @@ anchor_bottom = 1.0
 offset_left = 32.0
 offset_top = 9.0
 offset_right = -38.0
-offset_bottom = -16.0
+offset_bottom = -37.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/normal_font = ExtResource("7_1jxqw")
+theme_override_fonts/normal_font = ExtResource("4_1jxqw")
 theme_override_font_sizes/normal_font_size = 26
+autowrap_mode = 2
+autowrap_trim_flags = 0
 
 [node name="HideUITimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 15.0
 one_shot = true
 
 [connection signal="body_entered" from="TalkTrigger" to="TalkTrigger" method="_on_body_entered"]

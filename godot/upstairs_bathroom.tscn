@@ -40,4 +40,5 @@ target_position = Vector2(297, -59)
 is_interactive = true
 
 [node name="TornShirt" parent="." instance=ExtResource("3_44qet")]
+z_index = -1
 position = Vector2(7.977462, 40)
