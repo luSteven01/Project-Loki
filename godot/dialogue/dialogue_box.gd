@@ -43,7 +43,9 @@ func _ready() -> void:
 	# arrest_button.disabled = true
 	# submit_button.disabled = true
 	# talk_input.editable = false
+	# warning_popup.hide()
 	disable_interaction()
+	leave_button.disabled = false
 	talk_input.wrap_mode = TextEdit.LINE_WRAPPING_BOUNDARY
 	dialogue_text.text = "Connecting to investigation database..."
 	print("Initial text set")
@@ -57,7 +59,6 @@ func _ready() -> void:
 		print("ERROR: Cannot find GameManager node at /root/Main/GameManager")
 		return
 	
-
 
 # Handle input with Ctrl+Enter
 func _input(event):
@@ -166,16 +167,9 @@ func add_message_to_display(sender: String, message: String):
 	talk_input.grab_focus()
 
 
-func initialize_with_npc(npc):
-	# Legacy function for backwards compatibility
-	dialogue_text.text = ""
-	submit_button.disabled = true
-	arrest_button.disabled = true
-
-
 func _on_leave_button_pressed() -> void:
 	dialogue_text.text = "Investigation session ended."		
-	disable_interaction()
+	# disable_interaction()
 	current_character = null
 	$BGM.stop()
 
@@ -285,6 +279,10 @@ func _on_arrest_button_pressed() -> void:
 	# Leave chat dialogue and triggers endgame sequence
 	current_character = null
 	await get_tree().create_timer(time).timeout
+	
+	# Unlock interaction
+	enable_interaction()
+	keyboard_lock = false
 	self.visible = false
 	$BGM.stop()
 	game_over.emit()
@@ -310,6 +308,7 @@ func disable_interaction() -> void:
 	talk_input.editable = false
 	submit_button.disabled = true
 	leave_button.disabled = true
+	arrest_button.disabled = true
 	warning_popup.hide()
 
 # Unlock all input interaction
@@ -319,6 +318,7 @@ func enable_interaction():
 	talk_input.editable = true
 	submit_button.disabled = false
 	leave_button.disabled = false
+	arrest_button.disabled = false
 
 
 func load_json(path) -> Dictionary:
@@ -331,3 +331,40 @@ func load_credits():
 func start_dialogue_bgm():
 	$Endgame.stop()
 	$BGM.play()
+
+
+func reset():
+	# Reset internal state
+	current_character = null
+	current_icon = null
+	chat_history.clear()
+	is_typing = false
+	is_win = false
+	keyboard_lock = false
+
+	# Reset UI
+	dialogue_text.text = "Connecting to investigation database..."
+	talk_input.text = ""
+	talk_input.editable = false
+	submit_button.disabled = true
+	leave_button.disabled = false  # matches your initial _ready()
+	
+	# Reset Arrest button
+	arrest_button.disabled = true
+	arrest_button.modulate = Color(1, 1, 1, 1)
+	warning_popup.hide()
+
+	# Hide NPC icons
+	for icon in npc_icons.get_children():
+		icon.visible = false
+
+	# Stop animations
+	stop_npc_talk()
+	stop_player_talk()
+
+	# Stop audio
+	$BGM.stop()
+	$Endgame.stop()
+
+	# Hide the dialogue box itself
+	self.visible = false

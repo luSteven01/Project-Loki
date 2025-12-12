@@ -225,3 +225,21 @@ func is_dialogue_active():
 func game_over():
 	get_tree().change_scene_to_file("res://game_over_scene.tscn")
 	
+
+# Reset game
+func reset() -> void:
+	# Reset backend state
+	sessions.clear()
+	current_character = null
+	characters.clear()
+	is_loading = false
+	current_request_type = RequestType.HEALTH_CHECK
+
+	# # Optional: re-check server health & reload characters
+	# # Comment it out if not needed:
+	# check_server_health()
+
+	# Refresh dialogue_box reference safely
+	var dlg = get_node_or_null("/root/Main/CanvasLayer/DialogueBox")
+	if dlg:
+		dlg.reset()

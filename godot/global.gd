@@ -12,7 +12,7 @@ var inventory = {
 	"shirt" : {"collected": false, "icon": null, "description": ""},
 	"knife" : {"collected": false, "icon": null, "description": ""},
 	"gloves" : {"collected": false, "icon": null, "description": ""},
-	"paper" : {"collected": false, "icon": null, "description": ""}
+	"papers" : {"collected": false, "icon": null, "description": ""}
 }  # { item_id: item_data }
 # holds inventory items
 
@@ -37,7 +37,28 @@ func add_item(item_id: String, texture: Texture2D, desc: String) -> void:
 		inventory[item_id]["collected"] = true
 		inventory[item_id]["icon"] = texture
 		inventory[item_id]["description"] = desc
+		match item_id:
+			"button":
+				player_node.show_item_message("
+				\"I found a button in Professor Richards' hand. It looks like it was ripped
+				from somebody's shirt.\"")
+			"shirt":
+				player_node.show_item_message("
+				\"I found a torn shirt in the laundry basket in the bathroom. It looks like it is missing a button.\"")
+			"knife":
+				player_node.show_item_message("\"The chef left his knife out in the kitchen table. There seems to be a red stain on it...but
+				from what?\"")
+			"gloves":
+				player_node.show_item_message("\"I found some dirty gloves sitting on the desk of this lamp. Why would 
+				someone put them here?\"")
+			"papers":
+				player_node.show_item_message("\"Aren't these Professor Richards' research papers? Why would someone hide them
+				in the kitchen pantry?\"")
 		inventory_updated.emit()
+	
+		
+	
+	
 
 # go through inventory array & remove item w/ certain type and effect
 func remove_item(item_type, item_effect):
