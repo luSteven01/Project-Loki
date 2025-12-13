@@ -6,8 +6,16 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from openai import AsyncOpenAI
 import uuid
 from dotenv import load_dotenv
+import logging
 
 load_dotenv()
+
+# Logging configuration
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 # Environment variables
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "your-api-key")
@@ -22,6 +30,16 @@ print(f"📁 Database: {DATABASE_NAME}")
 openai_client = AsyncOpenAI(api_key=OPENAI_API_KEY)
 mongodb_client = AsyncIOMotorClient(MONGODB_URL, tlsAllowInvalidCertificates=True)
 db = mongodb_client[DATABASE_NAME]
+
+# Import cache functions after db initialization to avoid circular imports
+from cache import (
+    get_cached_session,
+    set_cached_session,
+    invalidate_session_cache,
+    check_redis_connection,
+    initialize_redis,
+    close_redis
+)
 
 # Pydantic models
 class ChatRequest(BaseModel):
@@ -52,22 +70,63 @@ async def create_session(character_id: str = "detective") -> str:
         character_id=character_id,
         created_at=datetime.now()
     )
+
+    # 1. Write to MongoDB (source of truth)
     await db.sessions.insert_one(session.dict())
+
+    # 2. Cache immediately (write-through)
+    await set_cached_session(session_id, session.dict())
+
     return session_id
 
 async def get_session(session_id: str) -> Optional[GameSession]:
-    """Get session from database"""
+    """Get session from cache or database (cache-aside pattern)"""
+
+    # 1. Check cache first
+    cached_data = await get_cached_session(session_id)
+    if cached_data:
+        try:
+            return GameSession(**cached_data)
+        except Exception as e:
+            logger.warning(f"Failed to deserialize cached session {session_id}: {e}")
+            # If cache data is corrupted, invalidate and fall through to DB
+            await invalidate_session_cache(session_id)
+
+    # 2. Cache miss - fetch from MongoDB
     session_data = await db.sessions.find_one({"id": session_id})
     if session_data:
-        return GameSession(**session_data)
+        session = GameSession(**session_data)
+
+        # 3. Cache the result (async fire-and-forget)
+        await set_cached_session(session_id, session.dict())
+
+        return session
+
     return None
 
 async def update_session(session: GameSession):
-    """Update session in database"""
+    """Update session in database and cache"""
+
+    # 1. Update MongoDB (source of truth)
     await db.sessions.update_one(
         {"id": session.id},
         {"$set": session.dict()}
     )
+
+    # 2. Update cache (write-through strategy)
+    await set_cached_session(session.id, session.dict())
+
+async def delete_session(session_id: str) -> bool:
+    """Delete session from database and cache"""
+
+    # 1. Delete from MongoDB
+    result = await db.sessions.delete_one({"id": session_id})
+
+    # 2. Invalidate cache
+    await invalidate_session_cache(session_id)
+
+    return result.deleted_count > 0
+
 
 async def initialize_database():
     """Initialize database indexes"""

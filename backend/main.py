@@ -9,10 +9,11 @@ from typing import Optional
 import os
 from services import (
     ChatRequest, ChatResponse, GameSession,
-    create_session, get_session, update_session,
+    create_session, get_session, update_session, delete_session,
     initialize_database, check_openai_connection, check_mongodb_connection,
     generate_ai_response, get_api_stats, db
 )
+from cache import initialize_redis, close_redis, check_redis_connection
 # from prompt import get_system_prompt
 from story import STORY_DATA
 from characters import get_all_characters, get_system_prompt_for_character, get_character_info
@@ -57,7 +58,15 @@ if os.path.exists(static_path):
 async def startup_event():
     print("🕵️ Professor Richards Detective Game API starting...")
     await initialize_database()
+    await initialize_redis()
     print("✅ API ready!")
+
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    print("🛑 Shutting down...")
+    await close_redis()
+    print("✅ Cleanup complete")
 
 @app.get("/")
 async def serve_ui():
@@ -96,11 +105,13 @@ async def api_info():
 async def health_check():
     openai_status = await check_openai_connection()
     mongodb_status = await check_mongodb_connection()
+    redis_status = await check_redis_connection()
 
     return {
         "api": "healthy",
         "openai": openai_status,
         "mongodb": mongodb_status,
+        "redis": redis_status,
         "timestamp": datetime.now().isoformat()
     }
 
@@ -216,11 +227,10 @@ async def get_conversation_history(session_id: str):
     }
 
 @app.delete("/session/{session_id}", tags=["Session"])
-async def delete_session(session_id: str):
+async def delete_session_endpoint(session_id: str):
     """Delete a session"""
-    from services import db
-    result = await db.sessions.delete_one({"id": session_id})
-    if result.deleted_count == 0:
+    deleted = await delete_session(session_id)
+    if not deleted:
         raise HTTPException(status_code=404, detail="Session not found")
 
     return {"message": "Session deleted successfully"}
@@ -595,6 +605,53 @@ async def get_session_evidence(session_id: str):
         "discovered_evidence": discovered,
         "total_discovered": len(discovered)
     }
+
+@app.get("/cache/stats", tags=["Monitoring"])
+async def get_cache_stats():
+    """Get Redis cache statistics"""
+    from cache import redis_client, cache_enabled
+
+    if not cache_enabled or not redis_client:
+        return {
+            "enabled": False,
+            "message": "Redis caching is disabled"
+        }
+
+    try:
+        info = await redis_client.info("stats")
+        memory_info = await redis_client.info("memory")
+
+        return {
+            "enabled": True,
+            "total_connections": info.get("total_connections_received"),
+            "total_commands": info.get("total_commands_processed"),
+            "keyspace_hits": info.get("keyspace_hits"),
+            "keyspace_misses": info.get("keyspace_misses"),
+            "hit_rate": round(
+                info.get("keyspace_hits", 0) / max(info.get("keyspace_hits", 0) + info.get("keyspace_misses", 0), 1) * 100,
+                2
+            ),
+            "memory_used": memory_info.get("used_memory_human"),
+            "memory_peak": memory_info.get("used_memory_peak_human")
+        }
+    except Exception as e:
+        return {"enabled": True, "error": str(e)}
+
+
+@app.post("/cache/flush", tags=["Monitoring"])
+async def flush_cache():
+    """Flush all cache entries (development only)"""
+    from cache import redis_client, cache_enabled
+
+    if not cache_enabled or not redis_client:
+        raise HTTPException(status_code=503, detail="Redis not available")
+
+    try:
+        await redis_client.flushdb()
+        return {"message": "Cache flushed successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to flush cache: {str(e)}")
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
