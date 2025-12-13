@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://8xy5xj6ser8f"]
 
-[ext_resource type="Script" uid="uid://84t5g250rp12" path="res://evidence/item.gd" id="1_owm5e"]
+[ext_resource type="Script" uid="uid://dwab8e8a4lodb" path="res://evidence/item.gd" id="1_owm5e"]
 [ext_resource type="Texture2D" uid="uid://tfi7gh2xgkyv" path="res://art/pngs/Clothing_Store_Singles_Shadowless_190.png" id="2_owm5e"]
 [ext_resource type="AudioStream" uid="uid://cu3h4i53axrb3" path="res://art/bgm/SFX/571629__ugila__item-pickup.wav" id="3_o84kw"]
 
@@ -10,7 +10,7 @@
 collision_layer = 2
 script = ExtResource("1_owm5e")
 item_id = "shirt"
-description = "A torn shirt missing a button"
+description = "A shirt that is missing a button."
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_owm5e")
@@ -26,6 +26,7 @@ one_shot = true
 
 [node name="PickUp" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_o84kw")
+volume_db = -6.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

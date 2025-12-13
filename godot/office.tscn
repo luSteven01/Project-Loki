@@ -28,19 +28,19 @@ tile_map_data = PackedByteArray("AAAEAP//AwADAAcAAAAEAAAAAwADAAgAAAA=")
 tile_set = ExtResource("1_g3mwp")
 
 [node name="OfficeFurniture3" type="TileMapLayer" parent="."]
-z_index = 6
+z_index = 5
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAACAAEAAwAIAAAAAAACAAMAAwAIAAIAAAABAAIAAwAHAAEAAAADAAUAAwAOAAcAAAAEAAUAAwAPAAcAAAAFAAUAAwAMAAcAAAAGAAUAAwANAAcAAAAHAAUAAwAOAAcAAAAIAAUAAwAPAAcAAAACAAIAAwAIAAEAAAA=")
 tile_set = ExtResource("1_g3mwp")
 
 [node name="Items" type="TileMapLayer" parent="."]
-z_index = 6
+z_index = 5
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAAAAAIAAwAOAAEAAAAAAAMAAwAOAAIAAAAEAAIAAAAAAAUAAAAEAAMAAAAAAAYAAAACAAIAAwAAAAUAAAA=")
 tile_set = ExtResource("1_g3mwp")
 
 [node name="OfficeFurniture4" type="TileMapLayer" parent="."]
-z_index = 6
+z_index = 5
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAACAAIAAAANAAkAAAACAAMAAAANAAoAAAACAAQAAAANAAsAAAA=")
 tile_set = ExtResource("1_g3mwp")
@@ -60,4 +60,5 @@ target_position = Vector2(-53, 80)
 is_interactive = true
 
 [node name="ShirtButton" parent="." instance=ExtResource("3_u8nhc")]
+z_index = -1
 position = Vector2(70, 40)

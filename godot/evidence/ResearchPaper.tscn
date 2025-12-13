@@ -6,7 +6,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fn22r"]
 radius = 12.0
-height = 38.0
+height = 46.0
 
 [node name="ResearchPaper" type="Area2D"]
 collision_layer = 2
@@ -19,7 +19,7 @@ texture = ExtResource("2_fn22r")
 region_rect = Rect2(0, 7.1163197, 16, 16.677818)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, 10)
+position = Vector2(3, 14)
 shape = SubResource("CapsuleShape2D_fn22r")
 
 [node name="DeleteTimer" type="Timer" parent="."]
@@ -28,6 +28,7 @@ one_shot = true
 
 [node name="PickUp" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_fn22r")
+volume_db = -6.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

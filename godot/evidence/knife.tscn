@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bjfgxbtjijt0i"]
 
-[ext_resource type="Script" uid="uid://84t5g250rp12" path="res://evidence/item.gd" id="1_0v828"]
+[ext_resource type="Script" uid="uid://dwab8e8a4lodb" path="res://evidence/item.gd" id="1_0v828"]
 [ext_resource type="Texture2D" uid="uid://dlpdfcegoh7dd" path="res://art/pngs/Kitchen_Singles_Shadowless_209.png" id="2_0v828"]
 [ext_resource type="AudioStream" uid="uid://cuwt28enxfww1" path="res://art/bgm/SFX/short_278142__ricemaster__effect_notify.wav" id="3_0v828"]
 
@@ -26,6 +26,7 @@ one_shot = true
 
 [node name="PickUp" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_0v828")
+volume_db = -6.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

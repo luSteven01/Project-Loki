@@ -3,9 +3,11 @@ extends Area2D
 @export_file("*.tscn") var target_scene_path: String
 @export var target_position: Vector2
 @export var is_interactive: bool = false
+@export var prompt_text: String = "Press 'Spacebar' to enter"
 
 var player_inside := false
 var cooldown := true
+var current_player: Node = null
 
 func _ready():
 	body_entered.connect(_on_body_entered)
@@ -23,11 +25,20 @@ func _on_body_entered(body):
 		player_inside = true
 		if not is_interactive:
 			try_teleport()
-
+		if is_interactive and player_inside:
+			body.show_door_prompt(prompt_text, self)
+		else:
+			try_teleport()
 
 func _on_body_exited(body):
 	if body.is_in_group("Player"):
 		player_inside = false
+		
+		if is_interactive:
+			body.hide_door_prompt(self)
+		
+		if body == current_player:
+			current_player = null
 
 
 func try_teleport():

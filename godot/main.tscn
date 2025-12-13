@@ -11,6 +11,7 @@
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_7mycd")
+starting_scene = ExtResource("5_lquwl")
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("2_game_manager")
